@@ -77,6 +77,7 @@ def boot_with_proxy(workspace_path, proxy_path):
     out_file    = d + "/guest_out.txt"
     hout_file   = d + "/qemu_out.txt"
     herr_file   = d + "/qemu_err.txt"
+    pout_file   = d + "/proxy_out.txt"
 
     qemu_pid_file_name  = d+"/qemu.pid"
     proxy_pid_file_name = d+"/proxy.pid"
@@ -90,6 +91,8 @@ def boot_with_proxy(workspace_path, proxy_path):
         print('host input file is ' + in_file)
         print('host output file is ' + hout_file)
         print('host err file is ' + herr_file)
+        print('proxy out file is ' + pout_file)
+
 
         if not os.path.isfile(qemu_pid_file_name):
             print("launching qemu on " + image_path)
@@ -107,7 +110,7 @@ def boot_with_proxy(workspace_path, proxy_path):
 
         if not os.path.isfile(proxy_pid_file_name):
             print("Start proxy...")
-            os.system(proxy_path+" "+match+" > proxy.out & echo $! > "+d+"/proxy.pid &")
+            os.system(proxy_path+" "+match+" > "+pout_file+" & echo $! > "+d+"/proxy.pid &")
             print("Detached proxy app process")
 
         cont = True
