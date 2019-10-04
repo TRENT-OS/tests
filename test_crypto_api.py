@@ -40,6 +40,35 @@ def test_random_data(boot):
     print(text)
     assert match == success3
 
+def test_key(boot):
+    timeout = 15
+    f_out = boot(image_subpath="/build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000")[1]
+    result_list = [
+        'testKey_init_ok: OK',
+        'testKey_init_fail: OK',
+        'testKey_export_ok: OK',
+        'testKey_export_fail: OK',
+        'testKey_import_ok: OK',
+        'testKey_import_fail: OK',
+        'testKey_generate_ok: OK',
+        'testKey_generate_fail: OK',
+        'testKey_generatePair_ok: OK',
+        'testKey_generatePair_fail: OK',
+        'testKey_init_ok: OK',
+        'testKey_init_fail: OK',
+        'testKey_export_ok: OK',
+        'testKey_export_fail: OK',
+        'testKey_import_ok: OK',
+        'testKey_import_fail: OK',
+        'testKey_generate_ok: OK',
+        'testKey_generate_fail: OK',
+        'testKey_generatePair_ok: OK',
+        'testKey_generatePair_fail: OK',
+    ]
+    for result in result_list:
+        (text, match) = logs.get_match_in_line(f_out, re.compile(result), timeout)
+        assert match == result
+
 def test_md5(boot):
     f_out = boot(image_subpath="/build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000")[1]
 

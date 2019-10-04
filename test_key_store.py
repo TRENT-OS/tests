@@ -8,25 +8,47 @@ import os
 import re
 import time
 
-test_imagepath = '/build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000'
-timeout = 1000
+test_imagepath = '/build-zynq7000-Debug-TEST_KEYSTORE/images/capdl-loader-image-arm-zynq7000'
+timeout = 400
 
-@pytest.mark.parametrize("img, expected_output_array, timeout", [
-    (test_imagepath,
-    [
-        'TestKeyStore_scenario_1 succeeded', 
-        'TestKeyStore_scenario_2 succeeded', 
-        'TestKeyStore_scenario_3 succeeded', 
-        'TestKeyStore_scenario_4 succeeded'
-    ],
-    timeout),
-])
+expected_output_array_unit_tests = [
+    'TestKeyStore_scenario_1 succeeded',
+    'TestKeyStore_scenario_2 succeeded'
+    ]
 
-def test_key_store(boot_with_proxy, img, expected_output_array, timeout):
-        f_out = boot_with_proxy(image_subpath=img)[1]
+expected_output_array_integration_tests_AES = [
+    'TestKeyStore_scenario_3 succeeded',
+    'TestKeyStore_scenario_4 succeeded'
+    ]
 
-        for index in range(0, len(expected_output_array)):
-                success = expected_output_array[index]
-                (text, match) = logs.get_match_in_line(f_out, re.compile(success), timeout)
-                print(text)
-                assert match == success
+expected_output_array_integration_tests_keyPair = [
+    'TestKeyStore_scenario_5 succeeded',
+    'TestKeyStore_scenario_6 succeeded'
+    ]
+
+def test_key_store_unit_tests(boot_with_proxy):
+    f_out = boot_with_proxy(image_subpath=test_imagepath)[1]
+
+    for index in range(0, len(expected_output_array_unit_tests)):
+        success = expected_output_array_unit_tests[index]
+        (text, match) = logs.get_match_in_line(f_out, re.compile(success), timeout)
+        print(text)
+        assert match == success
+
+def test_key_store_integration_tests_AES(boot_with_proxy):
+    f_out = boot_with_proxy(image_subpath=test_imagepath)[1]
+
+    for index in range(0, len(expected_output_array_integration_tests_AES)):
+        success = expected_output_array_integration_tests_AES[index]
+        (text, match) = logs.get_match_in_line(f_out, re.compile(success), timeout)
+        print(text)
+        assert match == success
+
+def test_key_store_integration_tests_keyPair(boot_with_proxy):
+    f_out = boot_with_proxy(image_subpath=test_imagepath)[1]
+
+    for index in range(0, len(expected_output_array_integration_tests_keyPair)):
+        success = expected_output_array_integration_tests_keyPair[index]
+        (text, match) = logs.get_match_in_line(f_out, re.compile(success), timeout)
+        print(text)
+        assert match == success
