@@ -9,7 +9,7 @@ import re
 import time
 
 test_imagepath = '/build-zynq7000-Debug-PRE_PROVISIONED_KEYSTORE/images/capdl-loader-image-arm-zynq7000'
-timeout = 10
+timeout = 60
 
 @pytest.mark.parametrize("img, expected_output_array, timeout", [
     (test_imagepath,
