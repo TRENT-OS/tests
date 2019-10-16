@@ -97,8 +97,6 @@ def test_key(boot):
     timeout = 15
     f_out = boot(image_subpath="/build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000")[1]
     result_list = [
-        'testKey_init_ok: OK',
-        'testKey_init_fail: OK',
         'testKey_export_ok: OK',
         'testKey_export_fail: OK',
         'testKey_import_ok: OK',
@@ -107,8 +105,6 @@ def test_key(boot):
         'testKey_generate_fail: OK',
         'testKey_generatePair_ok: OK',
         'testKey_generatePair_fail: OK',
-        'testKey_init_ok: OK',
-        'testKey_init_fail: OK',
         'testKey_export_ok: OK',
         'testKey_export_fail: OK',
         'testKey_import_ok: OK',
