@@ -9,7 +9,7 @@ import re
 import time
 
 #use this variable to point to the image you want to run the tests with.
-test_imagepath = '/build-zynq7000-Debug-TEST_PROXY_NVM/images/capdl-loader-image-arm-zynq7000'
+test_imagepath = 'build-zynq7000-Debug-TEST_PROXY_NVM/images/capdl-loader-image-arm-zynq7000'
 timeout = 2000
 
 

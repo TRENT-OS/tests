@@ -8,7 +8,7 @@ import os
 import re
 import time
 
-test_imagepath = '/build-zynq7000-Debug-DEMO_PREPROVISIONED_KEYSTORE/images/capdl-loader-image-arm-zynq7000'
+test_imagepath = 'build-zynq7000-Debug-DEMO_PREPROVISIONED_KEYSTORE/images/capdl-loader-image-arm-zynq7000'
 timeout = 200
 
 

@@ -16,18 +16,18 @@ import subprocess
 def boot(workspace_path):
     d = tempfile.mkdtemp()
 
-    in_file     = d + "/qemu_in.fifo"
-    out_file    = d + "/guest_out.txt"
-    hout_file   = d + "/qemu_out.txt"
-    herr_file   = d + "/qemu_err.txt"
+    in_file     = os.path.join(d, "qemu_in.fifo")
+    out_file    = os.path.join(d, "guest_out.txt")
+    hout_file   = os.path.join(d, "qemu_out.txt")
+    herr_file   = os.path.join(d, "qemu_err.txt")
 
-    qemu_pid_file_name  = d+"/qemu.pid"
+    qemu_pid_file_name  = os.path.join(d, "qemu.pid")
 
     os.mkfifo(in_file)
 
     def boot_image_path(image_subpath):
 
-        image_path = workspace_path + image_subpath
+        image_path = os.path.join(workspace_path, image_subpath)
 
         print('guest output file is ' + out_file)
         print('host input file is ' + in_file)
@@ -77,19 +77,19 @@ def boot(workspace_path):
 def boot_with_proxy(workspace_path, proxy_path):
     d = tempfile.mkdtemp()
 
-    in_file     = d + "/qemu_in.fifo"
-    out_file    = d + "/guest_out.txt"
-    hout_file   = d + "/qemu_out.txt"
-    herr_file   = d + "/qemu_err.txt"
-    pout_file   = d + "/proxy_out.txt"
+    in_file     = os.path.join(d, "qemu_in.fifo")
+    out_file    = os.path.join(d, "guest_out.txt")
+    hout_file   = os.path.join(d, "qemu_out.txt")
+    herr_file   = os.path.join(d, "qemu_err.txt")
+    pout_file   = os.path.join(d, "proxy_out.txt")
 
-    qemu_pid_file_name  = d+"/qemu.pid"
-    proxy_pid_file_name = d+"/proxy.pid"
+    qemu_pid_file_name  = os.path.join(d, "qemu.pid")
+    proxy_pid_file_name = os.path.join(d, "proxy.pid")
 
     os.mkfifo(in_file)
 
     def boot_image_path(image_subpath):
-        image_path = workspace_path + image_subpath
+        image_path = os.path.join(workspace_path, image_subpath)
 
         print('guest output file is ' + out_file)
         print('host input file is ' + in_file)
