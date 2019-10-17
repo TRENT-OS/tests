@@ -8,6 +8,8 @@ import os
 import re
 import time
 
+
+#-------------------------------------------------------------------------------
 def test_agreement(boot):
     timeout = 15
     f_out = boot(image_subpath="/build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000")[1]
@@ -37,6 +39,8 @@ def test_agreement(boot):
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result
 
+
+#-------------------------------------------------------------------------------
 def test_cipher(boot):
     timeout = 15
     f_out = boot(image_subpath="/build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000")[1]
@@ -82,6 +86,8 @@ def test_cipher(boot):
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result
 
+
+#-------------------------------------------------------------------------------
 def test_digest(boot):
     timeout = 15
     f_out = boot(image_subpath="/build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000")[1]
@@ -111,6 +117,8 @@ def test_digest(boot):
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result
 
+
+#-------------------------------------------------------------------------------
 def test_key(boot):
     timeout = 15
     f_out = boot(image_subpath="/build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000")[1]
@@ -152,6 +160,8 @@ def test_key(boot):
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result
 
+
+#-------------------------------------------------------------------------------
 def test_rng(boot):
     timeout = 15
     f_out = boot(image_subpath="/build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000")[1]
@@ -173,6 +183,8 @@ def test_rng(boot):
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result
 
+
+#-------------------------------------------------------------------------------
 def test_signature(boot):
     timeout = 15
     f_out = boot(image_subpath="/build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000")[1]

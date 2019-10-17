@@ -26,6 +26,8 @@ expected_output_array_integration_tests_keyPair = [
     'TestKeyStore_scenario_6 succeeded'
     ]
 
+
+#-------------------------------------------------------------------------------
 def test_key_store_unit_tests(boot_with_proxy):
     f_out = boot_with_proxy(image_subpath=test_imagepath)[1]
 
@@ -35,6 +37,8 @@ def test_key_store_unit_tests(boot_with_proxy):
         print(text)
         assert match == success
 
+
+#-------------------------------------------------------------------------------
 def test_key_store_integration_tests_AES(boot_with_proxy):
     f_out = boot_with_proxy(image_subpath=test_imagepath)[1]
 
@@ -44,6 +48,8 @@ def test_key_store_integration_tests_AES(boot_with_proxy):
         print(text)
         assert match == success
 
+
+#-------------------------------------------------------------------------------
 def test_key_store_integration_tests_keyPair(boot_with_proxy):
     f_out = boot_with_proxy(image_subpath=test_imagepath)[1]
 

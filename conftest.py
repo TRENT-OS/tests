@@ -10,6 +10,8 @@ import re
 import time
 import subprocess
 
+
+#-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot(workspace_path):
     d = tempfile.mkdtemp()
@@ -69,6 +71,8 @@ def boot(workspace_path):
     print("terminating qemu...")
     os.system("kill `cat "+qemu_pid_file_name+"`")
 
+
+#-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot_with_proxy(workspace_path, proxy_path):
     d = tempfile.mkdtemp()
@@ -138,12 +142,21 @@ def boot_with_proxy(workspace_path, proxy_path):
     print("terminating proxy...")
     os.system("kill `cat "+proxy_pid_file_name+"`")
 
-def pytest_addoption(parser):
-    parser.addoption("--workspace_path", action="append", default=[],
-        help="Path to the application image")
-    parser.addoption("--proxy_path", action="append", default=[],
-        help="Path to the proxy application")
 
+#-------------------------------------------------------------------------------
+def pytest_addoption(parser):
+    parser.addoption("--workspace_path",
+                     action="append",
+                     default=[],
+                     help="Path to the application image")
+
+    parser.addoption("--proxy_path",
+                     action="append",
+                     default=[],
+                     help="Path to the proxy application")
+
+
+#-------------------------------------------------------------------------------
 def pytest_generate_tests(metafunc):
     if 'workspace_path' in metafunc.fixturenames:
         metafunc.parametrize("workspace_path",
