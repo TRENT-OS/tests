@@ -36,7 +36,7 @@ def boot(workspace_path):
 
         if not os.path.isfile(qemu_pid_file_name):
             print("launching qemu on " + image_path)
-            os.system("qemu-system-arm -machine xilinx-zynq-a9  -nographic -s -S -serial pty -serial file:" + out_file +" -m size=1024M  -kernel " + image_path + " 2>" + herr_file + " >" + hout_file + " <" + in_file + "& echo $! > "+d+"/qemu.pid &")
+            os.system("qemu-system-arm -machine xilinx-zynq-a9  -nographic -s -S -serial pty -serial file:" + out_file +" -m size=1024M  -kernel " + image_path + " 2>" + herr_file + " >" + hout_file + " <" + in_file + "& echo $! > "+qemu_pid_file_name+" &")
             print("process detached")
 
             time.sleep(1)
@@ -100,7 +100,7 @@ def boot_with_proxy(workspace_path, proxy_path):
 
         if not os.path.isfile(qemu_pid_file_name):
             print("launching qemu on " + image_path)
-            os.system("qemu-system-arm -machine xilinx-zynq-a9  -nographic -s -S -serial pty -serial file:" + out_file +" -m size=1024M  -kernel " + image_path + " 2>" + herr_file + " >" + hout_file + " <" + in_file + "& echo $! > "+d+"/qemu.pid &")
+            os.system("qemu-system-arm -machine xilinx-zynq-a9  -nographic -s -S -serial pty -serial file:" + out_file +" -m size=1024M  -kernel " + image_path + " 2>" + herr_file + " >" + hout_file + " <" + in_file + "& echo $! > "+qemu_pid_file_name+" &")
             print("process detached")
 
             time.sleep(1)
@@ -114,7 +114,7 @@ def boot_with_proxy(workspace_path, proxy_path):
 
         if not os.path.isfile(proxy_pid_file_name):
             print("Start proxy...")
-            os.system(proxy_path+" "+match+" > "+pout_file+" & echo $! > "+d+"/proxy.pid &")
+            os.system(proxy_path+" "+match+" > "+pout_file+" & echo $! > "+proxy_pid_file_name+" &")
             print("Detached proxy app process")
 
         cont = True
