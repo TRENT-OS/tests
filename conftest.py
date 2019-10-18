@@ -89,17 +89,19 @@ def start_qemu_and_proxy(
                 proxy_pid_file_name)
             print("Detached proxy app process")
 
-    cont = True
     attempts = 0
-    while cont:
-        connected = False
+    while (True):
         attempts += 1
+        if (attempts > 60):
+            print("can't connect to QEMU")
+            assert(False)
         try:
             f_in.write("c\n")
-            connected = True
+            break
         except IOError as e:
+            print("waiting for QEMU, communication failures: " + attempts)
             time.sleep(1)
-        cont = not connected and attempts < 60
+
 
     time.sleep(2)
     f_out = logs.open_file_non_blocking(out_file, 'r', '\r')
