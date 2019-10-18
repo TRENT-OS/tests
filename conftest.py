@@ -12,6 +12,21 @@ import subprocess
 
 
 #-------------------------------------------------------------------------------
+def terminate_process_by_pid_file(
+    pid_file
+):
+    if not os.path.isfile(pid_file):
+        print("missing PID file: " + pid_file);
+        return
+
+    old_pid_file = pid_file+"-terminated"
+    if os.path.exists(old_pid_file):
+        os.remove(old_pid_file)
+    os.rename(pid_file, old_pid_file)
+    os.system("kill $(cat "+old_pid_file+")")
+
+
+#-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot(workspace_path):
     d = tempfile.mkdtemp()
@@ -69,7 +84,7 @@ def boot(workspace_path):
 
     print("\n")
     print("terminating qemu...")
-    os.system("kill `cat "+qemu_pid_file_name+"`")
+    terminate_process_by_pid_file(qemu_pid_file_name)
 
 
 #-------------------------------------------------------------------------------
@@ -138,9 +153,9 @@ def boot_with_proxy(workspace_path, proxy_path):
 
     print("\n")
     print("terminating qemu...")
-    os.system("kill `cat "+qemu_pid_file_name+"`")
+    terminate_process_by_pid_file(qemu_pid_file_name)
     print("terminating proxy...")
-    os.system("kill `cat "+proxy_pid_file_name+"`")
+    terminate_process_by_pid_file(proxy_pid_file_name)
 
 
 #-------------------------------------------------------------------------------
