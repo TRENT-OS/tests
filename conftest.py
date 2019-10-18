@@ -54,7 +54,8 @@ def start_qemu_and_proxy(
     if pout_file is not None:
         print('proxy out file is ' + pout_file)
 
-    if not os.path.isfile(qemu_pid_file_name):
+    qemu_already_running = os.path.isfile(qemu_pid_file_name)
+    if not qemu_already_running:
         print("launching qemu on " + image_path)
         start_process_and_create_pid_file(
             "qemu-system-arm" +
@@ -89,21 +90,22 @@ def start_qemu_and_proxy(
                 proxy_pid_file_name)
             print("Detached proxy app process")
 
-    attempts = 0
-    while (True):
-        attempts += 1
-        if (attempts > 60):
-            print("can't connect to QEMU")
-            assert(False)
-        try:
-            f_in.write("c\n")
-            break
-        except IOError as e:
-            print("waiting for QEMU, communication failures: " + attempts)
-            time.sleep(1)
+    if not qemu_already_running:
+        attempts = 0
+        while (True):
+            attempts += 1
+            if (attempts > 60):
+                print("can't connect to QEMU")
+                assert(False)
+            try:
+                f_in.write("c\n")
+                break
+            except IOError as e:
+                print("waiting for QEMU, communication failures: " + attempts)
+                time.sleep(1)
 
+        time.sleep(2)
 
-    time.sleep(2)
     f_out = logs.open_file_non_blocking(out_file, 'r', '\r')
 
     return (f_in, f_out, f_err)
