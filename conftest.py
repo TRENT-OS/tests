@@ -127,19 +127,17 @@ def use_qemu_with_proxy(workspace_path, proxy_app=None):
 
     os.mkfifo(in_file)
 
-    def boot_image_path(image_subpath):
-        return start_qemu_and_proxy(
-                    os.path.join(workspace_path, image_subpath),
-                    out_file,
-                    in_file,
-                    hout_file,
-                    herr_file,
-                    qemu_pid_file_name,
-                    proxy_app,
-                    pout_file,
-                    proxy_pid_file_name)
-
-    yield boot_image_path
+    yield (lambda image_subpath:
+            start_qemu_and_proxy(
+                os.path.join(workspace_path, image_subpath),
+                out_file,
+                in_file,
+                hout_file,
+                herr_file,
+                qemu_pid_file_name,
+                proxy_app,
+                pout_file,
+                proxy_pid_file_name) )
 
     print("\n")
 
