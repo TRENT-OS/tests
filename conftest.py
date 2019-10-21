@@ -4,11 +4,11 @@ import sys
 sys.path.append('../common')
 
 import logs
-import tempfile
 import os
 import re
 import time
 import subprocess
+import datetime
 
 
 #-------------------------------------------------------------------------------
@@ -139,8 +139,13 @@ def start_or_attach_to_qemu_and_proxy(
 
 
 #-------------------------------------------------------------------------------
-def use_qemu_with_proxy(workspace_path, proxy_app=None):
-    tmp_dir = tempfile.mkdtemp()
+def use_qemu_with_proxy(request, workspace_path, proxy_app=None):
+
+    test_module = os.path.splitext(request.node.name)[0]
+    tmp_dir = os.path.join(pytest.qemu_log_dir, test_module)
+
+    if not os.path.isdir(tmp_dir):
+        os.makedirs(tmp_dir)
 
     test_system_out_file  = os.path.join(tmp_dir, "guest_out.txt")
 
@@ -158,7 +163,7 @@ def use_qemu_with_proxy(workspace_path, proxy_app=None):
     # create pipe for QEMU input
     os.mkfifo(qemu_stdin_file)
 
-    # pytest wil run this for each test case
+    # pytest will run this for each test case
     yield (lambda image_subpath:
             start_or_attach_to_qemu_and_proxy(
                 os.path.join(workspace_path, image_subpath),
@@ -170,6 +175,8 @@ def use_qemu_with_proxy(workspace_path, proxy_app=None):
                 proxy_app,
                 proxy_stdout_file,
                 proxy_pid_file) )
+
+    # tear-down phase
 
     print("\n")
 
@@ -186,15 +193,26 @@ def use_qemu_with_proxy(workspace_path, proxy_app=None):
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
-def boot(workspace_path):
-    yield from use_qemu_with_proxy(workspace_path)
+def boot(request, workspace_path):
+    yield from use_qemu_with_proxy(request, workspace_path)
 
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
-def boot_with_proxy(workspace_path, proxy_path):
+def boot_with_proxy(request, workspace_path, proxy_path):
     # proxy_path holds binary with full path
-    yield from use_qemu_with_proxy(workspace_path, proxy_path)
+    yield from use_qemu_with_proxy(request, workspace_path, proxy_path)
+
+
+#-------------------------------------------------------------------------------
+@pytest.fixture(scope="session", autouse=True)
+def setup_logging_for_qemu_and_proxy(request, workspace_path):
+
+    timestamp_str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+
+    # ToDo: find a better way where to store this.
+    pytest.qemu_log_dir = os.path.join(workspace_path,
+                                       "test-logs-"+timestamp_str)
 
 
 #-------------------------------------------------------------------------------
