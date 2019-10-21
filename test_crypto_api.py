@@ -8,11 +8,15 @@ import os
 import re
 import time
 
+test_image = "build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000"
+timeout = 15
+
 
 #-------------------------------------------------------------------------------
 def test_agreement(boot):
-    timeout = 15
-    f_out = boot(image_subpath="build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000")[1]
+    test_run = boot(test_image)
+    f_out = test_run[1]
+
     result_list = [
         'testAgreement_init_ok: OK',
         'testAgreement_init_fail: OK',
@@ -42,8 +46,9 @@ def test_agreement(boot):
 
 #-------------------------------------------------------------------------------
 def test_cipher(boot):
-    timeout = 15
-    f_out = boot(image_subpath="build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000")[1]
+    test_run = boot(test_image)
+    f_out = test_run[1]
+
     result_list = [
         'testCipher_init_ok: OK',
         'testCipher_init_fail: OK',
@@ -89,8 +94,9 @@ def test_cipher(boot):
 
 #-------------------------------------------------------------------------------
 def test_digest(boot):
-    timeout = 15
-    f_out = boot(image_subpath="build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000")[1]
+    test_run = boot(test_image)
+    f_out = test_run[1]
+
     result_list = [
         'testDigest_init_ok: OK',
         'testDigest_init_fail: OK',
@@ -120,8 +126,9 @@ def test_digest(boot):
 
 #-------------------------------------------------------------------------------
 def test_key(boot):
-    timeout = 15
-    f_out = boot(image_subpath="build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000")[1]
+    test_run = boot(test_image)
+    f_out = test_run[1]
+
     result_list = [
         'testKey_import_ok: OK',
         'testKey_import_fail: OK',
@@ -163,8 +170,10 @@ def test_key(boot):
 
 #-------------------------------------------------------------------------------
 def test_rng(boot):
+    test_run = boot(test_image)
+    f_out = test_run[1]
+
     timeout = 15
-    f_out = boot(image_subpath="build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000")[1]
     result_list = [
         'testRng_getBytes_ok: OK',
         'testRng_getBytes_fail: OK',
@@ -186,8 +195,10 @@ def test_rng(boot):
 
 #-------------------------------------------------------------------------------
 def test_signature(boot):
+    test_run = boot(test_image)
+    f_out = test_run[1]
+
     timeout = 15
-    f_out = boot(image_subpath="build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000")[1]
     result_list = [
         'testSignature_init_ok: OK',
         'testSignature_init_fail: OK',

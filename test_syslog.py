@@ -11,9 +11,11 @@ import time
 
 #-------------------------------------------------------------------------------
 def test_hello_world(boot):
-    f_out = boot(image_subpath="build-zynq7000-Debug-TEST_SYSLOG/images/capdl-loader-image-arm-zynq7000")[1]
 
-    success = 'SUCCESS'
-    (text, match) = logs.get_match_in_line(f_out, re.compile('SUCCESS'), 60)
-    print(text)
-    assert match == success
+    test_run = boot("build-zynq7000-Debug-TEST_SYSLOG/images/capdl-loader-image-arm-zynq7000")
+    f_out = test_run[1]
+
+    success_msg = "SUCCESS"
+    timeout = 60
+    (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
+    assert match == success_msg

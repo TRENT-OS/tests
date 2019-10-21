@@ -8,20 +8,16 @@ import os
 import re
 import time
 
-test_imagepath = 'build-zynq7000-Debug-DEMO_PREPROVISIONED_KEYSTORE/images/capdl-loader-image-arm-zynq7000'
-timeout = 200
-
-
 #-------------------------------------------------------------------------------
-@pytest.mark.parametrize("img, expected_output_array, timeout", [
-    (test_imagepath,
+@pytest.mark.parametrize(
+    "test_image, expected_output_array, timeout", [(
+    "build-zynq7000-Debug-DEMO_PREPROVISIONED_KEYSTORE/images/capdl-loader-image-arm-zynq7000",
     [
-        'Preprovisioning keystore demo succeeded'
+        "Preprovisioning keystore demo succeeded"
     ],
-    timeout),
-])
-
-def test_key_store_provisioning(boot_with_proxy, img, expected_output_array, timeout):
+    200
+)])
+def test_key_store_provisioning(boot_with_proxy, test_image, expected_output_array, timeout):
     mqtt_proxy_memory_file='nvm_06'
     pre_provisioned_keystore_image='preProvisionedKeyStoreImg'
 
@@ -36,10 +32,10 @@ def test_key_store_provisioning(boot_with_proxy, img, expected_output_array, tim
         print("ERROR: Could not find the pre-preovisioned keystore image!")
         assert os.path.isfile(pre_provisioned_keystore_image)
 
-    f_out = boot_with_proxy(image_subpath=img)[1]
+    test_run = boot_with_proxy(test_image)
+    f_out = test_run[1]
 
-    for index in range(0, len(expected_output_array)):
-        success = expected_output_array[index]
-        (text, match) = logs.get_match_in_line(f_out, re.compile(success), timeout)
+    for success_msg in expected_output_array:
+        (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
         print(text)
-        assert match == success
+        assert match == success_msg
