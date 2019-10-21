@@ -67,9 +67,6 @@ def start_or_attach_to_qemu_and_proxy(
     else:
         print("launching QEMU with " + test_image)
 
-        # create pipe for QEMU input
-        os.mkfifo(qemu_stdin_file)
-
         start_process_and_create_pid_file(
             "qemu-system-arm" +
                 " -machine xilinx-zynq-a9" +
@@ -158,6 +155,8 @@ def use_qemu_with_proxy(workspace_path, proxy_app=None):
     proxy_pid_file        = None if proxy_app is None \
                             else os.path.join(tmp_dir, "proxy.pid")
 
+    # create pipe for QEMU input
+    os.mkfifo(qemu_stdin_file)
 
     # pytest wil run this for each test case
     yield (lambda image_subpath:
@@ -176,6 +175,9 @@ def use_qemu_with_proxy(workspace_path, proxy_app=None):
 
     print("terminating QEMU...")
     terminate_process_by_pid_file(qemu_pid_file)
+
+    # must unlink the pipe so the next test run can create it again
+    os.unlink(qemu_stdin_file)
 
     if proxy_app is not None:
         print("terminating Proxy...")
