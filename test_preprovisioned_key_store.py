@@ -18,19 +18,19 @@ import time
     200
 )])
 def test_key_store_provisioning(boot_with_proxy, test_image, expected_output_array, timeout):
-    mqtt_proxy_memory_file='nvm_06'
-    pre_provisioned_keystore_image='preProvisionedKeyStoreImg'
 
-    #remove the existing mqtt_proxy_demo memory file
-    if os.path.isfile(mqtt_proxy_memory_file):
-        os.remove(mqtt_proxy_memory_file)
+    pre_provisioned_keystore_image = "preProvisionedKeyStoreImg"
+    proxy_memory_file = "nvm_06"
 
-    #place the prepared keystore image in its place
-    if os.path.isfile(pre_provisioned_keystore_image):
-        os.rename(pre_provisioned_keystore_image, mqtt_proxy_memory_file)
-    else:
+    print("pre-preovisioned keystore image: "+pre_provisioned_keystore_image)
+    if not os.path.isfile(pre_provisioned_keystore_image):
         print("ERROR: Could not find the pre-preovisioned keystore image!")
-        assert os.path.isfile(pre_provisioned_keystore_image)
+        assert False
+
+    # Proxy expect NVM images to be named by index
+    if os.path.isfile(proxy_memory_file):
+        os.remove(proxy_memory_file)
+    os.rename(pre_provisioned_keystore_image, proxy_memory_file)
 
     test_run = boot_with_proxy(test_image)
     f_out = test_run[1]
