@@ -57,8 +57,19 @@ def start_or_attach_to_qemu_and_proxy(
         print("  proxy stdout:       " + proxy_stdout_file)
 
     qemu_already_running = os.path.isfile(qemu_pid_file)
-    if not qemu_already_running:
-        print("launching qemu on " + test_image)
+
+    proxy_already_running = False if proxy_pid_file is None \
+                            else os.path.isfile(proxy_pid_file)
+
+
+    if qemu_already_running:
+        print("QEMU already running")
+    else:
+        print("launching QEMU with " + test_image)
+
+        # create pipe for QEMU input
+        os.mkfifo(qemu_stdin_file)
+
         start_process_and_create_pid_file(
             "qemu-system-arm" +
                 " -machine xilinx-zynq-a9" +
@@ -75,25 +86,39 @@ def start_or_attach_to_qemu_and_proxy(
             qemu_pid_file)
         print("process detached")
 
-        time.sleep(1)
+    # seems QEMU tried to read from strdin, so we have to open the pipe now
+    # to unblock it
+    f_qemu_stdin = open(qemu_stdin_file, "w", buffering=1)
 
-    f_err   = logs.open_file_non_blocking(qemu_stderr_file, "r")
-    f_in    = open(qemu_stdin_file, "w", buffering=1)
-    f_out   = None
+    # give QEMU some time to start
+    time.sleep(1)
+
+    f_qemu_stderr = logs.open_file_non_blocking(qemu_stderr_file, "r")
 
     if proxy_app is not None:
-        # search for dev/ptsX info in QEMU stderr
-        (text, match) = logs.get_match_in_line(f_err, re.compile('(\/dev\/pts\/\d)'), 10)
-        assert(match)
-
-        if not os.path.isfile(proxy_pid_file):
-            print("Start proxy...")
+        if proxy_already_running:
+            print("Proxy already running")
+        elif qemu_already_running:
+            # Proxy can't be running when we've just started QEMU, as they can
+            # only be started togehter
+            print("ERROR: can't start proxy if QEMU is already running")
+            assert False
+        else:
+            print("Start proxy: " + proxy_app)
+            # search for dev/ptsX info in QEMU stderr
+            (text, match) = logs.get_match_in_line(
+                                f_qemu_stderr,
+                                re.compile('(\/dev\/pts\/\d)'),
+                                10)
+            assert(match)
             start_process_and_create_pid_file(
                 proxy_app + " " + match + " > " + proxy_stdout_file,
                 proxy_pid_file)
             print("Detached proxy app process")
 
     if not qemu_already_running:
+        # QEMU starts up in halted mode, must send the "c" command to let it
+        # boot the system
         attempts = 0
         while (True):
             attempts += 1
@@ -101,17 +126,19 @@ def start_or_attach_to_qemu_and_proxy(
                 print("can't connect to QEMU")
                 assert(False)
             try:
-                f_in.write("c\n")
+                f_qemu_stdin.write("c\n")
                 break
             except IOError as e:
                 print("waiting for QEMU, communication failures: " + attempts)
                 time.sleep(1)
 
+        # give QEMU some time to run
         time.sleep(2)
 
-    f_out = logs.open_file_non_blocking(test_system_out_file, 'r', '\r')
+    print("QEMU up and system running")
+    f_test_output = logs.open_file_non_blocking(test_system_out_file, 'r', '\r')
 
-    return (f_in, f_out, f_err)
+    return (f_qemu_stdin, f_test_output, f_qemu_stderr)
 
 
 #-------------------------------------------------------------------------------
@@ -131,8 +158,6 @@ def use_qemu_with_proxy(workspace_path, proxy_app=None):
     proxy_pid_file        = None if proxy_app is None \
                             else os.path.join(tmp_dir, "proxy.pid")
 
-    # create pipe for QEMU input
-    os.mkfifo(qemu_stdin_file)
 
     # pytest wil run this for each test case
     yield (lambda image_subpath:
