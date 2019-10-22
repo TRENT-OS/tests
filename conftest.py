@@ -71,8 +71,8 @@ def start_or_attach_to_qemu_and_proxy(
             "qemu-system-arm" +
                 " -machine xilinx-zynq-a9" +
                 " -nographic" +
-                " -s" +
-                " -S" +
+                " -s" +  # shortcut for -gdb tcp::1234
+                " -S" +  # freeze the CPU at startup
                 " -serial pty" +
                 " -serial file:" + test_system_out_file +
                 " -m size=1024M" +
