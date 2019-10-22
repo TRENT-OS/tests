@@ -36,27 +36,29 @@ def terminate_process_by_pid_file(
 
 
 #-------------------------------------------------------------------------------
-def start_qemu_and_proxy(
-    image_path,
-    out_file,
-    in_file,
-    hout_file,
-    herr_file,
-    qemu_pid_file_name,
-    proxy_path = None,
-    pout_file = None,
-    proxy_pid_file_name = None
+def start_or_attach_to_qemu_and_proxy(
+    test_image,
+    test_system_out_file,
+    qemu_stdin_file,
+    qemu_stdout_file,
+    qemu_stderr_file,
+    qemu_pid_file,
+    proxy_app = None,
+    proxy_stdout_file = None,
+    proxy_pid_file = None
 ):
-    print('guest output file is ' + out_file)
-    print('host input file is ' + in_file)
-    print('host output file is ' + hout_file)
-    print('host err file is ' + herr_file)
-    if pout_file is not None:
-        print('proxy out file is ' + pout_file)
+    print("Log files:")
+    print("  test system output: " + test_system_out_file)
+    print("  QEMU stdin:         " + qemu_stdin_file)
+    print("  QEMU stdout:        " + qemu_stdout_file)
+    print("  QEMU stderr:        " + qemu_stderr_file)
 
-    qemu_already_running = os.path.isfile(qemu_pid_file_name)
+    if proxy_stdout_file is not None:
+        print("  proxy stdout:       " + proxy_stdout_file)
+
+    qemu_already_running = os.path.isfile(qemu_pid_file)
     if not qemu_already_running:
-        print("launching qemu on " + image_path)
+        print("launching qemu on " + test_image)
         start_process_and_create_pid_file(
             "qemu-system-arm" +
                 " -machine xilinx-zynq-a9" +
@@ -64,30 +66,31 @@ def start_qemu_and_proxy(
                 " -s" +
                 " -S" +
                 " -serial pty" +
-                " -serial file:" + out_file +
+                " -serial file:" + test_system_out_file +
                 " -m size=1024M" +
-                " -kernel " + image_path +
-                " 2>" + herr_file +
-                " >" + hout_file +
-                " <" + in_file,
-            qemu_pid_file_name)
+                " -kernel " + test_image +
+                " 2>" + qemu_stderr_file +
+                " >" + qemu_stdout_file +
+                " <" + qemu_stdin_file,
+            qemu_pid_file)
         print("process detached")
 
         time.sleep(1)
 
-    f_err   = logs.open_file_non_blocking(herr_file, "r")
-    f_in    = open(in_file, "w", buffering=1)
+    f_err   = logs.open_file_non_blocking(qemu_stderr_file, "r")
+    f_in    = open(qemu_stdin_file, "w", buffering=1)
     f_out   = None
 
-    if proxy_path is not None:
+    if proxy_app is not None:
+        # search for dev/ptsX info in QEMU stderr
         (text, match) = logs.get_match_in_line(f_err, re.compile('(\/dev\/pts\/\d)'), 10)
         assert(match)
 
-        if not os.path.isfile(proxy_pid_file_name):
+        if not os.path.isfile(proxy_pid_file):
             print("Start proxy...")
             start_process_and_create_pid_file(
-                proxy_path + " " + match + " > " + pout_file,
-                proxy_pid_file_name)
+                proxy_app + " " + match + " > " + proxy_stdout_file,
+                proxy_pid_file)
             print("Detached proxy app process")
 
     if not qemu_already_running:
@@ -106,47 +109,52 @@ def start_qemu_and_proxy(
 
         time.sleep(2)
 
-    f_out = logs.open_file_non_blocking(out_file, 'r', '\r')
+    f_out = logs.open_file_non_blocking(test_system_out_file, 'r', '\r')
 
     return (f_in, f_out, f_err)
 
 
 #-------------------------------------------------------------------------------
 def use_qemu_with_proxy(workspace_path, proxy_app=None):
-    d = tempfile.mkdtemp()
+    tmp_dir = tempfile.mkdtemp()
 
-    in_file     = os.path.join(d, "qemu_in.fifo")
-    out_file    = os.path.join(d, "guest_out.txt")
-    hout_file   = os.path.join(d, "qemu_out.txt")
-    herr_file   = os.path.join(d, "qemu_err.txt")
-    pout_file   = os.path.join(d, "proxy_out.txt")
+    test_system_out_file  = os.path.join(tmp_dir, "guest_out.txt")
 
-    # unused if proxy_app is None
-    qemu_pid_file_name  = os.path.join(d, "qemu.pid")
-    proxy_pid_file_name = os.path.join(d, "proxy.pid")
+    qemu_stdin_file       = os.path.join(tmp_dir, "qemu_in.fifo")
+    qemu_stdout_file      = os.path.join(tmp_dir, "qemu_out.txt")
+    qemu_stderr_file      = os.path.join(tmp_dir, "qemu_err.txt")
+    qemu_pid_file         = os.path.join(tmp_dir, "qemu.pid")
 
-    os.mkfifo(in_file)
+    proxy_stdout_file     = None if proxy_app is None \
+                            else os.path.join(tmp_dir, "proxy_out.txt")
 
+    proxy_pid_file        = None if proxy_app is None \
+                            else os.path.join(tmp_dir, "proxy.pid")
+
+    # create pipe for QEMU input
+    os.mkfifo(qemu_stdin_file)
+
+    # pytest wil run this for each test case
     yield (lambda image_subpath:
-            start_qemu_and_proxy(
+            start_or_attach_to_qemu_and_proxy(
                 os.path.join(workspace_path, image_subpath),
-                out_file,
-                in_file,
-                hout_file,
-                herr_file,
-                qemu_pid_file_name,
+                test_system_out_file,
+                qemu_stdin_file,
+                qemu_stdout_file,
+                qemu_stderr_file,
+                qemu_pid_file,
                 proxy_app,
-                pout_file,
-                proxy_pid_file_name) )
+                proxy_stdout_file,
+                proxy_pid_file) )
 
     print("\n")
 
-    print("terminating qemu...")
-    terminate_process_by_pid_file(qemu_pid_file_name)
+    print("terminating QEMU...")
+    terminate_process_by_pid_file(qemu_pid_file)
 
     if proxy_app is not None:
-        print("terminating proxy...")
-        terminate_process_by_pid_file(proxy_pid_file_name)
+        print("terminating Proxy...")
+        terminate_process_by_pid_file(proxy_pid_file)
 
 
 #-------------------------------------------------------------------------------
