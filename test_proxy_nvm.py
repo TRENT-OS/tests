@@ -23,7 +23,7 @@ import time
         'TEST ADDRESS OUT OF BOUNDS: Write failed!',
         'TEST ADDRESS OUT OF BOUNDS: Write failed!',
     ],
-    2000
+    350
 )])
 def test_output_against_expected_str(boot_with_proxy, test_image, expected_output_array, timeout):
     test_run = boot_with_proxy(test_image)
