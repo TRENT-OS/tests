@@ -8,13 +8,13 @@ import os
 import re
 import time
 
-test_image = "build-zynq7000-Debug-TEST_CRYPTO_API/images/capdl-loader-image-arm-zynq7000"
+test_system = "test_crypto_api"
 timeout = 15
 
 
 #-------------------------------------------------------------------------------
 def test_agreement(boot):
-    test_run = boot(test_image)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     result_list = [
@@ -46,7 +46,7 @@ def test_agreement(boot):
 
 #-------------------------------------------------------------------------------
 def test_cipher(boot):
-    test_run = boot(test_image)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     result_list = [
@@ -94,7 +94,7 @@ def test_cipher(boot):
 
 #-------------------------------------------------------------------------------
 def test_digest(boot):
-    test_run = boot(test_image)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     result_list = [
@@ -126,7 +126,7 @@ def test_digest(boot):
 
 #-------------------------------------------------------------------------------
 def test_key(boot):
-    test_run = boot(test_image)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     result_list = [
@@ -170,7 +170,7 @@ def test_key(boot):
 
 #-------------------------------------------------------------------------------
 def test_rng(boot):
-    test_run = boot(test_image)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     timeout = 15
@@ -195,7 +195,7 @@ def test_rng(boot):
 
 #-------------------------------------------------------------------------------
 def test_signature(boot):
-    test_run = boot(test_image)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     timeout = 15

@@ -37,7 +37,7 @@ def terminate_process_by_pid_file(
 
 #-------------------------------------------------------------------------------
 def start_or_attach_to_qemu_and_proxy(
-    test_image,
+    test_image_descriptor,
     test_system_out_file,
     qemu_stdin_file,
     qemu_stdout_file,
@@ -65,6 +65,11 @@ def start_or_attach_to_qemu_and_proxy(
     if qemu_already_running:
         print("QEMU already running")
     else:
+        test_image = os.path.join(
+                        test_image_descriptor[0],
+                        "build-zynq7000-Debug-"+test_image_descriptor[1],
+                        "images",
+                        "capdl-loader-image-arm-zynq7000")
         print("launching QEMU with " + test_image)
 
         start_process_and_create_pid_file(
@@ -164,9 +169,9 @@ def use_qemu_with_proxy(request, workspace_path, proxy_app=None):
     os.mkfifo(qemu_stdin_file)
 
     # pytest will run this for each test case
-    yield (lambda image_subpath:
+    yield (lambda system:
             start_or_attach_to_qemu_and_proxy(
-                os.path.join(workspace_path, image_subpath),
+                [workspace_path, system],
                 test_system_out_file,
                 qemu_stdin_file,
                 qemu_stdout_file,

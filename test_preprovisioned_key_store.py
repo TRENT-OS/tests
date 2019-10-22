@@ -10,14 +10,14 @@ import time
 
 #-------------------------------------------------------------------------------
 @pytest.mark.parametrize(
-    "test_image, expected_output_array, timeout", [(
-    "build-zynq7000-Debug-DEMO_PREPROVISIONED_KEYSTORE/images/capdl-loader-image-arm-zynq7000",
+    "test_system, expected_output_array, timeout", [(
+    "demo_preprovisioned_keystore",
     [
         "Preprovisioning keystore demo succeeded"
     ],
     200
 )])
-def test_key_store_provisioning(boot_with_proxy, test_image, expected_output_array, timeout):
+def test_key_store_provisioning(boot_with_proxy, test_system, expected_output_array, timeout):
 
     pre_provisioned_keystore_image = "preProvisionedKeyStoreImg"
     proxy_memory_file = "nvm_06"
@@ -32,7 +32,7 @@ def test_key_store_provisioning(boot_with_proxy, test_image, expected_output_arr
         os.remove(proxy_memory_file)
     os.rename(pre_provisioned_keystore_image, proxy_memory_file)
 
-    test_run = boot_with_proxy(test_image)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     for success_msg in expected_output_array:

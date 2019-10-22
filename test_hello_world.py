@@ -8,14 +8,14 @@ import os
 import re
 import time
 
-image = "build-zynq7000-Debug-TEST_HELLO_WORLD/images/capdl-loader-image-arm-zynq7000"
+test_system = "test_hello_world"
 timeout = 15
 
 
 # ToDo: actually, this test case should run first and if it fails, then the
 #       whole test should be aborted.
 def test_hello_world(boot):
-    test_run = boot(image)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     success_msg = "hello world!"

@@ -8,14 +8,14 @@ import os
 import re
 import time
 
-test_image = "build-zynq7000-Debug-TEST_KEYSTORE/images/capdl-loader-image-arm-zynq7000"
+test_system = "test_keystore"
 timeout = 400
 
 
 #-------------------------------------------------------------------------------
 def test_key_store_unit_tests(boot_with_proxy):
 
-    test_run = boot_with_proxy(test_image)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     expected_output_array = [
@@ -30,7 +30,7 @@ def test_key_store_unit_tests(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 def test_key_store_integration_tests_AES(boot_with_proxy):
-    test_run = boot_with_proxy(test_image)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     expected_output_array = [
@@ -45,7 +45,7 @@ def test_key_store_integration_tests_AES(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 def test_key_store_integration_tests_keyPair(boot_with_proxy):
-    test_run = boot_with_proxy(test_image)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     expected_output_array = [

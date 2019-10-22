@@ -9,12 +9,12 @@ import re
 import time
 
 
-test_image = 'build-zynq7000-Debug-TEST_SPIFFS_FILESTREAM/images/capdl-loader-image-arm-zynq7000'
+test_system = "test_spiffs_filestream"
 timeout = 100
 
 #-------------------------------------------------------------------------------
 def test_spiffs_filestream_unit_tests(boot_with_proxy):
-    test_run = boot_with_proxy(test_image)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     expected_output_array = [
@@ -30,7 +30,7 @@ def test_spiffs_filestream_unit_tests(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 def test_spiffs_filestream_demo_tests(boot_with_proxy):
-    test_run = boot_with_proxy(test_image)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     expected_output_array = [

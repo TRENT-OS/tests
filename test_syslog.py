@@ -12,7 +12,7 @@ import time
 #-------------------------------------------------------------------------------
 def test_hello_world(boot):
 
-    test_run = boot("build-zynq7000-Debug-TEST_SYSLOG/images/capdl-loader-image-arm-zynq7000")
+    test_run = boot("test_syslog")
     f_out = test_run[1]
 
     success_msg = "SUCCESS"

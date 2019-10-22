@@ -10,8 +10,8 @@ import time
 
 #-------------------------------------------------------------------------------
 @pytest.mark.parametrize(
-    "test_image, expected_output_array, timeout", [(
-    "build-zynq7000-Debug-TEST_PROXY_NVM/images/capdl-loader-image-arm-zynq7000",
+    "test_system, expected_output_array, timeout", [(
+    "test_proxy_nvm",
     [
         #every test case output needs to happen twice (for both channels)
         'TEST SMALL SECTION: Read values match the write values!',
@@ -25,8 +25,8 @@ import time
     ],
     350
 )])
-def test_output_against_expected_str(boot_with_proxy, test_image, expected_output_array, timeout):
-    test_run = boot_with_proxy(test_image)
+def test_output_against_expected_str(boot_with_proxy, test_system, expected_output_array, timeout):
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     for success_msg in expected_output_array:
