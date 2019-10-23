@@ -15,20 +15,26 @@ def test_agreement(boot):
         'testAgreement_init_ok: OK',
         'testAgreement_init_fail: OK',
         'testAgreement_compute_DH_ok: OK',
+        'testAgreement_compute_DH_rnd_ok: OK',
         'testAgreement_compute_ECDH_ok: OK',
+        'testAgreement_compute_ECDH_rnd_ok: OK',
         'testAgreement_compute_fail: OK',
         'testAgreement_free_ok: OK',
         'testAgreement_free_fail: OK',
+        'testAgreement_agree_buffer: OK',
         'testAgreement_init_ok: OK',
         'testAgreement_init_fail: OK',
         'testAgreement_compute_DH_ok: OK',
+        'testAgreement_compute_DH_rnd_ok: OK',
         'testAgreement_compute_ECDH_ok: OK',
+        'testAgreement_compute_ECDH_rnd_ok: OK',
         'testAgreement_compute_fail: OK',
         'testAgreement_free_ok: OK',
-        'testAgreement_free_fail: OK'
+        'testAgreement_free_fail: OK',
+        'testAgreement_agree_buffer: OK',
     ]
     for result in result_list:
-        (text, match) = logs.get_match_in_line(f_out, re.compile(result), timeout)
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result
 
 def test_cipher(boot):
@@ -49,6 +55,10 @@ def test_cipher(boot):
         'testCipher_start_fail: OK',
         'testCipher_process_fail: OK',
         'testCipher_finalize_fail: OK',
+        'testCipher_init_buffer: OK',
+        'testCipher_start_buffer: OK',
+        'testCipher_process_buffer: OK',
+        'testCipher_finalize_buffer: OK',
         'testCipher_init_ok: OK',
         'testCipher_init_fail: OK',
         'testCipher_free_ok: OK',
@@ -63,9 +73,13 @@ def test_cipher(boot):
         'testCipher_start_fail: OK',
         'testCipher_process_fail: OK',
         'testCipher_finalize_fail: OK',
+        'testCipher_init_buffer: OK',
+        'testCipher_start_buffer: OK',
+        'testCipher_process_buffer: OK',
+        'testCipher_finalize_buffer: OK',
     ]
     for result in result_list:
-        (text, match) = logs.get_match_in_line(f_out, re.compile(result), timeout)
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result
 
 def test_digest(boot):
@@ -80,6 +94,8 @@ def test_digest(boot):
         'testDigest_hash_MD5: OK',
         'testDigest_process_fail: OK',
         'testDigest_finalize_fail: OK',
+        'testDigest_process_buffer: OK',
+        'testDigest_finalize_buffer: OK',
         'testDigest_init_ok: OK',
         'testDigest_init_fail: OK',
         'testDigest_free_ok: OK',
@@ -88,9 +104,11 @@ def test_digest(boot):
         'testDigest_hash_MD5: OK',
         'testDigest_process_fail: OK',
         'testDigest_finalize_fail: OK',
+        'testDigest_process_buffer: OK',
+        'testDigest_finalize_buffer: OK',
     ]
     for result in result_list:
-        (text, match) = logs.get_match_in_line(f_out, re.compile(result), timeout)
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result
 
 def test_key(boot):
@@ -111,6 +129,8 @@ def test_key(boot):
         'testKey_loadParams_fail: OK',
         'testKey_free_ok: OK',
         'testKey_free_fail: OK',
+        'testKey_getParams_buffer: OK',
+        'testKey_loadParams_buffer: OK',
         'testKey_import_ok: OK',
         'testKey_import_fail: OK',
         'testKey_export_ok: OK',
@@ -125,9 +145,11 @@ def test_key(boot):
         'testKey_loadParams_fail: OK',
         'testKey_free_ok: OK',
         'testKey_free_fail: OK',
+        'testKey_getParams_buffer: OK',
+        'testKey_loadParams_buffer: OK',
     ]
     for result in result_list:
-        (text, match) = logs.get_match_in_line(f_out, re.compile(result), timeout)
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result
 
 def test_rng(boot):
@@ -138,13 +160,17 @@ def test_rng(boot):
         'testRng_getBytes_fail: OK',
         'testRng_reSeed_ok: OK',
         'testRng_reSeed_fail: OK',
+        'testRng_reSeed_buffer: OK',
+        'testRng_getBytes_buffer: OK',
         'testRng_getBytes_ok: OK',
         'testRng_getBytes_fail: OK',
         'testRng_reSeed_ok: OK',
         'testRng_reSeed_fail: OK',
+        'testRng_reSeed_buffer: OK',
+        'testRng_getBytes_buffer: OK',
     ]
     for result in result_list:
-        (text, match) = logs.get_match_in_line(f_out, re.compile(result), timeout)
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result
 
 def test_signature(boot):
@@ -153,17 +179,25 @@ def test_signature(boot):
     result_list = [
         'testSignature_init_ok: OK',
         'testSignature_init_fail: OK',
+        'testSignature_free_ok: OK',
+        'testSignature_free_fail: OK',
         'testSignature_sign_RSA_ok: OK',
         'testSignature_sign_fail: OK',
         'testSignature_verify_RSA_ok: OK',
         'testSignature_verify_fail: OK',
+        'testSignature_sign_buffer: OK',
+        'testSignature_verify_buffer: OK',
         'testSignature_init_ok: OK',
         'testSignature_init_fail: OK',
+        'testSignature_free_ok: OK',
+        'testSignature_free_fail: OK',
         'testSignature_sign_RSA_ok: OK',
         'testSignature_sign_fail: OK',
         'testSignature_verify_RSA_ok: OK',
         'testSignature_verify_fail: OK',
+        'testSignature_sign_buffer: OK',
+        'testSignature_verify_buffer: OK',
     ]
     for result in result_list:
-        (text, match) = logs.get_match_in_line(f_out, re.compile(result), timeout)
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result
