@@ -8,19 +8,19 @@ import os
 import re
 import time
 
-
-test_system = "test_spiffs_filestream"
-timeout = 100
+test_system = "test_seos_filestream"
+timeout = 200
 
 #-------------------------------------------------------------------------------
-def test_spiffs_filestream_unit_tests(boot_with_proxy):
+def test_seos_filestream_spiffs(boot_with_proxy):
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     expected_output_array = [
-        "Test_Spiffs_FileStream_test_case_01 succeeded!",
-        "Test_Spiffs_FileStream_test_case_02 succeeded!",
-        "Test_Spiffs_FileStream_test_case_03 succeeded!"
+        "Test_Seos_FileStream_test_case_01 succeeded!",
+        "Test_Seos_FileStream_test_case_02 succeeded!",
+        "Test_Seos_FileStream_test_case_03 succeeded!",
+        "Test_Seos_FileStream_test_case_04 succeeded!"
     ]
 
     for success_msg in expected_output_array:
@@ -29,12 +29,15 @@ def test_spiffs_filestream_unit_tests(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
-def test_spiffs_filestream_demo_tests(boot_with_proxy):
+def test_seos_filestream_fat(boot_with_proxy):
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     expected_output_array = [
-        "Test_Spiffs_FileStream_test_case_04 succeeded!"
+        "Test_Seos_FileStream_test_case_01 succeeded!",
+        "Test_Seos_FileStream_test_case_02 succeeded!",
+        "Test_Seos_FileStream_test_case_03 succeeded!",
+        "Test_Seos_FileStream_test_case_04 succeeded!"
     ]
 
     for success_msg in expected_output_array:
