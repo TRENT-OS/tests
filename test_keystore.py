@@ -56,3 +56,31 @@ def test_key_store_integration_tests_keyPair(boot_with_proxy):
     for success_msg in expected_output_array:
         (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
         assert match == success_msg
+
+#-------------------------------------------------------------------------------
+def test_key_store_multi_instance_tests_copy(boot_with_proxy):
+    test_run = boot_with_proxy(test_system)
+    f_out = test_run[1]
+
+    expected_output_array = [
+        "TestKeyStore_scenario_7 succeeded",
+        "TestKeyStore_scenario_8 succeeded"
+    ]
+
+    for success_msg in expected_output_array:
+        (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
+        assert match == success_msg
+
+#-------------------------------------------------------------------------------
+def test_key_store_multi_instance_tests_move(boot_with_proxy):
+    test_run = boot_with_proxy(test_system)
+    f_out = test_run[1]
+
+    expected_output_array = [
+        "TestKeyStore_scenario_9 succeeded",
+        "TestKeyStore_scenario_10 succeeded"
+    ]
+
+    for success_msg in expected_output_array:
+        (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
+        assert match == success_msg
