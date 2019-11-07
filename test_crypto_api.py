@@ -11,8 +11,8 @@ import time
 test_system = "test_crypto_api"
 timeout = 15
 
-
 #-------------------------------------------------------------------------------
+
 def test_agreement(boot):
     test_run = boot(test_system)
     f_out = test_run[1]
@@ -43,8 +43,8 @@ def test_agreement(boot):
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result
 
-
 #-------------------------------------------------------------------------------
+
 def test_cipher(boot):
     test_run = boot(test_system)
     f_out = test_run[1]
@@ -91,8 +91,44 @@ def test_cipher(boot):
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result
 
+#-------------------------------------------------------------------------------
+
+def test_mac(boot):
+    test_run = boot(test_system)
+    f_out = test_run[1]
+
+    result_list = [
+        'testMac_init_ok: OK',
+        'testMac_init_fail: OK',
+        'testMac_free_ok: OK',
+        'testMac_free_fail: OK',
+        'testMac_mac_HMAC_MD5: OK',
+        'testMac_mac_HMAC_SHA256: OK',
+        'testMac_start_fail: OK',
+        'testMac_process_fail: OK',
+        'testMac_finalize_fail: OK',
+        'testMac_start_buffer: OK',
+        'testMac_process_buffer: OK',
+        'testMac_finalize_buffer: OK',
+        'testMac_init_ok: OK',
+        'testMac_init_fail: OK',
+        'testMac_free_ok: OK',
+        'testMac_free_fail: OK',
+        'testMac_mac_HMAC_MD5: OK',
+        'testMac_mac_HMAC_SHA256: OK',
+        'testMac_start_fail: OK',
+        'testMac_process_fail: OK',
+        'testMac_finalize_fail: OK',
+        'testMac_start_buffer: OK',
+        'testMac_process_buffer: OK',
+        'testMac_finalize_buffer: OK',
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result
 
 #-------------------------------------------------------------------------------
+
 def test_digest(boot):
     test_run = boot(test_system)
     f_out = test_run[1]
@@ -123,8 +159,8 @@ def test_digest(boot):
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result
 
-
 #-------------------------------------------------------------------------------
+
 def test_key(boot):
     test_run = boot(test_system)
     f_out = test_run[1]
@@ -167,8 +203,8 @@ def test_key(boot):
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result
 
-
 #-------------------------------------------------------------------------------
+
 def test_rng(boot):
     test_run = boot(test_system)
     f_out = test_run[1]
@@ -192,8 +228,8 @@ def test_rng(boot):
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result
 
-
 #-------------------------------------------------------------------------------
+
 def test_signature(boot):
     test_run = boot(test_system)
     f_out = test_run[1]
