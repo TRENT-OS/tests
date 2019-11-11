@@ -10,7 +10,6 @@ import time
 import subprocess
 import datetime
 
-
 #-------------------------------------------------------------------------------
 def start_process_and_create_pid_file(
     cmd_line,
@@ -76,8 +75,9 @@ def start_or_attach_to_qemu_and_proxy(
             "qemu-system-arm" +
                 " -machine xilinx-zynq-a9" +
                 " -nographic" +
-                " -s" +  # shortcut for -gdb tcp::1234
+                #" -s" +  # shortcut for -gdb tcp::1234
                 " -S" +  # freeze the CPU at startup
+                #" -serial tcp:localhost:4444,server" +
                 " -serial pty" +
                 " -serial file:" + test_system_out_file +
                 " -m size=1024M" +
@@ -113,8 +113,14 @@ def start_or_attach_to_qemu_and_proxy(
                                 re.compile('(\/dev\/pts\/\d)'),
                                 10)
             assert(match)
+
+            tap_params = (match +
+                 # legacy parameters for the HAR demo application, it is necessary to put them here for a trivial parameter count that should be solved with a 'param_name=value' approach"
+                " 7999 HAR-test-HUB.azure-devices.net 8883 " +
+                # 0 means disable picotcp on proxy, 1 means enable tap on proxy
+                " 0 1")
             start_process_and_create_pid_file(
-                proxy_app + " " + match + " > " + proxy_stdout_file,
+                proxy_app + " " + tap_params +" > " + proxy_stdout_file,
                 proxy_pid_file)
             print("Detached proxy app process")
 
