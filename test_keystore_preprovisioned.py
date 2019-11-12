@@ -8,16 +8,11 @@ import os
 import re
 import time
 
+test_system = "demo_preprovisioned_keystore"
+timeout = 200
+
 #-------------------------------------------------------------------------------
-@pytest.mark.parametrize(
-    "test_system, expected_output_array, timeout", [(
-    "demo_preprovisioned_keystore",
-    [
-        "Preprovisioning keystore demo succeeded"
-    ],
-    200
-)])
-def test_key_store_provisioning(boot_with_proxy, test_system, expected_output_array, timeout):
+def test_key_store_provisioning(boot_with_proxy):
 
     pre_provisioned_keystore_image = "preProvisionedKeyStoreImg"
     proxy_memory_file = "nvm_06"
@@ -35,7 +30,10 @@ def test_key_store_provisioning(boot_with_proxy, test_system, expected_output_ar
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
+    expected_output_array = [
+        "Preprovisioning keystore demo succeeded",
+    ]
+
     for success_msg in expected_output_array:
         (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
-        print(text)
         assert match == success_msg
