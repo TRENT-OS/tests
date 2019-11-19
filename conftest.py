@@ -144,7 +144,7 @@ def start_or_attach_to_qemu_and_proxy(
         time.sleep(2)
 
     print("QEMU up and system running")
-    f_test_output = logs.open_file_non_blocking(test_system_out_file, 'r', '\r')
+    f_test_output = logs.open_file_non_blocking(test_system_out_file, 'r')
 
     return (f_qemu_stdin, f_test_output, f_qemu_stderr)
 
