@@ -10,7 +10,7 @@ import time
 import socket
 
 test_system = "test_network_api"
-timeout = 300
+timeout = 180
 
 
 def test_network_api_client(boot_with_proxy):
