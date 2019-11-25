@@ -22,37 +22,43 @@ def test_network_api_client(boot_with_proxy):
     print(text)
     assert match == success
 
-def test_network_api_server(boot_with_proxy,run_tap_server_test):
+def test_network_api_echo_server(boot_with_proxy):
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+    run_echo_client()
     success = 'Closing server socket communication'
     (text, match) = logs.get_match_in_line(f_out, re.compile(success), timeout)
     print(text)
     assert match == success
 
-@pytest.fixture(scope="module")
-def run_tap_server_test():
+def run_echo_client():
     print("Running tap app to connect to Server")
 
+    server_address = ('192.168.82.92', 5555)
     # Create a TCP/IP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    print ('Trying to connect to Server...')
 
-    # Connect the socket to the port where the server is listening
-    server_address = ('192.168.82.92', 5555)
-    print('connecting to %s port %s' %server_address, file=sys.stderr)
-    sock.connect(server_address)
+    while True:
+        print ('Trying to connect to Server...')
+
+        try:
+            # Connect the socket to the port where the server is listening
+            print('connecting to %s port %s' %server_address, file=sys.stderr)
+            sock.connect(server_address)
+        except:
+            print('connection failed, retrying in 2 secs')
+            time.sleep(2)
+        break
 
     try:
+        received_string = ""
         # Send data
         message = 'This is the message.  It will be repeated. Hello from client...!'
         print('sending "%s"' %message, file=sys.stderr)
         sock.sendall(message.encode())
 
         # Look for the response
-        received_string = ""
-
         while len(received_string) < len(message):
             received_string += sock.recv(1).decode()
 
@@ -61,4 +67,3 @@ def run_tap_server_test():
         sock.close()
         print('received "%s"' %received_string, file=sys.stderr)
         assert received_string == message
-    yield
