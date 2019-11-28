@@ -12,7 +12,6 @@ import socket
 test_system = "test_network_api"
 timeout = 180
 
-@pytest.mark.skip(reason="there is a framing problem currently that prevents this test to succeed as it expects a clean close (FIN packet, from the connected peer) that does not get catched 100% of times")
 def test_network_api_client(boot_with_proxy):
 
     test_run = boot_with_proxy(test_system)
