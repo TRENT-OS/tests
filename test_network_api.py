@@ -46,9 +46,13 @@ def run_echo_client(blob):
 
     # Create a TCP/IP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    if (sock != None):
+        sock.settimeout(timeout)
+    else:
+        pytest.skip("could not get a socket")
 
-    while True:
-        print ('Trying to connect to Server...')
+    for attempt in range(3):
+        print ('Trying to connect to Server, attemp # ' + str(attempt) + '...')
 
         try:
             # Connect the socket to the port where the server is listening
@@ -61,7 +65,6 @@ def run_echo_client(blob):
         break
 
     try:
-        sock.settimeout(timeout)
         # Send data
         print('sending blob of ' + str(len(blob)) + ' bytes', file=sys.stderr)
         test_time_base = time.time()
