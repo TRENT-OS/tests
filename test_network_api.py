@@ -10,7 +10,7 @@ import time
 import socket
 
 test_system = "test_network_api"
-timeout = 180
+timeout = 300
 
 def test_network_api_client(boot_with_proxy):
 
@@ -22,7 +22,7 @@ def test_network_api_client(boot_with_proxy):
     assert match == success
 
 # at the moment the stack can handle these sizes without issues. We will increase this sizes and fix the issues in a second moment.
-lst = [ 2, 4, 8, 16, 32, 64, 128, 256, 512 ]
+lst = [ 128, 256, 512, 1024, 2048 ]
 @pytest.mark.parametrize('n', lst)
 def test_network_api_echo_server(boot_with_proxy, n):
 
