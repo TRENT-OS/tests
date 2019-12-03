@@ -9,7 +9,7 @@ import re
 import time
 
 test_system = "test_keystore"
-timeout = 300
+timeout = 600
 
 
 #-------------------------------------------------------------------------------
