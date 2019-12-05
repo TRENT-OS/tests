@@ -10,7 +10,7 @@ import time
 import socket
 
 test_system = "test_tls_api"
-timeout = 180
+timeout = 60
 
 def test_tls_api_library(boot_with_proxy):
     test_run = boot_with_proxy(test_system)
