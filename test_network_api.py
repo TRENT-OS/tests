@@ -22,7 +22,8 @@ def test_network_api_client(boot_with_proxy):
     assert match == success
 
 # at the moment the stack can handle these sizes without issues. We will increase this sizes and fix the issues in a second moment.
-lst = [ 128, 256, 512, 1024, 2048 ]
+# 16kb is know to be enough to screw the state machine when the fifo beneath is full. A reset mechanism is needed and will be developed
+lst = [ 128, 256, 512, 1024, 2048, 4096, 8192 ]
 @pytest.mark.parametrize('n', lst)
 def test_network_api_echo_server(boot_with_proxy, n):
 
