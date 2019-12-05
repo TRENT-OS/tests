@@ -31,10 +31,6 @@ def test_network_api_echo_server(boot_with_proxy, n):
     with open('./test_network_api/dante.txt', 'rb') as file:
         blob = file.read(n)
     run_echo_client(blob)
-    success = 'Closing server socket communication'
-    (text, match) = logs.get_match_in_line(f_out, re.compile(success), timeout)
-    print(text)
-    assert match == success
 
 def run_echo_client(blob):
 
