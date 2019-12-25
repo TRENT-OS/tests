@@ -46,10 +46,10 @@ def run_echo_client(blob):
 
     # Create a TCP/IP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    if (sock != None):
-        sock.settimeout(timeout)
-    else:
+    if (sock is None):
         pytest.skip("could not get a socket")
+
+    sock.settimeout(timeout)
 
     for attempt in range(3):
         print ('Trying to connect to Server, attempt # ' + str(attempt) + '...')
