@@ -52,7 +52,7 @@ def run_echo_client(blob):
         pytest.skip("could not get a socket")
 
     for attempt in range(3):
-        print ('Trying to connect to Server, attemp # ' + str(attempt) + '...')
+        print ('Trying to connect to Server, attempt # ' + str(attempt) + '...')
 
         try:
             # Connect the socket to the port where the server is listening
