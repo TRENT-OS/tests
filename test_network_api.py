@@ -12,6 +12,7 @@ import socket
 test_system = "test_network_api"
 timeout = 180
 
+#-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="there is a framing problem currently that prevents this test to succeed as it expects a clean close (FIN packet, from the connected peer) that does not get catched 100% of times")
 def test_network_api_client(boot_with_proxy):
 
@@ -22,6 +23,7 @@ def test_network_api_client(boot_with_proxy):
     print(text)
     assert match == success
 
+#-------------------------------------------------------------------------------
 # at the moment the stack can handle these sizes without issues. We will increase this sizes and fix the issues in a second moment.
 lst = [ 2, 4, 8, 16, 32, 64, 128, 256, 512 ]
 @pytest.mark.parametrize('n', lst)
@@ -29,14 +31,17 @@ def test_network_api_echo_server(boot_with_proxy, n):
 
     test_run = boot_with_proxy(boot_with_proxy(test_system))
     f_out = test_run[1]
+
     with open('./test_network_api/dante.txt', 'rb') as file:
         blob = file.read(n)
+
     run_echo_client(blob)
     success = 'Closing server socket communication'
     (text, match) = logs.get_match_in_line(f_out, re.compile(success), timeout)
-    print(text)
     assert match == success
 
+
+#-------------------------------------------------------------------------------
 def run_echo_client(blob):
 
     print("Running tap app to connect to Server")
