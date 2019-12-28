@@ -36,7 +36,8 @@ def test_network_api_echo_server(boot_with_proxy, n):
         blob = file.read(n)
 
     run_echo_client(blob)
-    success = 'Closing server socket communication'
+
+    success = 'connection closed by server'
     (text, match) = logs.get_match_in_line(f_out, re.compile(success), timeout)
     assert match == success
 
