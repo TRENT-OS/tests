@@ -70,6 +70,7 @@ def start_or_attach_to_qemu_and_proxy(
                         "images",
                         "capdl-loader-image-arm-zynq7000")
         print("launching QEMU with " + test_image)
+        assert(os.path.isfile(test_image))
 
         start_process_and_create_pid_file(
             "qemu-system-arm" +
