@@ -13,6 +13,14 @@ timeout = 300
 
 #-------------------------------------------------------------------------------
 def test_proxy_nvm_small_section_test(boot_with_proxy):
+    """This test will check that a small section is correctly written.
+
+    Underlying SEOS Test System behavior:
+
+        two SEOS Tester components will (in parallel) write a small section of
+        the NVM abstraction exposed by the Proxy app with a known pattern and
+        then read it and check it."""
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
@@ -28,6 +36,14 @@ def test_proxy_nvm_small_section_test(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 def test_proxy_nvm_whole_memory_test(boot_with_proxy):
+    """This test will check that a small section is correctly written.
+
+    Underlying SEOS Test System behavior:
+
+        two SEOS Tester components will (in parallel) write the full size of
+        the NVM abstraction exposed by the Proxy app with a known pattern and
+        then read it and check it."""
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
@@ -43,6 +59,15 @@ def test_proxy_nvm_whole_memory_test(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 def test_proxy_nvm_size_out_of_bounds_test(boot_with_proxy):
+    """This test will check that writing outside of the bounds (by exceeding in
+    the size but starting from a valid address) results in an error condition.
+
+    Underlying SEOS Test System behavior:
+
+        two SEOS Tester components will (in parallel) try to write outside of
+        the boundaries of the NVM abstraction exposed by the Proxy app then
+        check that an error condition is raised."""
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
@@ -58,6 +83,15 @@ def test_proxy_nvm_size_out_of_bounds_test(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 def test_proxy_nvm_address_out_of_bounds_test(boot_with_proxy):
+    """This test will check that writing outside of the bounds (by using
+    invalid addresses) results in an error condition.
+
+    Underlying SEOS Test System behavior:
+
+        two SEOS Tester components will (in parallel) try to write outside of
+        the boundaries of the NVM abstraction exposed by the Proxy app then
+        check that an error condition is raised."""
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
