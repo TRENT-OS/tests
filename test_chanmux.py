@@ -9,9 +9,8 @@ import re
 import time
 
 test_system = "test_chanmux"
-timeout = 300
+timeout = 60
 
-#@pytest.mark.skip(reason="backend not yet implemented")
 #-------------------------------------------------------------------------------
 def test_chanmux_overflow(boot_with_proxy):
     """This test will check the correct trigger of the overflow condition of
@@ -39,7 +38,6 @@ def test_chanmux_overflow(boot_with_proxy):
         (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
         assert match == success_msg
 
-#@pytest.mark.skip(reason="backend not yet implemented")
 #-------------------------------------------------------------------------------
 def test_chanmux_fullduplex(boot_with_proxy):
     """This test will check the correct operation of ChanMux when streaming in
@@ -48,12 +46,20 @@ def test_chanmux_fullduplex(boot_with_proxy):
     Underlying SEOS Test System behavior:
 
         two SEOS Tester components will (in parallel) send a command to the
-        Proxy App (via ChanMux) in order to request a stream of a certain
-        amount of data. While the Proxy is streaming its data (with a
-        pre-established pattern) the Testers will check the pattern of the
-        data and echo them 'online'."""
+        Proxy App (via ChanMux) with a certain payload (with a give pattern) in
+        order to receive it back as in a echo server. While the client (SEOS) is
+        streaming its data in a loop the server (Proxy) will echo and another
+        thread of the client will receive the payload back and check the pattern
+        of the data."""
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    assert False, "NOT YET IMPLEMENTED"
+    expected_output_array = [
+        "ChanMuxTest_testFullDuplex: SUCCESS",
+        "ChanMuxTest_testFullDuplex: SUCCESS"
+    ]
+
+    for success_msg in expected_output_array:
+        (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
+        assert match == success_msg
