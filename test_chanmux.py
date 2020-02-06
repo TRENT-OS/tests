@@ -12,6 +12,23 @@ test_system = "test_chanmux"
 timeout = 60
 
 #-------------------------------------------------------------------------------
+def test_chanmux_return_codes(boot_with_proxy):
+    """This test will check the correctness of return values in case of bad
+    parameters."""
+
+    test_run = boot_with_proxy(test_system)
+    f_out = test_run[1]
+
+    expected_output_array = [
+        "ChanMuxTest_testReturnCodes: SUCCESS",
+        "ChanMuxTest_testReturnCodes: SUCCESS"
+    ]
+
+    for success_msg in expected_output_array:
+        (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
+        assert match == success_msg
+
+#-------------------------------------------------------------------------------
 def test_chanmux_overflow(boot_with_proxy):
     """This test will check the correct trigger of the overflow condition of
     ChanMux.
