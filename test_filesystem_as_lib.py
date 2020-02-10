@@ -8,13 +8,13 @@ import logs
 timeout = 15
 
 #-------------------------------------------------------------------------------
-# TEST: partition_manager_get_info_disk()
+# TEST: partition_manager_init()
 #-------------------------------------------------------------------------------
 
 def test_filesystem_init_test(boot_with_proxy):
-    """This test will get the disk info of a valid disk already available at the host system.
-
-    The behavior of Partition Manager is described at https://wiki.hensoldt-cyber.systems/display/HEN/SEOS+Partition+Manager.
+    """This test relies on a ChanMuxClient and a ProxyNVM instance to allow the initialization of the NVM storage backend.
+    
+    The behavior of the FileSystem is described at https://wiki.hensoldt-cyber.systems/pages/viewpage.action?spaceKey=HEN&title=SEOS+File+System.
 
     Underlying SEOS Test System behavior:
 
@@ -43,5 +43,33 @@ def test_filesystem_init_test(boot_with_proxy):
     for result in result_list:
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
         assert match == result    
+
+#-------------------------------------------------------------------------------
+
+def test_filesystem_partition_manager_create(boot_with_proxy):
+    """ This test fetches all required partitions from the SEOS system config and initializes them on disk."""
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSPartitionCreate: OK'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result  
+
+#-------------------------------------------------------------------------------
+
+def test_filesystem_partition_manager_open(boot_with_proxy):
+    """ """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSPartitionOpen: OK'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result  
 
 #-------------------------------------------------------------------------------
