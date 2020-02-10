@@ -101,3 +101,17 @@ def test_filesystem_mount(boot_with_proxy):
         assert match == result  
 
 #-------------------------------------------------------------------------------
+
+def test_filesystem_close(boot_with_proxy):
+    """ """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSClose: OK'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result  
+
+#-------------------------------------------------------------------------------
