@@ -29,7 +29,7 @@ lst = [ 2, 4, 8, 16, 32, 64, 128, 256, 512 ]
 @pytest.mark.parametrize('n', lst)
 def test_network_api_echo_server(boot_with_proxy, n):
 
-    test_run = boot_with_proxy(boot_with_proxy(test_system))
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     with open('./test_network_api/dante.txt', 'rb') as file:
