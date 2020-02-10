@@ -38,7 +38,7 @@ def test_filesystem_init_test(boot_with_proxy):
     f_out = test_run[1]
 
     result_list = [
-        'TestFSInit_test: OK'
+        'TestFSHWInit_test: OK'
     ]
     for result in result_list:
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
