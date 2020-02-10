@@ -73,3 +73,17 @@ def test_filesystem_partition_manager_open(boot_with_proxy):
         assert match == result  
 
 #-------------------------------------------------------------------------------
+
+def test_filesystem_create(boot_with_proxy):
+    """ """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSCreate: OK'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result  
+
+#-------------------------------------------------------------------------------
