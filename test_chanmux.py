@@ -3,32 +3,28 @@ import pytest
 import sys
 sys.path.append('../common')
 
-import tests
-import os
-import time
+from tests import run_test_log_match_set
 
 test_system = "test_chanmux"
 timeout = 60
 
 #-------------------------------------------------------------------------------
-test_chanmux_return_codes_lst = [
-    "ChanMuxTest_testReturnCodes: SUCCESS (tester 1)",
-    "ChanMuxTest_testReturnCodes: SUCCESS (tester 2)"
-]
-@pytest.mark.parametrize('expr', test_chanmux_return_codes_lst)
-def test_chanmux_return_codes(boot_with_proxy, expr):
+def test_chanmux_return_codes(boot_with_proxy):
     """This test will check the correctness of return values in case of bad
     parameters."""
 
-    tests.simple(boot_with_proxy, test_system, expr, timeout)
+    test_chanmux_return_codes_lst = [
+        "ChanMuxTest_testReturnCodes: SUCCESS (tester 1)",
+        "ChanMuxTest_testReturnCodes: SUCCESS (tester 2)"
+    ]
+
+    run_test_log_match_set(boot_with_proxy,
+                           test_system,
+                           test_chanmux_return_codes_lst,
+                           timeout)
 
 #-------------------------------------------------------------------------------
-test_chanmux_overflow_lst = [
-    "ChanMuxTest_testOverflow: SUCCESS (tester 1)",
-    "ChanMuxTest_testOverflow: SUCCESS (tester 2)"
-]
-@pytest.mark.parametrize('expr', test_chanmux_overflow_lst)
-def test_chanmux_overflow(boot_with_proxy, expr):
+def test_chanmux_overflow(boot_with_proxy):
     """This test will check the correct trigger of the overflow condition of
     ChanMux.
 
@@ -42,15 +38,18 @@ def test_chanmux_overflow(boot_with_proxy, expr):
         After that the ChanMux gets probed to check whether the overflow
         condition happened as expected."""
 
-    tests.simple(boot_with_proxy, test_system, expr, timeout)
+    test_chanmux_overflow_lst = [
+        "ChanMuxTest_testOverflow: SUCCESS (tester 1)",
+        "ChanMuxTest_testOverflow: SUCCESS (tester 2)"
+    ]
+
+    run_test_log_match_set(boot_with_proxy,
+                           test_system,
+                           test_chanmux_overflow_lst,
+                           timeout)
 
 #-------------------------------------------------------------------------------
-test_chanmux_full_duplex_lst = [
-    "ChanMuxTest_testFullDuplex: SUCCESS (tester 1)",
-    "ChanMuxTest_testFullDuplex: SUCCESS (tester 2)"
-]
-@pytest.mark.parametrize('expr', test_chanmux_full_duplex_lst)
-def test_chanmux_fullduplex(boot_with_proxy, expr):
+def test_chanmux_fullduplex(boot_with_proxy):
     """This test will check the correct operation of ChanMux when streaming in
     full duplex mode.
 
@@ -63,4 +62,12 @@ def test_chanmux_fullduplex(boot_with_proxy, expr):
         thread of the client will receive the payload back and check the pattern
         of the data."""
 
-    tests.simple(boot_with_proxy, test_system, expr, timeout)
+    test_chanmux_full_duplex_lst = [
+        "ChanMuxTest_testFullDuplex: SUCCESS (tester 1)",
+        "ChanMuxTest_testFullDuplex: SUCCESS (tester 2)"
+    ]
+
+    run_test_log_match_set(boot_with_proxy,
+                           test_system,
+                           test_chanmux_full_duplex_lst,
+                           timeout)
