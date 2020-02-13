@@ -157,7 +157,7 @@ def test_filesystem_partition_manager_get_info_disk_fail_to_get_struct_error(boo
     f_out = test_run[1]
 
     result_list = [
-        'TestFSPMDiskInfo_fail_to_get_struct_error: NOT WORKING'
+        'TestFSPMDiskInfo_fail_to_get_struct_error: NOT IMPLEMENTED'
     ]
     for result in result_list:
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
@@ -185,7 +185,7 @@ def test_filesystem_partition_manager_get_info_disk(boot_with_proxy):
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_manager_get_info_partition(boot_with_proxy):
-    """ This test will get the partition infos of all valid partitions residing on disk.
+    """ This test gets the partition infos of all valid partitions residing on disk.
             
         - STATUS: OK
     """
