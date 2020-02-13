@@ -13,7 +13,8 @@ timeout = 300
 
 #-------------------------------------------------------------------------------
 def test_proxy_nvm_small_section_test(boot_with_proxy):
-    """This test will check that a small section is correctly written.
+    """This test will check that a small section (few bytes somewhere in the
+    file is correctly written.
 
     Underlying SEOS Test System behavior:
 
