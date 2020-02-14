@@ -127,18 +127,16 @@ def test_filesystem_partition_manager_init(boot_with_proxy):
 # TEST: partition_manager_get_info_disk()
 #-------------------------------------------------------------------------------
 
-@pytest.mark.skip(reason="NOT WORKING")
 def test_filesystem_partition_manager_get_info_disk_invalid_parameter_error(boot_with_proxy):
     """ This test tries to receive disk data from an invalid disk. 
-    
-        - STATUS: NOT WORKING
-        - PROBLEM: providing NULL as parameter leads to undefined behavior 
+            
+        - STATUS: OK
     """
     test_run = boot_with_proxy("test_filesystem_as_lib")
     f_out = test_run[1]
 
     result_list = [
-        'TestFSPMDiskInfo_invalid_parameter_error: NOT WORKING'
+        'TestFSPMDiskInfo_invalid_parameter_error: OK'
     ]
     for result in result_list:
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
@@ -182,6 +180,46 @@ def test_filesystem_partition_manager_get_info_disk(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 # TEST: partition_manager_get_info_partition()
+#-------------------------------------------------------------------------------
+
+def test_filesystem_partition_manager_get_info_partition_inexistent_partition_error(boot_with_proxy):
+    """ This test gets the partition info of an inexistent partition with a partition ID that exceeds the amount of partitions available. 
+    Example: Maximum number of partitions = 1
+    Test: partition id = 2
+  
+        - STATUS: OK
+    """
+    test_run = boot_with_proxy("test_partition_manager")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSPMPartitionInfo_inexistent_partition_error: OK'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result 
+
+#-------------------------------------------------------------------------------
+
+@pytest.mark.skip(reason="NOT WORKING")
+def test_filesystem_partition_manager_get_info_partition_empty_shadow_partition_error(boot_with_proxy):
+    """ This test gets the partition info of an inexistent partition with a partition ID that equals the amount of partitions available. 
+    Example: Maximum number of partitions = 1
+    Test: partition id = 1
+  
+        - STATUS: NOT WORKING
+        - PROBLEM: providing a partition id that equals the amount of partitions available detects the creation of an empty shadow partition
+    """
+    test_run = boot_with_proxy("test_partition_manager")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSPMPartitionInfo_empty_shadow_partition_error: NOT WORKING'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result 
+
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_manager_get_info_partition(boot_with_proxy):
