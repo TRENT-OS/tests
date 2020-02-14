@@ -151,7 +151,7 @@ def start_or_attach_to_qemu_and_proxy(
 
 
 #-------------------------------------------------------------------------------
-def use_qemu_with_proxy(request, workspace_path, proxy_app=None):
+def use_qemu_with_proxy(request, proxy_app=None):
 
     test_module = os.path.splitext(request.node.name)[0]
     tmp_dir = os.path.join(pytest.qemu_log_dir, test_module)
@@ -178,7 +178,7 @@ def use_qemu_with_proxy(request, workspace_path, proxy_app=None):
     # pytest will run this for each test case
     yield (lambda system:
             start_or_attach_to_qemu_and_proxy(
-                [workspace_path, system],
+                [request.config.option.workspace_path, system],
                 test_system_out_file,
                 qemu_stdin_file,
                 qemu_stdout_file,
@@ -205,48 +205,40 @@ def use_qemu_with_proxy(request, workspace_path, proxy_app=None):
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
-def boot(request, workspace_path):
-    yield from use_qemu_with_proxy(request, workspace_path)
+def boot(request):
+    yield from use_qemu_with_proxy(request)
 
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
-def boot_with_proxy(request, workspace_path, proxy_path):
-    # proxy_path holds binary with full path
-    yield from use_qemu_with_proxy(request, workspace_path, proxy_path)
+def boot_with_proxy(request):
+    proxy_app = request.config.option.proxy_path
+    yield from use_qemu_with_proxy(request, proxy_app)
 
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="session", autouse=True)
-def setup_logging_for_qemu_and_proxy(request, workspace_path):
+def setup_logging_for_qemu_and_proxy(request):
+
+    # print("request.config.option", request.config.option)
+    # print("  workspace_path: ", request.config.option.workspace_path)
+    # print("  proxy_path: ", request.config.option.proxy_path)
 
     timestamp_str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
     # ToDo: find a better way where to store this.
-    pytest.qemu_log_dir = os.path.join(workspace_path,
+    pytest.qemu_log_dir = os.path.join(request.config.option.workspace_path,
                                        "test-logs-"+timestamp_str)
+
 
 
 #-------------------------------------------------------------------------------
 def pytest_addoption(parser):
-    parser.addoption("--workspace_path",
-                     action="append",
-                     default=[],
-                     help="location of the workspace that holds the test image")
 
-    parser.addoption("--proxy_path",
-                     action="append",
-                     default=[],
-                     help="location of the proxy application")
+    parser.addoption(
+        "--workspace_path",
+        help="location of the workspace that holds the test image")
 
-
-#-------------------------------------------------------------------------------
-def pytest_generate_tests(metafunc):
-    if 'workspace_path' in metafunc.fixturenames:
-        metafunc.parametrize("workspace_path",
-                             metafunc.config.getoption('workspace_path'),
-                             scope="session")
-    if 'proxy_path' in metafunc.fixturenames:
-        metafunc.parametrize("proxy_path",
-                             metafunc.config.getoption('proxy_path'),
-                             scope="session")
+    parser.addoption(
+        "--proxy_path",
+        help="location of the proxy application")
