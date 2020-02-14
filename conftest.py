@@ -232,12 +232,12 @@ def pytest_addoption(parser):
     parser.addoption("--workspace_path",
                      action="append",
                      default=[],
-                     help="Path to the application image")
+                     help="location of the workspace that holds the test image")
 
     parser.addoption("--proxy_path",
                      action="append",
                      default=[],
-                     help="Path to the proxy application")
+                     help="location of the proxy application")
 
 
 #-------------------------------------------------------------------------------
