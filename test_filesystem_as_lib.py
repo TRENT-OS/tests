@@ -222,6 +222,42 @@ def test_filesystem_partition_manager_get_info_partition_empty_shadow_partition_
 
 #-------------------------------------------------------------------------------
 
+def test_filesystem_partition_manager_get_info_partition_invalid_parameter_error(boot_with_proxy):
+    """ This test tries to get the partition info of an invalid partition. 
+
+        - STATUS: OK
+    """
+    test_run = boot_with_proxy("test_partition_manager")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSPMPartitionInfo_invalid_parameter_error: OK'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result
+
+#-------------------------------------------------------------------------------
+
+@pytest.mark.skip(reason="NOT IMPLEMENTED")
+def test_filesystem_partition_manager_fail_to_get_struct_error(boot_with_proxy):
+    """ This test tries to get the partition info of a valid partition, but an internal error occurs.
+        
+        - STATUS: NOT IMPLEMENTED
+        - PROBLEM: internal objects not reachable
+    """
+    test_run = boot_with_proxy("test_partition_manager")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSPMPartitionInfo_fail_to_get_struct_error: NOT IMPLEMENTED'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result
+
+#-------------------------------------------------------------------------------
+
 def test_filesystem_partition_manager_get_info_partition(boot_with_proxy):
     """ This test gets the partition infos of all valid partitions residing on disk.
             
