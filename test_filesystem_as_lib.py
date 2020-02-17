@@ -201,20 +201,18 @@ def test_filesystem_partition_manager_get_info_partition_inexistent_partition_er
 
 #-------------------------------------------------------------------------------
 
-@pytest.mark.skip(reason="NOT WORKING")
 def test_filesystem_partition_manager_get_info_partition_empty_shadow_partition_error(boot_with_proxy):
     """ This test gets the partition info of an inexistent partition with a partition ID that equals the amount of partitions available. 
     Example: Maximum number of partitions = 1
     Test: partition id = 1
   
-        - STATUS: NOT WORKING
-        - PROBLEM: providing a partition id that equals the amount of partitions available detects the creation of an empty shadow partition
+        - STATUS: OK
     """
     test_run = boot_with_proxy("test_partition_manager")
     f_out = test_run[1]
 
     result_list = [
-        'TestFSPMPartitionInfo_empty_shadow_partition_error: NOT WORKING'
+        'TestFSPMPartitionInfo_empty_shadow_partition_error: OK'
     ]
     for result in result_list:
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
@@ -275,6 +273,105 @@ def test_filesystem_partition_manager_get_info_partition(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 # TEST: partition_init()
+#-------------------------------------------------------------------------------
+
+@pytest.mark.skip(reason="NOT WORKING")
+def test_filesystem_partition_init_inexistent_partition_error(boot_with_proxy):
+    """ This test fetches an inexistent partition with a partition ID that exceeds the amount of partitions available and tries to initialize it on the disk.
+    Example: Maximum number of partitions = 1
+    Test: partition id = 2
+
+        - STATUS: NOT WORKING
+        - PROBLEM: Expected return value SEOS_FS_ERROR_INVALID_PARAMETER is not returned -> SEOS_FS_SUCCESS 
+    """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSPartitionInit_inexistent_partition_error: NOT WORKING'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result
+
+#-------------------------------------------------------------------------------
+
+@pytest.mark.skip(reason="NOT WORKING")
+def test_filesystem_partition_init_empty_shadow_partition_error(boot_with_proxy):
+    """ This test fetches an inexistent partition with a partition ID that equals the amount of partitions available and tries to initialize it on the disk.
+    Example: Maximum number of partitions = 1
+    Test: partition id = 1
+
+        - STATUS: NOT WORKING
+        - PROBLEM: Expected return value SEOS_FS_ERROR_INVALID_PARAMETER is not returned -> SEOS_FS_SUCCESS
+    """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSPartitionInit_empty_shadow_partition_error: NOT WORKING'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result
+
+#-------------------------------------------------------------------------------
+
+@pytest.mark.skip(reason="NOT WORKING")
+def test_filesystem_partition_init_invalid_partition_mode_error(boot_with_proxy):
+    """ This test fetches an existent partition by using an invalid partition mode and tries to initialize it on the disk.
+
+        - STATUS: NOT WORKING
+        - PROBLEM: Expected return value SEOS_FS_ERROR_INVALID_PARAMETER is not returned -> SEOS_FS_SUCCESS
+    """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSPartitionInit_invalid_partition_mode_error: NOT WORKING'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result
+
+#-------------------------------------------------------------------------------
+
+@pytest.mark.skip(reason="NOT IMPLEMENTED")
+def test_filesystem_partition_init_no_disk_error(boot_with_proxy):
+    """ This test fetches all required partitions from the provided system config and initializes them on the disk, but a disk error occurs.
+
+        - STATUS: NOT IMPLEMENTED
+        - PROBLEM: internal objects not reachable
+    """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSPartitionInit_no_disk_error(): NOT IMPLEMENTED'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result
+
+#-------------------------------------------------------------------------------
+
+@pytest.mark.skip(reason="NOT IMPLEMENTED")
+def test_filesystem_partition_init_init_error(boot_with_proxy):
+    """ This test fetches all required partitions from the provided system config and initializes them on the disk, but an init error occurs.
+
+        - STATUS: NOT IMPLEMENTED
+        - PROBLEM: internal objects not reachable
+    """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSPartitionInit_init_error(): NOT IMPLEMENTED'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result
+
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_init(boot_with_proxy):
