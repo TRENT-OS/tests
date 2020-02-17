@@ -132,13 +132,11 @@ def start_or_attach_to_qemu_and_proxy(
                                 10)
             assert(match)
 
-            tap_params = (match +
-                 # legacy parameters for the HAR demo application, it is necessary to put them here for a trivial parameter count that should be solved with a 'param_name=value' approach"
-                " 7999 HAR-test-HUB.azure-devices.net 8883 " +
-                # 0 means disable picotcp on proxy, 1 means enable tap on proxy
-                " 0 1")
             start_process_and_create_pid_file(
-                proxy_app + " " + tap_params +" > " + proxy_stdout_file,
+                proxy_app + \
+                    " -c PTY:" + match + # PTY to connect to
+                    " -t 1" # enable TAP
+                    " > " + proxy_stdout_file,
                 proxy_pid_file)
 
             proxy_pid = get_pid_from_pid_file(proxy_pid_file)
