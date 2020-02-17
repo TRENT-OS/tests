@@ -275,20 +275,18 @@ def test_filesystem_partition_manager_get_info_partition(boot_with_proxy):
 # TEST: partition_init()
 #-------------------------------------------------------------------------------
 
-@pytest.mark.skip(reason="NOT WORKING")
 def test_filesystem_partition_init_inexistent_partition_error(boot_with_proxy):
     """ This test fetches an inexistent partition with a partition ID that exceeds the amount of partitions available and tries to initialize it on the disk.
     Example: Maximum number of partitions = 1
     Test: partition id = 2
 
-        - STATUS: NOT WORKING
-        - PROBLEM: Expected return value SEOS_FS_ERROR_INVALID_PARAMETER is not returned -> SEOS_FS_SUCCESS 
+        - STATUS: OK
     """
     test_run = boot_with_proxy("test_filesystem_as_lib")
     f_out = test_run[1]
 
     result_list = [
-        'TestFSPartitionInit_inexistent_partition_error: NOT WORKING'
+        'TestFSPartitionInit_inexistent_partition_error: OK'
     ]
     for result in result_list:
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
@@ -296,20 +294,18 @@ def test_filesystem_partition_init_inexistent_partition_error(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-@pytest.mark.skip(reason="NOT WORKING")
 def test_filesystem_partition_init_empty_shadow_partition_error(boot_with_proxy):
     """ This test fetches an inexistent partition with a partition ID that equals the amount of partitions available and tries to initialize it on the disk.
     Example: Maximum number of partitions = 1
     Test: partition id = 1
 
-        - STATUS: NOT WORKING
-        - PROBLEM: Expected return value SEOS_FS_ERROR_INVALID_PARAMETER is not returned -> SEOS_FS_SUCCESS
+        - STATUS: OK
     """
     test_run = boot_with_proxy("test_filesystem_as_lib")
     f_out = test_run[1]
 
     result_list = [
-        'TestFSPartitionInit_empty_shadow_partition_error: NOT WORKING'
+        'TestFSPartitionInit_empty_shadow_partition_error: OK'
     ]
     for result in result_list:
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
