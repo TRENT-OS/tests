@@ -89,7 +89,7 @@ def start_or_attach_to_qemu_and_proxy(
             qemu_pid_file)
         print("process detached")
 
-    # seems QEMU tried to read from strdin, so we have to open the pipe now
+        # seems QEMU tries to read from strdin, so we have to open the pipe now
     # to unblock it
     f_qemu_stdin = open(qemu_stdin_file, "w", buffering=1)
 
