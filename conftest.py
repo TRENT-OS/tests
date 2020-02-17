@@ -11,6 +11,17 @@ import subprocess
 import datetime
 
 #-------------------------------------------------------------------------------
+def get_pid_from_pid_file(
+    pid_file
+):
+    if not os.path.exists(pid_file):
+        return None
+
+    with open(pid_file,"r") as f:
+        return int(f.read())
+
+
+#-------------------------------------------------------------------------------
 def start_process_and_create_pid_file(
     cmd_line,
     pid_file
@@ -46,30 +57,32 @@ def start_or_attach_to_qemu_and_proxy(
     proxy_stdout_file = None,
     proxy_pid_file = None
 ):
-    print("Log files:")
-    print("  test system output: " + test_system_out_file)
-    print("  QEMU stdin:         " + qemu_stdin_file)
-    print("  QEMU stdout:        " + qemu_stdout_file)
-    print("  QEMU stderr:        " + qemu_stderr_file)
-
-    if proxy_stdout_file is not None:
-        print("  proxy stdout:       " + proxy_stdout_file)
-
     qemu_already_running = os.path.isfile(qemu_pid_file)
 
     proxy_already_running = False if proxy_pid_file is None \
                             else os.path.isfile(proxy_pid_file)
 
+    f_qemu_stdin = None
+
+    print("")
 
     if qemu_already_running:
-        print("QEMU already running")
+        qemu_pid = get_pid_from_pid_file(qemu_pid_file)
+        print("QEMU already running (PID %u)"%(qemu_pid))
+
     else:
         test_image = os.path.join(
                         test_image_descriptor[0],
                         "build-zynq7000-Debug-"+test_image_descriptor[1],
                         "images",
                         "capdl-loader-image-arm-zynq7000")
+
         print("launching QEMU with " + test_image)
+        print("  test system output: " + test_system_out_file)
+        print("  QEMU stdin:         " + qemu_stdin_file)
+        print("  QEMU stdout:        " + qemu_stdout_file)
+        print("  QEMU stderr:        " + qemu_stderr_file)
+
         assert(os.path.isfile(test_image))
 
         start_process_and_create_pid_file(
@@ -87,20 +100,23 @@ def start_or_attach_to_qemu_and_proxy(
                 " >" + qemu_stdout_file +
                 " <" + qemu_stdin_file,
             qemu_pid_file)
-        print("process detached")
 
         # seems QEMU tries to read from strdin, so we have to open the pipe now
-    # to unblock it
-    f_qemu_stdin = open(qemu_stdin_file, "w", buffering=1)
+        # to unblock it
+        f_qemu_stdin = open(qemu_stdin_file, "w", buffering=1)
 
-    # give QEMU some time to start
-    time.sleep(1)
+        qemu_pid = get_pid_from_pid_file(qemu_pid_file)
+        print("QEMU starting (PID %u) ..."%(qemu_pid))
+        # give QEMU some time to start
+        time.sleep(1)
+
 
     f_qemu_stderr = logs.open_file_non_blocking(qemu_stderr_file, "r")
 
     if proxy_app is not None:
         if proxy_already_running:
-            print("Proxy already running")
+            proxy_pid = get_pid_from_pid_file(proxy_pid_file)
+            print("Proxy already running (PID %u)"%(proxy_pid))
         elif qemu_already_running:
             # Proxy can't be running when we've just started QEMU, as they can
             # only be started togehter
@@ -108,6 +124,7 @@ def start_or_attach_to_qemu_and_proxy(
             assert False
         else:
             print("Start proxy: " + proxy_app)
+            print("  proxy stdout:       " + proxy_stdout_file)
             # search for dev/ptsX info in QEMU stderr
             (text, match) = logs.get_match_in_line(
                                 f_qemu_stderr,
@@ -123,7 +140,9 @@ def start_or_attach_to_qemu_and_proxy(
             start_process_and_create_pid_file(
                 proxy_app + " " + tap_params +" > " + proxy_stdout_file,
                 proxy_pid_file)
-            print("Detached proxy app process")
+
+            proxy_pid = get_pid_from_pid_file(proxy_pid_file)
+            print("Proxy starting (PID %u) ..."%(proxy_pid))
 
     if not qemu_already_running:
         # QEMU starts up in halted mode, must send the "c" command to let it
@@ -141,10 +160,12 @@ def start_or_attach_to_qemu_and_proxy(
                 print("waiting for QEMU, communication failures: " + attempts)
                 time.sleep(1)
 
+        print("QEMU machine released...")
         # give QEMU some time to run
         time.sleep(2)
 
-    print("QEMU up and system running")
+        print("QEMU up and system running")
+
     f_test_output = logs.open_file_non_blocking(test_system_out_file, 'r')
 
     return (f_qemu_stdin, f_test_output, f_qemu_stderr)
