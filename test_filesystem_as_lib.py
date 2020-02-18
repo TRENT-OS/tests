@@ -598,6 +598,59 @@ def test_filesystem_create(boot_with_proxy):
 # TEST: partition_fs_mount()
 #-------------------------------------------------------------------------------
 
+@pytest.mark.skip(reason="NOT IMPLEMENTED")
+def test_filesystem_mount_invalid_parameter_error(boot_with_proxy):
+    """ This test mounts the created filesystem instances on the respective partitions available, but uses ...
+
+        - STATUS: NOT IMPLEMENTED
+    """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSMount_invalid_parameter_error: NOT IMPLEMENTED'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result  
+
+#-------------------------------------------------------------------------------
+
+@pytest.mark.skip(reason="NOT IMPLEMENTED")
+def test_filesystem_mount_no_disk_error(boot_with_proxy):
+    """ This test mounts the created filesystem instances on the respective partitions available, but uses ...
+
+        - STATUS: NOT IMPLEMENTED
+    """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSMount_no_disk_error: NOT IMPLEMENTED'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result  
+
+#-------------------------------------------------------------------------------
+
+def test_filesystem_mount_resolve_handle_error(boot_with_proxy):
+    """ This test mounts the created filesystem instances on the respective partitions available, but uses ...
+
+        - STATUS: OK
+    """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSMount_resolve_handle_error: OK'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result  
+
+#-------------------------------------------------------------------------------
+
 def test_filesystem_mount(boot_with_proxy):
     """ This test mounts the created filesystem instances on the respective partitions available.
 
