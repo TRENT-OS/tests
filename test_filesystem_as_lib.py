@@ -5,7 +5,7 @@ import re
 sys.path.append('../common')
 import logs
 
-timeout = 15
+timeout = 90
 
 #-------------------------------------------------------------------------------
 # TEST: HW setup init
@@ -313,18 +313,16 @@ def test_filesystem_partition_init_empty_shadow_partition_error(boot_with_proxy)
 
 #-------------------------------------------------------------------------------
 
-@pytest.mark.skip(reason="NOT WORKING")
 def test_filesystem_partition_init_invalid_partition_mode_error(boot_with_proxy):
     """ This test fetches an existent partition by using an invalid partition mode and tries to initialize it on the disk.
 
-        - STATUS: NOT WORKING
-        - PROBLEM: Expected return value SEOS_FS_ERROR_INVALID_PARAMETER is not returned -> SEOS_FS_SUCCESS
+        - STATUS: OK
     """
     test_run = boot_with_proxy("test_filesystem_as_lib")
     f_out = test_run[1]
 
     result_list = [
-        'TestFSPartitionInit_invalid_partition_mode_error: NOT WORKING'
+        'TestFSPartitionInit_invalid_partition_mode_error: OK'
     ]
     for result in result_list:
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
@@ -372,6 +370,7 @@ def test_filesystem_partition_init_init_error(boot_with_proxy):
 
 def test_filesystem_partition_init(boot_with_proxy):
     """ This test fetches all required partitions from the provided system config and initializes them on the disk.
+    The partitions are assigned a respective partition mode - either for read and/or write.
 
         - STATUS: OK
     """
@@ -402,14 +401,182 @@ def test_filesystem_partition_open(boot_with_proxy):
     ]
     for result in result_list:
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+        assert match == result
+
+#-------------------------------------------------------------------------------
+
+def test_filesystem_partition_open_inexistent_partition_error(boot_with_proxy):
+    """ This test fetches an inexistent partition with a partition ID that exceeds the amount of partitions available and tries to initialize it on the disk.
+    Example: Maximum number of partitions = 1
+    Test: partition id = 2
+
+        - STATUS: OK
+    """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSPartitionOpen_inexistent_partition_error: OK'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result
+
+#-------------------------------------------------------------------------------
+
+def test_filesystem_partition_open_empty_shadow_partition_error(boot_with_proxy):
+    """ This test fetches an inexistent partition with a partition ID that equals the amount of partitions available and tries to initialize it on the disk.
+    Example: Maximum number of partitions = 1
+    Test: partition id = 1
+
+        - STATUS: OK
+    """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSPartitionOpen_empty_shadow_partition_error: OK'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result
 
 #-------------------------------------------------------------------------------
 # TEST: partition_fs_create()
 #-------------------------------------------------------------------------------
 
+@pytest.mark.skip(reason="NOT IMPLEMENTED")
+def test_filesystem_create_invalid_parameter_error(boot_with_proxy):
+    """ This test initializes a filesystem instance on each partition available, but uses ...
+        The following filesystem types are available right now:
+            - FAT (FAT12, FAT16, FAT32)
+            - SPIFFS 
+        Currently, only the FAT filesystem is tested.
+
+        - STATUS: NOT IMPLEMENTED
+    """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSCreate_invalid_parameter_error: NOT IMPLEMENTED'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result 
+
+#-------------------------------------------------------------------------------
+
+@pytest.mark.skip(reason="NOT IMPLEMENTED")
+def test_filesystem_create_no_disk_error(boot_with_proxy):
+    """ This test initializes a filesystem instance on each partition available, but uses ...
+        The following filesystem types are available right now:
+            - FAT (FAT12, FAT16, FAT32)
+            - SPIFFS 
+        Currently, only the FAT filesystem is tested.
+
+        - STATUS: NOT IMPLEMENTED
+    """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSCreate_no_disk_error: NOT IMPLEMENTED'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result 
+
+#-------------------------------------------------------------------------------
+
+def test_filesystem_create_resolve_handle_error(boot_with_proxy):
+    """ This test initializes a filesystem instance on each partition available, but uses an invalid partition handle.
+        The following filesystem types are available right now:
+            - FAT (FAT12, FAT16, FAT32)
+            - SPIFFS 
+        Currently, only the FAT filesystem is tested.
+
+        - STATUS: OK
+    """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSCreate_resolve_handle_error: OK'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result 
+
+#-------------------------------------------------------------------------------
+
+@pytest.mark.skip(reason="NOT WORKING")
+def test_filesystem_create_invalid_filesystem_error(boot_with_proxy):
+    """ This test initializes a filesystem instance on each partition available, but uses ...
+        The following filesystem types are available right now:
+            - FAT (FAT12, FAT16, FAT32)
+            - SPIFFS 
+        Currently, only the FAT filesystem is tested.
+
+        - STATUS: NOT WORKING
+    """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSCreate_invalid_filesystem_error: NOT WORKING'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result 
+
+#-------------------------------------------------------------------------------
+
+@pytest.mark.skip(reason="NOT WORKING")
+def test_filesystem_create_error(boot_with_proxy):
+    """ This test initializes a filesystem instance on each partition available, but uses an invalid partition size.
+        The following filesystem types are available right now:
+            - FAT (FAT12, FAT16, FAT32)
+            - SPIFFS 
+        Currently, only the FAT filesystem is tested.
+
+        - STATUS: NOT WORKING
+    """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSCreate_error: NOT WORKING'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result 
+
+#-------------------------------------------------------------------------------
+
+def test_filesystem_create_format_partition(boot_with_proxy):
+    """ This test initializes a filesystem instance on each partition available at the system and formats partition 1.
+        The following filesystem types are available right now:
+            - FAT (FAT12, FAT16, FAT32)
+            - SPIFFS 
+        Currently, only the FAT filesystem is tested.
+
+        - STATUS: OK
+    """
+    test_run = boot_with_proxy("test_filesystem_as_lib")
+    f_out = test_run[1]
+
+    result_list = [
+        'TestFSCreate_format_partition: OK'
+    ]
+    for result in result_list:
+        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
+        assert match == result 
+
+#-------------------------------------------------------------------------------
+
 def test_filesystem_create(boot_with_proxy):
-    """ This test initializes a filesystem instance on each partition available at the system.
+    """ This test initializes a filesystem instance on each partition available at the system and overwrites the partitions.
         The following filesystem types are available right now:
             - FAT (FAT12, FAT16, FAT32)
             - SPIFFS 
