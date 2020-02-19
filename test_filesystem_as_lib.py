@@ -746,17 +746,16 @@ def test_filesystem_file_delete(boot_with_proxy):
 # TEST: partition_wipe()
 #-------------------------------------------------------------------------------
 
-@pytest.mark.skip(reason="NOT WORKING")
 def test_filesystem_partition_wipe(boot_with_proxy):
-    """ This test wipes all files from provided partitions.
+    """ This test wipes all files from provided partitions. Currently only works for small partitions, as wiping large partitions takes too long.
 
-        - STATUS: NOT WORKING
+        - STATUS: OK
     """
     test_run = boot_with_proxy("test_filesystem_as_lib")
     f_out = test_run[1]
 
     result_list = [
-        'TestFSPartitionWipe: NOT WORKING'
+        'TestFSPartitionWipe: OK'
     ]
     for result in result_list:
         (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
