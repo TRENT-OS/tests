@@ -30,10 +30,12 @@ def test_key_store_provisioning(boot_with_proxy):
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    expected_output_array = [
-        "Preprovisioning keystore demo succeeded",
-    ]
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+        f_out,
+        [
+            "Preprovisioning keystore demo succeeded"
+        ],
+        timeout)
 
-    for success_msg in expected_output_array:
-        (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
-        assert match == success_msg
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
