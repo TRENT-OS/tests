@@ -12,7 +12,7 @@ test_system = "demo_keystore"
 timeout = 100
 
 #-------------------------------------------------------------------------------
-def keystore_demo_test(boot_with_proxy):
+def test_keystore_demo(boot_with_proxy):
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
