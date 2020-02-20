@@ -9,7 +9,10 @@ import re
 import time
 
 test_system = "test_keystore"
-timeout = 600
+# based in the profiling in CI, 180 sec should be enough. Most tests finish
+# well under 60 seconds, just sometimes tests can take much longer. Might be
+# related to CI system load in the end.
+timeout = 180
 
 
 #-------------------------------------------------------------------------------
