@@ -7,6 +7,8 @@ import logs
 
 timeout = 90
 
+test_system = "test_filesystem_as_lib"
+
 #-------------------------------------------------------------------------------
 # TEST: HW setup init
 #-------------------------------------------------------------------------------
@@ -37,15 +39,18 @@ def test_filesystem_hw_init(boot_with_proxy):
         f.seek( (36*1024*1024) -1 )
         f.write(b"\0")
 
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSHWInit: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result    
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSHWInit: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))    
 
 #-------------------------------------------------------------------------------
 # TEST: partition_manager_init()
@@ -59,15 +64,18 @@ def test_filesystem_partition_manager_init_config_error(boot_with_proxy):
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: Bad config parameters can't be tested as the overall test setup requires exactly one global system config file, containing valid parameters.
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPMInit_config_error: NOT IMPLEMENTED'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPMInit_config_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 
@@ -76,15 +84,18 @@ def test_filesystem_partition_manager_init_invalid_parameter_error(boot_with_pro
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPMInit_invalid_parameter_error: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPMInit_invalid_parameter_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 
@@ -95,15 +106,18 @@ def test_filesystem_partition_manager_init_check_config_error(boot_with_proxy):
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: Bad config parameters can't be tested as the overall test setup requires exactly one global system config file, containing valid parameters.
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPMInit_check_config_error: NOT IMPLEMENTED'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPMInit_check_config_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 
@@ -113,15 +127,18 @@ def test_filesystem_partition_manager_init(boot_with_proxy):
             
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPMInit: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPMInit: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 # TEST: partition_manager_get_info_disk()
@@ -132,15 +149,18 @@ def test_filesystem_partition_manager_get_info_disk_invalid_parameter_error(boot
             
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
-    f_out = test_run[1]
+    test_run = boot_with_proxy(test_system)
+    f_out = test_run[1]  
 
-    result_list = [
-        'TestFSPMDiskInfo_invalid_parameter_error: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPMDiskInfo_invalid_parameter_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 
@@ -151,15 +171,18 @@ def test_filesystem_partition_manager_get_info_disk_fail_to_get_struct_error(boo
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPMDiskInfo_fail_to_get_struct_error: NOT IMPLEMENTED'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPMDiskInfo_fail_to_get_struct_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 
@@ -168,15 +191,18 @@ def test_filesystem_partition_manager_get_info_disk(boot_with_proxy):
         
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPMDiskInfo: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPMDiskInfo: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 # TEST: partition_manager_get_info_partition()
@@ -192,12 +218,15 @@ def test_filesystem_partition_manager_get_info_partition_inexistent_partition_er
     test_run = boot_with_proxy("test_partition_manager")
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPMPartitionInfo_inexistent_partition_error: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result 
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPMPartitionInfo_inexistent_partition_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 
@@ -211,12 +240,15 @@ def test_filesystem_partition_manager_get_info_partition_empty_shadow_partition_
     test_run = boot_with_proxy("test_partition_manager")
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPMPartitionInfo_empty_shadow_partition_error: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result 
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPMPartitionInfo_empty_shadow_partition_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 
@@ -228,13 +260,16 @@ def test_filesystem_partition_manager_get_info_partition_invalid_parameter_error
     test_run = boot_with_proxy("test_partition_manager")
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPMPartitionInfo_invalid_parameter_error: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPMPartitionInfo_invalid_parameter_error: OK"
+    ],
+    timeout)
 
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
+        
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
@@ -247,12 +282,15 @@ def test_filesystem_partition_manager_fail_to_get_struct_error(boot_with_proxy):
     test_run = boot_with_proxy("test_partition_manager")
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPMPartitionInfo_fail_to_get_struct_error: NOT IMPLEMENTED'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPMPartitionInfo_fail_to_get_struct_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -264,12 +302,15 @@ def test_filesystem_partition_manager_get_info_partition(boot_with_proxy):
     test_run = boot_with_proxy("test_partition_manager")
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPMPartitionInfo: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPMPartitionInfo: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: partition_init()
@@ -282,15 +323,18 @@ def test_filesystem_partition_init_inexistent_partition_error(boot_with_proxy):
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPartitionInit_inexistent_partition_error: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPartitionInit_inexistent_partition_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -301,15 +345,18 @@ def test_filesystem_partition_init_empty_shadow_partition_error(boot_with_proxy)
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPartitionInit_empty_shadow_partition_error: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPartitionInit_empty_shadow_partition_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -318,15 +365,18 @@ def test_filesystem_partition_init_invalid_partition_mode_error(boot_with_proxy)
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPartitionInit_invalid_partition_mode_error: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPartitionInit_invalid_partition_mode_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -337,15 +387,18 @@ def test_filesystem_partition_init_no_disk_error(boot_with_proxy):
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPartitionInit_no_disk_error(): NOT IMPLEMENTED'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPartitionInit_no_disk_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -356,15 +409,18 @@ def test_filesystem_partition_init_init_error(boot_with_proxy):
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPartitionInit_init_error(): NOT IMPLEMENTED'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPartitionInit_init_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -374,15 +430,18 @@ def test_filesystem_partition_init(boot_with_proxy):
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPartitionInit: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPartitionInit: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: partition_open() & is_valid_partition_handle()
@@ -393,15 +452,18 @@ def test_filesystem_partition_open(boot_with_proxy):
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPartitionOpen: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPartitionOpen: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -412,34 +474,41 @@ def test_filesystem_partition_open_inexistent_partition_error(boot_with_proxy):
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPartitionOpen_inexistent_partition_error: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPartitionOpen_inexistent_partition_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_open_empty_shadow_partition_error(boot_with_proxy):
     """ This test fetches an inexistent partition with a partition ID that equals the amount of partitions available and tries to initialize it on the disk.
+
     Example: Maximum number of partitions = 1
     Test: partition id = 1
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPartitionOpen_empty_shadow_partition_error: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPartitionOpen_empty_shadow_partition_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: partition_fs_create()
@@ -447,7 +516,7 @@ def test_filesystem_partition_open_empty_shadow_partition_error(boot_with_proxy)
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
 def test_filesystem_create_invalid_parameter_error(boot_with_proxy):
-    """ This test initializes a filesystem instance on each partition available, but uses ...
+    """ This test initializes a filesystem instance on each partition available, but an internal error occurs.
         The following filesystem types are available right now:
             - FAT (FAT12, FAT16, FAT32)
             - SPIFFS 
@@ -455,21 +524,24 @@ def test_filesystem_create_invalid_parameter_error(boot_with_proxy):
 
         - STATUS: NOT IMPLEMENTED
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSCreate_invalid_parameter_error: NOT IMPLEMENTED'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result 
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSCreate_invalid_parameter_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
 def test_filesystem_create_no_disk_error(boot_with_proxy):
-    """ This test initializes a filesystem instance on each partition available, but uses ...
+    """ This test initializes a filesystem instance on each partition available, but an internal error occurs.
         The following filesystem types are available right now:
             - FAT (FAT12, FAT16, FAT32)
             - SPIFFS 
@@ -477,15 +549,18 @@ def test_filesystem_create_no_disk_error(boot_with_proxy):
 
         - STATUS: NOT IMPLEMENTED
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSCreate_no_disk_error: NOT IMPLEMENTED'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result 
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSCreate_no_disk_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -498,21 +573,24 @@ def test_filesystem_create_resolve_handle_error(boot_with_proxy):
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSCreate_resolve_handle_error: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result 
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSCreate_resolve_handle_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT WORKING")
 def test_filesystem_create_invalid_filesystem_error(boot_with_proxy):
-    """ This test initializes a filesystem instance on each partition available, but uses ...
+    """ This test initializes a filesystem instance on each partition available, but an internal error occurs.
         The following filesystem types are available right now:
             - FAT (FAT12, FAT16, FAT32)
             - SPIFFS 
@@ -520,15 +598,18 @@ def test_filesystem_create_invalid_filesystem_error(boot_with_proxy):
 
         - STATUS: NOT WORKING
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSCreate_invalid_filesystem_error: NOT WORKING'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result 
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSCreate_invalid_filesystem_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 
@@ -542,15 +623,18 @@ def test_filesystem_create_error(boot_with_proxy):
 
         - STATUS: NOT WORKING
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSCreate_error: NOT WORKING'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result 
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSCreate_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 
@@ -563,15 +647,18 @@ def test_filesystem_create_format_partition(boot_with_proxy):
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSCreate_format_partition: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result 
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSCreate_format_partition: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 
@@ -584,15 +671,18 @@ def test_filesystem_create(boot_with_proxy):
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSCreate: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSCreate: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 # TEST: partition_fs_mount()
@@ -600,54 +690,63 @@ def test_filesystem_create(boot_with_proxy):
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
 def test_filesystem_mount_invalid_parameter_error(boot_with_proxy):
-    """ This test mounts the created filesystem instances on the respective partitions available, but uses ...
+    """ This test mounts the created filesystem instances on the respective partitions available, but an internal error occurs.
 
         - STATUS: NOT IMPLEMENTED
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSMount_invalid_parameter_error: NOT IMPLEMENTED'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSMount_invalid_parameter_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
 def test_filesystem_mount_no_disk_error(boot_with_proxy):
-    """ This test mounts the created filesystem instances on the respective partitions available, but uses ...
+    """ This test mounts the created filesystem instances on the respective partitions available, but an internal error occurs.
 
         - STATUS: NOT IMPLEMENTED
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSMount_no_disk_error: NOT IMPLEMENTED'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSMount_no_disk_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 
 def test_filesystem_mount_resolve_handle_error(boot_with_proxy):
-    """ This test mounts the created filesystem instances on the respective partitions available, but uses ...
+    """ This test mounts the created filesystem instances on the respective partitions available, but an internal error occurs.
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSMount_resolve_handle_error: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSMount_resolve_handle_error: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 
@@ -656,15 +755,18 @@ def test_filesystem_mount(boot_with_proxy):
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSMount: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSMount: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 # TEST: file_open(), file_write() & file_close()
@@ -672,18 +774,22 @@ def test_filesystem_mount(boot_with_proxy):
 
 def test_filesystem_file_create(boot_with_proxy):
     """ This test creates different files of varying file size and file content on the provided filesystem instances (and the partitions underneath respectively).
+        File creation is utilizing file_open(), file_write() & file_close() functions.
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSFileCreate: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSFileCreate: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 # TEST: file_getSize()
@@ -694,15 +800,18 @@ def test_filesystem_file_size(boot_with_proxy):
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSFileSize: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSFileSize: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 # TEST: file_open(), file_read() & file_close()
@@ -713,15 +822,18 @@ def test_filesystem_file_read(boot_with_proxy):
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSFileRead: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSFileRead: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 # TEST: file_delete()
@@ -732,15 +844,18 @@ def test_filesystem_file_delete(boot_with_proxy):
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSFileDelete: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSFileDelete: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 # TEST: partition_wipe()
@@ -751,15 +866,18 @@ def test_filesystem_partition_wipe(boot_with_proxy):
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPartitionWipe: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPartitionWipe: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
 # TEST: partition_fs_unmount()
@@ -770,15 +888,18 @@ def test_filesystem_unmount(boot_with_proxy):
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSUnmount: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSUnmount: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: partition_close()
@@ -789,14 +910,17 @@ def test_filesystem_partition_close(boot_with_proxy):
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy("test_filesystem_as_lib")
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    result_list = [
-        'TestFSPartitionClose: OK'
-    ]
-    for result in result_list:
-        (text,match) = logs.get_match_in_line(f_out,re.compile(result),timeout)
-        assert match == result  
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    f_out,
+    [
+        "TestFSPartitionClose: OK"
+    ],
+    timeout)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
