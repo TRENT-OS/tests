@@ -6,6 +6,7 @@ sys.path.append('../common')
 import logs
 
 def test_run_demo(boot_with_proxy):
+    """ This demo utilizes the partition manager as a component and makes use of all relevant SEOS Partition Manager API functions. """
 
     proxy_memory_file = "nvm_06"
     if os.path.isfile(proxy_memory_file):

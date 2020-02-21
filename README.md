@@ -16,10 +16,4 @@ The seos\_proxy\_app is the proxy application that communicates (via qemu UART) 
 * python
 * see requirements.txt
 
-### test_partition_manager
-
-* test_partition_manager_get_info_disk(): test to get the disk info of an existing disk, which was predefined in the setup config [SEOS_PM_SUCCESS]
-* test_partition_manager_get_info_disk_fake_disk(): test to get the disk info of a non-existing disk [SEOS_PM_SUCCESS]
-* test_partition_manager_get_info_disk_fail(): test to get disk info of an existing disk, but using invalid parameter [SEOS_PM_ERROR_INVALID_PARAMETER]
-
 
