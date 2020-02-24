@@ -10,7 +10,7 @@ import time
 
 def test_hello_world(boot):
     """
-    Test a minimal SEOS system that has one application saying hallo to the
+    Test a minimal SEOS system that has one application saying hello to the
     world
     """
 
