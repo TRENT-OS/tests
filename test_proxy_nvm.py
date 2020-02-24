@@ -20,7 +20,12 @@ def test_proxy_nvm_small_section_test(boot_with_proxy):
 
         two SEOS Tester components will (in parallel) write a small section of
         the NVM abstraction exposed by the Proxy app with a known pattern and
-        then read it and check it."""
+        then read it and check it.
+    
+    Test is currently limited to the disk size preconfigured by the proxy application:
+        - 36 MiB for 1st NVM channel
+        - 128 KiB for 2nd NVM channel
+    """
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
@@ -43,7 +48,12 @@ def test_proxy_nvm_whole_memory_test(boot_with_proxy):
 
         two SEOS Tester components will (in parallel) write the full size of
         the NVM abstraction exposed by the Proxy app with a known pattern and
-        then read it and check it."""
+        then read it and check it.
+    
+    Test is currently limited to the disk size preconfigured by the proxy application:
+        - 36 MiB for 1st NVM channel
+        - 128 KiB for 2nd NVM channel
+    """
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
@@ -67,7 +77,12 @@ def test_proxy_nvm_size_out_of_bounds_test(boot_with_proxy):
 
         two SEOS Tester components will (in parallel) try to write outside of
         the boundaries of the NVM abstraction exposed by the Proxy app then
-        check that an error condition is raised."""
+        check that an error condition is raised.
+    
+    Test is currently limited to the disk size preconfigured by the proxy application:
+        - 36 MiB for 1st NVM channel
+        - 128 KiB for 2nd NVM channel
+    """
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
@@ -91,7 +106,12 @@ def test_proxy_nvm_address_out_of_bounds_test(boot_with_proxy):
 
         two SEOS Tester components will (in parallel) try to write outside of
         the boundaries of the NVM abstraction exposed by the Proxy app then
-        check that an error condition is raised."""
+        check that an error condition is raised.
+
+    Test is currently limited to the disk size preconfigured by the proxy application:
+        - 36 MiB for 1st NVM channel
+        - 128 KiB for 2nd NVM channel
+    """
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
