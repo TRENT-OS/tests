@@ -5,8 +5,9 @@ import re
 sys.path.append('../common')
 import logs
 
-# 
-timeout = 90 
+# this timeout is used for most of the tests, but some tests known to run much
+# longer use a custom value
+timeout = 90
 
 test_system = "test_filesystem_as_lib"
 
@@ -15,17 +16,17 @@ test_system = "test_filesystem_as_lib"
 #-------------------------------------------------------------------------------
 
 def test_filesystem_hw_init(boot_with_proxy):
-    """This test initializes the underlying HW platform for the filesystem. 
+    """This test initializes the underlying HW platform for the filesystem.
     The HW platform consists of two components, which have to be created:
         - a ChanMuxClient instance, allowing the communication between the OS and the host proxy application
         - a ProxyNVM instance, which uses the ChanMuxClient to provide the required NVM storage backend
-    
+
     The behavior of the FileSystem is described at https://wiki.hensoldt-cyber.systems/pages/viewpage.action?spaceKey=HEN&title=SEOS+File+System.
 
     Underlying SEOS Test System behavior:
 
-        a NVM backend is created at the host system, which can be used as a 
-        disk by the SEOS partition manager. 
+        a NVM backend is created at the host system, which can be used as a
+        disk by the SEOS partition manager.
     """
     proxy_memory_file = "nvm_06"
     if os.path.isfile(proxy_memory_file):
@@ -51,7 +52,7 @@ def test_filesystem_hw_init(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail))    
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: partition_manager_init()
@@ -59,9 +60,9 @@ def test_filesystem_hw_init(boot_with_proxy):
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
 def test_filesystem_partition_manager_init_config_error(boot_with_proxy):
-    """ This test validates the provided system config file, which contains the disk and partition parameters 
-    required by the partition manager for initialization. 
-    
+    """ This test validates the provided system config file, which contains the disk and partition parameters
+    required by the partition manager for initialization.
+
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: Bad config parameters can't be tested as the overall test setup requires exactly one global system config file, containing valid parameters.
     """
@@ -76,12 +77,12 @@ def test_filesystem_partition_manager_init_config_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_manager_init_invalid_parameter_error(boot_with_proxy):
-    """ This test initializes the partition manager with an invalid storage backend, provided in form of a non-existing ProxyNVM instance. 
+    """ This test initializes the partition manager with an invalid storage backend, provided in form of a non-existing ProxyNVM instance.
 
         - STATUS: OK
     """
@@ -96,14 +97,14 @@ def test_filesystem_partition_manager_init_invalid_parameter_error(boot_with_pro
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
 def test_filesystem_partition_manager_init_check_config_error(boot_with_proxy):
     """ This test validates the initialized disk and partition(s) including their parameters.
-    
+
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: Bad config parameters can't be tested as the overall test setup requires exactly one global system config file, containing valid parameters.
     """
@@ -118,14 +119,14 @@ def test_filesystem_partition_manager_init_check_config_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_manager_init(boot_with_proxy):
     """ This test initializes the partition manager with a storage backend, provided in form of a ProxyNVM instance.
-    The partition manager initializes the partitions provided via the system config. 
-            
+    The partition manager initializes the partitions provided via the system config.
+
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
@@ -139,19 +140,19 @@ def test_filesystem_partition_manager_init(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: partition_manager_get_info_disk()
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_manager_get_info_disk_invalid_parameter_error(boot_with_proxy):
-    """ This test tries to receive disk data from an invalid disk. 
-            
+    """ This test tries to receive disk data from an invalid disk.
+
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]  
+    f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
     f_out,
@@ -161,14 +162,14 @@ def test_filesystem_partition_manager_get_info_disk_invalid_parameter_error(boot
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
 def test_filesystem_partition_manager_get_info_disk_fail_to_get_struct_error(boot_with_proxy):
-    """ This test tries to receive disk data from a valid disk, but an internal error occurs. 
-    
+    """ This test tries to receive disk data from a valid disk, but an internal error occurs.
+
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
@@ -183,13 +184,13 @@ def test_filesystem_partition_manager_get_info_disk_fail_to_get_struct_error(boo
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_manager_get_info_disk(boot_with_proxy):
     """ This test gets the disk info of a valid disk already available at the host system.
-        
+
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
@@ -203,17 +204,17 @@ def test_filesystem_partition_manager_get_info_disk(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: partition_manager_get_info_partition()
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_manager_get_info_partition_inexistent_partition_error(boot_with_proxy):
-    """ This test gets the partition info of an inexistent partition with a partition ID that exceeds the amount of partitions available. 
+    """ This test gets the partition info of an inexistent partition with a partition ID that exceeds the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 2
-  
+
         - STATUS: OK
     """
     test_run = boot_with_proxy("test_partition_manager")
@@ -227,15 +228,15 @@ def test_filesystem_partition_manager_get_info_partition_inexistent_partition_er
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_manager_get_info_partition_empty_shadow_partition_error(boot_with_proxy):
-    """ This test gets the partition info of an inexistent partition with a partition ID that equals the amount of partitions available. 
+    """ This test gets the partition info of an inexistent partition with a partition ID that equals the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 1
-  
+
         - STATUS: OK
     """
     test_run = boot_with_proxy("test_partition_manager")
@@ -249,12 +250,12 @@ def test_filesystem_partition_manager_get_info_partition_empty_shadow_partition_
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_manager_get_info_partition_invalid_parameter_error(boot_with_proxy):
-    """ This test tries to get the partition info of an invalid partition. 
+    """ This test tries to get the partition info of an invalid partition.
 
         - STATUS: OK
     """
@@ -270,13 +271,13 @@ def test_filesystem_partition_manager_get_info_partition_invalid_parameter_error
 
     if not ret:
         pytest.fail(" missing: %s"%(expr_fail))
-        
+
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
 def test_filesystem_partition_manager_fail_to_get_struct_error(boot_with_proxy):
     """ This test tries to get the partition info of a valid partition, but an internal error occurs.
-        
+
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
@@ -297,7 +298,7 @@ def test_filesystem_partition_manager_fail_to_get_struct_error(boot_with_proxy):
 
 def test_filesystem_partition_manager_get_info_partition(boot_with_proxy):
     """ This test gets the partition infos of all valid partitions residing on disk.
-            
+
         - STATUS: OK
     """
     test_run = boot_with_proxy("test_partition_manager")
@@ -520,7 +521,7 @@ def test_filesystem_create_invalid_parameter_error(boot_with_proxy):
     """ This test initializes a filesystem instance on each partition available, but an internal error occurs.
         The following filesystem types are available right now:
             - FAT (FAT12, FAT16, FAT32)
-            - SPIFFS 
+            - SPIFFS
         Currently, only the FAT filesystem is tested.
 
         - STATUS: NOT IMPLEMENTED
@@ -545,7 +546,7 @@ def test_filesystem_create_no_disk_error(boot_with_proxy):
     """ This test initializes a filesystem instance on each partition available, but an internal error occurs.
         The following filesystem types are available right now:
             - FAT (FAT12, FAT16, FAT32)
-            - SPIFFS 
+            - SPIFFS
         Currently, only the FAT filesystem is tested.
 
         - STATUS: NOT IMPLEMENTED
@@ -569,7 +570,7 @@ def test_filesystem_create_resolve_handle_error(boot_with_proxy):
     """ This test initializes a filesystem instance on each partition available, but uses an invalid partition handle.
         The following filesystem types are available right now:
             - FAT (FAT12, FAT16, FAT32)
-            - SPIFFS 
+            - SPIFFS
         Currently, only the FAT filesystem is tested.
 
         - STATUS: OK
@@ -585,7 +586,7 @@ def test_filesystem_create_resolve_handle_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -594,7 +595,7 @@ def test_filesystem_create_invalid_filesystem_error(boot_with_proxy):
     """ This test initializes a filesystem instance on each partition available, but an internal error occurs.
         The following filesystem types are available right now:
             - FAT (FAT12, FAT16, FAT32)
-            - SPIFFS 
+            - SPIFFS
         Currently, only the FAT filesystem is tested.
 
         - STATUS: NOT WORKING
@@ -610,7 +611,7 @@ def test_filesystem_create_invalid_filesystem_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -619,7 +620,7 @@ def test_filesystem_create_error(boot_with_proxy):
     """ This test initializes a filesystem instance on each partition available, but uses an invalid partition size.
         The following filesystem types are available right now:
             - FAT (FAT12, FAT16, FAT32)
-            - SPIFFS 
+            - SPIFFS
         Currently, only the FAT filesystem is tested.
 
         - STATUS: NOT WORKING
@@ -635,7 +636,7 @@ def test_filesystem_create_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -643,7 +644,7 @@ def test_filesystem_create_format_partition(boot_with_proxy):
     """ This test initializes a filesystem instance on each partition available at the system and formats partition 1.
         The following filesystem types are available right now:
             - FAT (FAT12, FAT16, FAT32)
-            - SPIFFS 
+            - SPIFFS
         Currently, only the FAT filesystem is tested.
 
         If partition manager and filesystem are running on top of ChanMux, this test can take up to 2 minutes.
@@ -662,7 +663,7 @@ def test_filesystem_create_format_partition(boot_with_proxy):
     150)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -670,7 +671,7 @@ def test_filesystem_create(boot_with_proxy):
     """ This test initializes a filesystem instance on each partition available at the system and overwrites the partitions.
         The following filesystem types are available right now:
             - FAT (FAT12, FAT16, FAT32)
-            - SPIFFS 
+            - SPIFFS
         Currently, only the FAT filesystem is tested.
 
         - STATUS: OK
@@ -686,7 +687,7 @@ def test_filesystem_create(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: partition_fs_mount()
@@ -709,7 +710,7 @@ def test_filesystem_mount_invalid_parameter_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -730,7 +731,7 @@ def test_filesystem_mount_no_disk_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -750,7 +751,7 @@ def test_filesystem_mount_resolve_handle_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -770,7 +771,7 @@ def test_filesystem_mount(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: file_open(), file_write() & file_close()
@@ -793,7 +794,7 @@ def test_filesystem_file_create(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: file_getSize()
@@ -815,7 +816,7 @@ def test_filesystem_file_size(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: file_open(), file_read() & file_close()
@@ -837,7 +838,7 @@ def test_filesystem_file_read(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: file_delete()
@@ -859,7 +860,7 @@ def test_filesystem_file_delete(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: partition_wipe()
@@ -883,7 +884,7 @@ def test_filesystem_partition_wipe(boot_with_proxy):
     150)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: partition_fs_unmount()
