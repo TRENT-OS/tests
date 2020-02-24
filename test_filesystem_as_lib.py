@@ -5,7 +5,8 @@ import re
 sys.path.append('../common')
 import logs
 
-timeout = 90
+# 
+timeout = 90 
 
 test_system = "test_filesystem_as_lib"
 
@@ -645,17 +646,20 @@ def test_filesystem_create_format_partition(boot_with_proxy):
             - SPIFFS 
         Currently, only the FAT filesystem is tested.
 
+        If partition manager and filesystem are running on top of ChanMux, this test can take up to 2 minutes.
+
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
+    # The test takes long time to perform, so timeout is set to 150 seconds.
     (ret, text, expr_fail) = logs.check_log_match_sequence(
     f_out,
     [
         "TestFSCreate_format_partition: OK"
     ],
-    timeout)
+    150)
 
     if not ret:
         pytest.fail(" missing: %s"%(expr_fail)) 
@@ -863,18 +867,20 @@ def test_filesystem_file_delete(boot_with_proxy):
 
 def test_filesystem_partition_wipe(boot_with_proxy):
     """ This test wipes all files from provided partitions. Currently only works for small partitions, as wiping large partitions takes too long.
+    If partition manager and filesystem are running on top of ChanMux, this test can take up to 2 minutes.
 
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
+    # The test takes long time to perform, so timeout is set to 150 seconds.
     (ret, text, expr_fail) = logs.check_log_match_sequence(
     f_out,
     [
         "TestFSPartitionWipe: OK"
     ],
-    timeout)
+    150)
 
     if not ret:
         pytest.fail(" missing: %s"%(expr_fail)) 
