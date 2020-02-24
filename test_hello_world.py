@@ -17,7 +17,10 @@ def test_hello_world(boot):
     test_run = boot("test_hello_world")
     f_out = test_run[1]
 
-    logs.check_log_match_sequence(
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
         ["hello world!"],
         15)
+
+    if not ret:
+        pytest.fail(" missing: %s"%(expr_fail))
