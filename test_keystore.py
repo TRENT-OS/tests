@@ -132,116 +132,116 @@ def test_key_store_multi_instance_tests_move_fat(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail))
 
 
-#-------------------------------------------------------------------------------
-def test_key_store_unit_tests_spiffs(boot_with_proxy):
-    """
-    Run unit tests (import, read, delete) with KeySrore (using SPIFFS file system)
-    Scenario 1: local keystore
-    Scenario 2: remote keystore
-    """
+# #-------------------------------------------------------------------------------
+# def test_key_store_unit_tests_spiffs(boot_with_proxy):
+#     """
+#     Run unit tests (import, read, delete) with KeySrore (using SPIFFS file system)
+#     Scenario 1: local keystore
+#     Scenario 2: remote keystore
+#     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+#     test_run = boot_with_proxy(test_system)
+#     f_out = test_run[1]
 
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
-        f_out,
-        [
-            "TestKeyStoreSPIFFS_scenario_1 succeeded",
-            "TestKeyStoreSPIFFS_scenario_2 succeeded"
-        ],
-        timeout)
+#     (ret, text, expr_fail) = logs.check_log_match_sequence(
+#         f_out,
+#         [
+#             "TestKeyStoreSPIFFS_scenario_1 succeeded",
+#             "TestKeyStoreSPIFFS_scenario_2 succeeded"
+#         ],
+#         timeout)
 
-    if not ret:
-        pytest.fail(" missing: %s"%(expr_fail))
-
-
-#-------------------------------------------------------------------------------
-def test_key_store_integration_tests_AES_spiffs(boot_with_proxy):
-    """
-    import AES-256 key to KeyStore using (using SPIFFS file system)
-    Scenario 3: local keystore
-    Scenario 4: remote keystore
-    """
-
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
-        f_out,
-        [
-            "TestKeyStoreSPIFFS_scenario_3 succeeded",
-            "TestKeyStoreSPIFFS_scenario_4 succeeded"
-        ],
-        timeout)
-
-    if not ret:
-        pytest.fail(" missing: %s"%(expr_fail))
+#     if not ret:
+#         pytest.fail(" missing: %s"%(expr_fail))
 
 
-#-------------------------------------------------------------------------------
-def test_key_store_integration_tests_keyPair_spiffs(boot_with_proxy):
-    """
-    import RSA-128 key pair to KeyStore (using SPIFFS file system)
-    Scenario 5: local keystore
-    Scenario 6: remote keystore
-    """
+# #-------------------------------------------------------------------------------
+# def test_key_store_integration_tests_AES_spiffs(boot_with_proxy):
+#     """
+#     import AES-256 key to KeyStore using (using SPIFFS file system)
+#     Scenario 3: local keystore
+#     Scenario 4: remote keystore
+#     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+#     test_run = boot_with_proxy(test_system)
+#     f_out = test_run[1]
 
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
-        f_out,
-        [
-            "TestKeyStoreSPIFFS_scenario_5 succeeded",
-            "TestKeyStoreSPIFFS_scenario_6 succeeded"
-        ],
-        timeout)
+#     (ret, text, expr_fail) = logs.check_log_match_sequence(
+#         f_out,
+#         [
+#             "TestKeyStoreSPIFFS_scenario_3 succeeded",
+#             "TestKeyStoreSPIFFS_scenario_4 succeeded"
+#         ],
+#         timeout)
 
-    if not ret:
-        pytest.fail(" missing: %s"%(expr_fail))
-
-
-#-------------------------------------------------------------------------------
-def test_key_store_multi_instance_tests_copy_spiffs(boot_with_proxy):
-    """
-    Copy key from one keystore to another (using SPIFFS file system)
-    Scenario 7: local keystore
-    Scenario 8: remote keystore
-    """
-
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
-        f_out,
-        [
-            "TestKeyStoreSPIFFS_scenario_7 succeeded",
-            "TestKeyStoreSPIFFS_scenario_8 succeeded"
-        ],
-        timeout)
-
-    if not ret:
-        pytest.fail(" missing: %s"%(expr_fail))
+#     if not ret:
+#         pytest.fail(" missing: %s"%(expr_fail))
 
 
-#-------------------------------------------------------------------------------
-def test_key_store_multi_instance_tests_move_spiffs(boot_with_proxy):
-    """
-    Move key from one keystore to another (using SPIFFS file system)
-    Scenario 9: local keystore
-    Scenario 10: remote keystore
-    """
+# #-------------------------------------------------------------------------------
+# def test_key_store_integration_tests_keyPair_spiffs(boot_with_proxy):
+#     """
+#     import RSA-128 key pair to KeyStore (using SPIFFS file system)
+#     Scenario 5: local keystore
+#     Scenario 6: remote keystore
+#     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+#     test_run = boot_with_proxy(test_system)
+#     f_out = test_run[1]
 
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
-    f_out,
-    [
-        "TestKeyStoreSPIFFS_scenario_9 succeeded",
-        "TestKeyStoreSPIFFS_scenario_10 succeeded"
-    ],
-    timeout)
+#     (ret, text, expr_fail) = logs.check_log_match_sequence(
+#         f_out,
+#         [
+#             "TestKeyStoreSPIFFS_scenario_5 succeeded",
+#             "TestKeyStoreSPIFFS_scenario_6 succeeded"
+#         ],
+#         timeout)
 
-    if not ret:
-        pytest.fail(" missing: %s"%(expr_fail))
+#     if not ret:
+#         pytest.fail(" missing: %s"%(expr_fail))
+
+
+# #-------------------------------------------------------------------------------
+# def test_key_store_multi_instance_tests_copy_spiffs(boot_with_proxy):
+#     """
+#     Copy key from one keystore to another (using SPIFFS file system)
+#     Scenario 7: local keystore
+#     Scenario 8: remote keystore
+#     """
+
+#     test_run = boot_with_proxy(test_system)
+#     f_out = test_run[1]
+
+#     (ret, text, expr_fail) = logs.check_log_match_sequence(
+#         f_out,
+#         [
+#             "TestKeyStoreSPIFFS_scenario_7 succeeded",
+#             "TestKeyStoreSPIFFS_scenario_8 succeeded"
+#         ],
+#         timeout)
+
+#     if not ret:
+#         pytest.fail(" missing: %s"%(expr_fail))
+
+
+# #-------------------------------------------------------------------------------
+# def test_key_store_multi_instance_tests_move_spiffs(boot_with_proxy):
+#     """
+#     Move key from one keystore to another (using SPIFFS file system)
+#     Scenario 9: local keystore
+#     Scenario 10: remote keystore
+#     """
+
+#     test_run = boot_with_proxy(test_system)
+#     f_out = test_run[1]
+
+#     (ret, text, expr_fail) = logs.check_log_match_sequence(
+#     f_out,
+#     [
+#         "TestKeyStoreSPIFFS_scenario_9 succeeded",
+#         "TestKeyStoreSPIFFS_scenario_10 succeeded"
+#     ],
+#     timeout)
+
+#     if not ret:
+#         pytest.fail(" missing: %s"%(expr_fail))
