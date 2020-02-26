@@ -9,6 +9,7 @@ import re
 import time
 import subprocess
 import datetime
+import multiprocessing, ssl, socket
 
 #-------------------------------------------------------------------------------
 def get_pid_from_pid_file(
@@ -223,6 +224,51 @@ def use_qemu_with_proxy(request, proxy_app=None):
 
 
 #-------------------------------------------------------------------------------
+def tls_server_proc(port = 8888, timeout = 60):
+    try:
+        context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+        context.load_cert_chain(
+            certfile="test_tls_api/cert.pem",
+            keyfile="test_tls_api/key.pem"
+        )
+
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # Allow re-use of socket
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        # Set *some* timeout
+        sock.settimeout(timeout)
+
+        # Allow any IP
+        sock.bind(('', port))
+        # Expect one client
+        sock.listen(1)
+
+        print("[TLS] Started TLS server on port %i" % port)
+
+        while True:
+            conn, addr = sock.accept()
+            print("[TLS] Client connected:", addr)
+
+            stream = context.wrap_socket(conn, server_side=True)
+            try:
+                # Simply echo back to sender, receiving blocks of up to 1 KiB
+                # is sufficient for the current test implementation
+                data = stream.recv(1024)
+                print("[TLS] Received data", data)
+                stream.send(data)
+                print("[TLS] Sent data back")
+            except ssl.SSLEOFError:
+                # This happens during the test of the re-set, where we do a handshake
+                # and then simply close the socket..
+                pass
+            finally:
+                stream.shutdown(socket.SHUT_RDWR)
+                stream.close()
+    finally:
+        sock.close()
+
+
+#-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot(request):
     yield from use_qemu_with_proxy(request)
@@ -233,6 +279,15 @@ def boot(request):
 def boot_with_proxy(request):
     proxy_app = request.config.option.proxy_path
     yield from use_qemu_with_proxy(request, proxy_app)
+
+
+#-------------------------------------------------------------------------------
+@pytest.fixture(scope="module")
+def tls_server():
+    proc = multiprocessing.Process(target=tls_server_proc)
+    proc.start()
+    yield proc
+    proc.terminate()
 
 
 #-------------------------------------------------------------------------------
