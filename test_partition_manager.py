@@ -5,7 +5,7 @@ import re
 sys.path.append('../common')
 import logs
 
-timeout = 15
+timeout = 60
 
 test_system = "test_partition_manager"
 

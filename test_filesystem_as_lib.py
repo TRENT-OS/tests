@@ -7,7 +7,7 @@ import logs
 
 # this timeout is used for most of the tests, but some tests known to run much
 # longer use a custom value
-timeout = 90
+timeout = 250
 
 test_system = "test_filesystem_as_lib"
 
@@ -654,13 +654,13 @@ def test_filesystem_create_format_partition(boot_with_proxy):
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    # The test takes long time to perform, so timeout is set to 150 seconds.
+    # The test takes long time to perform, so timeout is set to 250 seconds.
     (ret, text, expr_fail) = logs.check_log_match_sequence(
     f_out,
     [
         "TestFSCreate_format_partition: OK"
     ],
-    150)
+    250)
 
     if not ret:
         pytest.fail(" missing: %s"%(expr_fail))
@@ -875,13 +875,13 @@ def test_filesystem_partition_wipe(boot_with_proxy):
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    # The test takes long time to perform, so timeout is set to 150 seconds.
+    # The test takes long time to perform, so timeout is set to 250 seconds.
     (ret, text, expr_fail) = logs.check_log_match_sequence(
     f_out,
     [
         "TestFSPartitionWipe: OK"
     ],
-    150)
+    250)
 
     if not ret:
         pytest.fail(" missing: %s"%(expr_fail))
