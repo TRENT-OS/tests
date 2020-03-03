@@ -90,7 +90,7 @@ def test_SeosCryptoApi_Agreement_do_ECDH_rnd_0(boot):
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the ECDH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 20, 'test_SeosCryptoApi_Agreement_do_ECDH_rnd', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 30, 'test_SeosCryptoApi_Agreement_do_ECDH_rnd', 'api->mode=0,allowExport=1')
 
 def test_SeosCryptoApi_Cipher_init_pos_0(boot):
     """
@@ -668,14 +668,14 @@ def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd_0(boot):
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 1.5.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 6, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 15, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd', 'api->mode=0,allowExport=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd_0(boot):
     """
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 2.1.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 8, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 15, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd', 'api->mode=0,allowExport=1')
 
 def test_SeosCryptoApi_Agreement_init_pos_1(boot):
     """
@@ -746,7 +746,7 @@ def test_SeosCryptoApi_Agreement_do_ECDH_rnd_1(boot):
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the ECDH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 20, 'test_SeosCryptoApi_Agreement_do_ECDH_rnd', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 30, 'test_SeosCryptoApi_Agreement_do_ECDH_rnd', 'api->mode=1,allowExport=1')
 
 def test_SeosCryptoApi_Cipher_init_pos_1(boot):
     """
@@ -1339,14 +1339,14 @@ def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd_1(boot):
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 1.5.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 5, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 15, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd', 'api->mode=1,allowExport=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd_1(boot):
     """
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 2.1.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 8, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 15, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd', 'api->mode=1,allowExport=1')
 
 def test_SeosCryptoApi_Agreement_init_pos_2(boot):
     """
@@ -1417,7 +1417,7 @@ def test_SeosCryptoApi_Agreement_do_ECDH_rnd_2(boot):
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the ECDH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 20, 'test_SeosCryptoApi_Agreement_do_ECDH_rnd', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 30, 'test_SeosCryptoApi_Agreement_do_ECDH_rnd', 'api->mode=2,allowExport=1')
 
 def test_SeosCryptoApi_Agreement_do_DH_3(boot):
     """
@@ -1443,7 +1443,7 @@ def test_SeosCryptoApi_Agreement_do_ECDH_rnd_3(boot):
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the ECDH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 21, 'test_SeosCryptoApi_Agreement_do_ECDH_rnd', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 30, 'test_SeosCryptoApi_Agreement_do_ECDH_rnd', 'api->mode=2,allowExport=0')
 
 def test_SeosCryptoApi_Agreement_key_neg_0(boot):
     """
@@ -2136,14 +2136,14 @@ def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd_2(boot):
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 1.5.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 6, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 15, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd', 'api->mode=2,allowExport=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd_2(boot):
     """
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 2.1
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 7, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 15, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd', 'api->mode=2,allowExport=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_sign_3(boot):
     """
@@ -2168,14 +2168,14 @@ def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd_3(boot):
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 1.5.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 9, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 15, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd', 'api->mode=2,allowExport=0')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd_3(boot):
     """
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 2.1.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 8, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 15, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd', 'api->mode=2,allowExport=0')
 
 def test_SeosCryptoApi_Signature_key_neg_0(boot):
     """

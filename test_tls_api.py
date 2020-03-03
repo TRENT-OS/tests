@@ -39,7 +39,7 @@ def test_SeosTlsApi_handshake_pos_0(boot_with_proxy, tls_server):
     Positive tests for SeosTlsApi_handshake(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 63, 'test_SeosTlsApi_handshake_pos', 'api->mode=0')
+    parser.check_test(boot_with_proxy(TEST_NAME), 90, 'test_SeosTlsApi_handshake_pos', 'api->mode=0')
 
 def test_SeosTlsApi_handshake_neg_0(boot_with_proxy, tls_server):
     """
@@ -88,14 +88,14 @@ def test_SeosTlsApi_reset_pos_0(boot_with_proxy, tls_server):
     Positive tests for SeosTlsApi_reset(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 62, 'test_SeosTlsApi_reset_pos', 'api->mode=0')
+    parser.check_test(boot_with_proxy(TEST_NAME), 90, 'test_SeosTlsApi_reset_pos', 'api->mode=0')
 
 def test_SeosTlsApi_handshake_pos_1(boot_with_proxy, tls_server):
     """
     Positive tests for SeosTlsApi_handshake(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 66, 'test_SeosTlsApi_handshake_pos', 'api->mode=2')
+    parser.check_test(boot_with_proxy(TEST_NAME), 90, 'test_SeosTlsApi_handshake_pos', 'api->mode=2')
 
 def test_SeosTlsApi_handshake_neg_1(boot_with_proxy, tls_server):
     """
@@ -144,4 +144,4 @@ def test_SeosTlsApi_reset_pos_1(boot_with_proxy, tls_server):
     Positive tests for SeosTlsApi_reset(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 62, 'test_SeosTlsApi_reset_pos', 'api->mode=2')
+    parser.check_test(boot_with_proxy(TEST_NAME), 90, 'test_SeosTlsApi_reset_pos', 'api->mode=2')
