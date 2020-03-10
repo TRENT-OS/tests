@@ -7,6 +7,11 @@ import pytest
 
 import sys
 
+# This python file is imported by pydoc which sometimes throws an error about a missing IPv6 
+# default route (if the machine building the documentation doesn't have it set).
+# To remove this warning we disable IPv6 support in scapy, since we don't use it at this time.
+from scapy.config import conf
+conf.ipv6_enabled = False
 from scapy.all import *
 
 sys.path.append('../common')
