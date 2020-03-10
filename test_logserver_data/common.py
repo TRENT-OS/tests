@@ -11,19 +11,19 @@ end_of_demo_marker       = "demo finished successfully"
 log_targets_marker       = "content:"
 
 class LogClients(Enum):
-    LOG_SERVER      = "LOG-SERVER"
+    LOG_SERVER       = "LOG-SERVER"
 
-    LVL_NONE        = "LVL_NONE"
-    LVL_ASSERT      = "000200"
-    LVL_FATAL       = "LVL_FATAL"
-    LVL_ERROR       = "LVL_ERROR"
-    LVL_WARNING     = "LVL_WARNING"
-    LVL_INFO        = "LVL_INFO"
-    LVL_DEBUG       = "LVL_DEBUG"
-    LVL_TRACE       = "LVL_TRACE"
-    LVL_CUSTOM      = "LVL_CUSTOM"
+    LVL_NONE         = "LVL_NONE"
+    LVL_ASSERT       = "000200"
+    LVL_FATAL        = "LVL_FATAL"
+    LVL_ERROR        = "LVL_ERROR"
+    LVL_WARNING      = "LVL_WARNING"
+    LVL_INFO         = "LVL_INFO"
+    LVL_DEBUG        = "LVL_DEBUG"
+    LVL_TRACE        = "LVL_TRACE"
+    LVL_CUSTOM       = "LVL_CUSTOM"
 
-    FILTER_NULL     = "FILTER_NULL"
+    FILTER_NULL      = "FILTER_NULL"
 
     CL_FILTER_NONE   = "CL_FILTER_NONE"
     CL_FILTER_ASSERT = "CL_FILTER_ASSERT"
@@ -35,8 +35,8 @@ class LogClients(Enum):
     CL_FILTER_TRACE  = "CL_FILTER_TRACE"
     CL_FILTER_CUSTOM = "CL_FILTER_CUSTOM"
 
-    APP0x           = "APP0x"
-    APP_FS          = "APP_FS"
+    APP0x            = "LogFileReader"
+    APP_FS           = "FileReaderWriter"
 
 class LogMessagesPatterns(Enum):
     NONE_LVL_MSG    = r".*Debug_LOG_NONE\n"
