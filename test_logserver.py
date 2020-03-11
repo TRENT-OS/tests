@@ -134,7 +134,7 @@ def test_logging_client_filter_null(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.LVL_DEBUG.value, text, 9)
+    verifyLogLevels(LogClients.LVL_DEBUG.value, text, 10)
 
 
 def test_logging_server_and_client_filter_null(boot_with_proxy):
@@ -151,7 +151,7 @@ def test_logging_server_and_client_filter_null(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.FILTER_NULL.value, text, 11)
+    verifyLogLevels(LogClients.FILTER_NULL.value, text, 12)
 
 
 def test_logging_filter_none(boot_with_proxy):
@@ -192,7 +192,7 @@ def test_logging_filter_level_assert(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.LVL_ASSERT.value, text, 4)
+    verifyLogLevels(LogClients.LVL_ASSERT.value, text, 5)
 
 
 def test_logging_filter_level_fatal(boot_with_proxy):
@@ -212,7 +212,7 @@ def test_logging_filter_level_fatal(boot_with_proxy):
     assert match
 
     verifyLogLevels(LogClients.LVL_FATAL.value, text,
-                    5, LogTargets.CONSOLE_AND_FILE_1)
+                    6, LogTargets.CONSOLE_AND_FILE_1)
 
 
 def test_logging_filter_level_error(boot_with_proxy):
@@ -234,7 +234,7 @@ def test_logging_filter_level_error(boot_with_proxy):
     verifyLogLevels(
         LogClients.LVL_ERROR.value,
         text,
-        6,
+        7,
         LogTargets.CONSOLE_AND_FILE_2)
 
 
@@ -251,7 +251,7 @@ def test_logging_filter_level_warning(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.LVL_WARNING.value, text, 7)
+    verifyLogLevels(LogClients.LVL_WARNING.value, text, 8)
 
 
 def test_logging_filter_level_info(boot_with_proxy):
@@ -267,7 +267,7 @@ def test_logging_filter_level_info(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.LVL_INFO.value, text, 8)
+    verifyLogLevels(LogClients.LVL_INFO.value, text, 9)
 
 
 def test_logging_filter_level_debug(boot_with_proxy):
@@ -283,7 +283,7 @@ def test_logging_filter_level_debug(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.LVL_DEBUG.value, text, 9)
+    verifyLogLevels(LogClients.LVL_DEBUG.value, text, 10)
 
 
 def test_logging_filter_level_trace(boot_with_proxy):
@@ -299,7 +299,7 @@ def test_logging_filter_level_trace(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.LVL_TRACE.value, text, 10)
+    verifyLogLevels(LogClients.LVL_TRACE.value, text, 11)
 
 
 def test_logging_filter_level_custom(boot_with_proxy):
@@ -315,7 +315,7 @@ def test_logging_filter_level_custom(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.LVL_CUSTOM.value, text, 11)
+    verifyLogLevels(LogClients.LVL_CUSTOM.value, text, 12)
 
 
 def test_filter_on_client_side_none(boot_with_proxy):
@@ -357,7 +357,7 @@ def test_filter_on_client_side_level_assert(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.CL_FILTER_ASSERT.value, text, 4)
+    verifyLogLevels(LogClients.CL_FILTER_ASSERT.value, text, 5)
 
 
 def test_filter_on_client_side_level_fatal(boot_with_proxy):
@@ -373,7 +373,7 @@ def test_filter_on_client_side_level_fatal(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.CL_FILTER_FATAL.value, text, 5)
+    verifyLogLevels(LogClients.CL_FILTER_FATAL.value, text, 6)
 
 
 def test_filter_on_client_side_level_error(boot_with_proxy):
@@ -389,7 +389,7 @@ def test_filter_on_client_side_level_error(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.CL_FILTER_ERROR.value, text, 6)
+    verifyLogLevels(LogClients.CL_FILTER_ERROR.value, text, 7)
 
 
 def test_filter_on_client_side_level_warning(boot_with_proxy):
@@ -405,7 +405,7 @@ def test_filter_on_client_side_level_warning(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.CL_FILTER_WARNIN.value, text, 7)
+    verifyLogLevels(LogClients.CL_FILTER_WARNIN.value, text, 8)
 
 
 def test_filter_on_client_side_level_info(boot_with_proxy):
@@ -421,7 +421,7 @@ def test_filter_on_client_side_level_info(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.CL_FILTER_INFO.value, text, 8)
+    verifyLogLevels(LogClients.CL_FILTER_INFO.value, text, 9)
 
 
 def test_filter_on_client_side_level_debug(boot_with_proxy):
@@ -437,7 +437,7 @@ def test_filter_on_client_side_level_debug(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.CL_FILTER_DEBUG.value, text, 9)
+    verifyLogLevels(LogClients.CL_FILTER_DEBUG.value, text, 10)
 
 
 def test_filter_on_client_side_level_trace(boot_with_proxy):
@@ -453,7 +453,7 @@ def test_filter_on_client_side_level_trace(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.CL_FILTER_TRACE.value, text, 10)
+    verifyLogLevels(LogClients.CL_FILTER_TRACE.value, text, 11)
 
 
 def test_filter_on_client_side_level_custom(boot_with_proxy):
@@ -469,7 +469,7 @@ def test_filter_on_client_side_level_custom(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.CL_FILTER_CUSTOM.value, text, 11)
+    verifyLogLevels(LogClients.CL_FILTER_CUSTOM.value, text, 12)
 
 
 def test_log_empty_entry(boot_with_proxy):
@@ -611,6 +611,28 @@ def test_client_logging_to_different_backends(boot_with_proxy):
             LogClients.LVL_FATAL.value + LogMessagesPatterns.NONE_LVL_MSG.value,
             text)))
 
+def test_client_sending_ill_formatted_string(boot_with_proxy):
+    """ This is a regression test related to SEOS-985
+
+    If a client sends ill formatted string, e.g. 'Debug_LOG_DEBUG("%2F %2F %2Fl
+    %3D");' (notice missing arguments), the fault handler shall be trigger
+    due to client accessing restricted memory region.
+
+    This test reproduces above case.
+    """
+
+    test_run = boot_with_proxy(log_server_demo_name)
+    f_out = test_run[1]
+
+    expected_error = "FAULT HANDLER: data fault from " + \
+                     "sendsIllFormattedString.sendsIllFormattedString_0_control"
+
+    (text, match) = logs.get_match_in_line(
+        f_out,
+        re.compile(expected_error),
+        timeout)
+
+    assert match == expected_error
 
 def verifyLogLevels(
         client,
