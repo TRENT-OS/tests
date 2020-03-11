@@ -71,3 +71,31 @@ def test_chanmux_fullduplex(boot_with_proxy):
                            test_system,
                            test_chanmux_full_duplex_lst,
                            timeout)
+
+#-------------------------------------------------------------------------------
+def test_chanmux_max_size(boot_with_proxy):
+    """This test will check the correct operation of ChanMux when streaming an
+    amount of data which is the MTU of ChanMux.
+
+    Underlying SEOS Test System behavior:
+
+        two SEOS Tester components will (in parallel) send 3  commands to the
+        Proxy App (via ChanMux) with a certain payload (with a give pattern),
+        respectively with length ChanMux MTU - 1 , ChanMux MTU and
+        ChanMux MTU + 1.
+        The Proxy App checks the pattern and sends back a single answer for
+        each command with the index of the fist byte that mismatches the
+        pattern. This is then checked in the way the amount of bytes correctly
+        sent must be at the most exactly as the datalink MTU size. Therefore in
+        the +1 case the last byte results to be truncated and not received from
+        the othe side"""
+
+    test_chanmux_max_size_lst = [
+        "ChanMuxTest_testMaxSize: SUCCESS (tester 1)",
+        "ChanMuxTest_testMaxSize: SUCCESS (tester 2)",
+    ]
+
+    run_test_log_match_set(boot_with_proxy,
+                           test_system,
+                           test_chanmux_max_size_lst,
+                           timeout)
