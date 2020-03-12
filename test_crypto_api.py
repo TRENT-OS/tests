@@ -12,7 +12,7 @@ def test_SeosCryptoApi_init_neg_0(boot):
     Negative tests for SeosCryptoApi_init(), covering the invalid ways of using this
     function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 9, 'test_SeosCryptoApi_init_neg')
+    parser.check_test(boot(TEST_NAME), 6, 'test_SeosCryptoApi_init_neg')
 
 def test_SeosCryptoApi_free_neg_0(boot):
     """
@@ -26,7 +26,7 @@ def test_SeosCryptoApi_Agreement_init_pos_0(boot):
     Positive tests for SeosCryptoApi_Agreement_init(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_init_pos', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_init_pos', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Agreement_init_neg_0(boot):
     """
@@ -34,7 +34,7 @@ def test_SeosCryptoApi_Agreement_init_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_init_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_init_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Agreement_agree_neg_0(boot):
     """
@@ -42,14 +42,14 @@ def test_SeosCryptoApi_Agreement_agree_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_agree_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_agree_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Agreement_free_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Agreement_free(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_free_pos', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_free_pos', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Agreement_free_neg_0(boot):
     """
@@ -57,47 +57,47 @@ def test_SeosCryptoApi_Agreement_free_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_free_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_free_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Agreement_agree_buffer_0(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Agreement_agree(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_agree_buffer', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_agree_buffer', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Agreement_do_DH_0(boot):
     """
     Compute shared key for randomly generated public/private keys with DH.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_do_DH', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_do_DH', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Agreement_do_ECDH_0(boot):
     """
     Compute shared key for randomly generated public/private keys with ECDH.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Agreement_do_ECDH', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Agreement_do_ECDH', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Agreement_do_DH_rnd_0(boot):
     """
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the DH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_do_DH_rnd', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_do_DH_rnd', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Agreement_do_ECDH_rnd_0(boot):
     """
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the ECDH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 30, 'test_SeosCryptoApi_Agreement_do_ECDH_rnd', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 23, 'test_SeosCryptoApi_Agreement_do_ECDH_rnd', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_init_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Cipher_init(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_pos', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_pos', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_init_neg_0(boot):
     """
@@ -105,14 +105,14 @@ def test_SeosCryptoApi_Cipher_init_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_free_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Cipher_free(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_free_pos', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_free_pos', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_free_neg_0(boot):
     """
@@ -120,7 +120,7 @@ def test_SeosCryptoApi_Cipher_free_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_free_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_free_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_start_neg_0(boot):
     """
@@ -128,7 +128,7 @@ def test_SeosCryptoApi_Cipher_start_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_start_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_start_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_process_neg_0(boot):
     """
@@ -136,7 +136,7 @@ def test_SeosCryptoApi_Cipher_process_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_process_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_process_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_finalize_neg_0(boot):
     """
@@ -144,105 +144,105 @@ def test_SeosCryptoApi_Cipher_finalize_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_finalize_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_finalize_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_init_buffer_0(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Cipher_init(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_buffer', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_buffer', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_start_buffer_0(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Cipher_start(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_start_buffer', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_start_buffer', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_process_buffer_0(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Cipher_process(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_process_buffer', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_process_buffer', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_finalize_buffer_0(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Cipher_finalize(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_finalize_buffer', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_finalize_buffer', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_ECB_enc_0(boot):
     """
     Encrypt a set of plaintext vectors with AES-ECB.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_enc', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_enc', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_ECB_dec_0(boot):
     """
     Decrypt a set of ciphertext vectors with AES-ECB.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_dec', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_dec', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_CBC_enc_0(boot):
     """
     Encrypt a set of plaintext vectors with AES-CBC.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_enc', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_enc', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_CBC_dec_0(boot):
     """
     Decrypt a set of ciphertext vectors with AES-CBC.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_dec', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_dec', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_GCM_enc_0(boot):
     """
     Encrypt a set of plaintext vectors with AES-GCM.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_enc', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_enc', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_GCM_dec_pos_0(boot):
     """
     Decrypt a set of ciphertext vectors with AES-GCM.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_dec_pos', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_dec_pos', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_GCM_dec_neg_0(boot):
     """
     Encrypt a ciphertext with AES-GCM but modify the tag so it is invalid.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_dec_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_dec_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_ECB_rnd_0(boot):
     """
     Generate random keys and inputs for AES-ECB, encrypt and then decrypt again.
     Check that inputs and outputs match. Repeat for a few (~1000) iterations.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_rnd', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_rnd', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_CBC_rnd_0(boot):
     """
     Generate random keys and inputs for AES-CBC, encrypt and then decrypt again.
     Check that inputs and outputs match. Repeat for a few (~1000) iterations.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_rnd', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_rnd', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_GCM_rnd_0(boot):
     """
     Generate random keys and inputs for AES-GCM, encrypt and then decrypt again.
     Check that inputs and outputs match. Repeat for a few (~1000) iterations.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_rnd', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_rnd', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Digest_init_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Digest_init(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_init_pos', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_init_pos', 'mode=1')
 
 def test_SeosCryptoApi_Digest_init_neg_0(boot):
     """
@@ -250,14 +250,14 @@ def test_SeosCryptoApi_Digest_init_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_init_neg', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_init_neg', 'mode=1')
 
 def test_SeosCryptoApi_Digest_free_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Digest_free(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_free_pos', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_free_pos', 'mode=1')
 
 def test_SeosCryptoApi_Digest_free_neg_0(boot):
     """
@@ -265,14 +265,14 @@ def test_SeosCryptoApi_Digest_free_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_free_neg', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_free_neg', 'mode=1')
 
 def test_SeosCryptoApi_Digest_clone_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Digest_clone(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_clone_pos', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_clone_pos', 'mode=1')
 
 def test_SeosCryptoApi_Digest_clone_neg_0(boot):
     """
@@ -280,7 +280,7 @@ def test_SeosCryptoApi_Digest_clone_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_clone_neg', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_clone_neg', 'mode=1')
 
 def test_SeosCryptoApi_Digest_process_neg_0(boot):
     """
@@ -288,7 +288,7 @@ def test_SeosCryptoApi_Digest_process_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_process_neg', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_process_neg', 'mode=1')
 
 def test_SeosCryptoApi_Digest_finalize_neg_0(boot):
     """
@@ -296,40 +296,40 @@ def test_SeosCryptoApi_Digest_finalize_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_finalize_neg', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_finalize_neg', 'mode=1')
 
 def test_SeosCryptoApi_Digest_process_buffer_0(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Digest_process(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_process_buffer', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_process_buffer', 'mode=1')
 
 def test_SeosCryptoApi_Digest_finalize_buffer_0(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Digest_finalize(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_finalize_buffer', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_finalize_buffer', 'mode=1')
 
 def test_SeosCryptoApi_Digest_do_SHA256_0(boot):
     """
     Hash some testvectors with SHA256.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_do_SHA256', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_do_SHA256', 'mode=1')
 
 def test_SeosCryptoApi_Digest_do_MD5_0(boot):
     """
     Hash some testvectors with MD5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_do_MD5', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_do_MD5', 'mode=1')
 
 def test_SeosCryptoApi_Key_import_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Key_import(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_import_pos', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_import_pos', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_import_neg_0(boot):
     """
@@ -337,14 +337,14 @@ def test_SeosCryptoApi_Key_import_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_import_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_import_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_export_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Key_export(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_export_pos', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_export_pos', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_export_neg_0(boot):
     """
@@ -352,14 +352,14 @@ def test_SeosCryptoApi_Key_export_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_export_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_export_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_generate_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Key_generate(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_generate_pos', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_generate_pos', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_generate_neg_0(boot):
     """
@@ -367,14 +367,14 @@ def test_SeosCryptoApi_Key_generate_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_generate_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_generate_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_makePublic_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Key_makePublic(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Key_makePublic_pos', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Key_makePublic_pos', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_makePublic_neg_0(boot):
     """
@@ -382,14 +382,14 @@ def test_SeosCryptoApi_Key_makePublic_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_makePublic_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_makePublic_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_getParams_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Key_getParams(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_pos', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_pos', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_getParams_neg_0(boot):
     """
@@ -397,14 +397,14 @@ def test_SeosCryptoApi_Key_getParams_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_loadParams_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Key_loadParams(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_pos', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_pos', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_loadParams_neg_0(boot):
     """
@@ -412,14 +412,14 @@ def test_SeosCryptoApi_Key_loadParams_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_getAttribs_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Key_getAttribs(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getAttribs_pos', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getAttribs_pos', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_getAttribs_neg_0(boot):
     """
@@ -427,70 +427,70 @@ def test_SeosCryptoApi_Key_getAttribs_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getAttribs_neg', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getAttribs_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_free_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Key_free(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_free_pos', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_free_pos', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_free_neg_0(boot):
     """
     Negative tests for SeosCryptoApi_Key_free(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_free_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_free_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_getParams_buffer_0(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Key_getParams(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_buffer', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_buffer', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Key_loadParams_buffer_0(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Key_loadParams(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_buffer', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_buffer', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Mac_init_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Mac_init(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_init_pos', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_init_pos', 'mode=1')
 
 def test_SeosCryptoApi_Mac_init_neg_0(boot):
     """
     Negative tests for SeosCryptoApi_Mac_init(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_init_neg', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_init_neg', 'mode=1')
 
 def test_SeosCryptoApi_Mac_free_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Mac_free(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_free_pos', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_free_pos', 'mode=1')
 
 def test_SeosCryptoApi_Mac_free_neg_0(boot):
     """
     Negative tests for SeosCryptoApi_Mac_free(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_free_neg', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_free_neg', 'mode=1')
 
 def test_SeosCryptoApi_Mac_start_neg_0(boot):
     """
     Negative tests for SeosCryptoApi_Mac_start(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_start_neg', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_start_neg', 'mode=1')
 
 def test_SeosCryptoApi_Mac_process_neg_0(boot):
     """
@@ -498,7 +498,7 @@ def test_SeosCryptoApi_Mac_process_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_process_neg', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_process_neg', 'mode=1')
 
 def test_SeosCryptoApi_Mac_finalize_neg_0(boot):
     """
@@ -506,47 +506,47 @@ def test_SeosCryptoApi_Mac_finalize_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_finalize_neg', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_finalize_neg', 'mode=1')
 
 def test_SeosCryptoApi_Mac_start_buffer_0(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Mac_start(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_start_buffer', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_start_buffer', 'mode=1')
 
 def test_SeosCryptoApi_Mac_process_buffer_0(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Mac_process(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_process_buffer', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_process_buffer', 'mode=1')
 
 def test_SeosCryptoApi_Mac_finalize_buffer_0(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Mac_finalize(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_finalize_buffer', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_finalize_buffer', 'mode=1')
 
 def test_SeosCryptoApi_Mac_do_HMAC_MD5_0(boot):
     """
     Compute MAC on testvectors with HMAC-MD5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_do_HMAC_MD5', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_do_HMAC_MD5', 'mode=1')
 
 def test_SeosCryptoApi_Mac_do_HMAC_SHA256_0(boot):
     """
     Compute MAC on testvectors with HMAC-SHA256.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_do_HMAC_SHA256', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_do_HMAC_SHA256', 'mode=1')
 
 def test_SeosCryptoApi_Rng_getBytes_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Rng_getBytes(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_pos', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_pos', 'mode=1')
 
 def test_SeosCryptoApi_Rng_getBytes_neg_0(boot):
     """
@@ -554,14 +554,14 @@ def test_SeosCryptoApi_Rng_getBytes_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_neg', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_neg', 'mode=1')
 
 def test_SeosCryptoApi_Rng_reSeed_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Rng_reSeed(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_pos', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_pos', 'mode=1')
 
 def test_SeosCryptoApi_Rng_reSeed_neg_0(boot):
     """
@@ -569,28 +569,28 @@ def test_SeosCryptoApi_Rng_reSeed_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_neg', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_neg', 'mode=1')
 
 def test_SeosCryptoApi_Rng_reSeed_buffer_0(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Rng_reSeed(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_buffer', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_buffer', 'mode=1')
 
 def test_SeosCryptoApi_Rng_getBytes_buffer_0(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Rng_getBytes(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_buffer', 'api->mode=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_buffer', 'mode=1')
 
 def test_SeosCryptoApi_Signature_init_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Signature_init(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_init_pos', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_init_pos', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Signature_init_neg_0(boot):
     """
@@ -598,14 +598,14 @@ def test_SeosCryptoApi_Signature_init_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_init_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_init_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Signature_free_pos_0(boot):
     """
     Positive tests for SeosCryptoApi_Signature_free(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_free_pos', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_free_pos', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Signature_free_neg_0(boot):
     """
@@ -613,7 +613,7 @@ def test_SeosCryptoApi_Signature_free_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_free_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_free_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Signature_sign_neg_0(boot):
     """
@@ -621,7 +621,7 @@ def test_SeosCryptoApi_Signature_sign_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_sign_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_sign_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Signature_verify_neg_0(boot):
     """
@@ -629,60 +629,60 @@ def test_SeosCryptoApi_Signature_verify_neg_0(boot):
     of using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_verify_neg', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_verify_neg', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Signature_sign_buffer_0(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Signature_sign(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_sign_buffer', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_sign_buffer', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Signature_verify_buffer_0(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Signature_verify(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_verify_buffer', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_verify_buffer', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_sign_0(boot):
     """
     Sign some testvectors with RSA PCKS#1 V1.5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_sign', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_sign', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_verify_0(boot):
     """
     Verify some testvectors with RSA PCKS#1 V1.5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_verify', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_verify', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_verify_0(boot):
     """
     Verify some testvectors with RSA PCKS#1 V2.1.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_verify', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_verify', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd_0(boot):
     """
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 1.5.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 15, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 11, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd_0(boot):
     """
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 2.1.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 15, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd', 'api->mode=0,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 10, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd', 'mode=1,expo=1')
 
 def test_SeosCryptoApi_Agreement_init_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Agreement_init(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_init_pos', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_init_pos', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Agreement_init_neg_1(boot):
     """
@@ -690,7 +690,7 @@ def test_SeosCryptoApi_Agreement_init_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_init_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_init_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Agreement_agree_neg_1(boot):
     """
@@ -698,14 +698,14 @@ def test_SeosCryptoApi_Agreement_agree_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_agree_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_agree_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Agreement_free_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Agreement_free(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_free_pos', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_free_pos', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Agreement_free_neg_1(boot):
     """
@@ -713,47 +713,47 @@ def test_SeosCryptoApi_Agreement_free_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_free_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_free_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Agreement_agree_buffer_1(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Agreement_agree(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_agree_buffer', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_agree_buffer', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Agreement_do_DH_1(boot):
     """
     Compute shared key for randomly generated public/private keys with DH.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_do_DH', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_do_DH', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Agreement_do_ECDH_1(boot):
     """
     Compute shared key for randomly generated public/private keys with ECDH.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Agreement_do_ECDH', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Agreement_do_ECDH', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Agreement_do_DH_rnd_1(boot):
     """
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the DH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_do_DH_rnd', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_do_DH_rnd', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Agreement_do_ECDH_rnd_1(boot):
     """
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the ECDH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 30, 'test_SeosCryptoApi_Agreement_do_ECDH_rnd', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 25, 'test_SeosCryptoApi_Agreement_do_ECDH_rnd', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_init_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Cipher_init(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_pos', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_pos', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_init_neg_1(boot):
     """
@@ -761,14 +761,14 @@ def test_SeosCryptoApi_Cipher_init_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_free_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Cipher_free(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_free_pos', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_free_pos', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_free_neg_1(boot):
     """
@@ -776,7 +776,7 @@ def test_SeosCryptoApi_Cipher_free_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_free_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_free_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_start_neg_1(boot):
     """
@@ -784,7 +784,7 @@ def test_SeosCryptoApi_Cipher_start_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_start_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_start_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_process_neg_1(boot):
     """
@@ -792,7 +792,7 @@ def test_SeosCryptoApi_Cipher_process_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_process_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_process_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_finalize_neg_1(boot):
     """
@@ -800,105 +800,105 @@ def test_SeosCryptoApi_Cipher_finalize_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_finalize_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_finalize_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_init_buffer_1(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Cipher_init(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_buffer', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_buffer', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_start_buffer_1(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Cipher_start(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_start_buffer', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_start_buffer', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_process_buffer_1(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Cipher_process(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_process_buffer', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_process_buffer', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_finalize_buffer_1(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Cipher_finalize(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_finalize_buffer', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_finalize_buffer', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_ECB_enc_1(boot):
     """
     Encrypt a set of plaintext vectors with AES-ECB.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_enc', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_enc', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_ECB_dec_1(boot):
     """
     Decrypt a set of ciphertext vectors with AES-ECB.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_dec', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_dec', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_CBC_enc_1(boot):
     """
     Encrypt a set of plaintext vectors with AES-CBC.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_enc', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_enc', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_CBC_dec_1(boot):
     """
     Decrypt a set of ciphertext vectors with AES-CBC.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_dec', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_dec', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_GCM_enc_1(boot):
     """
     Encrypt a set of plaintext vectors with AES-GCM.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_enc', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_enc', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_GCM_dec_pos_1(boot):
     """
     Decrypt a set of ciphertext vectors with AES-GCM.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_dec_pos', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_dec_pos', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_GCM_dec_neg_1(boot):
     """
     Encrypt a ciphertext with AES-GCM but modify the tag so it is invalid.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_dec_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_dec_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_ECB_rnd_1(boot):
     """
     Generate random keys and inputs for AES-ECB, encrypt and then decrypt again.
     Check that inputs and outputs match. Repeat for a few (~1000) iterations.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_rnd', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_rnd', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_CBC_rnd_1(boot):
     """
     Generate random keys and inputs for AES-CBC, encrypt and then decrypt again.
     Check that inputs and outputs match. Repeat for a few (~1000) iterations.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_rnd', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_rnd', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_GCM_rnd_1(boot):
     """
     Generate random keys and inputs for AES-GCM, encrypt and then decrypt again.
     Check that inputs and outputs match. Repeat for a few (~1000) iterations.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_rnd', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_rnd', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Digest_init_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Digest_init(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_init_pos', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_init_pos', 'mode=2')
 
 def test_SeosCryptoApi_Digest_init_neg_1(boot):
     """
@@ -906,14 +906,14 @@ def test_SeosCryptoApi_Digest_init_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_init_neg', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_init_neg', 'mode=2')
 
 def test_SeosCryptoApi_Digest_free_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Digest_free(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_free_pos', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_free_pos', 'mode=2')
 
 def test_SeosCryptoApi_Digest_free_neg_1(boot):
     """
@@ -921,14 +921,14 @@ def test_SeosCryptoApi_Digest_free_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_free_neg', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_free_neg', 'mode=2')
 
 def test_SeosCryptoApi_Digest_clone_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Digest_clone(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_clone_pos', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_clone_pos', 'mode=2')
 
 def test_SeosCryptoApi_Digest_clone_neg_1(boot):
     """
@@ -936,7 +936,7 @@ def test_SeosCryptoApi_Digest_clone_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_clone_neg', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_clone_neg', 'mode=2')
 
 def test_SeosCryptoApi_Digest_process_neg_1(boot):
     """
@@ -944,7 +944,7 @@ def test_SeosCryptoApi_Digest_process_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_process_neg', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_process_neg', 'mode=2')
 
 def test_SeosCryptoApi_Digest_finalize_neg_1(boot):
     """
@@ -952,40 +952,40 @@ def test_SeosCryptoApi_Digest_finalize_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_finalize_neg', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_finalize_neg', 'mode=2')
 
 def test_SeosCryptoApi_Digest_process_buffer_1(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Digest_process(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_process_buffer', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_process_buffer', 'mode=2')
 
 def test_SeosCryptoApi_Digest_finalize_buffer_1(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Digest_finalize(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_finalize_buffer', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_finalize_buffer', 'mode=2')
 
 def test_SeosCryptoApi_Digest_do_SHA256_1(boot):
     """
     Hash some testvectors with SHA256.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_do_SHA256', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_do_SHA256', 'mode=2')
 
 def test_SeosCryptoApi_Digest_do_MD5_1(boot):
     """
     Hash some testvectors with MD5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_do_MD5', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_do_MD5', 'mode=2')
 
 def test_SeosCryptoApi_Key_import_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Key_import(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_import_pos', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_import_pos', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_import_neg_1(boot):
     """
@@ -993,14 +993,14 @@ def test_SeosCryptoApi_Key_import_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_import_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_import_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_export_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Key_export(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_export_pos', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_export_pos', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_export_neg_1(boot):
     """
@@ -1008,14 +1008,14 @@ def test_SeosCryptoApi_Key_export_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_export_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_export_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_generate_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Key_generate(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_generate_pos', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_generate_pos', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_generate_neg_1(boot):
     """
@@ -1023,14 +1023,14 @@ def test_SeosCryptoApi_Key_generate_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_generate_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_generate_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_makePublic_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Key_makePublic(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Key_makePublic_pos', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Key_makePublic_pos', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_makePublic_neg_1(boot):
     """
@@ -1038,14 +1038,14 @@ def test_SeosCryptoApi_Key_makePublic_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_makePublic_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_makePublic_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_getParams_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Key_getParams(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_pos', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_pos', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_getParams_neg_1(boot):
     """
@@ -1053,14 +1053,14 @@ def test_SeosCryptoApi_Key_getParams_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_loadParams_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Key_loadParams(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_pos', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_pos', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_loadParams_neg_1(boot):
     """
@@ -1068,14 +1068,14 @@ def test_SeosCryptoApi_Key_loadParams_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_getAttribs_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Key_getAttribs(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getAttribs_pos', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getAttribs_pos', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_getAttribs_neg_1(boot):
     """
@@ -1083,85 +1083,85 @@ def test_SeosCryptoApi_Key_getAttribs_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getAttribs_neg', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getAttribs_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_free_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Key_free(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_free_pos', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_free_pos', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_free_neg_1(boot):
     """
     Negative tests for SeosCryptoApi_Key_free(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_free_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_free_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_getParams_buffer_1(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Key_getParams(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_buffer', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_buffer', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_loadParams_buffer_1(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Key_loadParams(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_buffer', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_buffer', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_migrate_pos_0(boot):
     """
-    Positive tests for SeosCryptoApi_Key_migrate(), covering the valid ways of using
+    Positive tests for SeosCryptoApi_migrateObject(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_migrate_pos', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_migrate_pos', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Key_migrate_neg_0(boot):
     """
-    Negative tests for SeosCryptoApi_Key_migrate(), covering the invalid ways of
+    Negative tests for SeosCryptoApi_migrateObject(), covering the invalid ways of
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_migrate_neg', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_migrate_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Mac_init_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Mac_init(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_init_pos', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_init_pos', 'mode=2')
 
 def test_SeosCryptoApi_Mac_init_neg_1(boot):
     """
     Negative tests for SeosCryptoApi_Mac_init(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_init_neg', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_init_neg', 'mode=2')
 
 def test_SeosCryptoApi_Mac_free_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Mac_free(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_free_pos', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_free_pos', 'mode=2')
 
 def test_SeosCryptoApi_Mac_free_neg_1(boot):
     """
     Negative tests for SeosCryptoApi_Mac_free(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_free_neg', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_free_neg', 'mode=2')
 
 def test_SeosCryptoApi_Mac_start_neg_1(boot):
     """
     Negative tests for SeosCryptoApi_Mac_start(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_start_neg', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_start_neg', 'mode=2')
 
 def test_SeosCryptoApi_Mac_process_neg_1(boot):
     """
@@ -1169,7 +1169,7 @@ def test_SeosCryptoApi_Mac_process_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_process_neg', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_process_neg', 'mode=2')
 
 def test_SeosCryptoApi_Mac_finalize_neg_1(boot):
     """
@@ -1177,47 +1177,47 @@ def test_SeosCryptoApi_Mac_finalize_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_finalize_neg', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_finalize_neg', 'mode=2')
 
 def test_SeosCryptoApi_Mac_start_buffer_1(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Mac_start(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_start_buffer', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_start_buffer', 'mode=2')
 
 def test_SeosCryptoApi_Mac_process_buffer_1(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Mac_process(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_process_buffer', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_process_buffer', 'mode=2')
 
 def test_SeosCryptoApi_Mac_finalize_buffer_1(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Mac_finalize(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_finalize_buffer', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_finalize_buffer', 'mode=2')
 
 def test_SeosCryptoApi_Mac_do_HMAC_MD5_1(boot):
     """
     Compute MAC on testvectors with HMAC-MD5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_do_HMAC_MD5', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_do_HMAC_MD5', 'mode=2')
 
 def test_SeosCryptoApi_Mac_do_HMAC_SHA256_1(boot):
     """
     Compute MAC on testvectors with HMAC-SHA256.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_do_HMAC_SHA256', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_do_HMAC_SHA256', 'mode=2')
 
 def test_SeosCryptoApi_Rng_getBytes_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Rng_getBytes(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_pos', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_pos', 'mode=2')
 
 def test_SeosCryptoApi_Rng_getBytes_neg_1(boot):
     """
@@ -1225,14 +1225,14 @@ def test_SeosCryptoApi_Rng_getBytes_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_neg', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_neg', 'mode=2')
 
 def test_SeosCryptoApi_Rng_reSeed_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Rng_reSeed(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_pos', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_pos', 'mode=2')
 
 def test_SeosCryptoApi_Rng_reSeed_neg_1(boot):
     """
@@ -1240,28 +1240,28 @@ def test_SeosCryptoApi_Rng_reSeed_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_neg', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_neg', 'mode=2')
 
 def test_SeosCryptoApi_Rng_reSeed_buffer_1(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Rng_reSeed(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_buffer', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_buffer', 'mode=2')
 
 def test_SeosCryptoApi_Rng_getBytes_buffer_1(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Rng_getBytes(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_buffer', 'api->mode=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_buffer', 'mode=2')
 
 def test_SeosCryptoApi_Signature_init_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Signature_init(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_init_pos', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_init_pos', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Signature_init_neg_1(boot):
     """
@@ -1269,14 +1269,14 @@ def test_SeosCryptoApi_Signature_init_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_init_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_init_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Signature_free_pos_1(boot):
     """
     Positive tests for SeosCryptoApi_Signature_free(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_free_pos', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_free_pos', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Signature_free_neg_1(boot):
     """
@@ -1284,7 +1284,7 @@ def test_SeosCryptoApi_Signature_free_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_free_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_free_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Signature_sign_neg_1(boot):
     """
@@ -1292,7 +1292,7 @@ def test_SeosCryptoApi_Signature_sign_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_sign_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_sign_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Signature_verify_neg_1(boot):
     """
@@ -1300,60 +1300,60 @@ def test_SeosCryptoApi_Signature_verify_neg_1(boot):
     of using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_verify_neg', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_verify_neg', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Signature_sign_buffer_1(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Signature_sign(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_sign_buffer', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_sign_buffer', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Signature_verify_buffer_1(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Signature_verify(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_verify_buffer', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_verify_buffer', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_sign_1(boot):
     """
     Sign some testvectors with RSA PCKS#1 V1.5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_sign', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_sign', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_verify_1(boot):
     """
     Verify some testvectors with RSA PCKS#1 V1.5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_verify', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_verify', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_verify_1(boot):
     """
     Verify some testvectors with RSA PCKS#1 V2.1.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_verify', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_verify', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd_1(boot):
     """
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 1.5.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 15, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 12, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd_1(boot):
     """
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 2.1.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 15, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd', 'api->mode=1,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 9, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd', 'mode=2,expo=1')
 
 def test_SeosCryptoApi_Agreement_init_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Agreement_init(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_init_pos', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_init_pos', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Agreement_init_neg_2(boot):
     """
@@ -1361,7 +1361,7 @@ def test_SeosCryptoApi_Agreement_init_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_init_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_init_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Agreement_agree_neg_2(boot):
     """
@@ -1369,14 +1369,14 @@ def test_SeosCryptoApi_Agreement_agree_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_agree_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_agree_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Agreement_free_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Agreement_free(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_free_pos', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_free_pos', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Agreement_free_neg_2(boot):
     """
@@ -1384,66 +1384,66 @@ def test_SeosCryptoApi_Agreement_free_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_free_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_free_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Agreement_agree_buffer_2(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Agreement_agree(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_agree_buffer', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_agree_buffer', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Agreement_do_DH_2(boot):
     """
     Execute key agreement based on testvector using DH algorithm.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_do_DH', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_do_DH', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Agreement_do_ECDH_2(boot):
     """
     Execute key agreement based on testvector using ECDH algorithm.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Agreement_do_ECDH', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Agreement_do_ECDH', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Agreement_do_DH_rnd_2(boot):
     """
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the DH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_do_DH_rnd', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_do_DH_rnd', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Agreement_do_ECDH_rnd_2(boot):
     """
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the ECDH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 30, 'test_SeosCryptoApi_Agreement_do_ECDH_rnd', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 24, 'test_SeosCryptoApi_Agreement_do_ECDH_rnd', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Agreement_do_DH_3(boot):
     """
     Execute key agreement based on testvector using DH algorithm.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_do_DH', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_do_DH', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Agreement_do_DH_rnd_3(boot):
     """
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the DH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_do_DH_rnd', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Agreement_do_DH_rnd', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Agreement_do_ECDH_3(boot):
     """
     Execute key agreement based on testvector using ECDH algorithm.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Agreement_do_ECDH', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Agreement_do_ECDH', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Agreement_do_ECDH_rnd_3(boot):
     """
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the ECDH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 30, 'test_SeosCryptoApi_Agreement_do_ECDH_rnd', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 27, 'test_SeosCryptoApi_Agreement_do_ECDH_rnd', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Agreement_key_neg_0(boot):
     """
@@ -1451,14 +1451,14 @@ def test_SeosCryptoApi_Agreement_key_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_key_neg', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Agreement_key_neg', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Cipher_init_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Cipher_init(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_pos', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_pos', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_init_neg_2(boot):
     """
@@ -1466,14 +1466,14 @@ def test_SeosCryptoApi_Cipher_init_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_free_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Cipher_free(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_free_pos', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_free_pos', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_free_neg_2(boot):
     """
@@ -1481,7 +1481,7 @@ def test_SeosCryptoApi_Cipher_free_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_free_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_free_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_start_neg_2(boot):
     """
@@ -1489,7 +1489,7 @@ def test_SeosCryptoApi_Cipher_start_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_start_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_start_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_process_neg_2(boot):
     """
@@ -1497,7 +1497,7 @@ def test_SeosCryptoApi_Cipher_process_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_process_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_process_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_finalize_neg_2(boot):
     """
@@ -1505,162 +1505,162 @@ def test_SeosCryptoApi_Cipher_finalize_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_finalize_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_finalize_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_init_buffer_2(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Cipher_init(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_buffer', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_init_buffer', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_start_buffer_2(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Cipher_start(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_start_buffer', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_start_buffer', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_process_buffer_2(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Cipher_process(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_process_buffer', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_process_buffer', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_finalize_buffer_2(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Cipher_finalize(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_finalize_buffer', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_finalize_buffer', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_ECB_enc_2(boot):
     """
     Encrypt a set of plaintext vectors with AES-ECB.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_enc', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_enc', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_ECB_dec_2(boot):
     """
     Decrypt a set of ciphertext vectors with AES-ECB.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_dec', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_dec', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_CBC_enc_2(boot):
     """
     Encrypt a set of plaintext vectors with AES-CBC.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_enc', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_enc', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_CBC_dec_2(boot):
     """
     Decrypt a set of ciphertext vectors with AES-CBC.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_dec', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_dec', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_GCM_enc_2(boot):
     """
     Encrypt a set of plaintext vectors with AES-GCM.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_enc', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_enc', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_GCM_dec_pos_2(boot):
     """
     Encrypt a set of ciphertext vectors with AES-GCM.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_dec_pos', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_dec_pos', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_GCM_dec_neg_2(boot):
     """
     Encrypt a ciphertext with AES-GCM but modify the tag so it is invalid.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_dec_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_dec_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_ECB_rnd_2(boot):
     """
     Generate random keys and inputs for AES-ECB, encrypt and then decrypt again.
     Check that inputs and outputs match. Repeat for a few (~1000) iterations.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_rnd', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_rnd', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_CBC_rnd_2(boot):
     """
     Generate random keys and inputs for AES-CBC, encrypt and then decrypt again.
     Check that inputs and outputs match. Repeat for a few (~1000) iterations.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_rnd', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_rnd', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_GCM_rnd_2(boot):
     """
     Generate random keys and inputs for AES-GCM, encrypt and then decrypt again.
     Check that inputs and outputs match. Repeat for a few (~1000) iterations.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_rnd', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_rnd', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Cipher_do_AES_ECB_enc_3(boot):
     """
     Encrypt a set of plaintext vectors with AES-ECB.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_enc', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_enc', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Cipher_do_AES_ECB_dec_3(boot):
     """
     Decrypt a set of ciphertext vectors with AES-ECB.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_dec', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_dec', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Cipher_do_AES_CBC_enc_3(boot):
     """
     Encrypt a set of plaintext vectors with AES-CBC.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_enc', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_enc', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Cipher_do_AES_CBC_dec_3(boot):
     """
     Decrypt a set of ciphertext vectors with AES-CBC.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_dec', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_dec', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Cipher_do_AES_GCM_enc_3(boot):
     """
     Encrypt a set of plaintext vectors with AES-GCM.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_enc', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_enc', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Cipher_do_AES_GCM_dec_pos_3(boot):
     """
     Decrypt a set of ciphertext vectors with AES-GCM.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_dec_pos', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_dec_pos', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Cipher_do_AES_ECB_rnd_3(boot):
     """
     Generate random keys and inputs for AES-ECB, encrypt and then decrypt again.
     Check that inputs and outputs match. Repeat for a few (~1000) iterations.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_rnd', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_ECB_rnd', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Cipher_do_AES_CBC_rnd_3(boot):
     """
     Generate random keys and inputs for AES-CBC, encrypt and then decrypt again.
     Check that inputs and outputs match. Repeat for a few (~1000) iterations.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_rnd', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_CBC_rnd', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Cipher_do_AES_GCM_rnd_3(boot):
     """
     Generate random keys and inputs for AES-GCM, encrypt and then decrypt again.
     Check that inputs and outputs match. Repeat for a few (~1000) iterations.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_rnd', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Cipher_do_AES_GCM_rnd', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Digest_init_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Digest_init(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_init_pos', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_init_pos', 'mode=4')
 
 def test_SeosCryptoApi_Digest_init_neg_2(boot):
     """
@@ -1668,14 +1668,14 @@ def test_SeosCryptoApi_Digest_init_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_init_neg', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_init_neg', 'mode=4')
 
 def test_SeosCryptoApi_Digest_free_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Digest_free(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_free_pos', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_free_pos', 'mode=4')
 
 def test_SeosCryptoApi_Digest_free_neg_2(boot):
     """
@@ -1683,14 +1683,14 @@ def test_SeosCryptoApi_Digest_free_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_free_neg', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_free_neg', 'mode=4')
 
 def test_SeosCryptoApi_Digest_clone_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Digest_clone(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_clone_pos', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_clone_pos', 'mode=4')
 
 def test_SeosCryptoApi_Digest_clone_neg_2(boot):
     """
@@ -1698,7 +1698,7 @@ def test_SeosCryptoApi_Digest_clone_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_clone_neg', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_clone_neg', 'mode=4')
 
 def test_SeosCryptoApi_Digest_process_neg_2(boot):
     """
@@ -1706,7 +1706,7 @@ def test_SeosCryptoApi_Digest_process_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_process_neg', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_process_neg', 'mode=4')
 
 def test_SeosCryptoApi_Digest_finalize_neg_2(boot):
     """
@@ -1714,40 +1714,40 @@ def test_SeosCryptoApi_Digest_finalize_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_finalize_neg', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_finalize_neg', 'mode=4')
 
 def test_SeosCryptoApi_Digest_process_buffer_2(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Digest_process(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_process_buffer', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_process_buffer', 'mode=4')
 
 def test_SeosCryptoApi_Digest_finalize_buffer_2(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Digest_finalize(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_finalize_buffer', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_finalize_buffer', 'mode=4')
 
 def test_SeosCryptoApi_Digest_do_SHA256_2(boot):
     """
     Hash some testvectors with SHA256.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_do_SHA256', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_do_SHA256', 'mode=4')
 
 def test_SeosCryptoApi_Digest_do_MD5_2(boot):
     """
     Hash some testvectors with MD5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_do_MD5', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Digest_do_MD5', 'mode=4')
 
 def test_SeosCryptoApi_Key_import_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Key_import(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_import_pos', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_import_pos', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_import_neg_2(boot):
     """
@@ -1755,14 +1755,14 @@ def test_SeosCryptoApi_Key_import_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_import_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_import_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_export_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Key_export(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_export_pos', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_export_pos', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_export_neg_2(boot):
     """
@@ -1770,14 +1770,14 @@ def test_SeosCryptoApi_Key_export_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_export_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_export_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_generate_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Key_generate(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_generate_pos', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_generate_pos', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_generate_neg_2(boot):
     """
@@ -1785,14 +1785,14 @@ def test_SeosCryptoApi_Key_generate_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_generate_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_generate_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_makePublic_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Key_makePublic(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Key_makePublic_pos', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Key_makePublic_pos', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_makePublic_neg_2(boot):
     """
@@ -1800,14 +1800,14 @@ def test_SeosCryptoApi_Key_makePublic_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_makePublic_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_makePublic_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_getParams_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Key_getParams(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_pos', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_pos', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_getParams_neg_2(boot):
     """
@@ -1815,14 +1815,14 @@ def test_SeosCryptoApi_Key_getParams_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_loadParams_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Key_loadParams(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_pos', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_pos', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_loadParams_neg_2(boot):
     """
@@ -1830,14 +1830,14 @@ def test_SeosCryptoApi_Key_loadParams_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_getAttribs_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Key_getAttribs(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getAttribs_pos', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getAttribs_pos', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_getAttribs_neg_2(boot):
     """
@@ -1845,120 +1845,120 @@ def test_SeosCryptoApi_Key_getAttribs_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getAttribs_neg', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getAttribs_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_free_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Key_free(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_free_pos', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_free_pos', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_free_neg_2(boot):
     """
     Negative tests for SeosCryptoApi_Key_free(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_free_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_free_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_getParams_buffer_2(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Key_getParams(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_buffer', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_buffer', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_loadParams_buffer_2(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Key_loadParams(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_buffer', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_buffer', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Key_import_pos_3(boot):
     """
     Positive tests for SeosCryptoApi_Key_import(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_import_pos', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_import_pos', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Key_generate_pos_3(boot):
     """
     Positive tests for SeosCryptoApi_Key_generate(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_generate_pos', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_generate_pos', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Key_makePublic_pos_3(boot):
     """
     Positive tests for SeosCryptoApi_Key_makePublic(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Key_makePublic_pos', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Key_makePublic_pos', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Key_getParams_pos_3(boot):
     """
     Positive tests for SeosCryptoApi_Key_getParams(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_pos', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_getParams_pos', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Key_loadParams_pos_3(boot):
     """
     Positive tests for SeosCryptoApi_Key_loadParams(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_pos', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_loadParams_pos', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Key_migrate_pos_1(boot):
     """
-    Positive tests for SeosCryptoApi_Key_migrate(), covering the valid ways of using
+    Positive tests for SeosCryptoApi_migrateObject(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_migrate_pos', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_migrate_pos', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Key_migrate_neg_1(boot):
     """
-    Negative tests for SeosCryptoApi_Key_migrate(), covering the invalid ways of
+    Negative tests for SeosCryptoApi_migrateObject(), covering the invalid ways of
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_migrate_neg', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Key_migrate_neg', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Mac_init_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Mac_init(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_init_pos', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_init_pos', 'mode=4')
 
 def test_SeosCryptoApi_Mac_init_neg_2(boot):
     """
     Negative tests for SeosCryptoApi_Mac_init(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_init_neg', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_init_neg', 'mode=4')
 
 def test_SeosCryptoApi_Mac_free_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Mac_free(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_free_pos', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_free_pos', 'mode=4')
 
 def test_SeosCryptoApi_Mac_free_neg_2(boot):
     """
     Negative tests for SeosCryptoApi_Mac_free(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_free_neg', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_free_neg', 'mode=4')
 
 def test_SeosCryptoApi_Mac_start_neg_2(boot):
     """
     Negative tests for SeosCryptoApi_Mac_start(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_start_neg', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_start_neg', 'mode=4')
 
 def test_SeosCryptoApi_Mac_process_neg_2(boot):
     """
@@ -1966,7 +1966,7 @@ def test_SeosCryptoApi_Mac_process_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_process_neg', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_process_neg', 'mode=4')
 
 def test_SeosCryptoApi_Mac_finalize_neg_2(boot):
     """
@@ -1974,47 +1974,47 @@ def test_SeosCryptoApi_Mac_finalize_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_finalize_neg', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_finalize_neg', 'mode=4')
 
 def test_SeosCryptoApi_Mac_start_buffer_2(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Mac_start(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_start_buffer', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_start_buffer', 'mode=4')
 
 def test_SeosCryptoApi_Mac_process_buffer_2(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Mac_process(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_process_buffer', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_process_buffer', 'mode=4')
 
 def test_SeosCryptoApi_Mac_finalize_buffer_2(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Mac_finalize(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_finalize_buffer', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_finalize_buffer', 'mode=4')
 
 def test_SeosCryptoApi_Mac_do_HMAC_MD5_2(boot):
     """
     Compute MAC on testvectors with HMAC-MD5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_do_HMAC_MD5', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_do_HMAC_MD5', 'mode=4')
 
 def test_SeosCryptoApi_Mac_do_HMAC_SHA256_2(boot):
     """
     Compute MAC on testvectors with HMAC-SHA256.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_do_HMAC_SHA256', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Mac_do_HMAC_SHA256', 'mode=4')
 
 def test_SeosCryptoApi_Rng_getBytes_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Rng_getBytes(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_pos', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_pos', 'mode=4')
 
 def test_SeosCryptoApi_Rng_getBytes_neg_2(boot):
     """
@@ -2022,14 +2022,14 @@ def test_SeosCryptoApi_Rng_getBytes_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_neg', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_neg', 'mode=4')
 
 def test_SeosCryptoApi_Rng_reSeed_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Rng_reSeed(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_pos', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_pos', 'mode=4')
 
 def test_SeosCryptoApi_Rng_reSeed_neg_2(boot):
     """
@@ -2037,28 +2037,28 @@ def test_SeosCryptoApi_Rng_reSeed_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_neg', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_neg', 'mode=4')
 
 def test_SeosCryptoApi_Rng_reSeed_buffer_2(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Rng_reSeed(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_buffer', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_reSeed_buffer', 'mode=4')
 
 def test_SeosCryptoApi_Rng_getBytes_buffer_2(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Rng_getBytes(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_buffer', 'api->mode=2')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Rng_getBytes_buffer', 'mode=4')
 
 def test_SeosCryptoApi_Signature_init_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Signature_init(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_init_pos', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_init_pos', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Signature_init_neg_2(boot):
     """
@@ -2066,14 +2066,14 @@ def test_SeosCryptoApi_Signature_init_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_init_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_init_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Signature_free_pos_2(boot):
     """
     Positive tests for SeosCryptoApi_Signature_free(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_free_pos', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_free_pos', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Signature_free_neg_2(boot):
     """
@@ -2081,7 +2081,7 @@ def test_SeosCryptoApi_Signature_free_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_free_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_free_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Signature_sign_neg_2(boot):
     """
@@ -2089,7 +2089,7 @@ def test_SeosCryptoApi_Signature_sign_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_sign_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_sign_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Signature_verify_neg_2(boot):
     """
@@ -2097,85 +2097,85 @@ def test_SeosCryptoApi_Signature_verify_neg_2(boot):
     of using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_verify_neg', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_verify_neg', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Signature_sign_buffer_2(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Signature_sign(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_sign_buffer', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_sign_buffer', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Signature_verify_buffer_2(boot):
     """
     Test that buffers/buffer sizes for SeosCryptoApi_Signature_verify(), behave the
     same regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_verify_buffer', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_verify_buffer', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_sign_2(boot):
     """
     Sign some testvectors with RSA PCKS#1 V1.5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_sign', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_sign', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_verify_2(boot):
     """
     Verify some testvectors with RSA PCKS#1 V1.5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_verify', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_verify', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_verify_2(boot):
     """
     Verify some testvectors with RSA PCKS#1 V2.1.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_verify', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_verify', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd_2(boot):
     """
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 1.5.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 15, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 8, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd_2(boot):
     """
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 2.1
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 15, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd', 'api->mode=2,allowExport=1')
+    parser.check_test(boot(TEST_NAME), 9, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd', 'mode=4,expo=1')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_sign_3(boot):
     """
     Sign some testvectors with RSA PCKS#1 V1.5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_sign', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 2, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_sign', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_verify_3(boot):
     """
     Verify some testvectors with RSA PCKS#1 V1.5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_verify', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_verify', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_verify_3(boot):
     """
     Verify some testvectors with RSA PCKS#1 V2.1.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_verify', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_verify', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd_3(boot):
     """
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 1.5.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 15, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 11, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V15_rnd', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd_3(boot):
     """
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 2.1.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 15, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 9, 'test_SeosCryptoApi_Signature_do_RSA_PKCS1_V21_rnd', 'mode=4,expo=0')
 
 def test_SeosCryptoApi_Signature_key_neg_0(boot):
     """
@@ -2183,4 +2183,5 @@ def test_SeosCryptoApi_Signature_key_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_key_neg', 'api->mode=2,allowExport=0')
+    parser.check_test(boot(TEST_NAME), 1, 'test_SeosCryptoApi_Signature_key_neg', 'mode=4,expo=0')
+
