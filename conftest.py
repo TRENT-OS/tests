@@ -224,7 +224,7 @@ def use_qemu_with_proxy(request, proxy_app=None):
 
 
 #-------------------------------------------------------------------------------
-def tls_server_proc(port = 8888, timeout = 60):
+def tls_server_proc(port = 8888, timeout = 180):
     try:
         context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
         context.load_cert_chain(
