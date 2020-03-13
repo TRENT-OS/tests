@@ -11,7 +11,7 @@ def test_SeosTlsApi_init_pos_0(boot_with_proxy, tls_server):
     Positive tests for SeosTlsApi_init(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 7, 'test_SeosTlsApi_init_pos')
+    parser.check_test(boot_with_proxy(TEST_NAME), 30, 'test_SeosTlsApi_init_pos')
 
 def test_SeosTlsApi_init_neg_0(boot_with_proxy, tls_server):
     """
@@ -39,109 +39,110 @@ def test_SeosTlsApi_handshake_pos_0(boot_with_proxy, tls_server):
     Positive tests for SeosTlsApi_handshake(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 90, 'test_SeosTlsApi_handshake_pos', 'api->mode=0')
+    parser.check_test(boot_with_proxy(TEST_NAME), 30, 'test_SeosTlsApi_handshake_pos', 'mode=1')
 
 def test_SeosTlsApi_handshake_neg_0(boot_with_proxy, tls_server):
     """
     Negative tests for SeosTlsApi_handshake(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_handshake_neg', 'api->mode=0')
+    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_handshake_neg', 'mode=1')
 
 def test_SeosTlsApi_write_neg_0(boot_with_proxy, tls_server):
     """
     Negative tests for SeosTlsApi_write(), covering the invalid ways of using this
     function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_write_neg', 'api->mode=0')
+    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_write_neg', 'mode=1')
 
 def test_SeosTlsApi_write_pos_0(boot_with_proxy, tls_server):
     """
     Positive tests for SeosTlsApi_write(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_write_pos', 'api->mode=0')
+    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_write_pos', 'mode=1')
 
 def test_SeosTlsApi_read_neg_0(boot_with_proxy, tls_server):
     """
     Negative tests for SeosTlsApi_read(), covering the invalid ways of using this
     function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_read_neg', 'api->mode=0')
+    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_read_neg', 'mode=1')
 
 def test_SeosTlsApi_read_pos_0(boot_with_proxy, tls_server):
     """
     Positive tests for SeosTlsApi_read(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 2, 'test_SeosTlsApi_read_pos', 'api->mode=0')
+    parser.check_test(boot_with_proxy(TEST_NAME), 2, 'test_SeosTlsApi_read_pos', 'mode=1')
 
 def test_SeosTlsApi_reset_neg_0(boot_with_proxy, tls_server):
     """
     Negative tests for SeosTlsApi_reset(), covering the invalid ways of using this
     function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_reset_neg', 'api->mode=0')
+    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_reset_neg', 'mode=1')
 
 def test_SeosTlsApi_reset_pos_0(boot_with_proxy, tls_server):
     """
     Positive tests for SeosTlsApi_reset(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 90, 'test_SeosTlsApi_reset_pos', 'api->mode=0')
+    parser.check_test(boot_with_proxy(TEST_NAME), 30, 'test_SeosTlsApi_reset_pos', 'mode=1')
 
 def test_SeosTlsApi_handshake_pos_1(boot_with_proxy, tls_server):
     """
     Positive tests for SeosTlsApi_handshake(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 90, 'test_SeosTlsApi_handshake_pos', 'api->mode=2')
+    parser.check_test(boot_with_proxy(TEST_NAME), 30, 'test_SeosTlsApi_handshake_pos', 'mode=3')
 
 def test_SeosTlsApi_handshake_neg_1(boot_with_proxy, tls_server):
     """
     Negative tests for SeosTlsApi_handshake(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_handshake_neg', 'api->mode=2')
+    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_handshake_neg', 'mode=3')
 
 def test_SeosTlsApi_write_neg_1(boot_with_proxy, tls_server):
     """
     Negative tests for SeosTlsApi_write(), covering the invalid ways of using this
     function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_write_neg', 'api->mode=2')
+    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_write_neg', 'mode=3')
 
 def test_SeosTlsApi_write_pos_1(boot_with_proxy, tls_server):
     """
     Positive tests for SeosTlsApi_write(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_write_pos', 'api->mode=2')
+    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_write_pos', 'mode=3')
 
 def test_SeosTlsApi_read_neg_1(boot_with_proxy, tls_server):
     """
     Negative tests for SeosTlsApi_read(), covering the invalid ways of using this
     function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_read_neg', 'api->mode=2')
+    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_read_neg', 'mode=3')
 
 def test_SeosTlsApi_read_pos_1(boot_with_proxy, tls_server):
     """
     Positive tests for SeosTlsApi_read(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 2, 'test_SeosTlsApi_read_pos', 'api->mode=2')
+    parser.check_test(boot_with_proxy(TEST_NAME), 2, 'test_SeosTlsApi_read_pos', 'mode=3')
 
 def test_SeosTlsApi_reset_neg_1(boot_with_proxy, tls_server):
     """
     Negative tests for SeosTlsApi_reset(), covering the invalid ways of using this
     function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_reset_neg', 'api->mode=2')
+    parser.check_test(boot_with_proxy(TEST_NAME), 1, 'test_SeosTlsApi_reset_neg', 'mode=3')
 
 def test_SeosTlsApi_reset_pos_1(boot_with_proxy, tls_server):
     """
     Positive tests for SeosTlsApi_reset(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 90, 'test_SeosTlsApi_reset_pos', 'api->mode=2')
+    parser.check_test(boot_with_proxy(TEST_NAME), 30, 'test_SeosTlsApi_reset_pos', 'mode=3')
+
