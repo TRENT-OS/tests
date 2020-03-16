@@ -125,6 +125,7 @@ def start_or_attach_to_qemu_and_proxy(
             assert False
         else:
             print("Start proxy: " + proxy_app)
+            assert(os.path.isfile(proxy_app))
             print("  proxy stdout:       " + proxy_stdout_file)
             # search for dev/ptsX info in QEMU stderr
             (text, match) = logs.get_match_in_line(
