@@ -172,26 +172,20 @@ def start_or_attach_to_qemu_and_proxy(
 
 
 #-------------------------------------------------------------------------------
-def use_qemu_with_proxy(request, proxy_app=None):
+def use_qemu_with_proxy(request, log_dir, proxy_app=None):
 
-    test_module = os.path.splitext(request.node.name)[0]
-    tmp_dir = os.path.join(pytest.qemu_log_dir, test_module)
+    test_system_out_file  = os.path.join(log_dir, "guest_out.txt")
 
-    if not os.path.isdir(tmp_dir):
-        os.makedirs(tmp_dir)
-
-    test_system_out_file  = os.path.join(tmp_dir, "guest_out.txt")
-
-    qemu_stdin_file       = os.path.join(tmp_dir, "qemu_in.fifo")
-    qemu_stdout_file      = os.path.join(tmp_dir, "qemu_out.txt")
-    qemu_stderr_file      = os.path.join(tmp_dir, "qemu_err.txt")
-    qemu_pid_file         = os.path.join(tmp_dir, "qemu.pid")
+    qemu_stdin_file       = os.path.join(log_dir, "qemu_in.fifo")
+    qemu_stdout_file      = os.path.join(log_dir, "qemu_out.txt")
+    qemu_stderr_file      = os.path.join(log_dir, "qemu_err.txt")
+    qemu_pid_file         = os.path.join(log_dir, "qemu.pid")
 
     proxy_stdout_file     = None if proxy_app is None \
-                            else os.path.join(tmp_dir, "proxy_out.txt")
+                            else os.path.join(log_dir, "proxy_out.txt")
 
     proxy_pid_file        = None if proxy_app is None \
-                            else os.path.join(tmp_dir, "proxy.pid")
+                            else os.path.join(log_dir, "proxy.pid")
 
     # create pipe for QEMU input
     os.mkfifo(qemu_stdin_file)
@@ -270,16 +264,32 @@ def tls_server_proc(port = 8888, timeout = 180):
 
 
 #-------------------------------------------------------------------------------
+def create_log_dir(request):
+    test_module = os.path.splitext(request.node.name)[0]
+    log_dir = os.path.join(request.config.option.workspace_path,
+                           request.config.option.test_run_id,
+                           test_module)
+
+    if os.path.isdir(log_dir):
+        pytest.fail("log dir already exists: %s"%(log_dir))
+
+    os.makedirs(log_dir)
+    return log_dir
+
+
+#-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot(request):
-    yield from use_qemu_with_proxy(request)
+    log_dir = create_log_dir(request)
+    yield from use_qemu_with_proxy(request, log_dir)
 
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot_with_proxy(request):
+    log_dir = create_log_dir(request)
     proxy_app = request.config.option.proxy_path
-    yield from use_qemu_with_proxy(request, proxy_app)
+    yield from use_qemu_with_proxy(request, log_dir, proxy_app)
 
 
 #-------------------------------------------------------------------------------
@@ -289,16 +299,6 @@ def tls_server():
     proc.start()
     yield proc
     proc.terminate()
-
-
-#-------------------------------------------------------------------------------
-@pytest.fixture(scope="session", autouse=True)
-def setup_logging_for_qemu_and_proxy(request):
-
-    # ToDo: find a better way where to store this.
-    pytest.qemu_log_dir = os.path.join(
-                            request.config.option.workspace_path,
-                            request.config.option.test_run_id)
 
 
 #-------------------------------------------------------------------------------
