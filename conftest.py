@@ -295,16 +295,10 @@ def tls_server():
 @pytest.fixture(scope="session", autouse=True)
 def setup_logging_for_qemu_and_proxy(request):
 
-    # print("request.config.option", request.config.option)
-    # print("  workspace_path: ", request.config.option.workspace_path)
-    # print("  proxy_path: ", request.config.option.proxy_path)
-
-    timestamp_str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-
     # ToDo: find a better way where to store this.
-    pytest.qemu_log_dir = os.path.join(request.config.option.workspace_path,
-                                       "test-logs-"+timestamp_str)
-
+    pytest.qemu_log_dir = os.path.join(
+                            request.config.option.workspace_path,
+                            request.config.option.test_run_id)
 
 
 #-------------------------------------------------------------------------------
@@ -319,3 +313,8 @@ def pytest_addoption(parser):
     parser.addoption(
         "--proxy_path",
         help="location of the proxy application")
+
+    parser.addoption(
+        "--test_run_id",
+        required=True,
+        help="test run ID")
