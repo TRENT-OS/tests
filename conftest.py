@@ -312,8 +312,10 @@ def pytest_addoption(parser):
 
     parser.addoption(
         "--workspace_path",
+        required=True,
         help="location of the workspace that holds the test image")
 
+    # proxy is an optional parameter, because some tests don't need it
     parser.addoption(
         "--proxy_path",
         help="location of the proxy application")
