@@ -56,7 +56,8 @@ def start_or_attach_to_qemu_and_proxy(
     qemu_pid_file,
     proxy_app = None,
     proxy_stdout_file = None,
-    proxy_pid_file = None
+    proxy_pid_file = None,
+    qemu_connection = None
 ):
     qemu_already_running = os.path.isfile(qemu_pid_file)
 
@@ -86,21 +87,30 @@ def start_or_attach_to_qemu_and_proxy(
 
         assert(os.path.isfile(test_image))
 
-        start_process_and_create_pid_file(
-            "qemu-system-arm" +
+        connection_string = " -serial /dev/null"
+
+        if(qemu_connection == "PTY"):
+            # must use "-S" to freeze the QEMU at startup,
+            # unfreezing when the other end of PTY is
+            # connected
+            connection_string = " -S -serial pty"
+        elif (qemu_connection == "TCP"):
+            # QEMU will freeze on startup until it can
+            # connect to the server
+            connection_string = " -serial tcp:localhost:4444,server"
+        
+        qemu_cmd = ("qemu-system-arm" +
                 " -machine xilinx-zynq-a9" +
                 " -nographic" +
-                #" -s" +  # shortcut for -gdb tcp::1234
-                " -S" +  # freeze the CPU at startup
-                #" -serial tcp:localhost:4444,server" +
-                " -serial pty" +
+                connection_string + 
                 " -serial file:" + test_system_out_file +
                 " -m size=1024M" +
                 " -kernel " + test_image +
                 " 2>" + qemu_stderr_file +
                 " >" + qemu_stdout_file +
-                " <" + qemu_stdin_file,
-            qemu_pid_file)
+                " <" + qemu_stdin_file) 
+
+        start_process_and_create_pid_file(qemu_cmd, qemu_pid_file)          
 
         # seems QEMU tries to read from strdin, so we have to open the pipe now
         # to unblock it
@@ -127,40 +137,55 @@ def start_or_attach_to_qemu_and_proxy(
             print("Start proxy: " + proxy_app)
             assert(os.path.isfile(proxy_app))
             print("  proxy stdout:       " + proxy_stdout_file)
-            # search for dev/ptsX info in QEMU stderr
-            (text, match) = logs.get_match_in_line(
-                                f_qemu_stderr,
-                                re.compile('(\/dev\/pts\/\d)'),
-                                10)
-            assert(match)
 
-            start_process_and_create_pid_file(
-                proxy_app + \
-                    " -c PTY:" + match + # PTY to connect to
-                    " -t 1" # enable TAP
-                    " > " + proxy_stdout_file,
-                proxy_pid_file)
+            connection_mode = None
+
+            if(qemu_connection == "PTY"):
+                # search for dev/ptsX info in QEMU stderr
+                (text, match) = logs.get_match_in_line(
+                                    f_qemu_stderr,
+                                    re.compile('(\/dev\/pts\/\d)'),
+                                    10)
+                assert(match)
+
+                connection_mode = "PTY:" + match # PTY to connect to
+            elif(qemu_connection == "TCP"):
+                connection_mode = "TCP:4444"
+            else:
+                print("ERROR: invalid qemu_connection %s", qemu_connection)
+                # ToDo: return an error or throw exception
+                assert False
+
+            # start the proxy
+            proxy_cmd = (proxy_app + \
+                        " -c " + connection_mode +
+                        " -t 1" # enable TAP
+                        " > " + proxy_stdout_file)
+
+            start_process_and_create_pid_file(proxy_cmd, proxy_pid_file)                
 
             proxy_pid = get_pid_from_pid_file(proxy_pid_file)
             print("Proxy starting (PID %u) ..."%(proxy_pid))
 
     if not qemu_already_running:
-        # QEMU starts up in halted mode, must send the "c" command to let it
-        # boot the system
-        attempts = 0
-        while (True):
-            attempts += 1
-            if (attempts > 60):
-                print("can't connect to QEMU")
-                assert(False)
-            try:
-                f_qemu_stdin.write("c\n")
-                break
-            except IOError as e:
-                print("waiting for QEMU, communication failures: " + attempts)
-                time.sleep(1)
+        if(qemu_connection == "PTY"):
+            # QEMU starts up in halted mode, must send the "c" command to let it
+            # boot the system
+            attempts = 0
+            while (True):
+                attempts += 1
+                if (attempts > 60):
+                    print("can't connect to QEMU")
+                    assert(False)
+                try:
+                    f_qemu_stdin.write("c\n")
+                    break
+                except IOError as e:
+                    print("waiting for QEMU, communication failures: " + attempts)
+                    time.sleep(1)
 
-        print("QEMU machine released...")
+            print("QEMU machine released...")
+
         # give QEMU some time to run
         time.sleep(2)
 
@@ -172,7 +197,7 @@ def start_or_attach_to_qemu_and_proxy(
 
 
 #-------------------------------------------------------------------------------
-def use_qemu_with_proxy(request, log_dir, proxy_app=None):
+def use_qemu_with_proxy(request, log_dir, proxy_app=None, qemu_connection=None):
 
     test_system_out_file  = os.path.join(log_dir, "guest_out.txt")
 
@@ -201,7 +226,8 @@ def use_qemu_with_proxy(request, log_dir, proxy_app=None):
                 qemu_pid_file,
                 proxy_app,
                 proxy_stdout_file,
-                proxy_pid_file) )
+                proxy_pid_file,
+                qemu_connection) )
 
     # tear-down phase
 
@@ -289,7 +315,8 @@ def boot(request):
 def boot_with_proxy(request):
     log_dir = create_log_dir(request)
     proxy_app = request.config.option.proxy_path
-    yield from use_qemu_with_proxy(request, log_dir, proxy_app)
+    qemu_connection = request.config.option.qemu_connection
+    yield from use_qemu_with_proxy(request, log_dir, proxy_app, qemu_connection)
 
 
 #-------------------------------------------------------------------------------
@@ -314,6 +341,10 @@ def pytest_addoption(parser):
         "--proxy_path",
         help="location of the proxy application")
 
+    parser.addoption(
+        "--qemu_connection",
+        help="QEMU connection mode (PTY or TCP)")
+        
     parser.addoption(
         "--test_run_id",
         required=True,
