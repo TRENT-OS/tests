@@ -151,7 +151,7 @@ def test_logging_server_and_client_filter_null(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.FILTER_NULL.value, text, 12)
+    verifyLogLevels(LogClients.FILTER_NULL.value, text, 13)
 
 
 def test_logging_filter_none(boot_with_proxy):
@@ -317,6 +317,20 @@ def test_logging_filter_level_custom(boot_with_proxy):
 
     verifyLogLevels(LogClients.LVL_CUSTOM.value, text, 12)
 
+def test_logging_filter_level_max(boot_with_proxy):
+    """ Logging with filtering of level MAX. """
+
+    test_run = boot_with_proxy(log_server_demo_name)
+    f_out = test_run[1]
+
+    (text, match) = logs.get_match_in_line(
+        f_out,
+        re.compile(log_file_02_begin_marker),
+        timeout)
+
+    assert match
+
+    verifyLogLevels(LogClients.LVL_MAX.value, text, 13)
 
 def test_filter_on_client_side_none(boot_with_proxy):
     """ Logging with client's filtering of level level NONE (all types of

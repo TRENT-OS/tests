@@ -22,6 +22,7 @@ class LogClients(Enum):
     LVL_DEBUG        = "LVL_DEBUG"
     LVL_TRACE        = "LVL_TRACE"
     LVL_CUSTOM       = "LVL_CUSTOM"
+    LVL_MAX          = "LVL_MAX"
 
     FILTER_NULL      = "FILTER_NULL"
 
@@ -53,6 +54,7 @@ class LogMessagesPatterns(Enum):
     DEBUG_LVL_MSG   = r".*Debug_LOG_DEBUG\n"
     TRACE_LVL_MSG   = r".*Debug_LOG_TRACE\n"
     CUSTOM_LVL_MSG  = r".*Debug_LOG_CUSTOM\n"
+    MAX_LVL_MSG     = r".*Debug_LOG_MAX\n"
 
     LOG_SERVER_INIT_SUCCESS = r".*=> SUCCESS!\n"
     PARTITION_0_CREATED     = r".*Partition 0 successfully created!"
