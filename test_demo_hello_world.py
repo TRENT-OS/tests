@@ -14,7 +14,7 @@ def test_hello_world(boot):
     world
     """
 
-    test_run = boot("test_hello_world")
+    test_run = boot("demo_hello_world")
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
