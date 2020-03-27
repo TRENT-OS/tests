@@ -131,8 +131,8 @@ def test_key_store_multi_instance_tests_move_fat(boot_with_proxy):
     if not ret:
         pytest.fail(" missing: %s"%(expr_fail))
 
+
 #-------------------------------------------------------------------------------
-@pytest.mark.skip(reason="NOT WORKING")
 def test_key_store_unit_tests_spiffs(boot_with_proxy):
     """
     Run unit tests (import, read, delete) with KeySrore (using SPIFFS file system)
@@ -140,7 +140,7 @@ def test_key_store_unit_tests_spiffs(boot_with_proxy):
     Scenario 2: remote keystore
 
         - STATUS: NOT WORKING
-        - PROBLEM: SPIFFS integration has to be reworked first 
+        - PROBLEM: SPIFFS integration has to be reworked first
     """
 
     test_run = boot_with_proxy(test_system)
@@ -159,7 +159,6 @@ def test_key_store_unit_tests_spiffs(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
-@pytest.mark.skip(reason="NOT WORKING")
 def test_key_store_integration_tests_AES_spiffs(boot_with_proxy):
     """
     import AES-256 key to KeyStore using (using SPIFFS file system)
@@ -167,7 +166,7 @@ def test_key_store_integration_tests_AES_spiffs(boot_with_proxy):
     Scenario 4: remote keystore
 
         - STATUS: NOT WORKING
-        - PROBLEM: SPIFFS integration has to be reworked first 
+        - PROBLEM: SPIFFS integration has to be reworked first
     """
 
     test_run = boot_with_proxy(test_system)
@@ -186,7 +185,6 @@ def test_key_store_integration_tests_AES_spiffs(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
-@pytest.mark.skip(reason="NOT WORKING")
 def test_key_store_integration_tests_keyPair_spiffs(boot_with_proxy):
     """
     import RSA-128 key pair to KeyStore (using SPIFFS file system)
@@ -194,7 +192,7 @@ def test_key_store_integration_tests_keyPair_spiffs(boot_with_proxy):
     Scenario 6: remote keystore
 
         - STATUS: NOT WORKING
-        - PROBLEM: SPIFFS integration has to be reworked first 
+        - PROBLEM: SPIFFS integration has to be reworked first
     """
 
     test_run = boot_with_proxy(test_system)
@@ -213,7 +211,6 @@ def test_key_store_integration_tests_keyPair_spiffs(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
-@pytest.mark.skip(reason="NOT WORKING")
 def test_key_store_multi_instance_tests_copy_spiffs(boot_with_proxy):
     """
     Copy key from one keystore to another (using SPIFFS file system)
@@ -221,7 +218,7 @@ def test_key_store_multi_instance_tests_copy_spiffs(boot_with_proxy):
     Scenario 8: remote keystore
 
         - STATUS: NOT WORKING
-        - PROBLEM: SPIFFS integration has to be reworked first 
+        - PROBLEM: SPIFFS integration has to be reworked first
     """
 
     test_run = boot_with_proxy(test_system)
@@ -240,7 +237,6 @@ def test_key_store_multi_instance_tests_copy_spiffs(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
-@pytest.mark.skip(reason="NOT WORKING")
 def test_key_store_multi_instance_tests_move_spiffs(boot_with_proxy):
     """
     Move key from one keystore to another (using SPIFFS file system)
@@ -248,7 +244,7 @@ def test_key_store_multi_instance_tests_move_spiffs(boot_with_proxy):
     Scenario 10: remote keystore
 
         - STATUS: NOT WORKING
-        - PROBLEM: SPIFFS integration has to be reworked first 
+        - PROBLEM: SPIFFS integration has to be reworked first
     """
 
     test_run = boot_with_proxy(test_system)
