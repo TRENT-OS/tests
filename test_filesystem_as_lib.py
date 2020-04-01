@@ -315,7 +315,7 @@ def test_filesystem_partition_manager_get_info_partition(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
-# TEST: partition_init()
+# TEST: OS_FilesystemApi_init()
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_init_inexistent_partition_error(boot_with_proxy):
@@ -446,7 +446,7 @@ def test_filesystem_partition_init(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
-# TEST: partition_open() & is_valid_partition_handle()
+# TEST: OS_FilesystemApi_open() & OS_FilesystemApi_validatePartitionHandle()
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_open(boot_with_proxy):
@@ -513,7 +513,7 @@ def test_filesystem_partition_open_empty_shadow_partition_error(boot_with_proxy)
         pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
-# TEST: partition_fs_create()
+# TEST: OS_FilesystemApi_create()
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
@@ -690,7 +690,7 @@ def test_filesystem_create(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
-# TEST: partition_fs_mount()
+# TEST: OS_FilesystemApi_mount()
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
@@ -774,12 +774,12 @@ def test_filesystem_mount(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
-# TEST: file_open(), file_write() & file_close()
+# TEST: OS_FilesystemApi_openFile(), OS_FilesystemApi_writeFile() & OS_FilesystemApi_closeFile()
 #-------------------------------------------------------------------------------
 
 def test_filesystem_file_create(boot_with_proxy):
     """ This test creates different files of varying file size and file content on the provided filesystem instances (and the partitions underneath respectively).
-        File creation is utilizing file_open(), file_write() & file_close() functions.
+        File creation is utilizing OS_FilesystemApi_openFile(), OS_FilesystemApi_writeFile() & OS_FilesystemApi_closeFile() functions.
 
         - STATUS: OK
     """
@@ -797,7 +797,7 @@ def test_filesystem_file_create(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
-# TEST: file_getSize()
+# TEST: OS_FilesystemApi_getSizeOfFile()
 #-------------------------------------------------------------------------------
 
 def test_filesystem_file_size(boot_with_proxy):
@@ -819,7 +819,7 @@ def test_filesystem_file_size(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
-# TEST: file_open(), file_read() & file_close()
+# TEST: OS_FilesystemApi_openFile(), OS_FilesystemApi_readFile() & OS_FilesystemApi_closeFile()
 #-------------------------------------------------------------------------------
 
 def test_filesystem_file_read(boot_with_proxy):
@@ -841,7 +841,7 @@ def test_filesystem_file_read(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
-# TEST: file_delete()
+# TEST: OS_FilesystemApi_deleteFile()
 #-------------------------------------------------------------------------------
 
 def test_filesystem_file_delete(boot_with_proxy):
@@ -863,7 +863,7 @@ def test_filesystem_file_delete(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
-# TEST: partition_wipe()
+# TEST: OS_FilesystemApi_wipe()
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_wipe(boot_with_proxy):
@@ -887,7 +887,7 @@ def test_filesystem_partition_wipe(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
-# TEST: partition_fs_unmount()
+# TEST: OS_FilesystemApi_unmount()
 #-------------------------------------------------------------------------------
 
 def test_filesystem_unmount(boot_with_proxy):
@@ -909,7 +909,7 @@ def test_filesystem_unmount(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
-# TEST: partition_close()
+# TEST: OS_FilesystemApi_close()
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_close(boot_with_proxy):
