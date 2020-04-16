@@ -1113,21 +1113,6 @@ def test_OS_CryptoKey_loadParams_buffer_1(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_loadParams_buffer', 'mode=2,expo=1')
 
-def test_OS_CryptoKey_migrate_pos_0(boot):
-    """
-    Positive tests for OS_Crypto_migrateObject(), covering the valid ways of using
-    this function.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_migrate_pos', 'mode=2,expo=1')
-
-def test_OS_CryptoKey_migrate_neg_0(boot):
-    """
-    Negative tests for OS_Crypto_migrateObject(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_migrate_neg', 'mode=2,expo=1')
-
 def test_OS_CryptoMac_init_pos_1(boot):
     """
     Positive tests for OS_CryptoMac_init(), covering the valid ways of using
@@ -1910,21 +1895,6 @@ def test_OS_CryptoKey_loadParams_pos_3(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_loadParams_pos', 'mode=4,expo=0')
 
-def test_OS_CryptoKey_migrate_pos_1(boot):
-    """
-    Positive tests for OS_Crypto_migrateObject(), covering the valid ways of using
-    this function.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_migrate_pos', 'mode=4,expo=0')
-
-def test_OS_CryptoKey_migrate_neg_1(boot):
-    """
-    Negative tests for OS_Crypto_migrateObject(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_migrate_neg', 'mode=4,expo=0')
-
 def test_OS_CryptoMac_init_pos_2(boot):
     """
     Positive tests for OS_CryptoMac_init(), covering the valid ways of using
@@ -2185,3 +2155,17 @@ def test_OS_CryptoSignature_key_neg_0(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_key_neg', 'mode=4,expo=0')
 
+def test_OS_Crypto_migrateLibObject_pos_0(boot):
+    """
+    Positive tests for OS_Crypto_migrateLibObject(), covering the valid ways of using
+    this function.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_Crypto_migrateLibObject_pos')
+
+def test_OS_Crypto_migrateLibObject_neg_0(boot):
+    """
+    Negative tests for OS_Crypto_migrateLibObject(), covering the invalid ways of
+    using this function thus verifying that it returns error codes instead of
+    crashing
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_Crypto_migrateLibObject_neg')
