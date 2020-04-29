@@ -108,9 +108,9 @@ def start_or_attach_to_qemu_and_proxy(
                 " -kernel " + test_image +
                 " 2>" + qemu_stderr_file +
                 " >" + qemu_stdout_file +
-                " <" + qemu_stdin_file) 
+                " <" + qemu_stdin_file)
 
-        start_process_and_create_pid_file(qemu_cmd, qemu_pid_file)          
+        start_process_and_create_pid_file(qemu_cmd, qemu_pid_file)
 
         # seems QEMU tries to read from strdin, so we have to open the pipe now
         # to unblock it
@@ -162,7 +162,7 @@ def start_or_attach_to_qemu_and_proxy(
                         " -t 1" # enable TAP
                         " > " + proxy_stdout_file)
 
-            start_process_and_create_pid_file(proxy_cmd, proxy_pid_file)                
+            start_process_and_create_pid_file(proxy_cmd, proxy_pid_file)
 
             proxy_pid = get_pid_from_pid_file(proxy_pid_file)
             print("Proxy starting (PID %u) ..."%(proxy_pid))
@@ -344,7 +344,7 @@ def pytest_addoption(parser):
     parser.addoption(
         "--qemu_connection",
         help="QEMU connection mode (PTY or TCP)")
-        
+
     parser.addoption(
         "--test_run_id",
         required=True,
