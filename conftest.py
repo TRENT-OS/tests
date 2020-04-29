@@ -123,6 +123,7 @@ def start_or_attach_to_qemu_and_proxy(
 
 
     f_qemu_stderr = logs.open_file_non_blocking(qemu_stderr_file, "r")
+    f_qemu_stdout = logs.open_file_non_blocking(qemu_stdout_file, "r")
 
     if proxy_app is not None:
         if proxy_already_running:
@@ -142,10 +143,17 @@ def start_or_attach_to_qemu_and_proxy(
 
             if(qemu_connection == "PTY"):
                 # search for dev/ptsX info in QEMU stderr
+                # in QEMU >= 4.2 we need to look in stdout
                 (text, match) = logs.get_match_in_line(
                                     f_qemu_stderr,
                                     re.compile('(\/dev\/pts\/\d)'),
                                     10)
+                # if there was no match in stderr we have to look in stdout
+                if match is None:
+                    (text, match) = logs.get_match_in_line(
+                                        f_qemu_stdout,
+                                        re.compile('(\/dev\/pts\/\d)'),
+                                        10)                    
                 assert(match)
 
                 connection_mode = "PTY:" + match # PTY to connect to
