@@ -590,15 +590,12 @@ def test_filesystem_create_resolve_handle_error(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-@pytest.mark.skip(reason="NOT WORKING")
 def test_filesystem_create_invalid_filesystem_error(boot_with_proxy):
-    """ This test initializes a filesystem instance on each partition available, but an internal error occurs.
+    """ This test tries to create a filesystem with an invalid type that is
+        neither FAT nor SPIFFS and therefore is expected to fail.
         The following filesystem types are available right now:
             - FAT (FAT12, FAT16, FAT32)
             - SPIFFS
-        Currently, only the FAT filesystem is tested.
-
-        - STATUS: NOT WORKING
     """
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
@@ -606,7 +603,7 @@ def test_filesystem_create_invalid_filesystem_error(boot_with_proxy):
     (ret, text, expr_fail) = logs.check_log_match_sequence(
     f_out,
     [
-        "TestFSCreate_invalid_filesystem_error: OK"
+        "TestFSCreate_invalid_filesystem_mode_error: OK"
     ],
     timeout)
 
