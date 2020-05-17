@@ -47,6 +47,80 @@ def terminate_process_by_pid_file(
 
 
 #-------------------------------------------------------------------------------
+def get_proxy_connection_params(qemu_connection):
+
+    if(qemu_connection == "PTY"):
+
+        # must use "-S" to freeze the QEMU at startup, unfreezing when the
+        # other end of PTY is connected
+        return ["-S", "-serial pty"]
+
+    elif (qemu_connection == "TCP"):
+
+        # QEMU will freeze on startup until it can connect to the server
+        return ["-serial tcp:localhost:4444,server"]
+
+    else:
+
+        return ["-serial /dev/null"]
+
+
+#-------------------------------------------------------------------------------
+def get_qemu_cmd(test_image_descriptor, qemu_connection, test_system_out_file):
+
+    path         = test_image_descriptor[0]
+    system       = test_image_descriptor[1]
+    build_target = test_image_descriptor[2]
+    build_mode   = test_image_descriptor[3]
+
+    PLAT_MAPPINGS = {
+        # <plat>: [ ["<sel4-arch>"],
+        #           ["<qemu-binary-arch>", "<qemu-machine>"],
+        #         ],
+
+        "imx6":      [ ["arm"],
+                       ["arm",     "sabrelite"],
+                     ],
+        "migv":      [ ["riscv"],
+                       ["riscv64", "virt"],
+                     ],
+        "rpi3":      [ ["arm"],
+                       ["aarch64", "raspi3"],
+                     ],
+        "spike":     [ ["riscv"],
+                       ["riscv64", "spike_v1.10"],
+                     ],
+        "zynq7000":  [ ["arm"],
+                       ["arm",     "xilinx-zynq-a9"],
+                     ],
+    }
+
+    plat_mapping = PLAT_MAPPINGS.get(build_target, None)
+    assert(plat_mapping is not None)
+    sel4_mapping = plat_mapping[0]
+    qemu_mapping = plat_mapping[1]
+
+
+    test_image = os.path.join(
+                    path,
+                    "build-" + build_target + "-" + build_mode + "-" + system,
+                    "images",
+                    "capdl-loader-image-" + sel4_mapping[0] + "-" + build_target)
+
+    print("launching QEMU with " + test_image)
+    assert(os.path.isfile(test_image))
+
+    return [ "qemu-system-" + qemu_mapping[0],
+             "-machine " + qemu_mapping[1],
+             "-m size=1024M",
+             "-nographic",
+           ] + get_proxy_connection_params(qemu_connection) + [
+             "-serial file:" + test_system_out_file,
+             "-kernel " + test_image,
+           ]
+
+
+#-------------------------------------------------------------------------------
 def start_or_attach_to_qemu_and_proxy(
     test_image_descriptor,
     test_system_out_file,
@@ -73,44 +147,26 @@ def start_or_attach_to_qemu_and_proxy(
         print("QEMU already running (PID %u)"%(qemu_pid))
 
     else:
-        test_image = os.path.join(
-                        test_image_descriptor[0],
-                        "build-zynq7000-Debug-"+test_image_descriptor[1],
-                        "images",
-                        "capdl-loader-image-arm-zynq7000")
-
-        print("launching QEMU with " + test_image)
         print("  test system output: " + test_system_out_file)
         print("  QEMU stdin:         " + qemu_stdin_file)
         print("  QEMU stdout:        " + qemu_stdout_file)
         print("  QEMU stderr:        " + qemu_stderr_file)
 
-        assert(os.path.isfile(test_image))
 
-        connection_string = " -serial /dev/null"
+        qemu_cmd = get_qemu_cmd(
+                    test_image_descriptor,
+                    qemu_connection,
+                    test_system_out_file) + [
+                        "2>" + qemu_stderr_file,
+                        ">" + qemu_stdout_file,
+                        "<" + qemu_stdin_file
+                    ]
 
-        if(qemu_connection == "PTY"):
-            # must use "-S" to freeze the QEMU at startup,
-            # unfreezing when the other end of PTY is
-            # connected
-            connection_string = " -S -serial pty"
-        elif (qemu_connection == "TCP"):
-            # QEMU will freeze on startup until it can
-            # connect to the server
-            connection_string = " -serial tcp:localhost:4444,server"
-        
-        qemu_cmd = ("qemu-system-arm" +
-                " -machine xilinx-zynq-a9" +
-                " -nographic" +
-                connection_string + 
-                " -serial file:" + test_system_out_file +
-                " -m size=1024M" +
-                " -kernel " + test_image +
-                " 2>" + qemu_stderr_file +
-                " >" + qemu_stdout_file +
-                " <" + qemu_stdin_file)
+        print(qemu_cmd)
 
-        start_process_and_create_pid_file(qemu_cmd, qemu_pid_file)
+        start_process_and_create_pid_file(
+            " ".join(qemu_cmd),
+            qemu_pid_file)
 
         # seems QEMU tries to read from strdin, so we have to open the pipe now
         # to unblock it
@@ -153,7 +209,7 @@ def start_or_attach_to_qemu_and_proxy(
                     (text, match) = logs.get_match_in_line(
                                         f_qemu_stdout,
                                         re.compile('(\/dev\/pts\/\d)'),
-                                        10)                    
+                                        10)
                 assert(match)
 
                 connection_mode = "PTY:" + match # PTY to connect to
@@ -223,10 +279,14 @@ def use_qemu_with_proxy(request, log_dir, proxy_app=None, qemu_connection=None):
     # create pipe for QEMU input
     os.mkfifo(qemu_stdin_file)
 
+
     # pytest will run this for each test case
     yield (lambda system:
             start_or_attach_to_qemu_and_proxy(
-                [request.config.option.workspace_path, system],
+                [ request.config.option.workspace_path,
+                  system,
+                  request.config.option.target,
+                  "Debug"],
                 test_system_out_file,
                 qemu_stdin_file,
                 qemu_stdout_file,
@@ -352,6 +412,12 @@ def pytest_addoption(parser):
     parser.addoption(
         "--qemu_connection",
         help="QEMU connection mode (PTY or TCP)")
+
+
+    parser.addoption(
+        "--target",
+        required=True,
+        help="target platform")
 
     parser.addoption(
         "--test_run_id",
