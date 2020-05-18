@@ -5,6 +5,8 @@ import re
 import os
 import logs
 import pytest
+import http.server
+import socketserver
 
 import sys
 
@@ -57,8 +59,14 @@ def test_network_picotcp_smoke_tests(boot_with_proxy):
 
 
 def test_network_api_client(boot_with_proxy):
-
     test_run = boot_with_proxy(test_system)
+    PORT = 8080
+    Handler = http.server.SimpleHTTPRequestHandler
+
+    with socketserver.TCPServer(("", PORT), Handler) as httpd:
+        print("Serving at port", PORT)
+        httpd.handle_request()
+
     f_out = test_run[1]
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
