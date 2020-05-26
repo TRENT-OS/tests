@@ -372,6 +372,21 @@ def create_log_dir(request):
 
 
 #-------------------------------------------------------------------------------
+def get_log_dir(request):
+    test_module = os.path.splitext(request.node.name)[0]
+    log_dir = os.path.join(request.config.option.workspace_path,
+                           request.config.option.test_run_id,
+                           test_module)
+
+    if os.path.isdir(log_dir):
+        return log_dir
+
+    # if the log dir does not exist yet, go ahead and create one
+    log_dir = create_log_dir(request)
+    return log_dir
+
+
+#-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot(request):
     log_dir = create_log_dir(request)
