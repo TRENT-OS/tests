@@ -356,6 +356,22 @@ def tls_server_proc(port = 8888, timeout = 180):
     finally:
         sock.close()
 
+#-------------------------------------------------------------------------------
+def start_or_attach_to_mosquitto(request):
+    log_dir = get_log_dir(request)
+
+    mosquitto_log_dir = os.path.join(log_dir, "mosquitto_log.txt")
+
+    with open(mosquitto_log_dir, "w") as mosquitto_log_file:
+        try:
+            subprocess.Popen(
+                ['mosquitto', '-c', '/etc/mosquitto/mosquitto.conf'],
+                stderr=mosquitto_log_file,
+                stdout=mosquitto_log_file)
+        except OSError:
+            # no need to run the tests without the broker
+            pytest.fail("Couldn't run mosquitto broker!")
+
 
 #-------------------------------------------------------------------------------
 def create_log_dir(request):
@@ -409,6 +425,12 @@ def tls_server():
     proc.start()
     yield proc
     proc.terminate()
+
+
+#-------------------------------------------------------------------------------
+@pytest.fixture(scope="module")
+def mosquitto_broker(request):
+    start_or_attach_to_mosquitto(request)
 
 
 #-------------------------------------------------------------------------------
