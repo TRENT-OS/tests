@@ -198,7 +198,7 @@ def test_logging_filter_level_assert(boot_with_proxy):
 def test_logging_filter_level_fatal(boot_with_proxy):
     """ Logging with filtering of level FATAL.
 
-    Please not that LVL_FATAL is expected to log both to consol and file.
+    Please note that LVL_FATAL is expected to log both to consol and file.
     """
 
     test_run = boot_with_proxy(log_server_demo_name)
@@ -214,12 +214,8 @@ def test_logging_filter_level_fatal(boot_with_proxy):
     verifyLogLevels(LogClients.LVL_FATAL.value, text,
                     6, LogTargets.CONSOLE_AND_FILE_1)
 
-
 def test_logging_filter_level_error(boot_with_proxy):
-    """ Logging with filtering of level ERROR.
-
-    Please not that LVL_FATAL is expected to log both to consol and file.
-    """
+    """ Logging with filtering of level ERROR. """
 
     test_run = boot_with_proxy(log_server_demo_name)
     f_out = test_run[1]
@@ -235,7 +231,7 @@ def test_logging_filter_level_error(boot_with_proxy):
         LogClients.LVL_ERROR.value,
         text,
         7,
-        LogTargets.CONSOLE_AND_FILE_2)
+        LogTargets.CONSOLE_ONLY)
 
 
 def test_logging_filter_level_warning(boot_with_proxy):
