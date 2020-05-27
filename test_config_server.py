@@ -17,7 +17,7 @@ def test_create_handle_ok(boot_with_proxy):
         The createHandle function offered by the ConfigServer as library and component
         is successfully tested.
     Success criteria:
-        The createHandle function returns SEOS_SUCCESS for a local and a remote handle.
+        The createHandle function returns OS_SUCCESS for a local and a remote handle.
     """
 
     result_list = [
