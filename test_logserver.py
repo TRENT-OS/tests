@@ -634,8 +634,8 @@ def test_client_sending_ill_formatted_string(boot_with_proxy):
     test_run = boot_with_proxy(log_server_demo_name)
     f_out = test_run[1]
 
-    expected_error = "FAULT HANDLER: data fault from " + \
-                     "sendsIllFormattedString.sendsIllFormattedString_0_control"
+    expected_error = "FAULT HANDLER: data fault from sendsIllFormattedString" \
+                   + ".sendsIllFormattedString_ready_0000"
 
     (text, match) = logs.get_match_in_line(
         f_out,
