@@ -10,7 +10,7 @@ timeout = 60
 test_system = "test_partition_manager"
 
 #-------------------------------------------------------------------------------
-# TEST: partition_manager_get_info_disk()
+# TEST: OS_PartitionManager_getInfoDisk()
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT WORKING")
@@ -193,7 +193,7 @@ def test_partition_manager_get_info_partition(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail))   
 
 #-------------------------------------------------------------------------------
-# TEST: partition_manager_open()
+# TEST: OS_PartitionManager_open()
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_open_inexistent_partition_error(boot_with_proxy):
@@ -323,7 +323,7 @@ def test_partition_manager_open_again(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
-# TEST: partition_manager_write()
+# TEST: OS_PartitionManager_write()
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_write_insufficient_databuffer_error(boot_with_proxy):
@@ -518,7 +518,7 @@ def test_partition_manager_write(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
-# TEST: partition_manager_read()
+# TEST: OS_PartitionManager_read()
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_read_insufficient_databuffer_error(boot_with_proxy):
@@ -712,7 +712,7 @@ def test_partition_manager_read(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail)) 
 
 #-------------------------------------------------------------------------------
-# TEST: partition_manager_close()
+# TEST: OS_PartitionManager_close()
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_close_inexistent_partition_error(boot_with_proxy):

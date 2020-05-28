@@ -55,7 +55,7 @@ def test_filesystem_hw_init(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
-# TEST: partition_manager_init()
+# TEST: OS_PartitionManager_init()
 #--------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
@@ -143,7 +143,7 @@ def test_filesystem_partition_manager_init(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
-# TEST: partition_manager_get_info_disk()
+# TEST: OS_PartitionManager_getInfoDisk()
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_manager_get_info_disk_invalid_parameter_error(boot_with_proxy):
@@ -207,7 +207,7 @@ def test_filesystem_partition_manager_get_info_disk(boot_with_proxy):
         pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
-# TEST: partition_manager_get_info_partition()
+# TEST: OS_PartitionManager_getInfoPartition()
 #-------------------------------------------------------------------------------
 
 def test_filesystem_partition_manager_get_info_partition_inexistent_partition_error(boot_with_proxy):
