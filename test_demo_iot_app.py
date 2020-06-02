@@ -81,7 +81,7 @@ def test_connect_to_server_ok(boot_with_proxy, mosquitto_broker):
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
-        ["incoming connection established"],
+        ["TCP connection established successfully"],
         timeout)
 
     if not ret:
