@@ -14,29 +14,28 @@ OS_Crypto_MODE_CLIENT       = 3
 def test_OS_Crypto_init_neg_0(boot):
     """
     Negative tests for OS_Crypto_init(), covering the invalid ways of using this
-    function thus verifying that it returns error codes instead of crashing
+    function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 6, 'test_OS_Crypto_init_neg')
 
 def test_OS_Crypto_free_neg_0(boot):
     """
     Negative tests for OS_Crypto_free(), covering the invalid ways of using this
-    function thus verifying that it returns error codes instead of crashing
+    function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_Crypto_free_neg')
 
 def test_OS_CryptoAgreement_init_pos_0(boot):
     """
-    Positive tests for OS_CryptoAgreement_init(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoAgreement_init(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_init_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoAgreement_init_neg_0(boot):
     """
-    Negative tests for OS_CryptoAgreement_init(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoAgreement_init(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_init_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
@@ -44,29 +43,28 @@ def test_OS_CryptoAgreement_agree_neg_0(boot):
     """
     Negative tests for OS_CryptoAgreement_agree(), covering the invalid ways of
     using this function thus verifying that it returns error codes instead of
-    crashing
+    crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_agree_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoAgreement_free_pos_0(boot):
     """
-    Positive tests for OS_CryptoAgreement_free(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoAgreement_free(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoAgreement_free_neg_0(boot):
     """
-    Negative tests for OS_CryptoAgreement_free(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoAgreement_free(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoAgreement_agree_buffer_0(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoAgreement_agree(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoAgreement_agree(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_agree_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
@@ -105,39 +103,36 @@ def test_OS_CryptoCipher_init_pos_0(boot):
 
 def test_OS_CryptoCipher_init_neg_0(boot):
     """
-    Negative tests for OS_CryptoCipher_init(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoCipher_init(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_init_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoCipher_free_pos_0(boot):
     """
-    Positive tests for OS_CryptoCipher_free(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoCipher_free(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoCipher_free_neg_0(boot):
     """
-    Negative tests for OS_CryptoCipher_free(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoCipher_free(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoCipher_start_neg_0(boot):
     """
     Negative tests for OS_CryptoCipher_start(), covering the invalid ways of using
-    this function thus verifying that it returns error codes instead of crashing
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_start_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoCipher_process_neg_0(boot):
     """
-    Negative tests for OS_CryptoCipher_process(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoCipher_process(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_process_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
@@ -145,7 +140,7 @@ def test_OS_CryptoCipher_finalize_neg_0(boot):
     """
     Negative tests for OS_CryptoCipher_finalize(), covering the invalid ways of
     using this function thus verifying that it returns error codes instead of
-    crashing
+    crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_finalize_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
@@ -165,15 +160,15 @@ def test_OS_CryptoCipher_start_buffer_0(boot):
 
 def test_OS_CryptoCipher_process_buffer_0(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoCipher_process(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoCipher_process(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_process_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoCipher_finalize_buffer_0(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoCipher_finalize(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoCipher_finalize(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_finalize_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
@@ -242,54 +237,50 @@ def test_OS_CryptoCipher_do_AES_GCM_rnd_0(boot):
 
 def test_OS_CryptoDigest_init_pos_0(boot):
     """
-    Positive tests for OS_CryptoDigest_init(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoDigest_init(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_init_pos', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoDigest_init_neg_0(boot):
     """
-    Negative tests for OS_CryptoDigest_init(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoDigest_init(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_init_neg', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoDigest_free_pos_0(boot):
     """
-    Positive tests for OS_CryptoDigest_free(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoDigest_free(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_free_pos', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoDigest_free_neg_0(boot):
     """
-    Negative tests for OS_CryptoDigest_free(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoDigest_free(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_free_neg', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoDigest_clone_pos_0(boot):
     """
-    Positive tests for OS_CryptoDigest_clone(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoDigest_clone(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_clone_pos', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoDigest_clone_neg_0(boot):
     """
-    Negative tests for OS_CryptoDigest_clone(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoDigest_clone(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_clone_neg', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoDigest_process_neg_0(boot):
     """
-    Negative tests for OS_CryptoDigest_process(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoDigest_process(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_process_neg', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
 
@@ -297,21 +288,21 @@ def test_OS_CryptoDigest_finalize_neg_0(boot):
     """
     Negative tests for OS_CryptoDigest_finalize(), covering the invalid ways of
     using this function thus verifying that it returns error codes instead of
-    crashing
+    crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_finalize_neg', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoDigest_process_buffer_0(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoDigest_process(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoDigest_process(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_process_buffer', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoDigest_finalize_buffer_0(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoDigest_finalize(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoDigest_finalize(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_finalize_buffer', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
 
@@ -336,171 +327,162 @@ def test_OS_CryptoKey_import_pos_0(boot):
 
 def test_OS_CryptoKey_import_neg_0(boot):
     """
-    Negative tests for OS_CryptoKey_import(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_import(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_import_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_export_pos_0(boot):
     """
-    Positive tests for OS_CryptoKey_export(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoKey_export(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_export_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_export_neg_0(boot):
     """
-    Negative tests for OS_CryptoKey_export(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_export(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_export_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_generate_pos_0(boot):
     """
-    Positive tests for OS_CryptoKey_generate(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_generate(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_generate_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_generate_neg_0(boot):
     """
-    Negative tests for OS_CryptoKey_generate(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_generate(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_generate_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_makePublic_pos_0(boot):
     """
-    Positive tests for OS_CryptoKey_makePublic(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_makePublic(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_makePublic_neg_0(boot):
     """
-    Negative tests for OS_CryptoKey_makePublic(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_makePublic(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_makePublic_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_getParams_pos_0(boot):
     """
-    Positive tests for OS_CryptoKey_getParams(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_getParams(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getParams_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_getParams_neg_0(boot):
     """
-    Negative tests for OS_CryptoKey_getParams(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_getParams(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getParams_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_loadParams_pos_0(boot):
     """
-    Positive tests for OS_CryptoKey_loadParams(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_loadParams(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_loadParams_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_loadParams_neg_0(boot):
     """
-    Negative tests for OS_CryptoKey_loadParams(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_loadParams(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_loadParams_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_getAttribs_pos_0(boot):
     """
-    Positive tests for OS_CryptoKey_getAttribs(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_getAttribs(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getAttribs_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_getAttribs_neg_0(boot):
     """
-    Negative tests for OS_CryptoKey_getAttribs(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_getAttribs(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getAttribs_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_free_pos_0(boot):
     """
-    Positive tests for OS_CryptoKey_free(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoKey_free(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_free_neg_0(boot):
     """
-    Negative tests for OS_CryptoKey_free(), covering the invalid ways of using
-    this function thus verifying that it returns error codes instead of crashing
+    Negative tests for OS_CryptoKey_free(), covering the invalid ways of using this
+    function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_getParams_buffer_0(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoKey_getParams(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoKey_getParams(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getParams_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_loadParams_buffer_0(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoKey_loadParams(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoKey_loadParams(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_loadParams_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoMac_init_pos_0(boot):
     """
-    Positive tests for OS_CryptoMac_init(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoMac_init(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoMac_init_neg_0(boot):
     """
-    Negative tests for OS_CryptoMac_init(), covering the invalid ways of using
-    this function thus verifying that it returns error codes instead of crashing
+    Negative tests for OS_CryptoMac_init(), covering the invalid ways of using this
+    function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoMac_free_pos_0(boot):
     """
-    Positive tests for OS_CryptoMac_free(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoMac_free(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoMac_free_neg_0(boot):
     """
-    Negative tests for OS_CryptoMac_free(), covering the invalid ways of using
-    this function thus verifying that it returns error codes instead of crashing
+    Negative tests for OS_CryptoMac_free(), covering the invalid ways of using this
+    function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoMac_process_neg_0(boot):
     """
-    Negative tests for OS_CryptoMac_process(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoMac_process(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoMac_finalize_neg_0(boot):
     """
-    Negative tests for OS_CryptoMac_finalize(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoMac_finalize(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
@@ -532,16 +514,15 @@ def test_OS_CryptoMac_do_HMAC_SHA256_0(boot):
 
 def test_OS_CryptoRng_getBytes_pos_0(boot):
     """
-    Positive tests for OS_CryptoRng_getBytes(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoRng_getBytes(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_getBytes_pos', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoRng_getBytes_neg_0(boot):
     """
-    Negative tests for OS_CryptoRng_getBytes(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoRng_getBytes(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_getBytes_neg', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
 
@@ -554,9 +535,8 @@ def test_OS_CryptoRng_reSeed_pos_0(boot):
 
 def test_OS_CryptoRng_reSeed_neg_0(boot):
     """
-    Negative tests for OS_CryptoRng_reSeed(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoRng_reSeed(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_reSeed_neg', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
 
@@ -576,61 +556,58 @@ def test_OS_CryptoRng_getBytes_buffer_0(boot):
 
 def test_OS_CryptoSignature_init_pos_0(boot):
     """
-    Positive tests for OS_CryptoSignature_init(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoSignature_init(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_init_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoSignature_init_neg_0(boot):
     """
-    Negative tests for OS_CryptoSignature_init(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoSignature_init(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_init_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoSignature_free_pos_0(boot):
     """
-    Positive tests for OS_CryptoSignature_free(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoSignature_free(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoSignature_free_neg_0(boot):
     """
-    Negative tests for OS_CryptoSignature_free(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoSignature_free(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoSignature_sign_neg_0(boot):
     """
-    Negative tests for OS_CryptoSignature_sign(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoSignature_sign(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_sign_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoSignature_verify_neg_0(boot):
     """
-    Negative tests for OS_CryptoSignature_verify(), covering the invalid ways
-    of using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoSignature_verify(), covering the invalid ways of
+    using this function thus verifying that it returns error codes instead of
+    crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_verify_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoSignature_sign_buffer_0(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoSignature_sign(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoSignature_sign(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_sign_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoSignature_verify_buffer_0(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoSignature_verify(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoSignature_verify(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_verify_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
@@ -668,16 +645,15 @@ def test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd_0(boot):
 
 def test_OS_CryptoAgreement_init_pos_1(boot):
     """
-    Positive tests for OS_CryptoAgreement_init(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoAgreement_init(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_init_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoAgreement_init_neg_1(boot):
     """
-    Negative tests for OS_CryptoAgreement_init(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoAgreement_init(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_init_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
@@ -685,29 +661,28 @@ def test_OS_CryptoAgreement_agree_neg_1(boot):
     """
     Negative tests for OS_CryptoAgreement_agree(), covering the invalid ways of
     using this function thus verifying that it returns error codes instead of
-    crashing
+    crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_agree_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoAgreement_free_pos_1(boot):
     """
-    Positive tests for OS_CryptoAgreement_free(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoAgreement_free(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoAgreement_free_neg_1(boot):
     """
-    Negative tests for OS_CryptoAgreement_free(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoAgreement_free(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoAgreement_agree_buffer_1(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoAgreement_agree(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoAgreement_agree(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_agree_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
@@ -739,46 +714,43 @@ def test_OS_CryptoAgreement_do_ECDH_rnd_1(boot):
 
 def test_OS_CryptoCipher_init_pos_1(boot):
     """
-    Positive tests for OS_CryptoCipher_init(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoCipher_init(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_init_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoCipher_init_neg_1(boot):
     """
-    Negative tests for OS_CryptoCipher_init(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoCipher_init(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_init_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoCipher_free_pos_1(boot):
     """
-    Positive tests for OS_CryptoCipher_free(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoCipher_free(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoCipher_free_neg_1(boot):
     """
-    Negative tests for OS_CryptoCipher_free(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoCipher_free(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoCipher_start_neg_1(boot):
     """
     Negative tests for OS_CryptoCipher_start(), covering the invalid ways of using
-    this function thus verifying that it returns error codes instead of crashing
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_start_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoCipher_process_neg_1(boot):
     """
-    Negative tests for OS_CryptoCipher_process(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoCipher_process(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_process_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
@@ -786,7 +758,7 @@ def test_OS_CryptoCipher_finalize_neg_1(boot):
     """
     Negative tests for OS_CryptoCipher_finalize(), covering the invalid ways of
     using this function thus verifying that it returns error codes instead of
-    crashing
+    crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_finalize_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
@@ -806,15 +778,15 @@ def test_OS_CryptoCipher_start_buffer_1(boot):
 
 def test_OS_CryptoCipher_process_buffer_1(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoCipher_process(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoCipher_process(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_process_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoCipher_finalize_buffer_1(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoCipher_finalize(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoCipher_finalize(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_finalize_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
@@ -883,54 +855,50 @@ def test_OS_CryptoCipher_do_AES_GCM_rnd_1(boot):
 
 def test_OS_CryptoDigest_init_pos_1(boot):
     """
-    Positive tests for OS_CryptoDigest_init(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoDigest_init(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_init_pos', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoDigest_init_neg_1(boot):
     """
-    Negative tests for OS_CryptoDigest_init(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoDigest_init(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_init_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoDigest_free_pos_1(boot):
     """
-    Positive tests for OS_CryptoDigest_free(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoDigest_free(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_free_pos', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoDigest_free_neg_1(boot):
     """
-    Negative tests for OS_CryptoDigest_free(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoDigest_free(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_free_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoDigest_clone_pos_1(boot):
     """
-    Positive tests for OS_CryptoDigest_clone(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoDigest_clone(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_clone_pos', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoDigest_clone_neg_1(boot):
     """
-    Negative tests for OS_CryptoDigest_clone(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoDigest_clone(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_clone_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoDigest_process_neg_1(boot):
     """
-    Negative tests for OS_CryptoDigest_process(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoDigest_process(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_process_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
 
@@ -938,21 +906,21 @@ def test_OS_CryptoDigest_finalize_neg_1(boot):
     """
     Negative tests for OS_CryptoDigest_finalize(), covering the invalid ways of
     using this function thus verifying that it returns error codes instead of
-    crashing
+    crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_finalize_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoDigest_process_buffer_1(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoDigest_process(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoDigest_process(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_process_buffer', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoDigest_finalize_buffer_1(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoDigest_finalize(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoDigest_finalize(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_finalize_buffer', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
 
@@ -970,178 +938,169 @@ def test_OS_CryptoDigest_do_MD5_1(boot):
 
 def test_OS_CryptoKey_import_pos_1(boot):
     """
-    Positive tests for OS_CryptoKey_import(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoKey_import(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_import_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_import_neg_1(boot):
     """
-    Negative tests for OS_CryptoKey_import(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_import(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_import_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_export_pos_1(boot):
     """
-    Positive tests for OS_CryptoKey_export(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoKey_export(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_export_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_export_neg_1(boot):
     """
-    Negative tests for OS_CryptoKey_export(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_export(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_export_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_generate_pos_1(boot):
     """
-    Positive tests for OS_CryptoKey_generate(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_generate(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_generate_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_generate_neg_1(boot):
     """
-    Negative tests for OS_CryptoKey_generate(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_generate(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_generate_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_makePublic_pos_1(boot):
     """
-    Positive tests for OS_CryptoKey_makePublic(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_makePublic(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_makePublic_neg_1(boot):
     """
-    Negative tests for OS_CryptoKey_makePublic(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_makePublic(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_makePublic_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_getParams_pos_1(boot):
     """
-    Positive tests for OS_CryptoKey_getParams(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_getParams(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getParams_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_getParams_neg_1(boot):
     """
-    Negative tests for OS_CryptoKey_getParams(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_getParams(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getParams_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_loadParams_pos_1(boot):
     """
-    Positive tests for OS_CryptoKey_loadParams(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_loadParams(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_loadParams_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_loadParams_neg_1(boot):
     """
-    Negative tests for OS_CryptoKey_loadParams(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_loadParams(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_loadParams_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_getAttribs_pos_1(boot):
     """
-    Positive tests for OS_CryptoKey_getAttribs(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_getAttribs(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getAttribs_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_getAttribs_neg_1(boot):
     """
-    Negative tests for OS_CryptoKey_getAttribs(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_getAttribs(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getAttribs_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_free_pos_1(boot):
     """
-    Positive tests for OS_CryptoKey_free(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoKey_free(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_free_neg_1(boot):
     """
-    Negative tests for OS_CryptoKey_free(), covering the invalid ways of using
-    this function thus verifying that it returns error codes instead of crashing
+    Negative tests for OS_CryptoKey_free(), covering the invalid ways of using this
+    function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_getParams_buffer_1(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoKey_getParams(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoKey_getParams(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getParams_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_loadParams_buffer_1(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoKey_loadParams(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoKey_loadParams(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_loadParams_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoMac_init_pos_1(boot):
     """
-    Positive tests for OS_CryptoMac_init(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoMac_init(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoMac_init_neg_1(boot):
     """
-    Negative tests for OS_CryptoMac_init(), covering the invalid ways of using
-    this function thus verifying that it returns error codes instead of crashing
+    Negative tests for OS_CryptoMac_init(), covering the invalid ways of using this
+    function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoMac_free_pos_1(boot):
     """
-    Positive tests for OS_CryptoMac_free(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoMac_free(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoMac_free_neg_1(boot):
     """
-    Negative tests for OS_CryptoMac_free(), covering the invalid ways of using
-    this function thus verifying that it returns error codes instead of crashing
+    Negative tests for OS_CryptoMac_free(), covering the invalid ways of using this
+    function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoMac_process_neg_1(boot):
     """
-    Negative tests for OS_CryptoMac_process(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoMac_process(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoMac_finalize_neg_1(boot):
     """
-    Negative tests for OS_CryptoMac_finalize(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoMac_finalize(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
@@ -1173,31 +1132,29 @@ def test_OS_CryptoMac_do_HMAC_SHA256_1(boot):
 
 def test_OS_CryptoRng_getBytes_pos_1(boot):
     """
-    Positive tests for OS_CryptoRng_getBytes(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoRng_getBytes(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_getBytes_pos', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoRng_getBytes_neg_1(boot):
     """
-    Negative tests for OS_CryptoRng_getBytes(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoRng_getBytes(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_getBytes_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoRng_reSeed_pos_1(boot):
     """
-    Positive tests for OS_CryptoRng_reSeed(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoRng_reSeed(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_reSeed_pos', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoRng_reSeed_neg_1(boot):
     """
-    Negative tests for OS_CryptoRng_reSeed(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoRng_reSeed(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_reSeed_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
 
@@ -1217,61 +1174,58 @@ def test_OS_CryptoRng_getBytes_buffer_1(boot):
 
 def test_OS_CryptoSignature_init_pos_1(boot):
     """
-    Positive tests for OS_CryptoSignature_init(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoSignature_init(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_init_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoSignature_init_neg_1(boot):
     """
-    Negative tests for OS_CryptoSignature_init(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoSignature_init(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_init_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoSignature_free_pos_1(boot):
     """
-    Positive tests for OS_CryptoSignature_free(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoSignature_free(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoSignature_free_neg_1(boot):
     """
-    Negative tests for OS_CryptoSignature_free(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoSignature_free(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoSignature_sign_neg_1(boot):
     """
-    Negative tests for OS_CryptoSignature_sign(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoSignature_sign(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_sign_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoSignature_verify_neg_1(boot):
     """
-    Negative tests for OS_CryptoSignature_verify(), covering the invalid ways
-    of using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoSignature_verify(), covering the invalid ways of
+    using this function thus verifying that it returns error codes instead of
+    crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_verify_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoSignature_sign_buffer_1(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoSignature_sign(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoSignature_sign(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_sign_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoSignature_verify_buffer_1(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoSignature_verify(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoSignature_verify(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_verify_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
@@ -1309,16 +1263,15 @@ def test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd_1(boot):
 
 def test_OS_CryptoAgreement_init_pos_2(boot):
     """
-    Positive tests for OS_CryptoAgreement_init(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoAgreement_init(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_init_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoAgreement_init_neg_2(boot):
     """
-    Negative tests for OS_CryptoAgreement_init(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoAgreement_init(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_init_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
@@ -1326,29 +1279,28 @@ def test_OS_CryptoAgreement_agree_neg_2(boot):
     """
     Negative tests for OS_CryptoAgreement_agree(), covering the invalid ways of
     using this function thus verifying that it returns error codes instead of
-    crashing
+    crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_agree_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoAgreement_free_pos_2(boot):
     """
-    Positive tests for OS_CryptoAgreement_free(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoAgreement_free(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoAgreement_free_neg_2(boot):
     """
-    Negative tests for OS_CryptoAgreement_free(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoAgreement_free(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoAgreement_agree_buffer_2(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoAgreement_agree(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoAgreement_agree(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_agree_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
@@ -1406,54 +1358,50 @@ def test_OS_CryptoAgreement_do_ECDH_rnd_3(boot):
 
 def test_OS_CryptoAgreement_key_neg_0(boot):
     """
-    Negative tests for OS_CryptoAgreement_key(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoAgreement_key(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_key_neg', 'mode=%i,expo=0' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoCipher_init_pos_2(boot):
     """
-    Positive tests for OS_CryptoCipher_init(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoCipher_init(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_init_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoCipher_init_neg_2(boot):
     """
-    Negative tests for OS_CryptoCipher_init(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoCipher_init(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_init_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoCipher_free_pos_2(boot):
     """
-    Positive tests for OS_CryptoCipher_free(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoCipher_free(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoCipher_free_neg_2(boot):
     """
-    Negative tests for OS_CryptoCipher_free(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoCipher_free(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoCipher_start_neg_2(boot):
     """
     Negative tests for OS_CryptoCipher_start(), covering the invalid ways of using
-    this function thus verifying that it returns error codes instead of crashing
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_start_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoCipher_process_neg_2(boot):
     """
-    Negative tests for OS_CryptoCipher_process(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoCipher_process(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_process_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
@@ -1461,7 +1409,7 @@ def test_OS_CryptoCipher_finalize_neg_2(boot):
     """
     Negative tests for OS_CryptoCipher_finalize(), covering the invalid ways of
     using this function thus verifying that it returns error codes instead of
-    crashing
+    crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_finalize_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
@@ -1481,15 +1429,15 @@ def test_OS_CryptoCipher_start_buffer_2(boot):
 
 def test_OS_CryptoCipher_process_buffer_2(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoCipher_process(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoCipher_process(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_process_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoCipher_finalize_buffer_2(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoCipher_finalize(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoCipher_finalize(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_finalize_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
@@ -1615,54 +1563,50 @@ def test_OS_CryptoCipher_do_AES_GCM_rnd_3(boot):
 
 def test_OS_CryptoDigest_init_pos_2(boot):
     """
-    Positive tests for OS_CryptoDigest_init(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoDigest_init(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_init_pos', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoDigest_init_neg_2(boot):
     """
-    Negative tests for OS_CryptoDigest_init(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoDigest_init(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_init_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoDigest_free_pos_2(boot):
     """
-    Positive tests for OS_CryptoDigest_free(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoDigest_free(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_free_pos', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoDigest_free_neg_2(boot):
     """
-    Negative tests for OS_CryptoDigest_free(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoDigest_free(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_free_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoDigest_clone_pos_2(boot):
     """
-    Positive tests for OS_CryptoDigest_clone(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoDigest_clone(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_clone_pos', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoDigest_clone_neg_2(boot):
     """
-    Negative tests for OS_CryptoDigest_clone(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoDigest_clone(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_clone_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoDigest_process_neg_2(boot):
     """
-    Negative tests for OS_CryptoDigest_process(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoDigest_process(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_process_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
@@ -1670,21 +1614,21 @@ def test_OS_CryptoDigest_finalize_neg_2(boot):
     """
     Negative tests for OS_CryptoDigest_finalize(), covering the invalid ways of
     using this function thus verifying that it returns error codes instead of
-    crashing
+    crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_finalize_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoDigest_process_buffer_2(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoDigest_process(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoDigest_process(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_process_buffer', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoDigest_finalize_buffer_2(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoDigest_finalize(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoDigest_finalize(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_finalize_buffer', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
@@ -1702,213 +1646,204 @@ def test_OS_CryptoDigest_do_MD5_2(boot):
 
 def test_OS_CryptoKey_import_pos_2(boot):
     """
-    Positive tests for OS_CryptoKey_import(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoKey_import(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_import_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_import_neg_2(boot):
     """
-    Negative tests for OS_CryptoKey_import(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_import(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_import_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_export_pos_2(boot):
     """
-    Positive tests for OS_CryptoKey_export(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoKey_export(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_export_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_export_neg_2(boot):
     """
-    Negative tests for OS_CryptoKey_export(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_export(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_export_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_generate_pos_2(boot):
     """
-    Positive tests for OS_CryptoKey_generate(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_generate(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_generate_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_generate_neg_2(boot):
     """
-    Negative tests for OS_CryptoKey_generate(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_generate(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_generate_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_makePublic_pos_2(boot):
     """
-    Positive tests for OS_CryptoKey_makePublic(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_makePublic(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_makePublic_neg_2(boot):
     """
-    Negative tests for OS_CryptoKey_makePublic(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_makePublic(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_makePublic_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_getParams_pos_2(boot):
     """
-    Positive tests for OS_CryptoKey_getParams(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_getParams(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getParams_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_getParams_neg_2(boot):
     """
-    Negative tests for OS_CryptoKey_getParams(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_getParams(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getParams_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_loadParams_pos_2(boot):
     """
-    Positive tests for OS_CryptoKey_loadParams(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_loadParams(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_loadParams_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_loadParams_neg_2(boot):
     """
-    Negative tests for OS_CryptoKey_loadParams(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_loadParams(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_loadParams_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_getAttribs_pos_2(boot):
     """
-    Positive tests for OS_CryptoKey_getAttribs(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_getAttribs(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getAttribs_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_getAttribs_neg_2(boot):
     """
-    Negative tests for OS_CryptoKey_getAttribs(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoKey_getAttribs(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getAttribs_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_free_pos_2(boot):
     """
-    Positive tests for OS_CryptoKey_free(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoKey_free(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_free_neg_2(boot):
     """
-    Negative tests for OS_CryptoKey_free(), covering the invalid ways of using
-    this function thus verifying that it returns error codes instead of crashing
+    Negative tests for OS_CryptoKey_free(), covering the invalid ways of using this
+    function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_getParams_buffer_2(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoKey_getParams(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoKey_getParams(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getParams_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_loadParams_buffer_2(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoKey_loadParams(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoKey_loadParams(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_loadParams_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_import_pos_3(boot):
     """
-    Positive tests for OS_CryptoKey_import(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoKey_import(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_import_pos', 'mode=%i,expo=0' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_generate_pos_3(boot):
     """
-    Positive tests for OS_CryptoKey_generate(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_generate(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_generate_pos', 'mode=%i,expo=0' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_makePublic_pos_3(boot):
     """
-    Positive tests for OS_CryptoKey_makePublic(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_makePublic(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,expo=0' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_getParams_pos_3(boot):
     """
-    Positive tests for OS_CryptoKey_getParams(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_getParams(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getParams_pos', 'mode=%i,expo=0' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_loadParams_pos_3(boot):
     """
-    Positive tests for OS_CryptoKey_loadParams(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoKey_loadParams(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_loadParams_pos', 'mode=%i,expo=0' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_init_pos_2(boot):
     """
-    Positive tests for OS_CryptoMac_init(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoMac_init(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_init_neg_2(boot):
     """
-    Negative tests for OS_CryptoMac_init(), covering the invalid ways of using
-    this function thus verifying that it returns error codes instead of crashing
+    Negative tests for OS_CryptoMac_init(), covering the invalid ways of using this
+    function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_free_pos_2(boot):
     """
-    Positive tests for OS_CryptoMac_free(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoMac_free(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_free_neg_2(boot):
     """
-    Negative tests for OS_CryptoMac_free(), covering the invalid ways of using
-    this function thus verifying that it returns error codes instead of crashing
+    Negative tests for OS_CryptoMac_free(), covering the invalid ways of using this
+    function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_process_neg_2(boot):
     """
-    Negative tests for OS_CryptoMac_process(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoMac_process(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_finalize_neg_2(boot):
     """
-    Negative tests for OS_CryptoMac_finalize(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoMac_finalize(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
@@ -1952,31 +1887,29 @@ def test_OS_CryptoMac_do_HMAC_SHA256_3(boot):
 
 def test_OS_CryptoRng_getBytes_pos_2(boot):
     """
-    Positive tests for OS_CryptoRng_getBytes(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoRng_getBytes(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_getBytes_pos', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoRng_getBytes_neg_2(boot):
     """
-    Negative tests for OS_CryptoRng_getBytes(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoRng_getBytes(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_getBytes_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoRng_reSeed_pos_2(boot):
     """
-    Positive tests for OS_CryptoRng_reSeed(), covering the valid ways of using
-    this function.
+    Positive tests for OS_CryptoRng_reSeed(), covering the valid ways of using this
+    function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_reSeed_pos', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoRng_reSeed_neg_2(boot):
     """
-    Negative tests for OS_CryptoRng_reSeed(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoRng_reSeed(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_reSeed_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
@@ -1996,61 +1929,58 @@ def test_OS_CryptoRng_getBytes_buffer_2(boot):
 
 def test_OS_CryptoSignature_init_pos_2(boot):
     """
-    Positive tests for OS_CryptoSignature_init(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoSignature_init(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_init_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoSignature_init_neg_2(boot):
     """
-    Negative tests for OS_CryptoSignature_init(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoSignature_init(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_init_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoSignature_free_pos_2(boot):
     """
-    Positive tests for OS_CryptoSignature_free(), covering the valid ways of
-    using this function.
+    Positive tests for OS_CryptoSignature_free(), covering the valid ways of using
+    this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoSignature_free_neg_2(boot):
     """
-    Negative tests for OS_CryptoSignature_free(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoSignature_free(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoSignature_sign_neg_2(boot):
     """
-    Negative tests for OS_CryptoSignature_sign(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoSignature_sign(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_sign_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoSignature_verify_neg_2(boot):
     """
-    Negative tests for OS_CryptoSignature_verify(), covering the invalid ways
-    of using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoSignature_verify(), covering the invalid ways of
+    using this function thus verifying that it returns error codes instead of
+    crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_verify_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoSignature_sign_buffer_2(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoSignature_sign(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoSignature_sign(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_sign_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoSignature_verify_buffer_2(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoSignature_verify(), behave the
-    same regardless of the mode the API is in.
+    Test that buffers/buffer sizes for OS_CryptoSignature_verify(), behave the same
+    regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_verify_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
@@ -2120,16 +2050,15 @@ def test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd_3(boot):
 
 def test_OS_CryptoSignature_key_neg_0(boot):
     """
-    Negative tests for OS_CryptoSignature_key(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
+    Negative tests for OS_CryptoSignature_key(), covering the invalid ways of using
+    this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_key_neg', 'mode=%i,expo=0' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_Crypto_migrateLibObject_pos_0(boot):
     """
-    Positive tests for OS_Crypto_migrateLibObject(), covering the valid ways of using
-    this function.
+    Positive tests for OS_Crypto_migrateLibObject(), covering the valid ways of
+    using this function.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_Crypto_migrateLibObject_pos')
 
@@ -2137,6 +2066,6 @@ def test_OS_Crypto_migrateLibObject_neg_0(boot):
     """
     Negative tests for OS_Crypto_migrateLibObject(), covering the invalid ways of
     using this function thus verifying that it returns error codes instead of
-    crashing
+    crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_Crypto_migrateLibObject_neg')
