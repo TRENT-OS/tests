@@ -451,28 +451,28 @@ def test_OS_CryptoMac_init_pos_0(boot):
     Positive tests for OS_CryptoMac_init(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_pos', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoMac_init_neg_0(boot):
     """
     Negative tests for OS_CryptoMac_init(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_neg', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoMac_free_pos_0(boot):
     """
     Positive tests for OS_CryptoMac_free(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_pos', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoMac_free_neg_0(boot):
     """
     Negative tests for OS_CryptoMac_free(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_neg', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoMac_process_neg_0(boot):
     """
@@ -480,7 +480,7 @@ def test_OS_CryptoMac_process_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_neg', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoMac_finalize_neg_0(boot):
     """
@@ -488,33 +488,33 @@ def test_OS_CryptoMac_finalize_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_neg', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoMac_process_buffer_0(boot):
     """
     Test that buffers/buffer sizes for OS_CryptoMac_process(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_buffer', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoMac_finalize_buffer_0(boot):
     """
     Test that buffers/buffer sizes for OS_CryptoMac_finalize(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_buffer', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoMac_do_HMAC_MD5_0(boot):
     """
     Compute MAC on testvectors with HMAC-MD5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_do_HMAC_MD5', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_do_HMAC_MD5', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoMac_do_HMAC_SHA256_0(boot):
     """
     Compute MAC on testvectors with HMAC-SHA256.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_do_HMAC_SHA256', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_do_HMAC_SHA256', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoRng_getBytes_pos_0(boot):
     """
@@ -1078,28 +1078,28 @@ def test_OS_CryptoMac_init_pos_1(boot):
     Positive tests for OS_CryptoMac_init(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_pos', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoMac_init_neg_1(boot):
     """
     Negative tests for OS_CryptoMac_init(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoMac_free_pos_1(boot):
     """
     Positive tests for OS_CryptoMac_free(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_pos', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoMac_free_neg_1(boot):
     """
     Negative tests for OS_CryptoMac_free(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoMac_process_neg_1(boot):
     """
@@ -1107,7 +1107,7 @@ def test_OS_CryptoMac_process_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoMac_finalize_neg_1(boot):
     """
@@ -1115,33 +1115,33 @@ def test_OS_CryptoMac_finalize_neg_1(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoMac_process_buffer_1(boot):
     """
     Test that buffers/buffer sizes for OS_CryptoMac_process(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_buffer', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoMac_finalize_buffer_1(boot):
     """
     Test that buffers/buffer sizes for OS_CryptoMac_finalize(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_buffer', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoMac_do_HMAC_MD5_1(boot):
     """
     Compute MAC on testvectors with HMAC-MD5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_do_HMAC_MD5', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_do_HMAC_MD5', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoMac_do_HMAC_SHA256_1(boot):
     """
     Compute MAC on testvectors with HMAC-SHA256.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_do_HMAC_SHA256', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_do_HMAC_SHA256', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoRng_getBytes_pos_1(boot):
     """
@@ -1831,28 +1831,28 @@ def test_OS_CryptoMac_init_pos_2(boot):
     Positive tests for OS_CryptoMac_init(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_pos', 'mode=%i' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_init_neg_2(boot):
     """
     Negative tests for OS_CryptoMac_init(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_init_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_free_pos_2(boot):
     """
     Positive tests for OS_CryptoMac_free(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_pos', 'mode=%i' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_free_neg_2(boot):
     """
     Negative tests for OS_CryptoMac_free(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_process_neg_2(boot):
     """
@@ -1860,7 +1860,7 @@ def test_OS_CryptoMac_process_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_finalize_neg_2(boot):
     """
@@ -1868,33 +1868,45 @@ def test_OS_CryptoMac_finalize_neg_2(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_process_buffer_2(boot):
     """
     Test that buffers/buffer sizes for OS_CryptoMac_process(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_buffer', 'mode=%i' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_finalize_buffer_2(boot):
     """
     Test that buffers/buffer sizes for OS_CryptoMac_finalize(), behave the same
     regardless of the mode the API is in.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_buffer', 'mode=%i' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_do_HMAC_MD5_2(boot):
     """
     Compute MAC on testvectors with HMAC-MD5.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_do_HMAC_MD5', 'mode=%i' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_do_HMAC_MD5', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_do_HMAC_SHA256_2(boot):
     """
     Compute MAC on testvectors with HMAC-SHA256.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_do_HMAC_SHA256', 'mode=%i' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_do_HMAC_SHA256', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
+
+def test_OS_CryptoMac_do_HMAC_MD5_3(boot):
+    """
+    Compute MAC on testvectors with HMAC-MD5.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_do_HMAC_MD5', 'mode=%i,expo=0' % OS_Crypto_MODE_CLIENT)
+
+def test_OS_CryptoMac_do_HMAC_SHA256_3(boot):
+    """
+    Compute MAC on testvectors with HMAC-SHA256.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_do_HMAC_SHA256', 'mode=%i,expo=0' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoRng_getBytes_pos_2(boot):
     """
