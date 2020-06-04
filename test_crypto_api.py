@@ -126,14 +126,6 @@ def test_OS_CryptoCipher_free_neg_0(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
-def test_OS_CryptoCipher_start_neg_0(boot):
-    """
-    Negative tests for OS_CryptoCipher_start(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_start_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
-
 def test_OS_CryptoCipher_process_neg_0(boot):
     """
     Negative tests for OS_CryptoCipher_process(), covering the invalid ways of
@@ -156,13 +148,6 @@ def test_OS_CryptoCipher_init_buffer_0(boot):
     regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_init_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
-
-def test_OS_CryptoCipher_start_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoCipher_start(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_start_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoCipher_process_buffer_0(boot):
     """
@@ -489,13 +474,6 @@ def test_OS_CryptoMac_free_neg_0(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_neg', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
 
-def test_OS_CryptoMac_start_neg_0(boot):
-    """
-    Negative tests for OS_CryptoMac_start(), covering the invalid ways of using
-    this function thus verifying that it returns error codes instead of crashing
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_start_neg', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
-
 def test_OS_CryptoMac_process_neg_0(boot):
     """
     Negative tests for OS_CryptoMac_process(), covering the invalid ways of
@@ -511,13 +489,6 @@ def test_OS_CryptoMac_finalize_neg_0(boot):
     crashing
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_neg', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
-
-def test_OS_CryptoMac_start_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoMac_start(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_start_buffer', 'mode=%i' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoMac_process_buffer_0(boot):
     """
@@ -782,14 +753,6 @@ def test_OS_CryptoCipher_free_neg_1(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
-def test_OS_CryptoCipher_start_neg_1(boot):
-    """
-    Negative tests for OS_CryptoCipher_start(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_start_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
-
 def test_OS_CryptoCipher_process_neg_1(boot):
     """
     Negative tests for OS_CryptoCipher_process(), covering the invalid ways of
@@ -812,13 +775,6 @@ def test_OS_CryptoCipher_init_buffer_1(boot):
     regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_init_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
-
-def test_OS_CryptoCipher_start_buffer_1(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoCipher_start(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_start_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoCipher_process_buffer_1(boot):
     """
@@ -1145,13 +1101,6 @@ def test_OS_CryptoMac_free_neg_1(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
 
-def test_OS_CryptoMac_start_neg_1(boot):
-    """
-    Negative tests for OS_CryptoMac_start(), covering the invalid ways of using
-    this function thus verifying that it returns error codes instead of crashing
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_start_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
-
 def test_OS_CryptoMac_process_neg_1(boot):
     """
     Negative tests for OS_CryptoMac_process(), covering the invalid ways of
@@ -1167,13 +1116,6 @@ def test_OS_CryptoMac_finalize_neg_1(boot):
     crashing
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
-
-def test_OS_CryptoMac_start_buffer_1(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoMac_start(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_start_buffer', 'mode=%i' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoMac_process_buffer_1(boot):
     """
@@ -1472,14 +1414,6 @@ def test_OS_CryptoCipher_free_neg_2(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_free_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
-def test_OS_CryptoCipher_start_neg_2(boot):
-    """
-    Negative tests for OS_CryptoCipher_start(), covering the invalid ways of
-    using this function thus verifying that it returns error codes instead of
-    crashing
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_start_neg', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
-
 def test_OS_CryptoCipher_process_neg_2(boot):
     """
     Negative tests for OS_CryptoCipher_process(), covering the invalid ways of
@@ -1502,13 +1436,6 @@ def test_OS_CryptoCipher_init_buffer_2(boot):
     regardless of the mode the API is in.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_init_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
-
-def test_OS_CryptoCipher_start_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoCipher_start(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_start_buffer', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoCipher_process_buffer_2(boot):
     """
@@ -1927,13 +1854,6 @@ def test_OS_CryptoMac_free_neg_2(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_free_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
-def test_OS_CryptoMac_start_neg_2(boot):
-    """
-    Negative tests for OS_CryptoMac_start(), covering the invalid ways of using
-    this function thus verifying that it returns error codes instead of crashing
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_start_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT)
-
 def test_OS_CryptoMac_process_neg_2(boot):
     """
     Negative tests for OS_CryptoMac_process(), covering the invalid ways of
@@ -1949,13 +1869,6 @@ def test_OS_CryptoMac_finalize_neg_2(boot):
     crashing
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT)
-
-def test_OS_CryptoMac_start_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoMac_start(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_start_buffer', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_process_buffer_2(boot):
     """
