@@ -80,7 +80,7 @@ def test_OS_CryptoAgreement_do_ECDH_0(boot):
     """
     Compute shared key for randomly generated public/private keys with ECDH.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_OS_CryptoAgreement_do_ECDH', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
+    parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoAgreement_do_ECDH', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoAgreement_do_DH_rnd_0(boot):
     """
@@ -94,7 +94,7 @@ def test_OS_CryptoAgreement_do_ECDH_rnd_0(boot):
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the ECDH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 23, 'test_OS_CryptoAgreement_do_ECDH_rnd', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
+    parser.check_test(boot(TEST_NAME), 60, 'test_OS_CryptoAgreement_do_ECDH_rnd', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoCipher_init_pos_0(boot):
     """
@@ -363,7 +363,7 @@ def test_OS_CryptoKey_makePublic_pos_0(boot):
     Positive tests for OS_CryptoKey_makePublic(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
+    parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_makePublic_neg_0(boot):
     """
@@ -707,7 +707,7 @@ def test_OS_CryptoAgreement_do_ECDH_1(boot):
     """
     Compute shared key for randomly generated public/private keys with ECDH.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_OS_CryptoAgreement_do_ECDH', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
+    parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoAgreement_do_ECDH', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoAgreement_do_DH_rnd_1(boot):
     """
@@ -721,7 +721,7 @@ def test_OS_CryptoAgreement_do_ECDH_rnd_1(boot):
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the ECDH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 25, 'test_OS_CryptoAgreement_do_ECDH_rnd', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
+    parser.check_test(boot(TEST_NAME), 60, 'test_OS_CryptoAgreement_do_ECDH_rnd', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoCipher_init_pos_1(boot):
     """
@@ -990,7 +990,7 @@ def test_OS_CryptoKey_makePublic_pos_1(boot):
     Positive tests for OS_CryptoKey_makePublic(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
+    parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_makePublic_neg_1(boot):
     """
@@ -1334,7 +1334,7 @@ def test_OS_CryptoAgreement_do_ECDH_2(boot):
     """
     Execute key agreement based on testvector using ECDH algorithm.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_OS_CryptoAgreement_do_ECDH', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoAgreement_do_ECDH', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoAgreement_do_DH_rnd_2(boot):
     """
@@ -1348,7 +1348,7 @@ def test_OS_CryptoAgreement_do_ECDH_rnd_2(boot):
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the ECDH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 24, 'test_OS_CryptoAgreement_do_ECDH_rnd', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 60, 'test_OS_CryptoAgreement_do_ECDH_rnd', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoAgreement_do_DH_3(boot):
     """
@@ -1367,14 +1367,14 @@ def test_OS_CryptoAgreement_do_ECDH_3(boot):
     """
     Execute key agreement based on testvector using ECDH algorithm.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_OS_CryptoAgreement_do_ECDH', 'mode=%i,expo=0' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoAgreement_do_ECDH', 'mode=%i,expo=0' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoAgreement_do_ECDH_rnd_3(boot):
     """
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the ECDH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 27, 'test_OS_CryptoAgreement_do_ECDH_rnd', 'mode=%i,expo=0' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 60, 'test_OS_CryptoAgreement_do_ECDH_rnd', 'mode=%i,expo=0' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoAgreement_key_neg_0(boot):
     """
@@ -1708,7 +1708,7 @@ def test_OS_CryptoKey_makePublic_pos_2(boot):
     Positive tests for OS_CryptoKey_makePublic(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,expo=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_makePublic_neg_2(boot):
     """
@@ -1810,7 +1810,7 @@ def test_OS_CryptoKey_makePublic_pos_3(boot):
     Positive tests for OS_CryptoKey_makePublic(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,expo=0' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,expo=0' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_getParams_pos_3(boot):
     """
