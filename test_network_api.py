@@ -26,7 +26,7 @@ timeout = 180
 
 CONTAINER_GATEWAY = "172.17.0.1"
 NET_GATEWAY = "10.0.0.1"
-# Defines taken from the seos_system_config.h
+# Defines taken from the system_config.h
 # Client
 ETH_1_ADDR = "10.0.0.10"
 
@@ -57,7 +57,6 @@ def test_network_picotcp_smoke_tests(boot_with_proxy):
 
 # -------------------------------------------------------------------------------
 
-
 def test_network_api_client(boot_with_proxy):
     test_run = boot_with_proxy(test_system)
     PORT = 8080
@@ -75,7 +74,6 @@ def test_network_api_client(boot_with_proxy):
 
     if not ret:
         pytest.fail("Missing: %s" % (expr_fail))
-
 
 # -------------------------------------------------------------------------------
 # at the moment the stack can handle these sizes without issues. We will increase this sizes and fix the issues in a second moment.
@@ -301,22 +299,23 @@ def test_network_tcp_data_send(boot_with_proxy):
 
 # --- DHCP TESTS ---
 
-@pytest.mark.skip(reason="Not implemented in SEOS")
+@pytest.mark.skip(reason="Not implemented in TRENTOS")
 def test_network_dhcp_get_address(boot_with_proxy):
     """Test getting a valid IP configuration from a DHCP server."""
 
 
-@pytest.mark.skip(reason="Not implemented in SEOS")
+@pytest.mark.skip(reason="Not implemented in TRENTOS")
 def test_network_dhcp_renew_address(boot_with_proxy):
     """Test renewing the IP address from a DHCP server."""
 
 
-@pytest.mark.skip(reason="Not implemented in SEOS")
+@pytest.mark.skip(reason="Not implemented in TRENTOS")
 def test_network_dhcp_expire_address(boot_with_proxy):
     """Test having the existing lease expiring while having active TCP connections."""
 
 
 # --- ARP TESTS ---
+
 @pytest.mark.skip(reason="Fails in new network setup")
 def test_network_arp_request(boot_with_proxy):
     """Test asking for the MAC address of a known host."""
@@ -357,8 +356,7 @@ def test_network_arp_reply_server(boot_with_proxy):
 
 # --- ICMP TESTS ---
 
-
-@pytest.mark.skip(reason="Not implemented in SEOS")
+@pytest.mark.skip(reason="Not implemented in TRENTOS")
 def test_network_ping_request(boot_with_proxy):
     """Test pinging a known host."""
     test_run = boot_with_proxy(test_system)
