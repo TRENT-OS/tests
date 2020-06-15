@@ -285,18 +285,6 @@ def test_network_tcp_data_send(boot_with_proxy):
         if not s.payload == r.payload:
              pytest.fail("Payload mismatch")
 
-
-# # --- UDP TESTS ---
-
-# @pytest.mark.skip(reason="Not implemented in SEOS")
-# def test_network_udp_send(boot_with_proxy):
-#     """Test sending UDP datagrams with various sizes."""
-
-# @pytest.mark.skip(reason="Not implemented in SEOS")
-# def test_network_udp_receive(boot_with_proxy):
-#     """Test receiving UDP datagrams with various sizes."""
-
-
 # --- DHCP TESTS ---
 
 @pytest.mark.skip(reason="Not implemented in TRENTOS")
@@ -353,6 +341,57 @@ def test_network_arp_reply_server(boot_with_proxy):
     ans, uns = arping(ETH_2_ADDR)
     if len(uns) != 0:
         pytest.fail("Timeout waiting for arp reply")
+
+# --- UDP TESTS ---
+
+def test_network_udp_recvfrom(boot_with_proxy):
+    """Sends an UDP packet to the system, testing the recvfrom() call
+    
+        It waits for the test system to reach the point where it waits for the
+        test packet (signaled by the "UDP Receive test" string in the log).
+        Afterwards it looks for the payload of the UDP packet in the output log.
+
+        Success: The payload is found in the log
+        Failure: Timeout
+     """
+    test_run = boot_with_proxy(test_system)
+    f_out = test_run[1]
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+        f_out,
+        ["UDP Receive test"],
+        timeout)
+    r = IP(dst=ETH_1_ADDR)/UDP(dport=8888,sport=9999)/Raw(load="UDP recvfrom OK\0")
+    send(r, iface = "br0")
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+        f_out,
+        ["UDP recvfrom OK"],
+        timeout)
+    if not ret:
+        pytest.fail("Missing: %s" % (expr_fail))
+
+def test_network_udp_sendto(boot_with_proxy):
+    """Test and UDP packet to the system, testing recvfrom() and sendto() calls 
+
+        It waits for the test system to reach the point where it waits for the
+        test packet (signaled by the "UDP Send test" string in the log).
+        Afterwards it waits for a response to the UDP packet it sent.
+
+        Success: The responde UDP packet is received
+        Failure: Timeout
+    """
+    test_run = boot_with_proxy(test_system)
+    f_out = test_run[1]
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+        f_out,
+        ["UDP Send test"],
+        timeout)
+    r = IP(dst=ETH_1_ADDR)/UDP(dport=8888,sport=9999)/Raw(load="UDP sendto OK\0")
+    p = sr1(r, timeout=35, iface = "br0")
+    if p is None:
+        pytest.fail("Didn't receive UDP reply")
+
+    if not ret:
+        pytest.fail("Missing: %s" % (expr_fail))
 
 # --- ICMP TESTS ---
 
