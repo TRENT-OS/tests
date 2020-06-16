@@ -49,30 +49,6 @@ def test_chanmux_overflow(boot_with_proxy):
                            timeout)
 
 #-------------------------------------------------------------------------------
-def test_chanmux_fullduplex(boot_with_proxy):
-    """This test will check the correct operation of ChanMux when streaming in
-    full duplex mode.
-
-    Underlying SEOS Test System behavior:
-
-        two SEOS Tester components will (in parallel) send a command to the
-        Proxy App (via ChanMux) with a certain payload (with a give pattern) in
-        order to receive it back as in a echo server. While the client (SEOS) is
-        streaming its data in a loop the server (Proxy) will echo and another
-        thread of the client will receive the payload back and check the pattern
-        of the data."""
-
-    test_chanmux_full_duplex_lst = [
-        "ChanMuxTest_testFullDuplex: SUCCESS (tester 1)",
-        "ChanMuxTest_testFullDuplex: SUCCESS (tester 2)"
-    ]
-
-    run_test_log_match_set(boot_with_proxy,
-                           test_system,
-                           test_chanmux_full_duplex_lst,
-                           timeout)
-
-#-------------------------------------------------------------------------------
 def test_chanmux_max_size(boot_with_proxy):
     """This test will check the correct operation of ChanMux when streaming an
     amount of data which is the MTU of ChanMux.
@@ -98,4 +74,28 @@ def test_chanmux_max_size(boot_with_proxy):
     run_test_log_match_set(boot_with_proxy,
                            test_system,
                            test_chanmux_max_size_lst,
+                           timeout)
+
+#-------------------------------------------------------------------------------
+def test_chanmux_fullduplex(boot_with_proxy):
+    """This test will check the correct operation of ChanMux when streaming in
+    full duplex mode.
+
+    Underlying SEOS Test System behavior:
+
+        two SEOS Tester components will (in parallel) send a command to the
+        Proxy App (via ChanMux) with a certain payload (with a give pattern) in
+        order to receive it back as in a echo server. While the client (SEOS) is
+        streaming its data in a loop the server (Proxy) will echo and another
+        thread of the client will receive the payload back and check the pattern
+        of the data."""
+
+    test_chanmux_full_duplex_lst = [
+        "ChanMuxTest_testFullDuplex: SUCCESS (tester 1)",
+        "ChanMuxTest_testFullDuplex: SUCCESS (tester 2)"
+    ]
+
+    run_test_log_match_set(boot_with_proxy,
+                           test_system,
+                           test_chanmux_full_duplex_lst,
                            timeout)
