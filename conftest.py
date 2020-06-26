@@ -365,6 +365,20 @@ def tls_server_proc(port = 8888, timeout = 180):
     finally:
         sock.close()
 
+
+#-------------------------------------------------------------------------------
+def get_log_dir(request):
+    test_module = os.path.splitext(request.node.name)[0]
+    log_dir = os.path.join(request.config.option.workspace_path,
+                           request.config.option.test_run_id,
+                           test_module)
+    # if the log dir does not exist yet, go ahead and create one
+    if not os.path.isdir(log_dir):
+        os.makedirs(log_dir)
+
+    return log_dir
+
+
 #-------------------------------------------------------------------------------
 def start_or_attach_to_mosquitto(request):
     log_dir = get_log_dir(request)
@@ -383,45 +397,16 @@ def start_or_attach_to_mosquitto(request):
 
 
 #-------------------------------------------------------------------------------
-def create_log_dir(request):
-    test_module = os.path.splitext(request.node.name)[0]
-    log_dir = os.path.join(request.config.option.workspace_path,
-                           request.config.option.test_run_id,
-                           test_module)
-
-    if os.path.isdir(log_dir):
-        pytest.fail("log dir already exists: %s"%(log_dir))
-
-    os.makedirs(log_dir)
-    return log_dir
-
-
-#-------------------------------------------------------------------------------
-def get_log_dir(request):
-    test_module = os.path.splitext(request.node.name)[0]
-    log_dir = os.path.join(request.config.option.workspace_path,
-                           request.config.option.test_run_id,
-                           test_module)
-
-    if os.path.isdir(log_dir):
-        return log_dir
-
-    # if the log dir does not exist yet, go ahead and create one
-    log_dir = create_log_dir(request)
-    return log_dir
-
-
-#-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot(request):
-    log_dir = create_log_dir(request)
+    log_dir = get_log_dir(request)
     yield from use_qemu_with_proxy(request, log_dir)
 
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot_with_proxy(request):
-    log_dir = create_log_dir(request)
+    log_dir = get_log_dir(request)
     proxy_app = request.config.option.proxy_path
     qemu_connection = request.config.option.qemu_connection
     yield from use_qemu_with_proxy(request, log_dir, proxy_app, qemu_connection)
