@@ -6,18 +6,16 @@
 #
 #-------------------------------------------------------------------------------
 
+import sys, os, subprocess, multiprocessing
+import time, datetime
+import socket, ssl
+import re
+
 import pytest
 
-import sys
 sys.path.append('../common')
-
 import logs
-import os
-import re
-import time
-import subprocess
-import datetime
-import multiprocessing, ssl, socket
+
 
 #-------------------------------------------------------------------------------
 def get_pid_from_pid_file(
