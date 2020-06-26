@@ -4,7 +4,9 @@ sys.path.append('../common')
 import test_parser as parser
 
 TEST_NAME = 'test_storage_interface'
-TEST_TIMEOUT = 1
+# we place here 10 sec and not less because at the moment (26/6/2020) we do
+# no have yet synchronization mechanism with the boot complete
+TEST_TIMEOUT = 10
 
 """
              #####                          #     #
