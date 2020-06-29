@@ -6,7 +6,7 @@
 #
 #-------------------------------------------------------------------------------
 
-import sys, os, subprocess, multiprocessing
+import sys, os, pathlib, subprocess, multiprocessing
 import time, datetime
 import socket, ssl
 import re
@@ -368,7 +368,7 @@ def tls_server_proc(port = 8888, timeout = 180):
 
 #-------------------------------------------------------------------------------
 def get_log_dir(request):
-    test_module = os.path.splitext(request.node.name)[0]
+    test_module = pathlib.Path(request.node.name).stem
     log_dir = os.path.join(request.config.option.workspace_path,
                            request.config.option.test_run_id,
                            test_module)
