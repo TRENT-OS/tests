@@ -15,10 +15,10 @@ test_system = "test_partition_manager"
 
 @pytest.mark.skip(reason="NOT WORKING")
 def test_partition_manager_get_info_disk_invalid_parameter_error(boot_with_proxy):
-    """ This test tries to receive disk data from an invalid disk. 
+    """ This test tries to receive disk data from an invalid disk.
 
         - STATUS: NOT WORKING
-        - PROBLEM: providing NULL as parameter leads to undefined behavior 
+        - PROBLEM: providing NULL as parameter leads to undefined behavior
     """
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
@@ -32,13 +32,13 @@ def test_partition_manager_get_info_disk_invalid_parameter_error(boot_with_proxy
 
     if not ret:
         pytest.fail(" missing: %s"%(expr_fail))
-        
+
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
 def test_partition_manager_get_info_disk_fail_to_get_struct_error(boot_with_proxy):
-    """ This test tries to receive disk data from a valid disk, but an internal error occurs. 
-    
+    """ This test tries to receive disk data from a valid disk, but an internal error occurs.
+
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
@@ -72,7 +72,7 @@ def test_partition_manager_get_info_disk(boot_with_proxy):
         f.write(b"\0")
 
     test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]   
+    f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
     f_out,
@@ -87,10 +87,10 @@ def test_partition_manager_get_info_disk(boot_with_proxy):
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_get_info_partition_inexistent_partition_error(boot_with_proxy):
-    """ This test gets the partition info of an inexistent partition with a partition ID that exceeds the amount of partitions available. 
+    """ This test gets the partition info of an inexistent partition with a partition ID that exceeds the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 2
-  
+
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
@@ -109,10 +109,10 @@ def test_partition_manager_get_info_partition_inexistent_partition_error(boot_wi
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_get_info_partition_empty_shadow_partition_error(boot_with_proxy):
-    """ This test gets the partition info of an inexistent partition with a partition ID that equals the amount of partitions available. 
+    """ This test gets the partition info of an inexistent partition with a partition ID that equals the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 1
-  
+
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
@@ -126,7 +126,7 @@ def test_partition_manager_get_info_partition_empty_shadow_partition_error(boot_
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail))   
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -148,14 +148,14 @@ def test_partition_manager_get_info_partition_invalid_parameter_error(boot_with_
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
 def test_partition_manager_fail_to_get_struct_error(boot_with_proxy):
     """ This test gets the partition info of a valid partition, but an internal error occurs.
-        
+
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
@@ -170,13 +170,13 @@ def test_partition_manager_fail_to_get_struct_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_get_info_partition(boot_with_proxy):
     """ This test gets the partition infos of all valid partitions residing on disk.
-            
+
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
@@ -190,17 +190,17 @@ def test_partition_manager_get_info_partition(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail))   
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: OS_PartitionManager_open()
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_open_inexistent_partition_error(boot_with_proxy):
-    """ This test opens an inexistent partition with a partition ID that exceeds the amount of partitions available. 
+    """ This test opens an inexistent partition with a partition ID that exceeds the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 2
-  
+
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
@@ -214,15 +214,15 @@ def test_partition_manager_open_inexistent_partition_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_open_empty_shadow_partition_error(boot_with_proxy):
-    """ This test opens an inexistent partition with a partition ID that equals the amount of partitions available. 
+    """ This test opens an inexistent partition with a partition ID that equals the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 1
-  
+
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
@@ -236,7 +236,7 @@ def test_partition_manager_open_empty_shadow_partition_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -258,7 +258,7 @@ def test_partition_manager_open_internal_object_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -280,13 +280,13 @@ def test_partition_manager_open_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_open(boot_with_proxy):
     """ This test opens a valid partition residing on a valid disk, available at the host system.
-            
+
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
@@ -300,13 +300,13 @@ def test_partition_manager_open(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_open_again(boot_with_proxy):
     """ This test opens an already opened valid partition again.
-                
+
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
@@ -320,15 +320,15 @@ def test_partition_manager_open_again(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: OS_PartitionManager_write()
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_write_insufficient_databuffer_error(boot_with_proxy):
-    """ This test writes several times to different locations (offsets) on a valid partition, 
-    using a length that exceeds the databuffer (DATABUFFER_SIZE) provided within the system config file. 
+    """ This test writes several times to different locations (offsets) on a valid partition,
+    using a length that exceeds the databuffer (DATABUFFER_SIZE) provided within the system config file.
 
         - STATUS: OK
     """
@@ -343,13 +343,13 @@ def test_partition_manager_write_insufficient_databuffer_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT WORKING")
 def test_partition_manager_write_invalid_buffer_error(boot_with_proxy):
-    """ This test writes several times from different locations (offsets) on a valid partition, providing an invalid buffer. 
+    """ This test writes several times from different locations (offsets) on a valid partition, providing an invalid buffer.
 
         - STATUS: NOT WORKING
     """
@@ -364,15 +364,15 @@ def test_partition_manager_write_invalid_buffer_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_write_inexistent_partition_error(boot_with_proxy):
-    """ This test writes to an inexistent partition with a partition ID that exceeds the amount of partitions available. 
+    """ This test writes to an inexistent partition with a partition ID that exceeds the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 2
-  
+
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
@@ -386,15 +386,15 @@ def test_partition_manager_write_inexistent_partition_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_write_empty_shadow_partition_error(boot_with_proxy):
-    """ This test writes to an inexistent partition with a partition ID that equals the amount of partitions available. 
+    """ This test writes to an inexistent partition with a partition ID that equals the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 1
-  
+
         - STATUS: OK
         - PROBLEM: providing a partition id that equals the amount of partitions available detects the creation of an empty shadow partition
     """
@@ -409,16 +409,16 @@ def test_partition_manager_write_empty_shadow_partition_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
 def test_partition_manager_write_invalid_parameter_error(boot_with_proxy):
-    """ This test writes to different locations (offsets) on a valid partition, providing invalid parameters. 
+    """ This test writes to different locations (offsets) on a valid partition, providing invalid parameters.
 
         - STATUS: NOT IMPLEMENTED
-        - PROBLEM: 
+        - PROBLEM:
     """
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
@@ -431,7 +431,7 @@ def test_partition_manager_write_invalid_parameter_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -453,7 +453,7 @@ def test_partition_manager_write_internal_object_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -473,7 +473,7 @@ def test_partition_manager_write_offset_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -495,12 +495,12 @@ def test_partition_manager_write_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_write(boot_with_proxy):
-    """ This test writes several times with varying length at different locations (offsets) on a valid partition, residing on a valid disk, available at the host system. 
+    """ This test writes several times with varying length at different locations (offsets) on a valid partition, residing on a valid disk, available at the host system.
 
         - STATUS: OK
     """
@@ -515,14 +515,14 @@ def test_partition_manager_write(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: OS_PartitionManager_read()
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_read_insufficient_databuffer_error(boot_with_proxy):
-    """ This test reads several times from different locations (offsets) on a valid partition, providing an invalid buffer. 
+    """ This test reads several times from different locations (offsets) on a valid partition, providing an invalid buffer.
 
         - STATUS: OK
     """
@@ -537,13 +537,13 @@ def test_partition_manager_read_insufficient_databuffer_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT WORKING")
 def test_partition_manager_read_invalid_buffer_error(boot_with_proxy):
-    """ This test reads several times from different locations (offsets) on a valid partition, providing an invalid buffer. 
+    """ This test reads several times from different locations (offsets) on a valid partition, providing an invalid buffer.
 
         - STATUS: NOT WORKING
     """
@@ -558,15 +558,15 @@ def test_partition_manager_read_invalid_buffer_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_read_inexistent_partition_error(boot_with_proxy):
-    """ This test reads from an inexistent partition with a partition ID that exceeds the amount of partitions available. 
+    """ This test reads from an inexistent partition with a partition ID that exceeds the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 2
-  
+
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
@@ -580,15 +580,15 @@ def test_partition_manager_read_inexistent_partition_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_read_empty_shadow_partition_error(boot_with_proxy):
-    """ This test reads from an inexistent partition with a partition ID that equals the amount of partitions available. 
+    """ This test reads from an inexistent partition with a partition ID that equals the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 1
-  
+
         - STATUS: OK
         - PROBLEM: providing a partition id that equals the amount of partitions available detects the creation of an empty shadow partition
     """
@@ -603,16 +603,16 @@ def test_partition_manager_read_empty_shadow_partition_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
 def test_partition_manager_read_invalid_parameter_error(boot_with_proxy):
-    """ This test reads from different locations (offsets) on a valid partition, providing invalid parameters. 
+    """ This test reads from different locations (offsets) on a valid partition, providing invalid parameters.
 
         - STATUS: NOT IMPLEMENTED
-        - PROBLEM: 
+        - PROBLEM:
     """
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
@@ -625,7 +625,7 @@ def test_partition_manager_read_invalid_parameter_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -647,7 +647,7 @@ def test_partition_manager_read_internal_object_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -667,7 +667,7 @@ def test_partition_manager_read_offset_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -689,12 +689,12 @@ def test_partition_manager_read_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_read(boot_with_proxy):
-    """ This test reads several times from different locations (offsets) on a valid partition, residing on a valid disk, available at the host system. 
+    """ This test reads several times from different locations (offsets) on a valid partition, residing on a valid disk, available at the host system.
 
         - STATUS: OK
     """
@@ -709,17 +709,17 @@ def test_partition_manager_read(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 # TEST: OS_PartitionManager_close()
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_close_inexistent_partition_error(boot_with_proxy):
-    """ This test closes an inexistent partition with a partition ID that exceeds the amount of partitions available. 
+    """ This test closes an inexistent partition with a partition ID that exceeds the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 2
-  
+
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
@@ -733,15 +733,15 @@ def test_partition_manager_close_inexistent_partition_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_close_empty_shadow_partition_error(boot_with_proxy):
-    """ This test closes an inexistent partition with a partition ID that equals the amount of partitions available. 
+    """ This test closes an inexistent partition with a partition ID that equals the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 1
-  
+
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
@@ -755,7 +755,7 @@ def test_partition_manager_close_empty_shadow_partition_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
@@ -777,8 +777,8 @@ def test_partition_manager_close_internal_object_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
-        
+        pytest.fail(" missing: %s"%(expr_fail))
+
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
@@ -799,13 +799,13 @@ def test_partition_manager_close_error(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_close(boot_with_proxy):
     """ This test closes a valid partition residing on a valid disk, available at the host system.
-        Side test: check if partition had to be opended before closing  
+        Side test: check if partition had to be opended before closing
 
         - STATUS: OK
     """
@@ -820,13 +820,13 @@ def test_partition_manager_close(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
 
 def test_partition_manager_close_again(boot_with_proxy):
     """ This test closes an already closed valid partition again.
-                
+
         - STATUS: OK
     """
     test_run = boot_with_proxy(test_system)
@@ -840,6 +840,6 @@ def test_partition_manager_close_again(boot_with_proxy):
     timeout)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail)) 
+        pytest.fail(" missing: %s"%(expr_fail))
 
 #-------------------------------------------------------------------------------
