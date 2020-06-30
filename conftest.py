@@ -73,15 +73,12 @@ def get_proxy_connection_params(mode):
 
 #-------------------------------------------------------------------------------
 def get_qemu_cmd(
-    test_image_descriptor,
+    base_path,
+    system,
+    build_target,
     proxy_qemu_connection,
     test_system_out_file
 ):
-    path         = test_image_descriptor[0]
-    system       = test_image_descriptor[1]
-    build_target = test_image_descriptor[2]
-    build_mode   = test_image_descriptor[3]
-
     PLAT_MAPPINGS = {
         # <plat>: [ ["<sel4-arch>"],
         #           ["<qemu-binary-arch>", "<qemu-machine>"],
@@ -109,10 +106,9 @@ def get_qemu_cmd(
     sel4_mapping = plat_mapping[0]
     qemu_mapping = plat_mapping[1]
 
-
     test_image = os.path.join(
-                    path,
-                    "build-" + build_target + "-" + build_mode + "-" + system,
+                    base_path,
+                    "build-" + build_target + "-Debug-" + system,
                     "images",
                     "capdl-loader-image-" + sel4_mapping[0] + "-" + build_target)
 
@@ -131,21 +127,23 @@ def get_qemu_cmd(
 
 #-------------------------------------------------------------------------------
 def start_or_attach_to_qemu_and_proxy(
-    test_image_descriptor,
+    request,
+    system,
     test_system_out_file,
     qemu_stdin_file,
     qemu_stdout_file,
     qemu_stderr_file,
     qemu_pid_file,
-    proxy_app = None,
+    use_proxy = False,
     proxy_stdout_file = None,
     proxy_pid_file = None,
-    qemu_connection = None
 ):
     qemu_already_running = os.path.isfile(qemu_pid_file)
 
-    proxy_already_running = False if proxy_pid_file is None \
-                            else os.path.isfile(proxy_pid_file)
+    proxy_qemu_connection = None
+    if use_proxy:
+        proxy_qemu_connection = request.config.option.qemu_connection
+        assert(proxy_qemu_connection is not None)
 
     f_qemu_stdin = None
 
@@ -161,11 +159,13 @@ def start_or_attach_to_qemu_and_proxy(
         print("  QEMU stdout:        " + qemu_stdout_file)
         print("  QEMU stderr:        " + qemu_stderr_file)
 
-
         qemu_cmd = get_qemu_cmd(
-                    test_image_descriptor,
-                    qemu_connection,
-                    test_system_out_file) + [
+                        request.config.option.workspace_path,
+                        system,
+                        request.config.option.target,
+                        proxy_qemu_connection if use_proxy else None,
+                        test_system_out_file
+                    ) + [
                         "2>" + qemu_stderr_file,
                         ">" + qemu_stdout_file,
                         "<" + qemu_stdin_file
@@ -190,8 +190,8 @@ def start_or_attach_to_qemu_and_proxy(
     f_qemu_stderr = logs.open_file_non_blocking(qemu_stderr_file, "r")
     f_qemu_stdout = logs.open_file_non_blocking(qemu_stdout_file, "r")
 
-    if proxy_app is not None:
-        if proxy_already_running:
+    if use_proxy:
+        if os.path.isfile(proxy_pid_file):
             proxy_pid = get_pid_from_pid_file(proxy_pid_file)
             print("Proxy already running (PID %u)"%(proxy_pid))
         elif qemu_already_running:
@@ -200,13 +200,15 @@ def start_or_attach_to_qemu_and_proxy(
             print("ERROR: can't start proxy if QEMU is already running")
             assert False
         else:
+
+            proxy_app = request.config.option.proxy_path
             print("Start proxy: " + proxy_app)
             assert(os.path.isfile(proxy_app))
             print("  proxy stdout:       " + proxy_stdout_file)
 
             connection_mode = None
 
-            if(qemu_connection == "PTY"):
+            if(proxy_qemu_connection == "PTY"):
                 # search for dev/ptsX info in QEMU stderr
                 # in QEMU >= 4.2 we need to look in stdout
                 (text, match) = logs.get_match_in_line(
@@ -222,10 +224,10 @@ def start_or_attach_to_qemu_and_proxy(
                 assert(match)
 
                 connection_mode = "PTY:" + match # PTY to connect to
-            elif(qemu_connection == "TCP"):
+            elif(proxy_qemu_connection == "TCP"):
                 connection_mode = "TCP:4444"
             else:
-                print("ERROR: invalid qemu_connection %s", qemu_connection)
+                print("ERROR: invalid Proxy/QEMU_connection %s", proxy_qemu_connection)
                 # ToDo: return an error or throw exception
                 assert False
 
@@ -241,7 +243,7 @@ def start_or_attach_to_qemu_and_proxy(
             print("Proxy starting (PID %u) ..."%(proxy_pid))
 
     if not qemu_already_running:
-        if(qemu_connection == "PTY"):
+        if use_proxy and (proxy_qemu_connection == "PTY"):
             # QEMU starts up in halted mode, must send the "c" command to let it
             # boot the system
             attempts = 0
@@ -270,7 +272,22 @@ def start_or_attach_to_qemu_and_proxy(
 
 
 #-------------------------------------------------------------------------------
-def use_qemu_with_proxy(request, log_dir, proxy_app=None, qemu_connection=None):
+def get_log_dir(request):
+    test_module = pathlib.Path(request.node.name).stem
+    log_dir = os.path.join(request.config.option.workspace_path,
+                           request.config.option.test_run_id,
+                           test_module)
+    # if the log dir does not exist yet, go ahead and create one
+    if not os.path.isdir(log_dir):
+        os.makedirs(log_dir)
+
+    return log_dir
+
+
+#-------------------------------------------------------------------------------
+def use_qemu_with_proxy(request, use_proxy=False):
+
+    log_dir = get_log_dir(request)
 
     test_system_out_file  = os.path.join(log_dir, "guest_out.txt")
 
@@ -279,10 +296,10 @@ def use_qemu_with_proxy(request, log_dir, proxy_app=None, qemu_connection=None):
     qemu_stderr_file      = os.path.join(log_dir, "qemu_err.txt")
     qemu_pid_file         = os.path.join(log_dir, "qemu.pid")
 
-    proxy_stdout_file     = None if proxy_app is None \
+    proxy_stdout_file     = None if not use_proxy \
                             else os.path.join(log_dir, "proxy_out.txt")
 
-    proxy_pid_file        = None if proxy_app is None \
+    proxy_pid_file        = None if not use_proxy \
                             else os.path.join(log_dir, "proxy.pid")
 
     # create pipe for QEMU input
@@ -292,19 +309,16 @@ def use_qemu_with_proxy(request, log_dir, proxy_app=None, qemu_connection=None):
     # pytest will run this for each test case
     yield (lambda system:
             start_or_attach_to_qemu_and_proxy(
-                [ request.config.option.workspace_path,
-                  system,
-                  request.config.option.target,
-                  "Debug"],
+                request,
+                system,
                 test_system_out_file,
                 qemu_stdin_file,
                 qemu_stdout_file,
                 qemu_stderr_file,
                 qemu_pid_file,
-                proxy_app,
+                use_proxy,
                 proxy_stdout_file,
-                proxy_pid_file,
-                qemu_connection) )
+                proxy_pid_file) )
 
     # tear-down phase
 
@@ -316,7 +330,7 @@ def use_qemu_with_proxy(request, log_dir, proxy_app=None, qemu_connection=None):
     # must unlink the pipe so the next test run can create it again
     os.unlink(qemu_stdin_file)
 
-    if proxy_app is not None:
+    if use_proxy:
         print("terminating Proxy...")
         terminate_process_by_pid_file(proxy_pid_file)
 
@@ -367,19 +381,6 @@ def tls_server_proc(port = 8888, timeout = 180):
 
 
 #-------------------------------------------------------------------------------
-def get_log_dir(request):
-    test_module = pathlib.Path(request.node.name).stem
-    log_dir = os.path.join(request.config.option.workspace_path,
-                           request.config.option.test_run_id,
-                           test_module)
-    # if the log dir does not exist yet, go ahead and create one
-    if not os.path.isdir(log_dir):
-        os.makedirs(log_dir)
-
-    return log_dir
-
-
-#-------------------------------------------------------------------------------
 def start_or_attach_to_mosquitto(request):
     log_dir = get_log_dir(request)
 
@@ -399,17 +400,13 @@ def start_or_attach_to_mosquitto(request):
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot(request):
-    log_dir = get_log_dir(request)
-    yield from use_qemu_with_proxy(request, log_dir)
+    yield from use_qemu_with_proxy(request)
 
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot_with_proxy(request):
-    log_dir = get_log_dir(request)
-    proxy_app = request.config.option.proxy_path
-    qemu_connection = request.config.option.qemu_connection
-    yield from use_qemu_with_proxy(request, log_dir, proxy_app, qemu_connection)
+    yield from use_qemu_with_proxy(request, True)
 
 
 #-------------------------------------------------------------------------------
