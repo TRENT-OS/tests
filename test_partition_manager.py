@@ -14,13 +14,13 @@ test_system = "test_partition_manager"
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT WORKING")
-def test_partition_manager_get_info_disk_invalid_parameter_error(boot_with_proxy):
+def test_partition_manager_get_info_disk_invalid_parameter_error(boot):
     """ This test tries to receive disk data from an invalid disk.
 
         - STATUS: NOT WORKING
         - PROBLEM: providing NULL as parameter leads to undefined behavior
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -36,13 +36,13 @@ def test_partition_manager_get_info_disk_invalid_parameter_error(boot_with_proxy
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
-def test_partition_manager_get_info_disk_fail_to_get_struct_error(boot_with_proxy):
+def test_partition_manager_get_info_disk_fail_to_get_struct_error(boot):
     """ This test tries to receive disk data from a valid disk, but an internal error occurs.
 
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -57,21 +57,8 @@ def test_partition_manager_get_info_disk_fail_to_get_struct_error(boot_with_prox
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_get_info_disk(boot_with_proxy):
-    proxy_memory_file = "nvm_06"
-    if os.path.isfile(proxy_memory_file):
-        os.remove(proxy_memory_file)
-    with  open(proxy_memory_file,"wb") as f:
-        # create 36 MiB NVM file. The size comes from the partition sizes that
-        # are defined in the define SEOS system config file. One day we should
-        # extend things, so the SEOS system can request the proxy to create a
-        # NVM of a given size and that is can query the currenty NVM size and
-        # fail if this is too small. For now, we have to sync the value here
-        # with the SEOSM system manually.
-        f.seek( (36*1024*1024) -1 )
-        f.write(b"\0")
-
-    test_run = boot_with_proxy(test_system)
+def test_partition_manager_get_info_disk(boot):
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -86,14 +73,14 @@ def test_partition_manager_get_info_disk(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_get_info_partition_inexistent_partition_error(boot_with_proxy):
+def test_partition_manager_get_info_partition_inexistent_partition_error(boot):
     """ This test gets the partition info of an inexistent partition with a partition ID that exceeds the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 2
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -108,14 +95,14 @@ def test_partition_manager_get_info_partition_inexistent_partition_error(boot_wi
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_get_info_partition_empty_shadow_partition_error(boot_with_proxy):
+def test_partition_manager_get_info_partition_empty_shadow_partition_error(boot):
     """ This test gets the partition info of an inexistent partition with a partition ID that equals the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 1
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -131,13 +118,13 @@ def test_partition_manager_get_info_partition_empty_shadow_partition_error(boot_
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT WORKING")
-def test_partition_manager_get_info_partition_invalid_parameter_error(boot_with_proxy):
+def test_partition_manager_get_info_partition_invalid_parameter_error(boot):
     """ This test tries to get the partition info of an invalid partition.
 
         - STATUS: NOT WORKING
         - PROBLEM: providing NULL as parameter leads to undefined behavior
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -153,13 +140,13 @@ def test_partition_manager_get_info_partition_invalid_parameter_error(boot_with_
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
-def test_partition_manager_fail_to_get_struct_error(boot_with_proxy):
+def test_partition_manager_fail_to_get_struct_error(boot):
     """ This test gets the partition info of a valid partition, but an internal error occurs.
 
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -174,12 +161,12 @@ def test_partition_manager_fail_to_get_struct_error(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_get_info_partition(boot_with_proxy):
+def test_partition_manager_get_info_partition(boot):
     """ This test gets the partition infos of all valid partitions residing on disk.
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -196,14 +183,14 @@ def test_partition_manager_get_info_partition(boot_with_proxy):
 # TEST: OS_PartitionManager_open()
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_open_inexistent_partition_error(boot_with_proxy):
+def test_partition_manager_open_inexistent_partition_error(boot):
     """ This test opens an inexistent partition with a partition ID that exceeds the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 2
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -218,14 +205,14 @@ def test_partition_manager_open_inexistent_partition_error(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_open_empty_shadow_partition_error(boot_with_proxy):
+def test_partition_manager_open_empty_shadow_partition_error(boot):
     """ This test opens an inexistent partition with a partition ID that equals the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 1
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -241,13 +228,13 @@ def test_partition_manager_open_empty_shadow_partition_error(boot_with_proxy):
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
-def test_partition_manager_open_internal_object_error(boot_with_proxy):
+def test_partition_manager_open_internal_object_error(boot):
     """ This test opens a valid partition, but an internal error occurs.
 
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -263,13 +250,13 @@ def test_partition_manager_open_internal_object_error(boot_with_proxy):
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
-def test_partition_manager_open_error(boot_with_proxy):
+def test_partition_manager_open_error(boot):
     """ This test opens a valid partition, but an open error occurs.
 
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -284,12 +271,12 @@ def test_partition_manager_open_error(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_open(boot_with_proxy):
+def test_partition_manager_open(boot):
     """ This test opens a valid partition residing on a valid disk, available at the host system.
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -304,12 +291,12 @@ def test_partition_manager_open(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_open_again(boot_with_proxy):
+def test_partition_manager_open_again(boot):
     """ This test opens an already opened valid partition again.
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -326,13 +313,13 @@ def test_partition_manager_open_again(boot_with_proxy):
 # TEST: OS_PartitionManager_write()
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_write_insufficient_databuffer_error(boot_with_proxy):
+def test_partition_manager_write_insufficient_databuffer_error(boot):
     """ This test writes several times to different locations (offsets) on a valid partition,
     using a length that exceeds the databuffer (DATABUFFER_SIZE) provided within the system config file.
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -348,12 +335,12 @@ def test_partition_manager_write_insufficient_databuffer_error(boot_with_proxy):
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT WORKING")
-def test_partition_manager_write_invalid_buffer_error(boot_with_proxy):
+def test_partition_manager_write_invalid_buffer_error(boot):
     """ This test writes several times from different locations (offsets) on a valid partition, providing an invalid buffer.
 
         - STATUS: NOT WORKING
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -368,14 +355,14 @@ def test_partition_manager_write_invalid_buffer_error(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_write_inexistent_partition_error(boot_with_proxy):
+def test_partition_manager_write_inexistent_partition_error(boot):
     """ This test writes to an inexistent partition with a partition ID that exceeds the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 2
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -390,7 +377,7 @@ def test_partition_manager_write_inexistent_partition_error(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_write_empty_shadow_partition_error(boot_with_proxy):
+def test_partition_manager_write_empty_shadow_partition_error(boot):
     """ This test writes to an inexistent partition with a partition ID that equals the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 1
@@ -398,7 +385,7 @@ def test_partition_manager_write_empty_shadow_partition_error(boot_with_proxy):
         - STATUS: OK
         - PROBLEM: providing a partition id that equals the amount of partitions available detects the creation of an empty shadow partition
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -414,13 +401,13 @@ def test_partition_manager_write_empty_shadow_partition_error(boot_with_proxy):
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
-def test_partition_manager_write_invalid_parameter_error(boot_with_proxy):
+def test_partition_manager_write_invalid_parameter_error(boot):
     """ This test writes to different locations (offsets) on a valid partition, providing invalid parameters.
 
         - STATUS: NOT IMPLEMENTED
         - PROBLEM:
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -436,13 +423,13 @@ def test_partition_manager_write_invalid_parameter_error(boot_with_proxy):
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
-def test_partition_manager_write_internal_object_error(boot_with_proxy):
+def test_partition_manager_write_internal_object_error(boot):
     """ This test writes to a valid partition, but an internal error occurs.
 
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -457,12 +444,12 @@ def test_partition_manager_write_internal_object_error(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_write_offset_error(boot_with_proxy):
+def test_partition_manager_write_offset_error(boot):
     """ This test writes to a valid partition, but uses an invalid offset.
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -478,13 +465,13 @@ def test_partition_manager_write_offset_error(boot_with_proxy):
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
-def test_partition_manager_write_error(boot_with_proxy):
+def test_partition_manager_write_error(boot):
     """ This test writes to a valid partition, but a write error occurs.
 
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -499,12 +486,12 @@ def test_partition_manager_write_error(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_write(boot_with_proxy):
+def test_partition_manager_write(boot):
     """ This test writes several times with varying length at different locations (offsets) on a valid partition, residing on a valid disk, available at the host system.
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -521,12 +508,12 @@ def test_partition_manager_write(boot_with_proxy):
 # TEST: OS_PartitionManager_read()
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_read_insufficient_databuffer_error(boot_with_proxy):
+def test_partition_manager_read_insufficient_databuffer_error(boot):
     """ This test reads several times from different locations (offsets) on a valid partition, providing an invalid buffer.
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -542,12 +529,12 @@ def test_partition_manager_read_insufficient_databuffer_error(boot_with_proxy):
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT WORKING")
-def test_partition_manager_read_invalid_buffer_error(boot_with_proxy):
+def test_partition_manager_read_invalid_buffer_error(boot):
     """ This test reads several times from different locations (offsets) on a valid partition, providing an invalid buffer.
 
         - STATUS: NOT WORKING
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -562,14 +549,14 @@ def test_partition_manager_read_invalid_buffer_error(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_read_inexistent_partition_error(boot_with_proxy):
+def test_partition_manager_read_inexistent_partition_error(boot):
     """ This test reads from an inexistent partition with a partition ID that exceeds the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 2
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -584,7 +571,7 @@ def test_partition_manager_read_inexistent_partition_error(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_read_empty_shadow_partition_error(boot_with_proxy):
+def test_partition_manager_read_empty_shadow_partition_error(boot):
     """ This test reads from an inexistent partition with a partition ID that equals the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 1
@@ -592,7 +579,7 @@ def test_partition_manager_read_empty_shadow_partition_error(boot_with_proxy):
         - STATUS: OK
         - PROBLEM: providing a partition id that equals the amount of partitions available detects the creation of an empty shadow partition
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -608,13 +595,13 @@ def test_partition_manager_read_empty_shadow_partition_error(boot_with_proxy):
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
-def test_partition_manager_read_invalid_parameter_error(boot_with_proxy):
+def test_partition_manager_read_invalid_parameter_error(boot):
     """ This test reads from different locations (offsets) on a valid partition, providing invalid parameters.
 
         - STATUS: NOT IMPLEMENTED
         - PROBLEM:
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -630,13 +617,13 @@ def test_partition_manager_read_invalid_parameter_error(boot_with_proxy):
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
-def test_partition_manager_read_internal_object_error(boot_with_proxy):
+def test_partition_manager_read_internal_object_error(boot):
     """ This test reads from a valid partition, but an internal error occurs.
 
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -651,12 +638,12 @@ def test_partition_manager_read_internal_object_error(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_read_offset_error(boot_with_proxy):
+def test_partition_manager_read_offset_error(boot):
     """ This test reads from a valid partition, but uses an invalid offset.
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -672,13 +659,13 @@ def test_partition_manager_read_offset_error(boot_with_proxy):
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
-def test_partition_manager_read_error(boot_with_proxy):
+def test_partition_manager_read_error(boot):
     """ This test reads from a valid partition, but a read error occurs.
 
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -693,12 +680,12 @@ def test_partition_manager_read_error(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_read(boot_with_proxy):
+def test_partition_manager_read(boot):
     """ This test reads several times from different locations (offsets) on a valid partition, residing on a valid disk, available at the host system.
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -715,14 +702,14 @@ def test_partition_manager_read(boot_with_proxy):
 # TEST: OS_PartitionManager_close()
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_close_inexistent_partition_error(boot_with_proxy):
+def test_partition_manager_close_inexistent_partition_error(boot):
     """ This test closes an inexistent partition with a partition ID that exceeds the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 2
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -737,14 +724,14 @@ def test_partition_manager_close_inexistent_partition_error(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_close_empty_shadow_partition_error(boot_with_proxy):
+def test_partition_manager_close_empty_shadow_partition_error(boot):
     """ This test closes an inexistent partition with a partition ID that equals the amount of partitions available.
     Example: Maximum number of partitions = 1
     Test: partition id = 1
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -760,13 +747,13 @@ def test_partition_manager_close_empty_shadow_partition_error(boot_with_proxy):
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
-def test_partition_manager_close_internal_object_error(boot_with_proxy):
+def test_partition_manager_close_internal_object_error(boot):
     """ This test closes a valid partition, but an internal error occurs.
 
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -782,13 +769,13 @@ def test_partition_manager_close_internal_object_error(boot_with_proxy):
 #-------------------------------------------------------------------------------
 
 @pytest.mark.skip(reason="NOT IMPLEMENTED")
-def test_partition_manager_close_error(boot_with_proxy):
+def test_partition_manager_close_error(boot):
     """ This test closes a valid partition, but a close error occurs.
 
         - STATUS: NOT IMPLEMENTED
         - PROBLEM: internal objects not reachable
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -803,13 +790,13 @@ def test_partition_manager_close_error(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_close(boot_with_proxy):
+def test_partition_manager_close(boot):
     """ This test closes a valid partition residing on a valid disk, available at the host system.
         Side test: check if partition had to be opended before closing
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -824,12 +811,12 @@ def test_partition_manager_close(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 
-def test_partition_manager_close_again(boot_with_proxy):
+def test_partition_manager_close_again(boot):
     """ This test closes an already closed valid partition again.
 
         - STATUS: OK
     """
-    test_run = boot_with_proxy(test_system)
+    test_run = boot(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
