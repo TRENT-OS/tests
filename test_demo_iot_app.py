@@ -5,9 +5,7 @@ import logs
 
 test_system = "demo_iot_app"
 
-# Timeout set to 6 min for the tests that utilize the filesystem heavily.
-# Other tests have specific timeouts based on profiling.
-timeout = 360
+# Timeouts of the tests are set based on CI profiling.
 
 #-------------------------------------------------------------------------------
 @pytest.mark.dependency()
@@ -46,7 +44,7 @@ def test_config_backend_init_ok(boot_with_proxy):
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
         ["Config Server initialized"],
-        timeout)
+        60)
 
     if not ret:
         pytest.fail(" missing: %s"%(expr_fail))
@@ -65,7 +63,7 @@ def test_server_connect_ok(boot_with_proxy, mosquitto_broker):
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
         ["TCP connection established successfully"],
-        timeout)
+        180)
 
     if not ret:
         pytest.fail(" missing: %s"%(expr_fail))
