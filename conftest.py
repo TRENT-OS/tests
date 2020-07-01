@@ -53,15 +53,15 @@ def terminate_process_by_pid_file(
 
 
 #-------------------------------------------------------------------------------
-def get_proxy_connection_params(qemu_connection):
+def get_proxy_connection_params(mode):
 
-    if(qemu_connection == "PTY"):
+    if(mode == "PTY"):
 
         # must use "-S" to freeze the QEMU at startup, unfreezing when the
         # other end of PTY is connected
         return ["-S", "-serial pty"]
 
-    elif (qemu_connection == "TCP"):
+    elif (mode == "TCP"):
 
         # QEMU will freeze on startup until it can connect to the server
         return ["-serial tcp:localhost:4444,server"]
@@ -72,8 +72,11 @@ def get_proxy_connection_params(qemu_connection):
 
 
 #-------------------------------------------------------------------------------
-def get_qemu_cmd(test_image_descriptor, qemu_connection, test_system_out_file):
-
+def get_qemu_cmd(
+    test_image_descriptor,
+    proxy_qemu_connection,
+    test_system_out_file
+):
     path         = test_image_descriptor[0]
     system       = test_image_descriptor[1]
     build_target = test_image_descriptor[2]
@@ -120,7 +123,7 @@ def get_qemu_cmd(test_image_descriptor, qemu_connection, test_system_out_file):
              "-machine " + qemu_mapping[1],
              "-m size=1024M",
              "-nographic",
-           ] + get_proxy_connection_params(qemu_connection) + [
+           ] + get_proxy_connection_params(proxy_qemu_connection) + [
              "-serial file:" + test_system_out_file,
              "-kernel " + test_image,
            ]
@@ -366,14 +369,14 @@ def tls_server_proc(port = 8888, timeout = 180):
 def start_or_attach_to_mosquitto(request):
     log_dir = get_log_dir(request)
 
-    mosquitto_log_dir = os.path.join(log_dir, "mosquitto_log.txt")
+    mosquitto_log_file = os.path.join(log_dir, "mosquitto_log.txt")
 
-    with open(mosquitto_log_dir, "w") as mosquitto_log_file:
+    with open(mosquitto_log_file, "w") as f:
         try:
             subprocess.Popen(
                 ['mosquitto', '-c', '/etc/mosquitto/mosquitto.conf'],
-                stderr=mosquitto_log_file,
-                stdout=mosquitto_log_file)
+                stderr=f,
+                stdout=f)
         except OSError:
             # no need to run the tests without the broker
             pytest.fail("Couldn't run mosquitto broker!")
