@@ -116,9 +116,14 @@ def start_or_attach_to_qemu_and_proxy(
     qemu_already_running = os.path.isfile(qemu_pid_file)
 
     proxy_qemu_connection = None
+    proxy_app = None
+
     if use_proxy:
-        proxy_qemu_connection = request.config.option.qemu_connection
-        assert(proxy_qemu_connection is not None)
+        proxy_cfg_str = request.config.option.proxy
+        assert(proxy_cfg_str is not None)
+        arr = proxy_cfg_str.split(",")
+        proxy_app = arr[0]
+        proxy_qemu_connection = "TCP" if (1 == len(arr)) else arr[1]
 
     f_qemu_stdin = None
 
@@ -177,7 +182,6 @@ def start_or_attach_to_qemu_and_proxy(
             assert False
         else:
 
-            proxy_app = request.config.option.proxy_path
             print("Start proxy: " + proxy_app)
             assert(os.path.isfile(proxy_app))
             print("  proxy stdout:       " + proxy_stdout_file)
@@ -219,7 +223,8 @@ def start_or_attach_to_qemu_and_proxy(
             print("Proxy starting (PID %u) ..."%(proxy_pid))
 
     if not qemu_already_running:
-        if use_proxy and (proxy_qemu_connection == "PTY"):
+        if (proxy_qemu_connection == "PTY"):
+            assert(use_proxy)
             # QEMU starts up in halted mode, must send the "c" command to let it
             # boot the system
             attempts = 0
@@ -410,13 +415,8 @@ def pytest_addoption(parser):
 
     # proxy is an optional parameter, because some tests don't need it
     parser.addoption(
-        "--proxy_path",
-        help="location of the proxy application")
-
-    parser.addoption(
-        "--qemu_connection",
-        help="QEMU connection mode (PTY or TCP)")
-
+        "--proxy",
+        help="<binary_location>[,<connection>]")
 
     parser.addoption(
         "--target",
