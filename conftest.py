@@ -73,47 +73,22 @@ def get_proxy_connection_params(mode):
 
 #-------------------------------------------------------------------------------
 def get_qemu_cmd(
-    base_path,
-    system,
-    build_target,
+    platform,
+    system_image,
     proxy_qemu_connection,
     test_system_out_file
 ):
-    PLAT_MAPPINGS = {
-        # <plat>: [ ["<sel4-arch>"],
-        #           ["<qemu-binary-arch>", "<qemu-machine>"],
-        #         ],
+    
+    qemu_mapping = {
+        # <plat>: ["<qemu-binary-arch>", "<qemu-machine>"],
 
-        "imx6":      [ ["arm"],
-                       ["arm",     "sabrelite"],
-                     ],
-        "migv":      [ ["riscv"],
-                       ["riscv64", "virt"],
-                     ],
-        "rpi3":      [ ["arm"],
-                       ["aarch64", "raspi3"],
-                     ],
-        "spike":     [ ["riscv"],
-                       ["riscv64", "spike_v1.10"],
-                     ],
-        "zynq7000":  [ ["arm"],
-                       ["arm",     "xilinx-zynq-a9"],
-                     ],
-    }
-
-    plat_mapping = PLAT_MAPPINGS.get(build_target, None)
-    assert(plat_mapping is not None)
-    sel4_mapping = plat_mapping[0]
-    qemu_mapping = plat_mapping[1]
-
-    test_image = os.path.join(
-                    base_path,
-                    "build-" + build_target + "-Debug-" + system,
-                    "images",
-                    "capdl-loader-image-" + sel4_mapping[0] + "-" + build_target)
-
-    print("launching QEMU with " + test_image)
-    assert(os.path.isfile(test_image))
+        "imx6":      ["arm",     "sabrelite"],
+        "migv":      ["riscv64", "virt"],
+        "rpi3":      ["aarch64", "raspi3"],
+        "spike":     ["riscv64", "spike_v1.10"],
+        "zynq7000":  ["arm",     "xilinx-zynq-a9"],
+    }.get(platform, None)
+    assert(qemu_mapping is not None)
 
     return [ "qemu-system-" + qemu_mapping[0],
              "-machine " + qemu_mapping[1],
@@ -121,7 +96,7 @@ def get_qemu_cmd(
              "-nographic",
            ] + get_proxy_connection_params(proxy_qemu_connection) + [
              "-serial file:" + test_system_out_file,
-             "-kernel " + test_image,
+             "-kernel " + system_image,
            ]
 
 
@@ -159,23 +134,24 @@ def start_or_attach_to_qemu_and_proxy(
         print("  QEMU stdout:        " + qemu_stdout_file)
         print("  QEMU stderr:        " + qemu_stderr_file)
 
-        qemu_cmd = get_qemu_cmd(
-                        request.config.option.workspace_path,
-                        system,
+        system_image = request.config.option.system_image
+        assert(system_image is not None)
+        print("launching QEMU with system image " + system_image)
+        assert(os.path.isfile(system_image))
+
+        qemu_cmd = " ".join(
+                    get_qemu_cmd(
                         request.config.option.target,
+                        system_image,
                         proxy_qemu_connection if use_proxy else None,
-                        test_system_out_file
-                    ) + [
-                        "2>" + qemu_stderr_file,
-                        ">" + qemu_stdout_file,
-                        "<" + qemu_stdin_file
-                    ]
+                        test_system_out_file) +
+                        [
+                            "2>" + qemu_stderr_file,
+                            ">" + qemu_stdout_file,
+                            "<" + qemu_stdin_file
+                        ])
 
-        print(qemu_cmd)
-
-        start_process_and_create_pid_file(
-            " ".join(qemu_cmd),
-            qemu_pid_file)
+        start_process_and_create_pid_file(qemu_cmd, qemu_pid_file)
 
         # seems QEMU tries to read from strdin, so we have to open the pipe now
         # to unblock it
@@ -431,6 +407,12 @@ def pytest_addoption(parser):
         "--workspace_path",
         required=True,
         help="location of the workspace that holds the test image")
+
+    # test image
+    parser.addoption(
+        "--system_image",
+        required=True,
+        help="location of the system image")
 
     # proxy is an optional parameter, because some tests don't need it
     parser.addoption(
