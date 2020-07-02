@@ -78,7 +78,7 @@ def get_qemu_cmd(
     proxy_qemu_connection,
     test_system_out_file
 ):
-    
+
     qemu_mapping = {
         # <plat>: ["<qemu-binary-arch>", "<qemu-machine>"],
 
@@ -250,9 +250,8 @@ def start_or_attach_to_qemu_and_proxy(
 #-------------------------------------------------------------------------------
 def get_log_dir(request):
     test_module = pathlib.Path(request.node.name).stem
-    log_dir = os.path.join(request.config.option.workspace_path,
-                           request.config.option.log_dir,
-                           test_module)
+    log_dir = os.path.join(request.config.option.log_dir, test_module)
+
     # if the log dir does not exist yet, go ahead and create one
     if not os.path.isdir(log_dir):
         os.makedirs(log_dir)
@@ -402,11 +401,6 @@ def mosquitto_broker(request):
 
 #-------------------------------------------------------------------------------
 def pytest_addoption(parser):
-
-    parser.addoption(
-        "--workspace_path",
-        required=True,
-        help="location of the workspace that holds the test image")
 
     # test image
     parser.addoption(
