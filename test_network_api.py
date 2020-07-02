@@ -182,6 +182,10 @@ def test_network_tcp_connection_establishment(boot_with_proxy):
         source_port = random.randint(1025, 65536)
         s = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port, flags='S')
         sa = sr1(s, timeout=2)
+
+        if sa is None:
+            pytest.fail("Didn't receive SYN/ACK")
+
         a = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port,
                                    seq=s.seq+1, ack=sa.seq+1, flags='A')
         send(a)
@@ -208,6 +212,10 @@ def test_network_tcp_connection_closure(boot_with_proxy):
         source_port = random.randint(1025, 65536)
         s = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port, flags='S')
         sa = sr1(s, timeout=5)
+
+        if sa is None:
+            pytest.fail("Didn't receive SYN/ACK")
+
         a = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port,
                                    seq=s.seq+1, ack=sa.seq+1, flags='A')
         send(a)
@@ -230,6 +238,10 @@ def test_network_tcp_connection_reset(boot_with_proxy):
         source_port = random.randint(1025, 65536)
         s = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port, flags='S')
         sa = sr1(s, timeout=5)
+
+        if sa is None:
+            pytest.fail("Didn't receive SYN/ACK")
+
         a = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port,
                                    seq=s.seq+1, ack=sa.seq+1, flags='A')
         send(a)
@@ -277,6 +289,10 @@ def test_network_tcp_out_of_order_receive(boot_with_proxy):
         source_port = random.randint(1025, 65536)
         s = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port, flags='S')
         sa = sr1(s, timeout=2)
+        
+        if sa is None:
+            pytest.fail("Didn't receive SYN/ACK")
+
         a = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port,
                                    seq=s.seq+1, ack=sa.seq+1, flags='A')
         send(a)
