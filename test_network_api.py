@@ -7,6 +7,7 @@ import logs
 import pytest
 import http.server
 import socketserver
+import shutil
 
 import sys
 
@@ -58,16 +59,38 @@ def test_network_picotcp_smoke_tests(boot_with_proxy):
 # -------------------------------------------------------------------------------
 
 def test_network_api_client(boot_with_proxy):
+    """Test multisocket implementation. Two applications sharing a network stack try each to open 16 sockets 
+    and download data from the webserver running in the test cointainer. The library signals when all sockets
+     are in use."""
+    
     test_run = boot_with_proxy(test_system)
 
     f_out = test_run[1]
+
+    dest = '/tmp/test_network_api'
+
+    if(os.path.exists(dest)):
+        shutil.rmtree(dest)
+
+    shutil.copytree('test_network_api/', dest)
+
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
-        ["Test ended"],
+        ["No free sockets available 16"],
         timeout)
 
     if not ret:
         pytest.fail("Missing: %s" % (expr_fail))
+
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+        f_out,
+        ["TCP client test successful"],
+        timeout)
+
+    if not ret:
+        pytest.fail("Missing: %s" % (expr_fail))
+
+    shutil.rmtree(dest)
 
 # -------------------------------------------------------------------------------
 # at the moment the stack can handle these sizes without issues. We will increase this sizes and fix the issues in a second moment.
@@ -78,6 +101,7 @@ def test_network_api_echo_server(boot_with_proxy, n):
     """Test TCP/IP stack with a server that echoes the data sent to him in blocks. The test is repeated using blocks of different sizes."""
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+
 
     with open('test_network_api/dante.txt', 'rb') as file:
         blob = file.read(n)
