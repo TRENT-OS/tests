@@ -245,6 +245,17 @@ def start_or_attach_to_qemu_and_proxy(
         # give QEMU some time to run
         time.sleep(2)
 
+        # check that CapDL Loader suspends itself after it has successfully set
+        # the system setup
+        (ret, text, expr_fail) = logs.check_log_match_sequence(
+            logs.open_file_non_blocking(test_system_out_file, 'r'),
+            ["Booting all finished, dropped to user space",
+             "Done; suspending..."],
+            15)
+
+        if not ret:
+            pytest.fail(" missing: %s"%(expr_fail))
+
         print("QEMU up and system running")
 
     f_test_output = logs.open_file_non_blocking(test_system_out_file, 'r')
