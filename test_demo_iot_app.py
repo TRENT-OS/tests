@@ -30,11 +30,15 @@ def test_capdl_loader_ok(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 @pytest.mark.dependency(depends=["test_capdl_loader_ok"])
-def test_create_config_backend_ok(boot_with_proxy):
+def test_config_backend_init_ok(boot_with_proxy):
     """
     Test that the configuration backend is successfully initialized by the
     Config Server component.
     """
+
+    # Assert that a provisioned image was placed in the test workspace,
+    # otherwise it makes no sense to run the test
+    assert(os.path.isfile("nvm_06"))
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
@@ -49,29 +53,8 @@ def test_create_config_backend_ok(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
-@pytest.mark.dependency(depends=["test_create_config_backend_ok"])
-def test_set_system_config_ok(boot_with_proxy):
-    """
-    Test that the system settings are successfully written to the configuration
-    backend by the Admin component utilizing the Config Server component.
-    """
-
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
-        f_out,
-        ["System configuration set"],
-        timeout)
-
-    if not ret:
-        pytest.fail(" missing: %s"%(expr_fail))
-
-
-#-------------------------------------------------------------------------------
-@pytest.mark.dependency(depends=["test_set_system_config_ok",
-                                 "test_create_config_backend_ok"])
-def test_connect_to_server_ok(boot_with_proxy, mosquitto_broker):
+@pytest.mark.dependency(depends=["test_config_backend_init_ok"])
+def test_server_connect_ok(boot_with_proxy, mosquitto_broker):
     """
     Test that the TCP connection with the configured server is successfully established.
     """
@@ -89,9 +72,8 @@ def test_connect_to_server_ok(boot_with_proxy, mosquitto_broker):
 
 
 #-------------------------------------------------------------------------------
-@pytest.mark.dependency(depends=["test_set_system_config_ok",
-                                 "test_create_config_backend_ok",
-                                 "test_connect_to_server_ok"])
+@pytest.mark.dependency(depends=["test_config_backend_init_ok",
+                                 "test_server_connect_ok"])
 def test_tls_handshake_ok(boot_with_proxy, mosquitto_broker):
     """
     Test that the TLS Handshake is successfully completed.
