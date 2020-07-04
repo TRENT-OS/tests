@@ -8,6 +8,7 @@ import pytest
 import http.server
 import socketserver
 import shutil
+import pathlib
 
 import sys
 
@@ -67,12 +68,14 @@ def test_network_api_client(boot_with_proxy):
 
     f_out = test_run[1]
 
+    src = pathlib.Path(__file__).parent.absolute().joinpath('test_network_api/')
+
     dest = '/tmp/test_network_api'
 
     if(os.path.exists(dest)):
         shutil.rmtree(dest)
 
-    shutil.copytree('test_network_api/', dest)
+    shutil.copytree(src, dest)
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
@@ -102,8 +105,9 @@ def test_network_api_echo_server(boot_with_proxy, n):
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
+    src = pathlib.Path(__file__).parent.absolute().joinpath('test_network_api/dante.txt')
 
-    with open('test_network_api/dante.txt', 'rb') as file:
+    with open(src, 'rb') as file:
         blob = file.read(n)
 
     run_echo_client(blob)
