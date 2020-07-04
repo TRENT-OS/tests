@@ -60,9 +60,9 @@ def test_network_picotcp_smoke_tests(boot_with_proxy):
 
 def test_network_api_client(boot_with_proxy):
     """Test multisocket implementation. Two applications sharing a network stack try each to open 16 sockets 
-    and download data from the webserver running in the test cointainer. The library signals when all sockets
+    and download data from the webserver running in the test container. The library signals when all sockets
      are in use."""
-    
+
     test_run = boot_with_proxy(test_system)
 
     f_out = test_run[1]
