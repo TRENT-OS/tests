@@ -283,7 +283,7 @@ def test_network_tcp_out_of_band_signaling(boot_with_proxy):
 
 @pytest.mark.skip(reason="Fails due to test enviroment sending RST")
 def test_network_tcp_out_of_order_receive(boot_with_proxy):
-    """Test receiving TCP pakets out of order with various sequence numbers, delays and lost packets."""
+    """Test receiving TCP packets out of order with various sequence numbers, delays and lost packets."""
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
     time.sleep(10)
