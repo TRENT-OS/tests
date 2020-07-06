@@ -58,7 +58,7 @@ def test_network_picotcp_smoke_tests(boot_with_proxy):
 # -------------------------------------------------------------------------------
 
 def test_network_api_client(boot_with_proxy):
-    """Test multisocket implementation. Two applications sharing a network stack try each to open 16 sockets 
+    """Test multisocket implementation. Two applications sharing a network stack try each to open 16 sockets
     and download data from the webserver running in the test container. The library signals when all sockets
      are in use."""
 
@@ -291,7 +291,7 @@ def test_network_tcp_out_of_order_receive(boot_with_proxy):
         source_port = random.randint(1025, 65536)
         s = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port, flags='S')
         sa = sr1(s, timeout=2)
-        
+
         if sa is None:
             pytest.fail("Didn't receive SYN/ACK")
 
@@ -382,7 +382,7 @@ def test_network_arp_reply_server(boot_with_proxy):
 
 def test_network_udp_recvfrom(boot_with_proxy):
     """Sends an UDP packet to the system, testing the recvfrom() call
-    
+
         It waits for the test system to reach the point where it waits for the
         test packet (signaled by the "UDP Receive test" string in the log).
         Afterwards it looks for the payload of the UDP packet in the output log.
