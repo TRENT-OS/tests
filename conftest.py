@@ -330,8 +330,8 @@ def tls_server_proc(port = 8888, timeout = 180):
     try:
         context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
         context.load_cert_chain(
-            certfile="test_tls_api/cert.pem",
-            keyfile="test_tls_api/key.pem"
+            certfile=os.path.dirname(__file__) + "/test_tls_api/cert.pem",
+            keyfile=os.path.dirname(__file__) + "/test_tls_api/key.pem"
         )
 
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
