@@ -3,11 +3,10 @@ from enum import Enum
 import time
 import re
 import os
-import logs
+import logs # logs module from the common directory in TA
 import pytest
 
 import sys
-sys.path.append('../common')
 
 
 class LogTargets(Enum):

@@ -2,8 +2,7 @@ import pytest
 import sys
 import os
 import re
-sys.path.append('../common')
-import logs
+import logs # logs module from the common directory in TA
 
 timeout = 60
 

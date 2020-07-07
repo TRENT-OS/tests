@@ -1,9 +1,8 @@
 import pytest
 
 import sys
-sys.path.append('../common')
 
-import logs
+import logs # logs module from the common directory in TA
 import os
 import re
 import time

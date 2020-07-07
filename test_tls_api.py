@@ -1,5 +1,5 @@
 import pytest, sys
-sys.path.append('../common')
+
 import test_parser as parser
 
 TEST_NAME = 'test_tls_api'

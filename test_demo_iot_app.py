@@ -1,7 +1,7 @@
 import sys, os, re, time
 import pytest
-sys.path.append('../common')
-import logs
+
+import logs # logs module from the common directory in TA
 
 test_system = "demo_iot_app"
 

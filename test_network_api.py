@@ -3,7 +3,7 @@ import socket
 import time
 import re
 import os
-import logs
+import logs # logs module from the common directory in TA
 import pytest
 import http.server
 import socketserver
@@ -18,8 +18,6 @@ import sys
 from scapy.config import conf
 conf.ipv6_enabled = False
 
-
-sys.path.append('../common')
 
 # configure in which interface to send out the packets.
 conf.iface = "br0"

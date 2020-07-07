@@ -2,8 +2,7 @@ import pytest
 import sys
 import os
 import re
-sys.path.append('../common')
-import logs
+import logs # logs module from the common directory in TA
 
 def test_run_demo(boot_with_proxy):
     """ This demo utilizes both the partition manager and the filesystem as lib and makes use of all relevant SEOS Filesystem API functions. """

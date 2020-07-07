@@ -2,8 +2,7 @@ import pytest
 import sys
 import os
 import re
-sys.path.append('../common')
-import logs
+import logs # logs module from the common directory in TA
 
 # this timeout is used for most of the tests, but some tests known to run much
 # longer use a custom value

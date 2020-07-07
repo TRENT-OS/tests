@@ -1,7 +1,5 @@
 import pytest
-
 import sys
-sys.path.append('../common')
 
 from tests import run_test_log_match, run_test_log_match_set
 

@@ -13,8 +13,7 @@ import re
 
 import pytest
 
-sys.path.append('../common')
-import logs
+import logs # logs module from the common directory in TA
 
 
 #-------------------------------------------------------------------------------

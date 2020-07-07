@@ -1,6 +1,6 @@
 # Copyright (C) 2020, HENSOLDT Cyber GmbH
 import pytest, sys
-sys.path.append('../common')
+
 import test_parser as parser
 
 TEST_NAME = 'test_storage_interface'
