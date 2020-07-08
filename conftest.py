@@ -264,8 +264,10 @@ def start_or_attach_to_qemu_and_proxy(
 
 #-------------------------------------------------------------------------------
 def get_log_dir(request):
-    test_module = pathlib.Path(request.node.name).stem
-    log_dir = os.path.join(request.config.option.log_dir, test_module)
+    log_dir = pathlib.Path(request.node.name).stem
+    log_dir_str = request.config.option.log_dir
+    if (log_dir_str is not None):
+        log_dir = os.path.join(log_dir_str, log_dir)
 
     # if the log dir does not exist yet, go ahead and create one
     if not os.path.isdir(log_dir):
@@ -435,5 +437,4 @@ def pytest_addoption(parser):
 
     parser.addoption(
         "--log_dir",
-        required=True,
         help="folder where to put the logs")
