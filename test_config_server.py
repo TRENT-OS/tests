@@ -4,7 +4,7 @@ import sys
 from tests import run_test_log_match, run_test_log_match_set
 
 test_system = "test_config_server"
-timeout = 10  #timeout set to 10sec
+timeout = 90  #timeout set to 90sec
 
 #-------------------------------------------------------------------------------
 def test_create_handle_ok(boot_with_proxy):
