@@ -30,8 +30,8 @@ def test_proxy_nvm_storage_start_address(boot_with_proxy):
 
     expected_output_array = [
         #every test case output needs to happen twice (for both channels)
-        "TEST STORAGE START ADDRESS: Read values match the write values!",
-        "TEST STORAGE START ADDRESS: Read values match the write values!"
+        "!!! TEST STORAGE START ADDRESS => SUCCESS !!!",
+        "!!! TEST STORAGE START ADDRESS => SUCCESS !!!"
     ]
 
     for success_msg in expected_output_array:
@@ -62,8 +62,8 @@ def test_proxy_nvm_storage_mid_address(boot_with_proxy):
 
     expected_output_array = [
         #every test case output needs to happen twice (for both channels)
-        "TEST STORAGE MID ADDRESS: Read values match the write values!",
-        "TEST STORAGE MID ADDRESS: Read values match the write values!"
+        "!!! TEST STORAGE MID ADDRESS => SUCCESS !!!",
+        "!!! TEST STORAGE MID ADDRESS => SUCCESS !!!"
     ]
 
     for success_msg in expected_output_array:
@@ -94,8 +94,8 @@ def test_proxy_nvm_storage_end_address(boot_with_proxy):
 
     expected_output_array = [
         #every test case output needs to happen twice (for both channels)
-        "TEST STORAGE END ADDRESS: Read values match the write values!",
-        "TEST STORAGE END ADDRESS: Read values match the write values!"
+        "!!! TEST STORAGE END ADDRESS => SUCCESS !!!",
+        "!!! TEST STORAGE END ADDRESS => SUCCESS !!!"
     ]
 
     for success_msg in expected_output_array:
@@ -127,8 +127,8 @@ def test_proxy_nvm_storage_overflow(boot_with_proxy):
 
     expected_output_array = [
         #every test case output needs to happen twice (for both channels)
-        "TEST STORAGE OVERFLOW: Write failed!",
-        "TEST STORAGE OVERFLOW: Write failed!"
+        "!!! TEST STORAGE OVERFLOW => SUCCESS !!!",
+        "!!! TEST STORAGE OVERFLOW => SUCCESS !!!"
     ]
 
     for success_msg in expected_output_array:
@@ -160,8 +160,8 @@ def test_proxy_nvm_storage_underflow(boot_with_proxy):
 
     expected_output_array = [
         #every test case output needs to happen twice (for both channels)
-        "TEST STORAGE UNDERFLOW: Write failed!",
-        "TEST STORAGE UNDERFLOW: Write failed!"
+        "!!! TEST STORAGE UNDERFLOW => SUCCESS !!!",
+        "!!! TEST STORAGE UNDERFLOW => SUCCESS !!!"
     ]
 
     for success_msg in expected_output_array:
@@ -193,8 +193,8 @@ def test_proxy_nvm_far_out_of_bounds_address(boot_with_proxy):
 
     expected_output_array = [
         #every test case output needs to happen twice (for both channels)
-        "TEST STORAGE FAR OUT OF BOUNDS ADDRESS: Write failed!",
-        "TEST STORAGE FAR OUT OF BOUNDS ADDRESS: Write failed!"
+        "!!! TEST STORAGE FAR OUT OF BOUNDS ADDRESS => SUCCESS !!!",
+        "!!! TEST STORAGE FAR OUT OF BOUNDS ADDRESS => SUCCESS !!!"
     ]
 
     for success_msg in expected_output_array:
