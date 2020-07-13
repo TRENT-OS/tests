@@ -20,7 +20,8 @@ def test_proxy_nvm_small_section_test(boot_with_proxy):
         the NVM abstraction exposed by the Proxy app with a known pattern and
         then read it and check it.
 
-    Test is currently limited to the disk size preconfigured by the proxy application:
+    Test is currently limited to the disk size preconfigured by the proxy
+    application:
         - 36 MiB for 1st NVM channel
         - 128 KiB for 2nd NVM channel
     """
@@ -35,7 +36,11 @@ def test_proxy_nvm_small_section_test(boot_with_proxy):
     ]
 
     for success_msg in expected_output_array:
-        (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
+        (text, match) = logs.get_match_in_line(
+                                f_out,
+                                re.compile(success_msg),
+                                timeout)
+
         assert match == success_msg
 
 def test_proxy_nvm_whole_memory_test(boot_with_proxy):
@@ -47,7 +52,8 @@ def test_proxy_nvm_whole_memory_test(boot_with_proxy):
         the NVM abstraction exposed by the Proxy app with a known pattern and
         then read it and check it.
 
-    Test is currently limited to the disk size preconfigured by the proxy application:
+    Test is currently limited to the disk size preconfigured by the proxy
+    application:
         - 36 MiB for 1st NVM channel
         - 128 KiB for 2nd NVM channel
     """
@@ -62,7 +68,11 @@ def test_proxy_nvm_whole_memory_test(boot_with_proxy):
     ]
 
     for success_msg in expected_output_array:
-        (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
+        (text, match) = logs.get_match_in_line(
+                                f_out,
+                                re.compile(success_msg),
+                                timeout)
+
         assert match == success_msg
 
 def test_proxy_nvm_size_out_of_bounds_test(boot_with_proxy):
@@ -75,7 +85,8 @@ def test_proxy_nvm_size_out_of_bounds_test(boot_with_proxy):
         the boundaries of the NVM abstraction exposed by the Proxy app then
         check that an error condition is raised.
 
-    Test is currently limited to the disk size preconfigured by the proxy application:
+    Test is currently limited to the disk size preconfigured by the proxy
+    application:
         - 36 MiB for 1st NVM channel
         - 128 KiB for 2nd NVM channel
     """
@@ -90,7 +101,11 @@ def test_proxy_nvm_size_out_of_bounds_test(boot_with_proxy):
     ]
 
     for success_msg in expected_output_array:
-        (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
+        (text, match) = logs.get_match_in_line(
+                                f_out,
+                                re.compile(success_msg),
+                                timeout)
+
         assert match == success_msg
 
 def test_proxy_nvm_address_out_of_bounds_test(boot_with_proxy):
@@ -103,7 +118,8 @@ def test_proxy_nvm_address_out_of_bounds_test(boot_with_proxy):
         the boundaries of the NVM abstraction exposed by the Proxy app then
         check that an error condition is raised.
 
-    Test is currently limited to the disk size preconfigured by the proxy application:
+    Test is currently limited to the disk size preconfigured by the proxy
+    application:
         - 36 MiB for 1st NVM channel
         - 128 KiB for 2nd NVM channel
     """
@@ -118,5 +134,9 @@ def test_proxy_nvm_address_out_of_bounds_test(boot_with_proxy):
     ]
 
     for success_msg in expected_output_array:
-        (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
+        (text, match) = logs.get_match_in_line(
+                                f_out,
+                                re.compile(success_msg),
+                                timeout)
+
         assert match == success_msg
