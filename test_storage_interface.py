@@ -65,7 +65,6 @@ def test_storage_writeReadEraseZeroBytes_pos_chanmuxStorage(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_writeReadEraseZeroBytes_pos', 'idx=0')
 
-@pytest.mark.skip(reason="ChanMux crashes, see SEOS-1431")
 def test_storage_writeReadEraseOutside_neg_chanmuxStorage(boot_with_proxy):
     """
     Writes, reads and erases outside of the storage area expecting the storage
@@ -76,7 +75,6 @@ def test_storage_writeReadEraseOutside_neg_chanmuxStorage(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_writeReadEraseOutside_neg', 'idx=0')
 
-@pytest.mark.skip(reason="ChanMux causes fault, see SEOS-1431")
 def test_storage_writeReadEraseTooLarge_neg_chanmuxStorage(boot_with_proxy):
     """
     ChanMuxStorage driver shall validate input paramaters and do not allow
@@ -85,7 +83,7 @@ def test_storage_writeReadEraseTooLarge_neg_chanmuxStorage(boot_with_proxy):
     parser.check_test(
         boot_with_proxy(TEST_NAME),
         TEST_TIMEOUT,
-        'test_storage_writeReadEraseTooLarge_neg_0', 'idx=0')
+        'test_storage_writeReadEraseTooLarge_neg', 'idx=0')
 
 def test_storage_neighborRegionsUntouched_pos_chanmuxStorage(boot_with_proxy):
     """
@@ -154,7 +152,6 @@ def test_storage_writeReadEraseZeroBytes_pos_ramDisk(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_writeReadEraseZeroBytes_pos', 'idx=1')
 
-@pytest.mark.skip(reason="ChanMux crashes, see SEOS-1431")
 def test_storage_writeReadEraseOutside_neg_ramDisk(boot_with_proxy):
     """
     Writes, reads and erases outside of the storage area expecting the storage
@@ -165,7 +162,6 @@ def test_storage_writeReadEraseOutside_neg_ramDisk(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_writeReadEraseOutside_neg', 'idx=1')
 
-@pytest.mark.skip(reason="ChanMux causes fault, see SEOS-1431")
 def test_storage_writeReadEraseTooLarge_neg_ramDisk(boot_with_proxy):
     """
     ChanMuxStorage driver shall validate input paramaters and do not allow
@@ -174,7 +170,7 @@ def test_storage_writeReadEraseTooLarge_neg_ramDisk(boot_with_proxy):
     parser.check_test(
         boot_with_proxy(TEST_NAME),
         TEST_TIMEOUT,
-        'test_storage_writeReadEraseTooLarge_neg_0', 'idx=1')
+        'test_storage_writeReadEraseTooLarge_neg', 'idx=1')
 
 def test_storage_neighborRegionsUntouched_pos_ramDisk(boot_with_proxy):
     """
