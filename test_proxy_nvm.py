@@ -10,7 +10,6 @@ import time
 test_system = "test_proxy_nvm"
 timeout = 300
 
-#-------------------------------------------------------------------------------
 def test_proxy_nvm_small_section_test(boot_with_proxy):
     """This test will check that a small section (few bytes somewhere in the
     file is correctly written.
@@ -20,7 +19,7 @@ def test_proxy_nvm_small_section_test(boot_with_proxy):
         two SEOS Tester components will (in parallel) write a small section of
         the NVM abstraction exposed by the Proxy app with a known pattern and
         then read it and check it.
-    
+
     Test is currently limited to the disk size preconfigured by the proxy application:
         - 36 MiB for 1st NVM channel
         - 128 KiB for 2nd NVM channel
@@ -39,7 +38,6 @@ def test_proxy_nvm_small_section_test(boot_with_proxy):
         (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
         assert match == success_msg
 
-#-------------------------------------------------------------------------------
 def test_proxy_nvm_whole_memory_test(boot_with_proxy):
     """This test will check that a small section is correctly written.
 
@@ -48,7 +46,7 @@ def test_proxy_nvm_whole_memory_test(boot_with_proxy):
         two SEOS Tester components will (in parallel) write the full size of
         the NVM abstraction exposed by the Proxy app with a known pattern and
         then read it and check it.
-    
+
     Test is currently limited to the disk size preconfigured by the proxy application:
         - 36 MiB for 1st NVM channel
         - 128 KiB for 2nd NVM channel
@@ -67,7 +65,6 @@ def test_proxy_nvm_whole_memory_test(boot_with_proxy):
         (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
         assert match == success_msg
 
-#-------------------------------------------------------------------------------
 def test_proxy_nvm_size_out_of_bounds_test(boot_with_proxy):
     """This test will check that writing outside of the bounds (by exceeding in
     the size but starting from a valid address) results in an error condition.
@@ -77,7 +74,7 @@ def test_proxy_nvm_size_out_of_bounds_test(boot_with_proxy):
         two SEOS Tester components will (in parallel) try to write outside of
         the boundaries of the NVM abstraction exposed by the Proxy app then
         check that an error condition is raised.
-    
+
     Test is currently limited to the disk size preconfigured by the proxy application:
         - 36 MiB for 1st NVM channel
         - 128 KiB for 2nd NVM channel
@@ -96,7 +93,6 @@ def test_proxy_nvm_size_out_of_bounds_test(boot_with_proxy):
         (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
         assert match == success_msg
 
-#-------------------------------------------------------------------------------
 def test_proxy_nvm_address_out_of_bounds_test(boot_with_proxy):
     """This test will check that writing outside of the bounds (by using
     invalid addresses) results in an error condition.
