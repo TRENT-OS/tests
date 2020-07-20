@@ -71,7 +71,6 @@ def test_get_integer64_values_from_config_file_ok(boot_with_proxy):
                            timeout)
 
 #-------------------------------------------------------------------------------
-@pytest.mark.skip(reason="Proxy filesystem usage too slow and tests take very long")
 def test_get_string_values_from_config_file_ok(boot_with_proxy):
     """
     Asserts that all string parameters written to the config file created in 'test_create_config_file'
@@ -94,7 +93,6 @@ def test_get_string_values_from_config_file_ok(boot_with_proxy):
                            timeout)
 
 #-------------------------------------------------------------------------------
-@pytest.mark.skip(reason="Proxy filesystem usage too slow and tests take very long")
 def test_get_blob_values_from_config_file_ok(boot_with_proxy):
     """
     Asserts that all blob parameters written to the config file created in 'test_create_config_file'
@@ -161,7 +159,6 @@ def test_set_integer64_values_in_config_file_ok(boot_with_proxy):
                            timeout)
 
 #-------------------------------------------------------------------------------
-@pytest.mark.skip(reason="Proxy filesystem usage too slow and tests take very long")
 def test_set_string_values_in_config_file_ok(boot_with_proxy):
     """
     Asserts that all string parameters written to the config file created in 'test_create_config_file'
@@ -184,7 +181,6 @@ def test_set_string_values_in_config_file_ok(boot_with_proxy):
                            timeout)
 
 #-------------------------------------------------------------------------------
-@pytest.mark.skip(reason="Proxy filesystem usage too slow and tests take very long")
 def test_set_blob_values_in_config_file_ok(boot_with_proxy):
     """
     Asserts that all blob parameters written to the config file created in 'test_create_config_file'
