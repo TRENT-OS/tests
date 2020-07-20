@@ -456,7 +456,7 @@ def test_network_ping_reply_client(boot_with_proxy):
     lost = 0
     for i in range(5):
         randNum = random.randint(0, 255)
-        ans = sr1(IP(dst=ETH_1_ADDR)/ICMP(id=randNum), timeout=2)
+        ans = sr1(IP(dst=ETH_1_ADDR)/ICMP(id=randNum), timeout=5)
         if ans == None:
             pytest.fail("Timeout waiting for ping reply")
         if not ans.payload.id == randNum:
@@ -475,7 +475,7 @@ def test_network_ping_reply_server(boot_with_proxy):
     lost = 0
     for i in range(5):
         randNum = random.randint(0, 255)
-        ans = sr1(IP(dst=ETH_2_ADDR)/ICMP(id=randNum), timeout=1)
+        ans = sr1(IP(dst=ETH_2_ADDR)/ICMP(id=randNum), timeout=5)
         if ans == None:
             pytest.fail("Timeout waiting for ping reply")
         if not ans.payload.id == randNum:
