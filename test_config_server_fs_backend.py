@@ -4,8 +4,7 @@ import sys
 from tests import run_test_log_match, run_test_log_match_set
 
 test_system = "test_config_server_fs_backend"
-timeout = 60*10   #due to the heavy usage of the filesystem in the tests, the
-                  #timeout is set to 10min
+timeout = 120   #timeout based on CI profiling
 
 #-------------------------------------------------------------------------------
 def test_init_config_file_ok(boot_with_proxy):
