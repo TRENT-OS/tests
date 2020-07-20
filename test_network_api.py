@@ -480,3 +480,41 @@ def test_network_ping_reply_server(boot_with_proxy):
             pytest.fail("Timeout waiting for ping reply")
         if not ans.payload.id == randNum:
             pytest.fail("Failed. We got a reply for a ping we didn't send.")
+
+# --- API Tests ---
+
+def test_network_dataport_size_check_client(boot_with_proxy):
+    """Test if the client network stack API handles invalid buffer sizes
+        correctly.
+        Success: We get test successful message in the log.
+        Failure: Timeout
+    """
+    test_run = boot_with_proxy(test_system)
+    f_out = test_run[1]
+    time.sleep(10)
+
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+        f_out,
+        ["Client dataport test successful"],
+        timeout)
+
+    if not ret:
+        pytest.fail("Missing: %s" % (expr_fail))
+
+def test_network_dataport_size_check_lib(boot_with_proxy):
+    """Test if the library network stack API handles invalid buffer sizes
+        correctly.
+        Success: We get test successful message in the log.
+        Failure: Timeout
+    """
+    test_run = boot_with_proxy(test_system)
+    f_out = test_run[1]
+    time.sleep(10)
+
+    (ret, text, expr_fail) = logs.check_log_match_sequence(
+        f_out,
+        ["Lib dataport test successful"],
+        timeout)
+
+    if not ret:
+        pytest.fail("Missing: %s" % (expr_fail))
