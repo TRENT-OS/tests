@@ -65,6 +65,16 @@ def test_storage_writeReadEraseZeroBytes_pos_ramDisk(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_writeReadEraseZeroBytes_pos', 'idx=0')
 
+def test_storage_neighborRegionsUntouched_pos_ramDisk(boot_with_proxy):
+    """
+    Writes, reads and erases the test string, and verifies that the data in
+    front of it and at the back were not corrupted.
+    """
+    parser.check_test(
+        boot_with_proxy(TEST_NAME),
+        TEST_TIMEOUT,
+        'test_storage_neighborRegionsUntouched_pos', 'idx=0')
+
 def test_storage_writeReadEraseOutside_neg_ramDisk(boot_with_proxy):
     """
     Writes, reads and erases outside of the storage area expecting the storage
@@ -125,17 +135,6 @@ def test_storage_writeReadEraseSizeMax_neg_ramDisk(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_writeReadEraseSizeMax_neg', 'idx=0')
 
-
-def test_storage_neighborRegionsUntouched_pos_ramDisk(boot_with_proxy):
-    """
-    Writes, reads and erases the test string, and verifies that the data in
-    front of it and at the back were not corrupted.
-    """
-    parser.check_test(
-        boot_with_proxy(TEST_NAME),
-        TEST_TIMEOUT,
-        'test_storage_neighborRegionsUntouched_pos', 'idx=0')
-
 """
              #####                          #     #
             #     # #    #   ##   #    #    ##   ## #    # #    #
@@ -192,6 +191,16 @@ def test_storage_writeReadEraseZeroBytes_pos_chanmuxStorage(boot_with_proxy):
         boot_with_proxy(TEST_NAME),
         TEST_TIMEOUT,
         'test_storage_writeReadEraseZeroBytes_pos', 'idx=1')
+
+def test_storage_neighborRegionsUntouched_pos_chanmuxStorage(boot_with_proxy):
+    """
+    Writes, reads and erases the test string, and verifies that the data in
+    front of it and at the back were not corrupted.
+    """
+    parser.check_test(
+        boot_with_proxy(TEST_NAME),
+        TEST_TIMEOUT,
+        'test_storage_neighborRegionsUntouched_pos', 'idx=1')
 
 def test_storage_writeReadEraseOutside_neg_chanmuxStorage(boot_with_proxy):
     """
@@ -252,14 +261,3 @@ def test_storage_writeReadEraseSizeMax_neg_chanmuxStorage(boot_with_proxy):
         boot_with_proxy(TEST_NAME),
         TEST_TIMEOUT,
         'test_storage_writeReadEraseSizeMax_neg', 'idx=1')
-
-
-def test_storage_neighborRegionsUntouched_pos_chanmuxStorage(boot_with_proxy):
-    """
-    Writes, reads and erases the test string, and verifies that the data in
-    front of it and at the back were not corrupted.
-    """
-    parser.check_test(
-        boot_with_proxy(TEST_NAME),
-        TEST_TIMEOUT,
-        'test_storage_neighborRegionsUntouched_pos', 'idx=1')
