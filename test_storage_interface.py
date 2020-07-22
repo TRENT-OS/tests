@@ -75,6 +75,36 @@ def test_storage_writeReadEraseOutside_neg_ramDisk(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_writeReadEraseOutside_neg', 'idx=0')
 
+def test_storage_writeReadEraseNegOffset_neg_ramDisk(boot_with_proxy):
+    """
+    ChanMuxStorage driver shall validate input paramaters and do not allow
+    write, reads, and erases for a negative offset.
+    """
+    parser.check_test(
+        boot_with_proxy(TEST_NAME),
+        TEST_TIMEOUT,
+        'test_storage_writeReadEraseNegOffset_neg', 'idx=0')
+
+def test_storage_writeReadEraseIntMax_neg_ramDisk(boot_with_proxy):
+    """
+    ChanMuxStorage driver shall validate input paramaters and do not allow
+    write, reads, and erases for a max possible offset.
+    """
+    parser.check_test(
+        boot_with_proxy(TEST_NAME),
+        TEST_TIMEOUT,
+        'test_storage_writeReadEraseIntMax_neg', 'idx=0')
+
+def test_storage_writeReadEraseIntMin_neg_ramDisk(boot_with_proxy):
+    """
+    ChanMuxStorage driver shall validate input paramaters and do not allow
+    write, reads, and erases that min possible offset.
+    """
+    parser.check_test(
+        boot_with_proxy(TEST_NAME),
+        TEST_TIMEOUT,
+        'test_storage_writeReadEraseIntMin_neg', 'idx=0')
+
 def test_storage_writeReadEraseTooLarge_neg_ramDisk(boot_with_proxy):
     """
     ChanMuxStorage driver shall validate input paramaters and do not allow
@@ -161,6 +191,36 @@ def test_storage_writeReadEraseOutside_neg_chanmuxStorage(boot_with_proxy):
         boot_with_proxy(TEST_NAME),
         TEST_TIMEOUT,
         'test_storage_writeReadEraseOutside_neg', 'idx=1')
+
+def test_storage_writeReadEraseNegOffset_neg_chanmuxStorage(boot_with_proxy):
+    """
+    ChanMuxStorage driver shall validate input paramaters and do not allow
+    write, reads, and erases for a negative offset.
+    """
+    parser.check_test(
+        boot_with_proxy(TEST_NAME),
+        TEST_TIMEOUT,
+        'test_storage_writeReadEraseNegOffset_neg', 'idx=1')
+
+def test_storage_writeReadEraseIntMax_neg_chanmuxStorage(boot_with_proxy):
+    """
+    ChanMuxStorage driver shall validate input paramaters and do not allow
+    write, reads, and erases for a max possible offset.
+    """
+    parser.check_test(
+        boot_with_proxy(TEST_NAME),
+        TEST_TIMEOUT,
+        'test_storage_writeReadEraseIntMax_neg', 'idx=1')
+
+def test_storage_writeReadEraseIntMin_neg_chanmuxStorage(boot_with_proxy):
+    """
+    ChanMuxStorage driver shall validate input paramaters and do not allow
+    write, reads, and erases that min possible offset.
+    """
+    parser.check_test(
+        boot_with_proxy(TEST_NAME),
+        TEST_TIMEOUT,
+        'test_storage_writeReadEraseIntMin_neg', 'idx=1')
 
 def test_storage_writeReadEraseTooLarge_neg_chanmuxStorage(boot_with_proxy):
     """
