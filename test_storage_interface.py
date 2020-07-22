@@ -105,7 +105,7 @@ def test_storage_writeReadEraseIntMin_neg_ramDisk(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_writeReadEraseIntMin_neg', 'idx=0')
 
-def test_storage_writeReadEraseTooLarge_neg_ramDisk(boot_with_proxy):
+def test_storage_writeReadEraseSizeTooLarge_neg_ramDisk(boot_with_proxy):
     """
     ChanMuxStorage driver shall validate input paramaters and do not allow
     write, reads, and erases that are too large.
@@ -113,7 +113,18 @@ def test_storage_writeReadEraseTooLarge_neg_ramDisk(boot_with_proxy):
     parser.check_test(
         boot_with_proxy(TEST_NAME),
         TEST_TIMEOUT,
-        'test_storage_writeReadEraseTooLarge_neg', 'idx=0')
+        'test_storage_writeReadEraseSizeTooLarge_neg', 'idx=0')
+
+def test_storage_writeReadEraseSizeMax_neg_ramDisk(boot_with_proxy):
+    """
+    ChanMuxStorage driver shall validate input paramaters and do not allow
+    write, reads, and erases of a maximum size.
+    """
+    parser.check_test(
+        boot_with_proxy(TEST_NAME),
+        TEST_TIMEOUT,
+        'test_storage_writeReadEraseSizeMax_neg', 'idx=0')
+
 
 def test_storage_neighborRegionsUntouched_pos_ramDisk(boot_with_proxy):
     """
@@ -222,7 +233,7 @@ def test_storage_writeReadEraseIntMin_neg_chanmuxStorage(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_writeReadEraseIntMin_neg', 'idx=1')
 
-def test_storage_writeReadEraseTooLarge_neg_chanmuxStorage(boot_with_proxy):
+def test_storage_writeReadEraseSizeTooLarge_neg_chanmuxStorage(boot_with_proxy):
     """
     ChanMuxStorage driver shall validate input paramaters and do not allow
     write, reads, and erases that are too large.
@@ -230,7 +241,18 @@ def test_storage_writeReadEraseTooLarge_neg_chanmuxStorage(boot_with_proxy):
     parser.check_test(
         boot_with_proxy(TEST_NAME),
         TEST_TIMEOUT,
-        'test_storage_writeReadEraseTooLarge_neg', 'idx=1')
+        'test_storage_writeReadEraseSizeTooLarge_neg', 'idx=1')
+
+def test_storage_writeReadEraseSizeMax_neg_chanmuxStorage(boot_with_proxy):
+    """
+    ChanMuxStorage driver shall validate input paramaters and do not allow
+    write, reads, and erases of a maximum size.
+    """
+    parser.check_test(
+        boot_with_proxy(TEST_NAME),
+        TEST_TIMEOUT,
+        'test_storage_writeReadEraseSizeMax_neg', 'idx=1')
+
 
 def test_storage_neighborRegionsUntouched_pos_chanmuxStorage(boot_with_proxy):
     """
