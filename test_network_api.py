@@ -179,7 +179,6 @@ def test_network_tcp_connection_establishment(boot_with_proxy):
     """Test the SYN/ACK-SYN/ACK sequence with various sequence numbers, delays and lost packets."""
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
-    time.sleep(10)
     for i in range(10):
         source_port = random.randint(1025, 65536)
         s = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port, flags='S')
@@ -209,7 +208,6 @@ def test_network_tcp_connection_closure(boot_with_proxy):
     """Test the FIN sequence with various sequence numbers, delays and lost packets."""
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
-    time.sleep(10)
     for i in range(1):
         source_port = random.randint(1025, 65536)
         s = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port, flags='S')
@@ -235,7 +233,6 @@ def test_network_tcp_connection_reset(boot_with_proxy):
     """Test the RST sequence with various sequence numbers, delays and lost packets."""
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
-    time.sleep(10)
     for i in range(1):
         source_port = random.randint(1025, 65536)
         s = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port, flags='S')
@@ -259,7 +256,6 @@ def test_network_tcp_connection_invalid(boot_with_proxy):
     """Test connecting to a port nobody is listening on."""
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
-    time.sleep(10)
     for i in range(10):
         source_port = random.randint(10256, 65536)
         r = IP(dst=ETH_2_ADDR)/TCP(dport=source_port,
@@ -286,7 +282,6 @@ def test_network_tcp_out_of_order_receive(boot_with_proxy):
     """Test receiving TCP packets out of order with various sequence numbers, delays and lost packets."""
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
-    time.sleep(10)
     for i in range(1):
         source_port = random.randint(1025, 65536)
         s = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port, flags='S')
@@ -305,14 +300,12 @@ def test_network_tcp_out_of_order_receive(boot_with_proxy):
         r1 = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port,
                                     seq=p.ack, ack=p.seq+len(p), flags='')/"XXXXXXXX"
         p1 = sr1(r1, timeout=2)
-        time.sleep(10)
 
 @pytest.mark.skip(reason="Fails due to payload mismatch")
 def test_network_tcp_data_send(boot_with_proxy):
     """Test sending data in TCP pakets with various sequence numbers, delays and lost packets."""
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
-    time.sleep(10)
 
     for i in range(5):
         source_port = random.randint(1025, 65536)
@@ -360,7 +353,6 @@ def test_network_arp_reply_client(boot_with_proxy):
     """
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
-    time.sleep(10)
     ans, uns = arping(ETH_1_ADDR)
     if len(uns) != 0:
         pytest.fail("Timeout waiting for arp reply")
@@ -373,7 +365,6 @@ def test_network_arp_reply_server(boot_with_proxy):
     """
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
-    time.sleep(10)
     ans, uns = arping(ETH_2_ADDR)
     if len(uns) != 0:
         pytest.fail("Timeout waiting for arp reply")
@@ -436,7 +427,6 @@ def test_network_ping_request(boot_with_proxy):
     """Test pinging a known host."""
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
-    time.sleep(10)
     filter = "icmp and src host "+ETH_1_ADDR+" and dst host "+CFG_TEST_HTTP_SERVER
     p = sniff(iface='br0', filter=filter, timeout=30)
     if len(p) == 0:
@@ -451,7 +441,6 @@ def test_network_ping_reply_client(boot_with_proxy):
     """
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
-    time.sleep(10)
 
     lost = 0
     for i in range(5):
@@ -470,7 +459,6 @@ def test_network_ping_reply_server(boot_with_proxy):
     """
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
-    time.sleep(10)
 
     lost = 0
     for i in range(5):
@@ -491,7 +479,6 @@ def test_network_dataport_size_check_client(boot_with_proxy):
     """
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
-    time.sleep(10)
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
@@ -509,7 +496,6 @@ def test_network_dataport_size_check_lib(boot_with_proxy):
     """
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
-    time.sleep(10)
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
