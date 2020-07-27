@@ -29,30 +29,6 @@ def test_create_handle_ok(boot_with_proxy):
                            timeout)
 
 #-------------------------------------------------------------------------------
-def test_create_handle_fail(boot_with_proxy):
-    """
-    The function createHandle is called with empty handles, invalid handle types
-    and invalid handle ids.
-
-    Goal:
-        The createHandle function offered by the ConfigServer as library and component
-        is tested for correct error return codes for the mentioned invalid input.
-    Success criteria:
-        The The createHandle function correctly returns defined error codes for various
-        wrong input data.
-    """
-
-    result_list = [
-        'TestCreateHandle_fail: TestApp1 HandleKind:Local OK',
-        'TestCreateHandle_fail: TestApp1 HandleKind:Rpc OK',
-    ]
-
-    run_test_log_match_set(boot_with_proxy,
-                           test_system,
-                           result_list,
-                           timeout)
-
-#-------------------------------------------------------------------------------
 def test_domain_enumerator_increment_ok(boot_with_proxy):
     """
     A domain enumerator object is initialized and then incremented by the max domain
