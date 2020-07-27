@@ -47,7 +47,7 @@ def test_CryptoServer_access_0(boot_with_proxy):
     matrix (lower triagonal form) is respected. Check the output of client with
     ID 1.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 15, 'test_CryptoServer_access', 'my_id=0', single_thread=False)
+    parser.check_test(boot_with_proxy(TEST_NAME), 15, 'test_CryptoServer_access', 'my_id=1', single_thread=False)
 
 def test_CryptoServer_storageLimit_0(boot_with_proxy):
     """
@@ -62,7 +62,7 @@ def test_CryptoServer_access_1(boot_with_proxy):
     matrix (lower triagonal form) is respected. Check the output of client with
     ID 1.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 10, 'test_CryptoServer_access', 'my_id=3', single_thread=False)
+    parser.check_test(boot_with_proxy(TEST_NAME), 10, 'test_CryptoServer_access', 'my_id=4', single_thread=False)
 
 def test_CryptoServer_access_2(boot_with_proxy):
     """
@@ -70,7 +70,7 @@ def test_CryptoServer_access_2(boot_with_proxy):
     matrix (lower triagonal form) is respected. Check the output of client with
     ID 2.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 10, 'test_CryptoServer_access', 'my_id=2', single_thread=False)
+    parser.check_test(boot_with_proxy(TEST_NAME), 10, 'test_CryptoServer_access', 'my_id=3', single_thread=False)
 
 def test_CryptoServer_access_3(boot_with_proxy):
     """
@@ -78,4 +78,4 @@ def test_CryptoServer_access_3(boot_with_proxy):
     matrix (lower triagonal form) is respected. Check the output of client with
     ID 3.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 5, 'test_CryptoServer_access', 'my_id=1', single_thread=False)
+    parser.check_test(boot_with_proxy(TEST_NAME), 5, 'test_CryptoServer_access', 'my_id=2', single_thread=False)
