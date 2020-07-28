@@ -57,4 +57,4 @@ class LogMessagesPatterns(Enum):
     MAX_LVL_MSG     = r".*Debug_LOG_MAX\n"
 
     LOG_SERVER_INIT_SUCCESS = r".*=> SUCCESS!\n"
-    PARTITION_0_CREATED     = r".*Partition 0 successfully created!"
+    PARTITION_0_CREATED     = r".*Filesystem successfully created!"
