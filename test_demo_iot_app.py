@@ -63,7 +63,7 @@ def test_tls_handshake_ok(boot_with_proxy, mosquitto_broker):
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
-        ["handshake wrapup"],
+        ["TLS session established successfully"],
         60)
 
     if not ret:
