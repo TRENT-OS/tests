@@ -52,7 +52,7 @@ def terminate_process_by_pid_file(
 
 
 #-------------------------------------------------------------------------------
-def get_proxy_connection_params(mode):
+def get_qemu_serial_connection_params(mode):
 
     if(mode == "PTY"):
 
@@ -74,7 +74,7 @@ def get_proxy_connection_params(mode):
 def get_qemu_cmd(
     platform,
     system_image,
-    proxy_qemu_connection,
+    serial_qemu_connection,
     test_system_out_file
 ):
 
@@ -93,7 +93,7 @@ def get_qemu_cmd(
              "-machine " + qemu_mapping[1],
              "-m size=1024M",
              "-nographic",
-           ] + get_proxy_connection_params(proxy_qemu_connection) + [
+           ] + get_qemu_serial_connection_params(serial_qemu_connection) + [
              "-serial file:" + test_system_out_file,
              "-kernel " + system_image,
            ]
@@ -114,7 +114,7 @@ def start_or_attach_to_qemu_and_proxy(
 ):
     qemu_already_running = os.path.isfile(qemu_pid_file)
 
-    proxy_qemu_connection = None
+    serial_qemu_connection = None
     proxy_app = None
 
     if use_proxy:
@@ -122,7 +122,7 @@ def start_or_attach_to_qemu_and_proxy(
         assert(proxy_cfg_str is not None)
         arr = proxy_cfg_str.split(",")
         proxy_app = arr[0]
-        proxy_qemu_connection = "TCP" if (1 == len(arr)) else arr[1]
+        serial_qemu_connection = "TCP" if (1 == len(arr)) else arr[1]
 
     f_qemu_stdin = None
 
@@ -147,7 +147,7 @@ def start_or_attach_to_qemu_and_proxy(
                     get_qemu_cmd(
                         request.config.option.target,
                         system_image,
-                        proxy_qemu_connection if use_proxy else None,
+                        serial_qemu_connection,
                         test_system_out_file) +
                         [
                             "2>" + qemu_stderr_file,
@@ -186,7 +186,7 @@ def start_or_attach_to_qemu_and_proxy(
 
             connection_mode = None
 
-            if(proxy_qemu_connection == "PTY"):
+            if(serial_qemu_connection == "PTY"):
                 # search for dev/ptsX info in QEMU stderr
                 # in QEMU >= 4.2 we need to look in stdout
                 (text, match) = logs.get_match_in_line(
@@ -202,10 +202,10 @@ def start_or_attach_to_qemu_and_proxy(
                 assert(match)
 
                 connection_mode = "PTY:" + match # PTY to connect to
-            elif(proxy_qemu_connection == "TCP"):
+            elif(serial_qemu_connection == "TCP"):
                 connection_mode = "TCP:4444"
             else:
-                print("ERROR: invalid Proxy/QEMU_connection %s", proxy_qemu_connection)
+                print("ERROR: invalid Proxy/QEMU_connection %s", serial_qemu_connection)
                 # ToDo: return an error or throw exception
                 assert False
 
@@ -221,7 +221,7 @@ def start_or_attach_to_qemu_and_proxy(
             print("Proxy starting (PID %u) ..."%(proxy_pid))
 
     if not qemu_already_running:
-        if (proxy_qemu_connection == "PTY"):
+        if (serial_qemu_connection == "PTY"):
             assert(use_proxy)
             # QEMU starts up in halted mode, must send the "c" command to let it
             # boot the system
