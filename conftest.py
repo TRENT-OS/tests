@@ -205,7 +205,8 @@ def start_or_attach_to_qemu_and_proxy(
 ):
     qemu_already_running = os.path.isfile(qemu_pid_file)
 
-    serial_qemu_connection = None
+    serial_qemu_connection = "TCP"
+    serial_socket = None
 
     if use_proxy:
         proxy_cfg_str = request.config.option.proxy
@@ -265,6 +266,10 @@ def start_or_attach_to_qemu_and_proxy(
             proxy_pid_file,
             proxy_stdout_file)
 
+    else:
+        serial_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print('connecting QEMU serial port to TCP socket')
+        serial_socket.connect( ('127.0.0.1', 4444) )
 
     if not qemu_already_running:
 
@@ -286,7 +291,7 @@ def start_or_attach_to_qemu_and_proxy(
 
     f_test_output = logs.open_file_non_blocking(test_system_out_file, 'r')
 
-    return (f_qemu_stdin, f_test_output, f_qemu_stderr)
+    return (f_qemu_stdin, f_test_output, f_qemu_stderr, serial_socket)
 
 
 #-------------------------------------------------------------------------------
