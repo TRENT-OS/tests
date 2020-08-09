@@ -166,7 +166,6 @@ def start_or_attach_to_qemu_and_proxy(
         # give QEMU some time to start
         time.sleep(1)
 
-
     f_qemu_stderr = logs.open_file_non_blocking(qemu_stderr_file, "r")
     f_qemu_stdout = logs.open_file_non_blocking(qemu_stdout_file, "r")
 
