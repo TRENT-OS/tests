@@ -100,6 +100,97 @@ def get_qemu_cmd(
 
 
 #-------------------------------------------------------------------------------
+def start_or_attach_to_proxy(
+    request,
+    qemu_already_running,
+    proxy_pid_file,
+    proxy_stdout_file):
+
+
+    if os.path.isfile(proxy_pid_file):
+
+        proxy_pid = get_pid_from_pid_file(proxy_pid_file)
+        print("Proxy already running (PID %u)"%(proxy_pid))
+        return
+
+    if qemu_already_running:
+        # Proxy can't be running when we've just started QEMU, as they can
+        # only be started togehter
+        print("ERROR: can't start proxy if QEMU is already running")
+        assert False
+
+    proxy_cfg_str = request.config.option.proxy
+    assert(proxy_cfg_str is not None)
+
+    arr = proxy_cfg_str.split(",")
+    proxy_app = arr[0]
+    serial_qemu_connection = "TCP" if (1 == len(arr)) else arr[1]
+    print("Start proxy: " + proxy_app)
+    assert(os.path.isfile(proxy_app))
+
+    print("  proxy stdout:       " + proxy_stdout_file)
+
+    connection_mode = None
+
+    if(serial_qemu_connection == "PTY"):
+        # search for dev/ptsX info in QEMU stderr
+        # in QEMU >= 4.2 we need to look in stdout
+        (text, match) = logs.get_match_in_line(
+                            f_qemu_stderr,
+                            re.compile('(\/dev\/pts\/\d)'),
+                            10)
+        # if there was no match in stderr we have to look in stdout
+        if match is None:
+            (text, match) = logs.get_match_in_line(
+                                f_qemu_stdout,
+                                re.compile('(\/dev\/pts\/\d)'),
+                                10)
+        assert(match)
+
+        connection_mode = "PTY:" + match # PTY to connect to
+
+    elif(serial_qemu_connection == "TCP"):
+        connection_mode = "TCP:4444"
+
+    else:
+        print("ERROR: invalid Proxy/QEMU_connection %s", serial_qemu_connection)
+        # ToDo: return an error or throw exception
+        assert False
+
+    # start the proxy
+    proxy_cmd = (proxy_app + \
+                " -c " + connection_mode +
+                " -t 1" # enable TAP
+                " > " + proxy_stdout_file)
+
+    start_process_and_create_pid_file(proxy_cmd, proxy_pid_file)
+
+    proxy_pid = get_pid_from_pid_file(proxy_pid_file)
+    print("Proxy starting (PID %u) ..."%(proxy_pid))
+
+    # if we are here, QEMU is not running
+    assert(not qemu_already_running)
+
+    if (serial_qemu_connection == "PTY"):
+        # QEMU starts up in halted mode, must send the "c" command to
+        # let it boot the system
+        attempts = 0
+        while (True):
+            attempts += 1
+            if (attempts > 60):
+                print("can't connect to QEMU")
+                assert(False)
+            try:
+                f_qemu_stdin.write("c\n")
+                break
+            except IOError as e:
+                print("waiting for QEMU, communication failures: " + attempts)
+                time.sleep(1)
+
+        print("QEMU machine released...")
+
+
+#-------------------------------------------------------------------------------
 def start_or_attach_to_qemu_and_proxy(
     request,
     system,
@@ -115,13 +206,11 @@ def start_or_attach_to_qemu_and_proxy(
     qemu_already_running = os.path.isfile(qemu_pid_file)
 
     serial_qemu_connection = None
-    proxy_app = None
 
     if use_proxy:
         proxy_cfg_str = request.config.option.proxy
         assert(proxy_cfg_str is not None)
         arr = proxy_cfg_str.split(",")
-        proxy_app = arr[0]
         serial_qemu_connection = "TCP" if (1 == len(arr)) else arr[1]
 
     f_qemu_stdin = None
@@ -170,75 +259,14 @@ def start_or_attach_to_qemu_and_proxy(
     f_qemu_stdout = logs.open_file_non_blocking(qemu_stdout_file, "r")
 
     if use_proxy:
-        if os.path.isfile(proxy_pid_file):
-            proxy_pid = get_pid_from_pid_file(proxy_pid_file)
-            print("Proxy already running (PID %u)"%(proxy_pid))
-        elif qemu_already_running:
-            # Proxy can't be running when we've just started QEMU, as they can
-            # only be started togehter
-            print("ERROR: can't start proxy if QEMU is already running")
-            assert False
-        else:
+        start_or_attach_to_proxy(
+            request,
+            qemu_already_running,
+            proxy_pid_file,
+            proxy_stdout_file)
 
-            print("Start proxy: " + proxy_app)
-            assert(os.path.isfile(proxy_app))
-            print("  proxy stdout:       " + proxy_stdout_file)
-
-            connection_mode = None
-
-            if(serial_qemu_connection == "PTY"):
-                # search for dev/ptsX info in QEMU stderr
-                # in QEMU >= 4.2 we need to look in stdout
-                (text, match) = logs.get_match_in_line(
-                                    f_qemu_stderr,
-                                    re.compile('(\/dev\/pts\/\d)'),
-                                    10)
-                # if there was no match in stderr we have to look in stdout
-                if match is None:
-                    (text, match) = logs.get_match_in_line(
-                                        f_qemu_stdout,
-                                        re.compile('(\/dev\/pts\/\d)'),
-                                        10)
-                assert(match)
-
-                connection_mode = "PTY:" + match # PTY to connect to
-            elif(serial_qemu_connection == "TCP"):
-                connection_mode = "TCP:4444"
-            else:
-                print("ERROR: invalid Proxy/QEMU_connection %s", serial_qemu_connection)
-                # ToDo: return an error or throw exception
-                assert False
-
-            # start the proxy
-            proxy_cmd = (proxy_app + \
-                        " -c " + connection_mode +
-                        " -t 1" # enable TAP
-                        " > " + proxy_stdout_file)
-
-            start_process_and_create_pid_file(proxy_cmd, proxy_pid_file)
-
-            proxy_pid = get_pid_from_pid_file(proxy_pid_file)
-            print("Proxy starting (PID %u) ..."%(proxy_pid))
 
     if not qemu_already_running:
-        if (serial_qemu_connection == "PTY"):
-            assert(use_proxy)
-            # QEMU starts up in halted mode, must send the "c" command to let it
-            # boot the system
-            attempts = 0
-            while (True):
-                attempts += 1
-                if (attempts > 60):
-                    print("can't connect to QEMU")
-                    assert(False)
-                try:
-                    f_qemu_stdin.write("c\n")
-                    break
-                except IOError as e:
-                    print("waiting for QEMU, communication failures: " + attempts)
-                    time.sleep(1)
-
-            print("QEMU machine released...")
 
         # give QEMU some time to run
         time.sleep(2)
