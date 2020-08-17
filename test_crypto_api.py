@@ -2054,17 +2054,17 @@ def test_OS_CryptoSignature_key_neg_0(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_key_neg', 'mode=%i,expo=0' % OS_Crypto_MODE_CLIENT)
 
-def test_OS_Crypto_migrateLibObject_pos_0(boot):
+def test_OS_Crypto_createProxy_pos_0(boot):
     """
-    Positive tests for OS_Crypto_migrateLibObject(), covering the valid ways of
+    Positive tests for OS_Crypto_createProxy(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_Crypto_migrateLibObject_pos')
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_Crypto_createProxy_pos')
 
-def test_OS_Crypto_migrateLibObject_neg_0(boot):
+def test_OS_Crypto_createProxy_neg_0(boot):
     """
-    Negative tests for OS_Crypto_migrateLibObject(), covering the invalid ways of
+    Negative tests for OS_Crypto_createProxy(), covering the invalid ways of
     using this function thus verifying that it returns error codes instead of
     crashing.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_Crypto_migrateLibObject_neg')
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_Crypto_createProxy_neg')
