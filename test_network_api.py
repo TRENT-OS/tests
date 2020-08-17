@@ -12,9 +12,10 @@ import pathlib
 
 import sys
 
-# This python file is imported by pydoc which sometimes throws an error about a missing IPv6
-# default route (if the machine building the documentation doesn't have it set).
-# To remove this warning we disable IPv6 support in scapy, since we don't use it at this time.
+# This python file is imported by pydoc which sometimes throws an error about a
+# missing IPv6 default route (if the machine building the documentation doesn't
+# have it set). To remove this warning we disable IPv6 support in scapy, since
+# we don't use it at this time.
 from scapy.config import conf
 conf.ipv6_enabled = False
 
@@ -35,6 +36,7 @@ CFG_TEST_HTTP_SERVER = "192.168.82.12"
 ETH_2_ADDR = "10.0.0.11"
 
 
+#-------------------------------------------------------------------------------
 def test_network_basic(boot_with_proxy):
     """Check to see if scapy is running correctly """
     for i in range(5):
@@ -46,21 +48,26 @@ def test_network_basic(boot_with_proxy):
             pytest.fail("Failed we got a reply for a ping we didn't send.")
 
 
+
+#-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Not implemented yet")
 def test_network_picotcp_unit_tests(boot_with_proxy):
     """Execute all picotcp unit tests"""
 
 
+#-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Not implemented yet")
 def test_network_picotcp_smoke_tests(boot_with_proxy):
     """Execute all picotcp smoke tests"""
 
-# -------------------------------------------------------------------------------
 
+#-------------------------------------------------------------------------------
 def test_network_api_client(boot_with_proxy):
-    """Test multisocket implementation. Two applications sharing a network stack try each to open 16 sockets
-    and download data from the webserver running in the test container. The library signals when all sockets
-     are in use."""
+    """
+    Test multisocket implementation. Two applications sharing a network stack
+    try each to open 16 sockets and download data from the webserver running in
+    the test container. The library signals when all sockets are in use.
+    """
 
     test_run = boot_with_proxy(test_system)
 
@@ -93,17 +100,24 @@ def test_network_api_client(boot_with_proxy):
 
     shutil.rmtree(dest)
 
-# -------------------------------------------------------------------------------
-# at the moment the stack can handle these sizes without issues. We will increase this sizes and fix the issues in a second moment.
+
+#-------------------------------------------------------------------------------
+# at the moment the stack can handle these sizes without issues. We will
+# increase this sizes and fix the issues in a second moment.
 lst = [2, 4, 8, 16, 32, 64, 128, 256, 512]
 @pytest.mark.parametrize('n', lst)
 # @pytest.mark.skip(reason="Takes too long")
 def test_network_api_echo_server(boot_with_proxy, n):
-    """Test TCP/IP stack with a server that echoes the data sent to him in blocks. The test is repeated using blocks of different sizes."""
+    """
+    Test TCP/IP stack with a server that echoes the data sent to him in blocks.
+    The test is repeated using blocks of different sizes.
+    """
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
-    src = pathlib.Path(__file__).parent.absolute().joinpath('test_network_api/dante.txt')
+    src = pathlib.Path(__file__).parent.absolute().joinpath(
+            'test_network_api/dante.txt')
 
     with open(src, 'rb') as data_file:
         # read n bytes from the file
@@ -174,10 +188,19 @@ def run_echo_client(blob):
             pytest.fail("Blobs mismatch")
 
 
+
+#-------------------------------------------------------------------------------
 # --- TCP TESTS ---
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
 #@pytest.mark.skip(reason="Fails due to test enviroment sending RST")
 def test_network_tcp_connection_establishment(boot_with_proxy):
-    """Test the SYN/ACK-SYN/ACK sequence with various sequence numbers, delays and lost packets."""
+    """
+    Test the SYN/ACK-SYN/ACK sequence with various sequence numbers, delays and
+    lost packets.
+    """
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
     for i in range(10):
@@ -197,6 +220,7 @@ def test_network_tcp_connection_establishment(boot_with_proxy):
             pytest.fail("ACK mismatch")
 
 
+#-------------------------------------------------------------------------------
 FIN = 0x01
 SYN = 0x02
 RST = 0x04
@@ -206,7 +230,11 @@ URG = 0x20
 ECE = 0x40
 CWR = 0x80
 def test_network_tcp_connection_closure(boot_with_proxy):
-    """Test the FIN sequence with various sequence numbers, delays and lost packets."""
+    """
+    Test the FIN sequence with various sequence numbers, delays and lost
+    packets.
+    """
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
     for i in range(1):
@@ -229,9 +257,14 @@ def test_network_tcp_connection_closure(boot_with_proxy):
             pytest.fail("Didn't receive FIN")
 
 
+#-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Fails due to picotcp not sending RST")
 def test_network_tcp_connection_reset(boot_with_proxy):
-    """Test the RST sequence with various sequence numbers, delays and lost packets."""
+    """
+    Test the RST sequence with various sequence numbers, delays and lost
+    packets.
+    """
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
     for i in range(1):
@@ -253,8 +286,12 @@ def test_network_tcp_connection_reset(boot_with_proxy):
             pytest.fail("Didn't receive RST ack")
 
 
+#-------------------------------------------------------------------------------
 def test_network_tcp_connection_invalid(boot_with_proxy):
-    """Test connecting to a port nobody is listening on."""
+    """
+    Test connecting to a port nobody is listening on.
+    """
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
     for i in range(10):
@@ -268,19 +305,32 @@ def test_network_tcp_connection_invalid(boot_with_proxy):
             pytest.fail("Received wrong message. Expected Port unreachable")
 
 
+#-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Not implemented yet")
 def test_network_tcp_window_size_scaling(boot_with_proxy):
-    """Test the TCP window size scaling with various sequence numbers, delays and lost packets."""
+    """
+    Test the TCP window size scaling with various sequence numbers, delays and
+    lost packets.
+    """
 
 
+#-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Not implemented yet")
 def test_network_tcp_out_of_band_signaling(boot_with_proxy):
-    """Test TCP Out of Band signaling various sequence numbers, delays and lost packets."""
+    """
+    Test TCP Out of Band signaling various sequence numbers, delays and lost
+    packets.
+    """
 
 
+#-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Fails due to test enviroment sending RST")
 def test_network_tcp_out_of_order_receive(boot_with_proxy):
-    """Test receiving TCP packets out of order with various sequence numbers, delays and lost packets."""
+    """
+    Test receiving TCP packets out of order with various sequence numbers,
+    delays and lost packets.
+    """
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
     for i in range(1):
@@ -302,9 +352,15 @@ def test_network_tcp_out_of_order_receive(boot_with_proxy):
                                     seq=p.ack, ack=p.seq+len(p), flags='')/"XXXXXXXX"
         p1 = sr1(r1, timeout=2)
 
+
+#-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Fails due to payload mismatch")
 def test_network_tcp_data_send(boot_with_proxy):
-    """Test sending data in TCP pakets with various sequence numbers, delays and lost packets."""
+    """
+    Test sending data in TCP pakets with various sequence numbers, delays and
+    lost packets.
+    """
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
@@ -315,28 +371,46 @@ def test_network_tcp_data_send(boot_with_proxy):
         if not s.payload == r.payload:
              pytest.fail("Payload mismatch")
 
-# --- DHCP TESTS ---
 
+#-------------------------------------------------------------------------------
+# --- DHCP TESTS ---
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Not implemented in TRENTOS")
 def test_network_dhcp_get_address(boot_with_proxy):
-    """Test getting a valid IP configuration from a DHCP server."""
+    """
+    Test getting a valid IP configuration from a DHCP server.
+    """
 
 
+#-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Not implemented in TRENTOS")
 def test_network_dhcp_renew_address(boot_with_proxy):
-    """Test renewing the IP address from a DHCP server."""
+    """
+    Test renewing the IP address from a DHCP server.
+    """
 
 
+#-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Not implemented in TRENTOS")
 def test_network_dhcp_expire_address(boot_with_proxy):
-    """Test having the existing lease expiring while having active TCP connections."""
+    """
+    Test having the existing lease expiring while having active TCP connections.
+    """
 
 
+#-------------------------------------------------------------------------------
 # --- ARP TESTS ---
+#-------------------------------------------------------------------------------
 
+#-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Fails in new network setup")
 def test_network_arp_request(boot_with_proxy):
-    """Test asking for the MAC address of a known host."""
+    """
+    Test asking for the MAC address of a known host.
+    """
 
     test_run = boot_with_proxy(test_system)
     filter = "arp and src host "+ETH_1_ADDR+" and dst host "+NET_GATEWAY
@@ -347,11 +421,13 @@ def test_network_arp_request(boot_with_proxy):
     p.show()
 
 
+#-------------------------------------------------------------------------------
 def test_network_arp_reply_client(boot_with_proxy):
     """Test if the client implementation component replies to arp request.
         Success: We get a valid arp reply
         Failure: Timeout
     """
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
     ans, uns = arping(ETH_1_ADDR)
@@ -359,29 +435,35 @@ def test_network_arp_reply_client(boot_with_proxy):
         pytest.fail("Timeout waiting for arp reply")
 
 
+#-------------------------------------------------------------------------------
 def test_network_arp_reply_server(boot_with_proxy):
     """Test if the server implementation component replies to arp request.
         Success: We get a valid arp reply
         Failure: Timeout
     """
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
     ans, uns = arping(ETH_2_ADDR)
     if len(uns) != 0:
         pytest.fail("Timeout waiting for arp reply")
 
+
+#-------------------------------------------------------------------------------
 # --- UDP TESTS ---
+#-------------------------------------------------------------------------------
 
+#-------------------------------------------------------------------------------
 def test_network_udp_recvfrom(boot_with_proxy):
-    """Sends an UDP packet to the system, testing the recvfrom() call
+    """
+    Sends an UDP packet to the system, testing the recvfrom() call. It waits
+    for the test system to reach the point where it waits for the test packet
+    (signaled by the "UDP Receive test" string in the log). Afterwards it looks
+    for the payload of the UDP packet in the output log.
+    Success: The payload is found in the log
+    Failure: Timeout
+    """
 
-        It waits for the test system to reach the point where it waits for the
-        test packet (signaled by the "UDP Receive test" string in the log).
-        Afterwards it looks for the payload of the UDP packet in the output log.
-
-        Success: The payload is found in the log
-        Failure: Timeout
-     """
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -397,16 +479,18 @@ def test_network_udp_recvfrom(boot_with_proxy):
     if not ret:
         pytest.fail("Missing: %s" % (expr_fail))
 
+
+#-------------------------------------------------------------------------------
 def test_network_udp_sendto(boot_with_proxy):
-    """Test and UDP packet to the system, testing recvfrom() and sendto() calls 
-
-        It waits for the test system to reach the point where it waits for the
-        test packet (signaled by the "UDP Send test" string in the log).
-        Afterwards it waits for a response to the UDP packet it sent.
-
-        Success: The responde UDP packet is received
-        Failure: Timeout
     """
+    Test and UDP packet to the system, testing recvfrom() and sendto() calls.
+    It waits for the test system to reach the point where it waits for the test
+    packet (signaled by the "UDP Send test" string in the log). Afterwards it
+    waits for a response to the UDP packet it sent.
+    Success: The response UDP packet is received
+    Failure: Timeout
+    """
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -421,11 +505,18 @@ def test_network_udp_sendto(boot_with_proxy):
     if not ret:
         pytest.fail("Missing: %s" % (expr_fail))
 
-# --- ICMP TESTS ---
 
+#-------------------------------------------------------------------------------
+# --- ICMP TESTS ---
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Not implemented in TRENTOS")
 def test_network_ping_request(boot_with_proxy):
-    """Test pinging a known host."""
+    """
+    Test pinging a known host.
+    """
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
     filter = "icmp and src host "+ETH_1_ADDR+" and dst host "+CFG_TEST_HTTP_SERVER
@@ -435,11 +526,14 @@ def test_network_ping_request(boot_with_proxy):
     p.show()
 
 
+#-------------------------------------------------------------------------------
 def test_network_ping_reply_client(boot_with_proxy):
-    """Test if the client implementation component replies to ping.
-        Success: We get a valid ping reply
-        Failure: Timeout
     """
+    Test if the client implementation component replies to ping.
+    Success: We get a valid ping reply
+    Failure: Timeout
+    """
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
@@ -453,11 +547,14 @@ def test_network_ping_reply_client(boot_with_proxy):
             pytest.fail("Failed. We got a reply for a ping we didn't send.")
 
 
+#-------------------------------------------------------------------------------
 def test_network_ping_reply_server(boot_with_proxy):
-    """Test if the server implementation component replies to ping.
-        Success: We get a valid ping reply
-        Failure: Timeout
     """
+    Test if the server implementation component replies to ping.
+    Success: We get a valid ping reply
+    Failure: Timeout
+    """
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
@@ -470,14 +567,19 @@ def test_network_ping_reply_server(boot_with_proxy):
         if not ans.payload.id == randNum:
             pytest.fail("Failed. We got a reply for a ping we didn't send.")
 
-# --- API Tests ---
 
+#-------------------------------------------------------------------------------
+# --- API Tests ---
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
 def test_network_dataport_size_check_client(boot_with_proxy):
-    """Test if the client network stack API handles invalid buffer sizes
-        correctly.
-        Success: We get test successful message in the log.
-        Failure: Timeout
     """
+    Test if the client network stack API handles invalid buffer sizes correctly.
+    Success: We get test successful message in the log.
+    Failure: Timeout
+    """
+
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
@@ -489,11 +591,14 @@ def test_network_dataport_size_check_client(boot_with_proxy):
     if not ret:
         pytest.fail("Missing: %s" % (expr_fail))
 
+
+#-------------------------------------------------------------------------------
 def test_network_dataport_size_check_lib(boot_with_proxy):
-    """Test if the library network stack API handles invalid buffer sizes
-        correctly.
-        Success: We get test successful message in the log.
-        Failure: Timeout
+    """
+    Test if the library network stack API handles invalid buffer sizes
+    correctly.
+    Success: We get test successful message in the log.
+    Failure: Timeout
     """
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
