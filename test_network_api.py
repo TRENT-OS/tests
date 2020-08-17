@@ -105,8 +105,9 @@ def test_network_api_echo_server(boot_with_proxy, n):
 
     src = pathlib.Path(__file__).parent.absolute().joinpath('test_network_api/dante.txt')
 
-    with open(src, 'rb') as file:
+    with open(src, 'rb') as data_file:
         blob = file.read(n)
+        blob = data_file.read(n)
 
     run_echo_client(blob)
 
