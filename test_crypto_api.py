@@ -364,7 +364,7 @@ def test_OS_CryptoKey_makePublic_pos_0(boot):
     Positive tests for OS_CryptoKey_makePublic(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY_ONLY)
+    parser.check_test(boot(TEST_NAME), 20, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoKey_makePublic_neg_0(boot):
     """
@@ -633,7 +633,7 @@ def test_OS_CryptoSignature_do_RSA_PKCS1_V15_rnd_0(boot):
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 1.5.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 11, 'test_OS_CryptoSignature_do_RSA_PKCS1_V15_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY_ONLY)
+    parser.check_test(boot(TEST_NAME), 20, 'test_OS_CryptoSignature_do_RSA_PKCS1_V15_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd_0(boot):
     """
@@ -982,7 +982,7 @@ def test_OS_CryptoKey_makePublic_pos_1(boot):
     Positive tests for OS_CryptoKey_makePublic(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT_ONLY)
+    parser.check_test(boot(TEST_NAME), 20, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoKey_makePublic_neg_1(boot):
     """
@@ -1251,7 +1251,7 @@ def test_OS_CryptoSignature_do_RSA_PKCS1_V15_rnd_1(boot):
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 1.5.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 12, 'test_OS_CryptoSignature_do_RSA_PKCS1_V15_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT_ONLY)
+    parser.check_test(boot(TEST_NAME), 20, 'test_OS_CryptoSignature_do_RSA_PKCS1_V15_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd_1(boot):
     """
@@ -1690,7 +1690,7 @@ def test_OS_CryptoKey_makePublic_pos_2(boot):
     Positive tests for OS_CryptoKey_makePublic(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 20, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_makePublic_neg_2(boot):
     """
@@ -1788,7 +1788,7 @@ def test_OS_CryptoKey_makePublic_pos_3(boot):
     Positive tests for OS_CryptoKey_makePublic(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,keepLocal=0' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 20, 'test_OS_CryptoKey_makePublic_pos', 'mode=%i,keepLocal=0' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_getParams_pos_3(boot):
     """
@@ -2006,7 +2006,7 @@ def test_OS_CryptoSignature_do_RSA_PKCS1_V15_rnd_2(boot):
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 1.5.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 8, 'test_OS_CryptoSignature_do_RSA_PKCS1_V15_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 20, 'test_OS_CryptoSignature_do_RSA_PKCS1_V15_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd_2(boot):
     """
@@ -2038,7 +2038,7 @@ def test_OS_CryptoSignature_do_RSA_PKCS1_V15_rnd_3(boot):
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 1.5.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 11, 'test_OS_CryptoSignature_do_RSA_PKCS1_V15_rnd', 'mode=%i,keepLocal=0' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 20, 'test_OS_CryptoSignature_do_RSA_PKCS1_V15_rnd', 'mode=%i,keepLocal=0' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd_3(boot):
     """
