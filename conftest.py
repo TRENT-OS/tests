@@ -58,16 +58,16 @@ def get_qemu_serial_connection_params(mode):
 
         # must use "-S" to freeze the QEMU at startup, unfreezing when the
         # other end of PTY is connected
-        return ["-S", "-serial pty"]
+        return ["-S", "-serial", "pty"]
 
     elif (mode == "TCP"):
 
         # QEMU will freeze on startup until it can connect to the server
-        return ["-serial tcp:localhost:4444,server"]
+        return ["-serial", "tcp:localhost:4444,server"]
 
     else:
 
-        return ["-serial /dev/null"]
+        return ["-serial", "/dev/null"]
 
 
 #-------------------------------------------------------------------------------
@@ -90,12 +90,12 @@ def get_qemu_cmd(
     assert(qemu_mapping is not None)
 
     return [ "qemu-system-" + qemu_mapping[0],
-             "-machine " + qemu_mapping[1],
-             "-m size=1024M",
+             "-machine", qemu_mapping[1],
+             "-m", "size=1024M",
              "-nographic",
            ] + get_qemu_serial_connection_params(serial_qemu_connection) + [
-             "-serial file:" + test_system_out_file,
-             "-kernel " + system_image,
+             "-serial", "file:" + test_system_out_file,
+             "-kernel", system_image,
            ]
 
 
