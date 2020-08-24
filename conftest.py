@@ -274,8 +274,10 @@ def start_or_attach_to_qemu_and_proxy(
         # the system up
         (ret, text, expr_fail) = logs.check_log_match_sequence(
             logs.open_file_non_blocking(test_system_out_file, 'r'),
-            ["Booting all finished, dropped to user space",
-             "Done; suspending..."],
+            [
+                "Booting all finished, dropped to user space",
+                "Done; suspending..."
+            ],
             15)
 
         if not ret:
