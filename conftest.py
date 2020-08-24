@@ -193,7 +193,6 @@ def start_or_attach_to_proxy(
 #-------------------------------------------------------------------------------
 def start_or_attach_to_qemu_and_proxy(
     request,
-    system,
     test_system_out_file,
     qemu_stdin_file,
     qemu_stdout_file,
@@ -330,11 +329,12 @@ def use_qemu_with_proxy(request, use_proxy=False):
     os.mkfifo(qemu_stdin_file)
 
 
-    # pytest will run this for each test case
+    # pytest will run this for each test case. The "system" parameter is no
+    # longer used, since the system image is passed as parameter when the the
+    # whole tests are started.
     yield (lambda system:
             start_or_attach_to_qemu_and_proxy(
                 request,
-                system,
                 test_system_out_file,
                 qemu_stdin_file,
                 qemu_stdout_file,
