@@ -133,20 +133,15 @@ def start_or_attach_to_proxy(
     connection_mode = None
 
     if(serial_qemu_connection == "PTY"):
-        # search for dev/ptsX info in QEMU stderr
-        # in QEMU >= 4.2 we need to look in stdout
-        (text, match) = logs.get_match_in_line(
-                            f_qemu_stderr,
-                            re.compile('(\/dev\/pts\/\d)'),
-                            10)
-        # if there was no match in stderr we have to look in stdout
-        if match is None:
-            (text, match) = logs.get_match_in_line(
-                                f_qemu_stdout,
-                                re.compile('(\/dev\/pts\/\d)'),
-                                10)
-        assert(match)
+        pattern = re.compile('(\/dev\/pts\/\d)')
+        match = None
+        # search for dev/ptsX info in QEMU's output, it used to be in stderr
+        # but QEMU 4.2 change it to stdout
+        for h in [f_qemu_stderr, f_qemu_stdout]:
+            (text, match) = logs.get_match_in_line(h, f_qemu_stderr, 1)
+            if match is not None: break;
 
+        assert( match is not None )
         connection_mode = "PTY:" + match # PTY to connect to
 
     elif(serial_qemu_connection == "TCP"):
