@@ -56,8 +56,8 @@ def get_qemu_serial_connection_params(mode):
 
     if(mode == "PTY"):
 
-        # must use "-S" to freeze the QEMU at startup, unfreezing when the
-        # other end of PTY is connected
+        # must use "-S" to freeze the QEMU at startup, unfreezing happens when
+        # the other end of PTY is connected
         return ["-S", "-serial", "pty"]
 
     elif (mode == "TCP"):
@@ -247,7 +247,7 @@ def start_or_attach_to_qemu_and_proxy(
 
         start_process_and_create_pid_file(qemu_cmd, qemu_pid_file)
 
-        # seems QEMU tries to read from strdin, so we have to open the pipe now
+        # seems QEMU tries to read from stdin, so we have to open the pipe now
         # to unblock it
         f_qemu_stdin = open(qemu_stdin_file, "w", buffering=1)
 
@@ -277,7 +277,7 @@ def start_or_attach_to_qemu_and_proxy(
         time.sleep(2)
 
         # check that CapDL Loader suspends itself after it has successfully set
-        # the system setup
+        # the system up
         (ret, text, expr_fail) = logs.check_log_match_sequence(
             logs.open_file_non_blocking(test_system_out_file, 'r'),
             ["Booting all finished, dropped to user space",
