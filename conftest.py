@@ -212,7 +212,7 @@ def start_or_attach_to_qemu_and_proxy(
         proxy_cfg_str = request.config.option.proxy
         assert(proxy_cfg_str is not None)
         arr = proxy_cfg_str.split(",")
-        serial_qemu_connection = "TCP" if (1 == len(arr)) else arr[1]
+        if (1 != len(arr)): serial_qemu_connection = arr[1]
 
     f_qemu_stdin = None
 
