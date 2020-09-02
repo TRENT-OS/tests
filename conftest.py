@@ -7,6 +7,7 @@
 #-------------------------------------------------------------------------------
 
 import sys, os, pathlib, subprocess, multiprocessing
+import traceback
 import time, datetime
 import socket, ssl
 import re
@@ -15,280 +16,7 @@ import pytest
 
 import logs # logs module from the common directory in TA
 
-
-#-------------------------------------------------------------------------------
-def get_pid_from_pid_file(
-    pid_file
-):
-    if not os.path.exists(pid_file):
-        return None
-
-    with open(pid_file,"r") as f:
-        return int(f.read())
-
-
-#-------------------------------------------------------------------------------
-def start_process_and_create_pid_file(
-    cmd_line,
-    pid_file
-):
-    print(cmd_line)
-    os.system(cmd_line + " & echo $! > " + pid_file)
-
-
-#-------------------------------------------------------------------------------
-def terminate_process_by_pid_file(
-    pid_file
-):
-    if not os.path.isfile(pid_file):
-        print("missing PID file: " + pid_file);
-        return
-
-    old_pid_file = pid_file+"-terminated"
-    if os.path.exists(old_pid_file):
-        os.remove(old_pid_file)
-    os.rename(pid_file, old_pid_file)
-    os.system("kill $(cat "+old_pid_file+")")
-
-
-#-------------------------------------------------------------------------------
-def get_qemu_serial_connection_params(mode):
-
-    if(mode == "PTY"):
-
-        # must use "-S" to freeze the QEMU at startup, unfreezing happens when
-        # the other end of PTY is connected
-        return ["-S", "-serial", "pty"]
-
-    elif (mode == "TCP"):
-
-        # QEMU will freeze on startup until it can connect to the server
-        return ["-serial", "tcp:localhost:4444,server"]
-
-    else:
-
-        return ["-serial", "/dev/null"]
-
-
-#-------------------------------------------------------------------------------
-def get_qemu_cmd(
-    platform,
-    system_image,
-    serial_qemu_connection,
-    test_system_out_file
-):
-
-    qemu_mapping = {
-        # <plat>: ["<qemu-binary-arch>", "<qemu-machine>"],
-
-        "imx6":      ["arm",     "sabrelite"],
-        "migv":      ["riscv64", "virt"],
-        "rpi3":      ["aarch64", "raspi3"],
-        "spike":     ["riscv64", "spike_v1.10"],
-        "zynq7000":  ["arm",     "xilinx-zynq-a9"],
-    }.get(platform, None)
-    assert(qemu_mapping is not None)
-
-    return [ "qemu-system-" + qemu_mapping[0],
-             "-machine", qemu_mapping[1],
-             "-m", "size=1024M",
-             "-nographic",
-           ] + get_qemu_serial_connection_params(serial_qemu_connection) + [
-             "-serial", "file:" + test_system_out_file,
-             "-kernel", system_image,
-           ]
-
-
-#-------------------------------------------------------------------------------
-def start_or_attach_to_proxy(
-    request,
-    qemu_already_running,
-    proxy_pid_file,
-    proxy_stdout_file):
-
-
-    if os.path.isfile(proxy_pid_file):
-
-        proxy_pid = get_pid_from_pid_file(proxy_pid_file)
-        print("Proxy already running (PID %u)"%(proxy_pid))
-        return
-
-    if qemu_already_running:
-        # Proxy can't be running when we've just started QEMU, as they can
-        # only be started togehter
-        print("ERROR: can't start proxy if QEMU is already running")
-        assert False
-
-    proxy_cfg_str = request.config.option.proxy
-    assert(proxy_cfg_str is not None)
-
-    arr = proxy_cfg_str.split(",")
-    proxy_app = arr[0]
-    serial_qemu_connection = "TCP" if (1 == len(arr)) else arr[1]
-    print("Start proxy: " + proxy_app)
-    assert(os.path.isfile(proxy_app))
-
-    print("  proxy stdout:       " + proxy_stdout_file)
-
-    connection_mode = None
-
-    if(serial_qemu_connection == "PTY"):
-        pattern = re.compile('(\/dev\/pts\/\d)')
-        match = None
-        # search for dev/ptsX info in QEMU's output, it used to be in stderr
-        # but QEMU 4.2 change it to stdout
-        for h in [f_qemu_stderr, f_qemu_stdout]:
-            (text, match) = logs.get_match_in_line(h, f_qemu_stderr, 1)
-            if match is not None: break;
-
-        assert( match is not None )
-        connection_mode = "PTY:" + match # PTY to connect to
-
-    elif(serial_qemu_connection == "TCP"):
-        connection_mode = "TCP:4444"
-
-    else:
-        print("ERROR: invalid Proxy/QEMU_connection %s", serial_qemu_connection)
-        # ToDo: return an error or throw exception
-        assert False
-
-    # start the proxy
-    proxy_cmd = (proxy_app + \
-                " -c " + connection_mode +
-                " -t 1" # enable TAP
-                " > " + proxy_stdout_file)
-
-    start_process_and_create_pid_file(proxy_cmd, proxy_pid_file)
-
-    proxy_pid = get_pid_from_pid_file(proxy_pid_file)
-    print("Proxy starting (PID %u) ..."%(proxy_pid))
-
-    # if we are here, QEMU is not running
-    assert(not qemu_already_running)
-
-    if (serial_qemu_connection == "PTY"):
-        # QEMU starts up in halted mode, must send the "c" command to
-        # let it boot the system
-        attempts = 0
-        while (True):
-            attempts += 1
-            if (attempts > 60):
-                print("can't connect to QEMU")
-                assert(False)
-            try:
-                f_qemu_stdin.write("c\n")
-                break
-            except IOError as e:
-                print("waiting for QEMU, communication failures: " + attempts)
-                time.sleep(1)
-
-        print("QEMU machine released...")
-
-
-#-------------------------------------------------------------------------------
-def start_or_attach_to_qemu_and_proxy(
-    request,
-    test_system_out_file,
-    qemu_stdin_file,
-    qemu_stdout_file,
-    qemu_stderr_file,
-    qemu_pid_file,
-    use_proxy = False,
-    proxy_stdout_file = None,
-    proxy_pid_file = None,
-):
-    qemu_already_running = os.path.isfile(qemu_pid_file)
-
-    serial_qemu_connection = "TCP"
-    serial_socket = None
-
-    if use_proxy:
-        proxy_cfg_str = request.config.option.proxy
-        assert(proxy_cfg_str is not None)
-        arr = proxy_cfg_str.split(",")
-        if (1 != len(arr)): serial_qemu_connection = arr[1]
-
-    f_qemu_stdin = None
-
-    print("")
-
-    if qemu_already_running:
-        qemu_pid = get_pid_from_pid_file(qemu_pid_file)
-        print("QEMU already running (PID %u)"%(qemu_pid))
-
-    else:
-        print("  test system output: " + test_system_out_file)
-        print("  QEMU stdin:         " + qemu_stdin_file)
-        print("  QEMU stdout:        " + qemu_stdout_file)
-        print("  QEMU stderr:        " + qemu_stderr_file)
-
-        system_image = request.config.option.system_image
-        assert(system_image is not None)
-        print("launching QEMU with system image " + system_image)
-        assert(os.path.isfile(system_image))
-
-        qemu_cmd = " ".join(
-                    get_qemu_cmd(
-                        request.config.option.target,
-                        system_image,
-                        serial_qemu_connection,
-                        test_system_out_file) +
-                        [
-                            "2>" + qemu_stderr_file,
-                            ">" + qemu_stdout_file,
-                            "<" + qemu_stdin_file
-                        ])
-
-        start_process_and_create_pid_file(qemu_cmd, qemu_pid_file)
-
-        # seems QEMU tries to read from stdin, so we have to open the pipe now
-        # to unblock it
-        f_qemu_stdin = open(qemu_stdin_file, "w", buffering=1)
-
-        qemu_pid = get_pid_from_pid_file(qemu_pid_file)
-        print("QEMU starting (PID %u) ..."%(qemu_pid))
-        # give QEMU some time to start
-        time.sleep(1)
-
-    f_qemu_stderr = logs.open_file_non_blocking(qemu_stderr_file, "r")
-    f_qemu_stdout = logs.open_file_non_blocking(qemu_stdout_file, "r")
-
-    if use_proxy:
-        start_or_attach_to_proxy(
-            request,
-            qemu_already_running,
-            proxy_pid_file,
-            proxy_stdout_file)
-
-    else:
-        serial_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        print('connecting QEMU serial port to TCP socket')
-        serial_socket.connect( ('127.0.0.1', 4444) )
-
-    if not qemu_already_running:
-
-        # give QEMU some time to run
-        time.sleep(2)
-
-        # check that CapDL Loader suspends itself after it has successfully set
-        # the system up
-        (ret, text, expr_fail) = logs.check_log_match_sequence(
-            logs.open_file_non_blocking(test_system_out_file, 'r'),
-            [
-                "Booting all finished, dropped to user space",
-                "Done; suspending..."
-            ],
-            15)
-
-        if not ret:
-            pytest.fail(" missing: %s"%(expr_fail))
-
-        print("QEMU up and system running")
-
-    f_test_output = logs.open_file_non_blocking(test_system_out_file, 'r')
-
-    return (f_qemu_stdin, f_test_output, f_qemu_stderr, serial_socket)
-
+import board_automation.system_selector
 
 #-------------------------------------------------------------------------------
 def get_log_dir(request):
@@ -305,55 +33,71 @@ def get_log_dir(request):
 
 
 #-------------------------------------------------------------------------------
-def use_qemu_with_proxy(request, use_proxy=False):
+# pytest invokes this as iterator. Everything up to the yield is executed only
+# once when the iterator is created. Then this "yields" the handle tuple for
+# each iteration. When the iterator is destroyed, the code after the yield runs
+# to clean things up.
+def start_or_attach_to_test_runner(request, use_proxy = False):
+
+    # setup phase
+    print("")
 
     log_dir = get_log_dir(request)
+    platform = request.config.option.target
+    system_image = request.config.option.system_image
+    proxy_config = request.config.option.proxy if use_proxy else None
 
-    test_system_out_file  = os.path.join(log_dir, "guest_out.txt")
+    test_runner = None
 
-    qemu_stdin_file       = os.path.join(log_dir, "qemu_in.fifo")
-    qemu_stdout_file      = os.path.join(log_dir, "qemu_out.txt")
-    qemu_stderr_file      = os.path.join(log_dir, "qemu_err.txt")
-    qemu_pid_file         = os.path.join(log_dir, "qemu.pid")
+    try:
 
-    proxy_stdout_file     = None if not use_proxy \
-                            else os.path.join(log_dir, "proxy_out.txt")
+        test_runner = board_automation.system_selector.get_test_runner(
+                        log_dir,
+                        platform,
+                        system_image,
+                        proxy_config,
+                        # print_log = True
+                    )
 
-    proxy_pid_file        = None if not use_proxy \
-                            else os.path.join(log_dir, "proxy.pid")
+        test_runner.start()
 
-    # create pipe for QEMU input
-    os.mkfifo(qemu_stdin_file)
+        test_runner.check_start_success()
 
+    except Exception as e:
+        exc_info = sys.exc_info()
+        print('test_runner.start exception: {}'.format(e))
+        traceback.print_exception(*exc_info)
 
-    # pytest will run this for each test case. The "system" parameter is no
-    # longer used, since the system image is passed as parameter when the the
-    # whole tests are started.
-    yield (lambda system:
-            start_or_attach_to_qemu_and_proxy(
-                request,
-                test_system_out_file,
-                qemu_stdin_file,
-                qemu_stdout_file,
-                qemu_stderr_file,
-                qemu_pid_file,
-                use_proxy,
-                proxy_stdout_file,
-                proxy_pid_file) )
+        if test_runner is not None:
+                test_runner.stop()
+
+        pytest.fail('test_runner start failed')
+
+    # pytest will receive the tupel from this "callback" for each test case.
+    # The "system" parameter that the test passes in the call is no longer
+    # used, since the system image is passed as parameter when the whole
+    # test framework is started.
+    def get_handle_tupel(test_runner):
+        return (
+            test_runner,
+            test_runner.get_system_log(),
+            None, # kept for legacy
+            test_runner.get_serial_socket())
+
+    yield (lambda system: get_handle_tupel(test_runner) )
 
     # tear-down phase
+    print("")
 
-    print("\n")
+    try:
 
-    print("terminating QEMU...")
-    terminate_process_by_pid_file(qemu_pid_file)
+        test_runner.stop()
 
-    # must unlink the pipe so the next test run can create it again
-    os.unlink(qemu_stdin_file)
-
-    if use_proxy:
-        print("terminating Proxy...")
-        terminate_process_by_pid_file(proxy_pid_file)
+    except Exception as e:
+        exc_info = sys.exc_info()
+        print('test_runner.stop exception: {}'.format(e))
+        traceback.print_exception(*exc_info)
+        pytest.fail('test_runner stop failed')
 
 
 #-------------------------------------------------------------------------------
@@ -421,13 +165,13 @@ def start_or_attach_to_mosquitto(request):
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot(request):
-    yield from use_qemu_with_proxy(request)
+    yield from start_or_attach_to_test_runner(request)
 
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot_with_proxy(request):
-    yield from use_qemu_with_proxy(request, True)
+    yield from start_or_attach_to_test_runner(request, True)
 
 
 #-------------------------------------------------------------------------------
