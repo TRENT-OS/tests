@@ -38,6 +38,15 @@ def test_storage_blockSize_pos_ramDisk(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_blockSize_pos', 'idx=0')
 
+def test_storage_state_pos_ramDisk(boot_with_proxy):
+    """
+    Checks if the getState function was called.
+    """
+    parser.check_test(
+        boot_with_proxy(TEST_NAME),
+        TEST_TIMEOUT,
+        'test_storage_state_pos', 'idx=0')
+
 def test_storage_writeReadEraseBegin_pos_ramDisk(boot_with_proxy):
     """
     Writes, reads and erases the test string at the beginning of the storage.
@@ -184,6 +193,15 @@ def test_storage_blockSize_pos_chanmuxStorage(boot_with_proxy):
         boot_with_proxy(TEST_NAME),
         TEST_TIMEOUT,
         'test_storage_blockSize_pos', 'idx=1')
+
+def test_storage_state_pos_chanmuxStoragek(boot_with_proxy):
+    """
+    Checks if the getState function was called.
+    """
+    parser.check_test(
+        boot_with_proxy(TEST_NAME),
+        TEST_TIMEOUT,
+        'test_storage_state_pos', 'idx=1')
 
 def test_storage_writeReadEraseBegin_pos_chanmuxStorage(boot_with_proxy):
     """
@@ -348,6 +366,15 @@ def test_storage_blockSize_pos_StorageServer1(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_blockSize_pos', 'idx=2')
 
+def test_storage_state_pos_StorageServer1(boot_with_proxy):
+    """
+    Checks if the getState function was called.
+    """
+    parser.check_test(
+        boot_with_proxy(TEST_NAME),
+        TEST_TIMEOUT,
+        'test_storage_state_pos', 'idx=2')
+
 def test_storage_writeReadEraseBegin_pos_StorageServer1(boot_with_proxy):
     """
     Writes, reads and erases the test string at the beginning of the storage.
@@ -495,6 +522,15 @@ def test_storage_blockSize_pos_StorageServer2(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_blockSize_pos', 'idx=3')
 
+def test_storage_state_pos_StorageServer2(boot_with_proxy):
+    """
+    Checks if the getState function was called.
+    """
+    parser.check_test(
+        boot_with_proxy(TEST_NAME),
+        TEST_TIMEOUT,
+        'test_storage_state_pos', 'idx=3')
+
 def test_storage_writeReadEraseBegin_pos_StorageServer2(boot_with_proxy):
     """
     Writes, reads and erases the test string at the beginning of the storage.
@@ -641,6 +677,15 @@ def test_storage_blockSize_pos_StorageServer3(boot_with_proxy):
         boot_with_proxy(TEST_NAME),
         TEST_TIMEOUT,
         'test_storage_blockSize_pos', 'idx=4')
+
+def test_storage_state_pos_StorageServer3(boot_with_proxy):
+    """
+    Checks if the getState function was called.
+    """
+    parser.check_test(
+        boot_with_proxy(TEST_NAME),
+        TEST_TIMEOUT,
+        'test_storage_state_pos', 'idx=4')
 
 def test_storage_writeReadEraseBegin_pos_StorageServer3(boot_with_proxy):
     """
