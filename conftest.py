@@ -46,6 +46,8 @@ def start_or_attach_to_test_runner(request, use_proxy = False):
     platform = request.config.option.target
     system_image = request.config.option.system_image
     proxy_config = request.config.option.proxy if use_proxy else None
+    sd_card_size  = int(request.config.option.sd_card) \
+                        if request.config.option.sd_card else 0
     print_logs = request.config.option.print_logs
 
     is_error = False
@@ -57,6 +59,7 @@ def start_or_attach_to_test_runner(request, use_proxy = False):
                         platform,
                         system_image,
                         proxy_config,
+                        sd_card_size,
                         print_logs
                     )
 
@@ -196,6 +199,13 @@ def pytest_addoption(parser):
     parser.addoption(
         "--proxy",
         help="<binary_location>[,<connection>]")
+
+    # Optional parameter as only some tests need the SD Card.
+    parser.addoption(
+        "--sd_card",
+        default="1048576", # 1 MiB
+        help="SD card shall be available."
+    )
 
     parser.addoption(
         "--target",
