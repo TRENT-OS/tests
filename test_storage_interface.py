@@ -36,7 +36,7 @@ def test_storage_blockSize_pos_ramDisk(boot_with_proxy):
     parser.check_test(
         boot_with_proxy(TEST_NAME),
         TEST_TIMEOUT,
-        'test_storage_blockSize_pos', 'idx=1')
+        'test_storage_blockSize_pos', 'idx=0')
 
 def test_storage_writeReadEraseBegin_pos_ramDisk(boot_with_proxy):
     """
@@ -163,7 +163,7 @@ def test_storage_size_pos_chanmuxStorage(boot_with_proxy):
     parser.check_test(
         boot_with_proxy(TEST_NAME),
         TEST_TIMEOUT,
-        'test_storage_size_pos', 'idx=2')
+        'test_storage_size_pos', 'idx=1')
 
 def test_storage_blockSize_pos_chanmuxStorage(boot_with_proxy):
     """
@@ -596,7 +596,7 @@ def test_storage_blockSize_pos_StorageServer3(boot_with_proxy):
     parser.check_test(
         boot_with_proxy(TEST_NAME),
         TEST_TIMEOUT,
-        'test_storage_blockSize_pos', 'idx=3')
+        'test_storage_blockSize_pos', 'idx=4')
 
 def test_storage_writeReadEraseBegin_pos_StorageServer3(boot_with_proxy):
     """
