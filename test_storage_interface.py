@@ -74,6 +74,7 @@ def test_storage_writeReadEraseZeroBytes_pos_ramDisk(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_writeReadEraseZeroBytes_pos', 'idx=0')
 
+@pytest.mark.skip(reason="Not implemented yet. See SEOS-1733")
 def test_storage_writeReadEraseLargerThanBuf_neg_ramDisk(boot_with_proxy):
     """
     Writes, reads and erases values larger than the defined dataport size,
@@ -220,6 +221,7 @@ def test_storage_writeReadEraseZeroBytes_pos_chanmuxStorage(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_writeReadEraseZeroBytes_pos', 'idx=1')
 
+@pytest.mark.skip(reason="Not implemented yet. See SEOS-1733")
 def test_storage_writeReadEraseLargerThanBuf_neg_chanmuxStorage(boot_with_proxy):
     """
     Writes, reads and erases values larger than the defined dataport size,
@@ -382,6 +384,7 @@ def test_storage_writeReadEraseZeroBytes_pos_StorageServer1(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_writeReadEraseZeroBytes_pos', 'idx=2')
 
+@pytest.mark.skip(reason="Not implemented yet. See SEOS-1733")
 def test_storage_writeReadEraseLargerThanBuf_neg_StorageServer1(boot_with_proxy):
     """
     Writes, reads and erases values larger than the defined dataport size,
@@ -528,6 +531,7 @@ def test_storage_writeReadEraseZeroBytes_pos_StorageServer2(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_writeReadEraseZeroBytes_pos', 'idx=3')
 
+@pytest.mark.skip(reason="Not implemented yet. See SEOS-1733")
 def test_storage_writeReadEraseLargerThanBuf_neg_StorageServer2(boot_with_proxy):
     """
     Writes, reads and erases values larger than the defined dataport size,
@@ -674,6 +678,7 @@ def test_storage_writeReadEraseZeroBytes_pos_StorageServer3(boot_with_proxy):
         TEST_TIMEOUT,
         'test_storage_writeReadEraseZeroBytes_pos', 'idx=4')
 
+@pytest.mark.skip(reason="Not implemented yet. See SEOS-1733")
 def test_storage_writeReadEraseLargerThanBuf_neg_StorageServer3(boot_with_proxy):
     """
     Writes, reads and erases values larger than the defined dataport size,
