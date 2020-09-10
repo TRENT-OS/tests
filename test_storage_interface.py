@@ -96,7 +96,7 @@ def test_storage_writeReadEraseOutside_neg_ramDisk(boot_with_proxy):
 
 def test_storage_writeReadEraseNegOffset_neg_ramDisk(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases for a negative offset.
     """
     parser.check_test(
@@ -106,7 +106,7 @@ def test_storage_writeReadEraseNegOffset_neg_ramDisk(boot_with_proxy):
 
 def test_storage_writeReadEraseIntMax_neg_ramDisk(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases for a max possible offset.
     """
     parser.check_test(
@@ -116,7 +116,7 @@ def test_storage_writeReadEraseIntMax_neg_ramDisk(boot_with_proxy):
 
 def test_storage_writeReadEraseIntMin_neg_ramDisk(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases that min possible offset.
     """
     parser.check_test(
@@ -126,7 +126,7 @@ def test_storage_writeReadEraseIntMin_neg_ramDisk(boot_with_proxy):
 
 def test_storage_writeReadEraseSizeTooLarge_neg_ramDisk(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases that are too large.
     """
     parser.check_test(
@@ -136,7 +136,7 @@ def test_storage_writeReadEraseSizeTooLarge_neg_ramDisk(boot_with_proxy):
 
 def test_storage_writeReadEraseSizeMax_neg_ramDisk(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases of a maximum size.
     """
     parser.check_test(
@@ -232,7 +232,7 @@ def test_storage_writeReadEraseOutside_neg_chanmuxStorage(boot_with_proxy):
 
 def test_storage_writeReadEraseNegOffset_neg_chanmuxStorage(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases for a negative offset.
     """
     parser.check_test(
@@ -242,7 +242,7 @@ def test_storage_writeReadEraseNegOffset_neg_chanmuxStorage(boot_with_proxy):
 
 def test_storage_writeReadEraseIntMax_neg_chanmuxStorage(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases for a max possible offset.
     """
     parser.check_test(
@@ -252,7 +252,7 @@ def test_storage_writeReadEraseIntMax_neg_chanmuxStorage(boot_with_proxy):
 
 def test_storage_writeReadEraseIntMin_neg_chanmuxStorage(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases that min possible offset.
     """
     parser.check_test(
@@ -262,7 +262,7 @@ def test_storage_writeReadEraseIntMin_neg_chanmuxStorage(boot_with_proxy):
 
 def test_storage_writeReadEraseSizeTooLarge_neg_chanmuxStorage(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases that are too large.
     """
     parser.check_test(
@@ -272,7 +272,7 @@ def test_storage_writeReadEraseSizeTooLarge_neg_chanmuxStorage(boot_with_proxy):
 
 def test_storage_writeReadEraseSizeMax_neg_chanmuxStorage(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases of a maximum size.
     """
     parser.check_test(
@@ -384,7 +384,7 @@ def test_storage_writeReadEraseOutside_neg_StorageServer1(boot_with_proxy):
 
 def test_storage_writeReadEraseNegOffset_neg_StorageServer1(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases for a negative offset.
     """
     parser.check_test(
@@ -394,7 +394,7 @@ def test_storage_writeReadEraseNegOffset_neg_StorageServer1(boot_with_proxy):
 
 def test_storage_writeReadEraseIntMax_neg_StorageServer1(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases for a max possible offset.
     """
     parser.check_test(
@@ -404,7 +404,7 @@ def test_storage_writeReadEraseIntMax_neg_StorageServer1(boot_with_proxy):
 
 def test_storage_writeReadEraseIntMin_neg_StorageServer1(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases that min possible offset.
     """
     parser.check_test(
@@ -414,7 +414,7 @@ def test_storage_writeReadEraseIntMin_neg_StorageServer1(boot_with_proxy):
 
 def test_storage_writeReadEraseSizeTooLarge_neg_StorageServer1(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases that are too large.
     """
     parser.check_test(
@@ -424,7 +424,7 @@ def test_storage_writeReadEraseSizeTooLarge_neg_StorageServer1(boot_with_proxy):
 
 def test_storage_writeReadEraseSizeMax_neg_StorageServer1(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases of a maximum size.
     """
     parser.check_test(
@@ -520,7 +520,7 @@ def test_storage_writeReadEraseOutside_neg_StorageServer2(boot_with_proxy):
 
 def test_storage_writeReadEraseNegOffset_neg_StorageServer2(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases for a negative offset.
     """
     parser.check_test(
@@ -530,7 +530,7 @@ def test_storage_writeReadEraseNegOffset_neg_StorageServer2(boot_with_proxy):
 
 def test_storage_writeReadEraseIntMax_neg_StorageServer2(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases for a max possible offset.
     """
     parser.check_test(
@@ -540,7 +540,7 @@ def test_storage_writeReadEraseIntMax_neg_StorageServer2(boot_with_proxy):
 
 def test_storage_writeReadEraseIntMin_neg_StorageServer2(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases that min possible offset.
     """
     parser.check_test(
@@ -550,7 +550,7 @@ def test_storage_writeReadEraseIntMin_neg_StorageServer2(boot_with_proxy):
 
 def test_storage_writeReadEraseSizeTooLarge_neg_StorageServer2(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases that are too large.
     """
     parser.check_test(
@@ -560,7 +560,7 @@ def test_storage_writeReadEraseSizeTooLarge_neg_StorageServer2(boot_with_proxy):
 
 def test_storage_writeReadEraseSizeMax_neg_StorageServer2(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases of a maximum size.
     """
     parser.check_test(
@@ -656,7 +656,7 @@ def test_storage_writeReadEraseOutside_neg_StorageServer3(boot_with_proxy):
 
 def test_storage_writeReadEraseNegOffset_neg_StorageServer3(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases for a negative offset.
     """
     parser.check_test(
@@ -666,7 +666,7 @@ def test_storage_writeReadEraseNegOffset_neg_StorageServer3(boot_with_proxy):
 
 def test_storage_writeReadEraseIntMax_neg_StorageServer3(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases for a max possible offset.
     """
     parser.check_test(
@@ -676,7 +676,7 @@ def test_storage_writeReadEraseIntMax_neg_StorageServer3(boot_with_proxy):
 
 def test_storage_writeReadEraseIntMin_neg_StorageServer3(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases that min possible offset.
     """
     parser.check_test(
@@ -686,7 +686,7 @@ def test_storage_writeReadEraseIntMin_neg_StorageServer3(boot_with_proxy):
 
 def test_storage_writeReadEraseSizeTooLarge_neg_StorageServer3(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases that are too large.
     """
     parser.check_test(
@@ -696,7 +696,7 @@ def test_storage_writeReadEraseSizeTooLarge_neg_StorageServer3(boot_with_proxy):
 
 def test_storage_writeReadEraseSizeMax_neg_StorageServer3(boot_with_proxy):
     """
-    ChanMuxStorage driver shall validate input paramaters and do not allow
+    Storage driver shall validate input paramaters and do not allow
     write, reads, and erases of a maximum size.
     """
     parser.check_test(
