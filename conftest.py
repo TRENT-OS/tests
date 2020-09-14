@@ -69,7 +69,7 @@ def start_or_attach_to_test_runner(request, use_proxy = False):
         traceback.print_exception(*exc_info)
 
         if test_runner is not None:
-                test_runner.stop()
+            test_runner.stop()
 
         pytest.fail('test_runner start failed')
 
