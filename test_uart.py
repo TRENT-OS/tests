@@ -40,26 +40,23 @@ def test_uart(boot):
     Test UART data stream handling and throughput
     """
 
-
-    arr = bytearray(range(256)) * 4  # array of 1 KiB
-    loops = 4 * 1024 # send 4 MiB data,
-
-    test_run = boot('')
-    f_out = test_run[1]
-    serial_socket = test_run[3]
+    test_runner = boot(None)[0]
 
     # synchronize with test application
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
-        f_out,
+    (ret, idx) = test_runner.system_log_match_sequence(
         [
             'UART tester loop running',
         ],
-        2)
+        5)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail))
+        pytest.fail('could not detect test start')
+
+    serial_socket = test_runner.get_serial_socket()
 
     # send data
+    arr = bytearray(range(256)) * 4  # array of 1 KiB
+    loops = 4 * 1024 # send 4 MiB data,
     t1 = time.time()
     for i in range(loops):
         serial_socket.send(arr)
@@ -71,19 +68,18 @@ def test_uart(boot):
     print('Throughput TCP: ' + throughput_str(len(arr)*loops, t2-t1) )
 
     # at 36 KiByte/s this takes about 114 secs, but the latest UART driver
-    # reaches up to 130 KiByte/s.
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
-        f_out,
+    # reaches over 130 KiByte/s in QEMU and finishes a bit under 32 secs.
+    (ret, idx) = test_runner.system_log_match_sequence(
         [
             'bytes processed: 0x400000',
         ],
         130)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail))
+        pytest.fail('throughput test failed')
 
     t3 = time.time()
     delta = t3 - t1
-    print('Throughput QEMU serial: {} (took {:.2f} secs)'.format(
+    print('Throughput serial: {} (took {:.2f} secs)'.format(
             throughput_str(len(arr)*loops, delta),
             delta) )

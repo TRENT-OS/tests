@@ -70,10 +70,8 @@ def start_or_attach_to_test_runner(request, use_proxy = False):
         # when the whole test framework is started.
         yield (lambda system: (
                             test_runner,
-                            test_runner.get_system_log(),
-                            None, # kept for legacy
-                            test_runner.get_serial_socket()
-                          ) )
+                            test_runner.get_system_log() # kept for legacy compatibility
+                        ) )
 
     except: # catch really *all* exceptions
         exc_info = sys.exc_info()
