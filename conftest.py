@@ -47,10 +47,10 @@ def start_or_attach_to_test_runner(request, use_proxy = False):
     system_image = request.config.option.system_image
     proxy_config = request.config.option.proxy if use_proxy else None
 
+    is_error = False
     test_runner = None
 
     try:
-
         test_runner = board_automation.system_selector.get_test_runner(
                         log_dir,
                         platform,
@@ -63,41 +63,36 @@ def start_or_attach_to_test_runner(request, use_proxy = False):
 
         test_runner.check_start_success()
 
-    except Exception as e:
-        exc_info = sys.exc_info()
-        print('test_runner.start exception: {}'.format(e))
-        traceback.print_exception(*exc_info)
+        # pytest will receive the tupel from this "callback" for each test
+        # case. The "system" parameter that the test passes in the call is
+        # no longer used, since the system image is passed as parameter
+        # when the whole test framework is started.
+        yield (lambda system: (
+                            test_runner,
+                            test_runner.get_system_log(),
+                            None, # kept for legacy
+                            test_runner.get_serial_socket()
+                          ) )
 
-        if test_runner is not None:
+    except: # catch really *all* exceptions
+        exc_info = sys.exc_info()
+        msg = exc_info[1]
+        print('test_runner exception: {}'.format(msg))
+        traceback.print_exception(*exc_info)
+        is_error = True
+
+    if test_runner:
+        try:
             test_runner.stop()
+        except: # catch really *all* exceptions
+            exc_info = sys.exc_info()
+            msg = exc_info[1]
+            print('test_runner.stop() exception: {}'.format(msg))
+            traceback.print_exception(*exc_info)
+            pytest.exit('test_runner.stop() failed')
 
-        pytest.fail('test_runner start failed')
-
-    # pytest will receive the tupel from this "callback" for each test case.
-    # The "system" parameter that the test passes in the call is no longer
-    # used, since the system image is passed as parameter when the whole
-    # test framework is started.
-    def get_handle_tupel(test_runner):
-        return (
-            test_runner,
-            test_runner.get_system_log(),
-            None, # kept for legacy
-            test_runner.get_serial_socket())
-
-    yield (lambda system: get_handle_tupel(test_runner) )
-
-    # tear-down phase
-    print("")
-
-    try:
-
-        test_runner.stop()
-
-    except Exception as e:
-        exc_info = sys.exc_info()
-        print('test_runner.stop exception: {}'.format(e))
-        traceback.print_exception(*exc_info)
-        pytest.fail('test_runner stop failed')
+    if is_error:
+        pytest.exit('test_runner failed')
 
 
 #-------------------------------------------------------------------------------
