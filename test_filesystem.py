@@ -167,3 +167,11 @@ def test_OS_FileSystem_unmount_2(boot):
     <TODO: Describe here what the test does>
     """
     parser.check_test(boot(TEST_NAME), 3, 'test_OS_FileSystem_unmount')
+
+def test_OS_FileSystem_mount_fail_0(boot):
+    """
+    Format a FS with one FS type, then mount with a different one. Do this for
+    all FS types. Calculate SHA256 on storage to make sure failed mounts do not
+    change disk contents.
+    """
+    parser.check_test(boot(TEST_NAME), 20, 'test_OS_FileSystem_mount_fail')
