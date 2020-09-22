@@ -46,6 +46,7 @@ def start_or_attach_to_test_runner(request, use_proxy = False):
     platform = request.config.option.target
     system_image = request.config.option.system_image
     proxy_config = request.config.option.proxy if use_proxy else None
+    print_logs = request.config.option.print_logs
 
     is_error = False
     test_runner = None
@@ -56,7 +57,7 @@ def start_or_attach_to_test_runner(request, use_proxy = False):
                         platform,
                         system_image,
                         proxy_config,
-                        # print_log = True
+                        print_logs
                     )
 
         test_runner.start()
@@ -206,3 +207,9 @@ def pytest_addoption(parser):
     parser.addoption(
         "--log_dir",
         help="folder where to put the logs")
+
+    parser.addoption(
+        "--print_logs",
+        action="store_true",
+        help="print logs to console")
+
