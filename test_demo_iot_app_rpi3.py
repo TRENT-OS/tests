@@ -10,27 +10,6 @@ test_system = "demo_iot_app_rpi3"
 timeout = 360
 
 #-------------------------------------------------------------------------------
-@pytest.mark.skip(reason="rpi3 version of demo has no network and thus does not complete")
-@pytest.mark.dependency()
-def test_capdl_loader_ok(boot_with_proxy):
-    """
-    Test that the CapDL Loader suspends itself after it has successfully set
-    the IoT demo system up
-    """
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
-        f_out,
-        ["Done; suspending..."],
-        15)
-
-    if not ret:
-        pytest.fail(" missing: %s"%(expr_fail))
-
-
-#-------------------------------------------------------------------------------
-@pytest.mark.dependency(depends=["test_capdl_loader_ok"])
 def test_create_config_backend_ok(boot_with_proxy):
     """
     Test that the configuration backend is successfully initialized by the
