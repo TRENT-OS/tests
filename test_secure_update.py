@@ -83,7 +83,7 @@ def test_timestamp_rcv(boot_with_proxy,startDaemon):
     """
     tests.run_test_log_match_sequence(
         boot_with_proxy,test_system,
-        ['Receive timestamp.json test successful'],
+        ['!!! test_requestTimestampFile_pos: OK'],
         TEST_TIMEOUT)
 
 
@@ -94,7 +94,7 @@ def test_snapshot_rcv(boot_with_proxy):
     """
     tests.run_test_log_match_sequence(
         boot_with_proxy,test_system,
-        ['Receive snapshot.json test successful'],
+        ['!!! test_requestSnapshotFile_pos: OK'],
         TEST_TIMEOUT)
 
 
@@ -105,7 +105,7 @@ def test_target_rcv(boot_with_proxy):
     """
     tests.run_test_log_match_sequence(
         boot_with_proxy,test_system,
-        ['Receive target.json test successful'],
+        ['!!! test_requestTargetFile_pos: OK'],
         TEST_TIMEOUT)
 
 
@@ -116,7 +116,7 @@ def test_root_rcv(boot_with_proxy):
     """
     tests.run_test_log_match_sequence(
         boot_with_proxy,test_system,
-        ['Receive root.json test successful'],
+        ['!!! test_requestRootFile_pos: OK'],
         TEST_TIMEOUT)
 
 def test_non_existing_file(boot_with_proxy):
@@ -125,7 +125,7 @@ def test_non_existing_file(boot_with_proxy):
     """
     tests.run_test_log_match_sequence(
         boot_with_proxy,test_system,
-        ['Receive test.json test failed'],
+        ['!!! test_requestNonExistingFile_neg: OK'],
         TEST_TIMEOUT)
 
 def test_complete(boot_with_proxy):
