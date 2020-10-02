@@ -54,26 +54,47 @@ def test_uart(boot):
 
     serial_socket = test_runner.get_serial_socket()
 
-    # send data
+    # send data all at once, may block eventually
     arr = bytearray(range(256)) * 4  # array of 1 KiB
-    loops = 4 * 1024 # send 4 MiB data,
+    loops = 2 * 1024 # send 2 MiB data,
     t1 = time.time()
     for i in range(loops):
         serial_socket.send(arr)
     t2 = time.time()
 
-    # due to a 2.5 MByte TCP buffer we see a TCP througput of 400 MiB/s if all
-    # data can be cached there. For a larger amount things start to block and
-    # the QEMU UART emulation determines the speed.
-    print('Throughput TCP: ' + throughput_str(len(arr)*loops, t2-t1) )
+    # due to a 2.5 MByte TCP buffer we see a TCP throughput of over 800 MiB/s,
+    # the data is cached somewhere then. For a larger amount things will start
+    # to block and the QEMU UART emulation consuming it determines the speed.
+    print('Throughput host send: ' + throughput_str(len(arr)*loops, t2-t1) )
 
-    # at 36 KiByte/s this takes about 114 secs, but the latest UART driver
-    # reaches over 130 KiByte/s in QEMU and finishes a bit under 32 secs.
+    # When the serial port is configured at 115200 baud 8N1 (ie 10 bit times
+    # per byte due to the start and stop bit), we can expect a throughput of
+    # 115200 / 10 = 11.52 KiByte/s. Sending 2 MiByte will take a bit under 178
+    # seconds then.
+    # For physical platform we should see really this, if the clocks are set up
+    # properly. On QEMU we may see higher speeds because the baudrate is
+    # usually not emulated and so the host CPU's emulation power effectively
+    # determines the speed. What we have seen for 2 MiByte is:
+    #   QEMU/sabre: 8.5 KiByte/s -> 121 secs
+    #   QEMU/zynq7000: 130 KiByte/s -> 16 secs
+
+    # check if the test started
     (ret, idx) = test_runner.system_log_match_sequence(
         [
-            'bytes processed: 0x400000',
+            'bytes processed: 0x10000', # 64 KiByte
         ],
-        130)
+        20)
+
+    if not ret:
+        pytest.fail('throughput start failed')
+
+    # check if the test processed all data
+    (ret, idx) = test_runner.system_log_match_sequence(
+        [
+            'bytes processed: 0x100000', # 1 MiByte
+            'bytes processed: 0x200000', # 2 MiByte
+        ],
+        300)
 
     if not ret:
         pytest.fail('throughput test failed')
