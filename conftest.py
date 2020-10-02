@@ -171,6 +171,12 @@ def boot_with_proxy(request):
     yield from start_or_attach_to_test_runner(request, True)
 
 
+@pytest.fixture(scope="module")
+def boot_with_proxy_no_sdcard(request):
+    request.config.option.sd_card = 0
+    yield from start_or_attach_to_test_runner(request, True)
+
+
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def tls_server():
