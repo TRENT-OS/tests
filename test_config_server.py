@@ -650,3 +650,45 @@ def test_multiclient_set_blob_values_in_config_file_ok(boot_with_proxy):
                            test_system,
                            result_list,
                            timeout)
+
+#-------------------------------------------------------------------------------
+def test_fail_no_server_init(boot_with_proxy):
+    """
+    Asserts that all functions of the ConfigServer server API return the correct
+    OS_ERROR_INVALID_STATE error when the server is not initialized or failed in
+    the initialization
+
+    Goal:
+        The functions offered by the ConfigServer are successfully tested by a
+        single client
+    Success criteria:
+        All functions called by the TestApp return OS_ERROR_INVALID_STATE
+    """
+    result_list = [
+        'TestDomainEnumerator_init_fail_no_server_init: OK',
+        'TestDomainEnumerator_close_fail_no_server_init: OK',
+        'TestDomainEnumerator_reset_fail_no_server_init: OK',
+        'TestDomainEnumerator_increment_fail_no_server_init: OK',
+        'TestDomainEnumerator_getElement_fail_no_server_init: OK',
+        'TestParameterEnumerator_init_fail_no_server_init: OK',
+        'TestParameterEnumerator_close_fail_no_server_init: OK',
+        'TestParameterEnumerator_reset_fail_no_server_init: OK',
+        'TestParameterEnumerator_increment_fail_no_server_init: OK',
+        'TestParameterEnumerator_getElement_fail_no_server_init: OK',
+        'TestParameterGetValue_fail_no_server_init: OK',
+        'TestParameterGetValueAsU32_fail_no_server_init: OK',
+        'TestParameterGetValueAsU64_fail_no_server_init: OK',
+        'TestParameterGetValueAsString_fail_no_server_init: OK',
+        'TestParameterGetValueAsBlob_fail_no_server_init: OK',
+        'TestParameterGetValueFromDomainName_fail_no_server_init: OK',
+        'TestParameterSetValue_fail_no_server_init: OK',
+        'TestParameterSetValueAsU32_fail_no_server_init: OK',
+        'TestParameterSetValueAsU64_fail_no_server_init: OK',
+        'TestParameterSetValueAsString_fail_no_server_init: OK',
+        'TestParameterSetValueAsBlob_fail_no_server_init: OK',
+    ]
+
+    run_test_log_match_set(boot_with_proxy,
+                           test_system,
+                           result_list,
+                           timeout)
