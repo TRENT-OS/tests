@@ -189,3 +189,15 @@ def test_storage_writeReadEraseSizeMax_neg_ramDisk(boot_with_proxy, tester):
         None,
         tester + " -> !!! test_storage_writeReadEraseSizeMax_neg: OK",
         TEST_TIMEOUT)
+
+@pytest.mark.parametrize('tester', testers)
+def test_storage_complete(boot_with_proxy, tester):
+    """
+    Checking if all tests has been completed and that there was no
+    failure/exception during the tear down phase.
+    """
+    tests.run_test_log_match(
+        boot_with_proxy,
+        None,
+        tester + " -> !!! All tests successfully completed.",
+        TEST_TIMEOUT)
