@@ -640,7 +640,7 @@ def test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd_0(boot):
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 2.1.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY_ONLY)
+    parser.check_test(boot(TEST_NAME), 30, 'test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY_ONLY)
 
 def test_OS_CryptoAgreement_init_pos_1(boot):
     """
@@ -1258,7 +1258,7 @@ def test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd_1(boot):
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 2.1.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 9, 'test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT_ONLY)
+    parser.check_test(boot(TEST_NAME), 30, 'test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT_ONLY)
 
 def test_OS_CryptoAgreement_init_pos_2(boot):
     """
@@ -2013,7 +2013,7 @@ def test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd_2(boot):
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 2.1
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 9, 'test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 30, 'test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoSignature_do_RSA_PKCS1_V15_sign_3(boot):
     """
@@ -2045,7 +2045,7 @@ def test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd_3(boot):
     Generate a random keypair and hash, sign it and very the result with RSA PKCS#1 2.1.
     Repeat for a few iterations (~10).
     """
-    parser.check_test(boot(TEST_NAME), 9, 'test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd', 'mode=%i,keepLocal=0' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 30, 'test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd', 'mode=%i,keepLocal=0' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoSignature_key_neg_0(boot):
     """
