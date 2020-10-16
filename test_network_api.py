@@ -9,6 +9,9 @@ import http.server
 import socketserver
 import shutil
 import pathlib
+import random
+import string
+import threading
 
 import sys
 
@@ -104,7 +107,7 @@ def test_network_api_client(boot_with_proxy):
 #-------------------------------------------------------------------------------
 # at the moment the stack can handle these sizes without issues. We will
 # increase this sizes and fix the issues in a second moment.
-lst = [2, 4, 8, 16, 32, 64, 128, 256, 512]
+lst = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]
 @pytest.mark.parametrize('n', lst)
 # @pytest.mark.skip(reason="Takes too long")
 def test_network_api_echo_server(boot_with_proxy, n):
@@ -133,6 +136,32 @@ def test_network_api_echo_server(boot_with_proxy, n):
     if not ret:
         pytest.fail("Missing: %s" % (expr_fail))
 
+#-------------------------------------------------------------------------------
+def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
+    """
+    Measure the send and receive speed of the echo server.
+    """
+
+    test_run = boot_with_proxy(test_system)
+    f_out = test_run[1]
+
+    # 64 Kbit of data
+    num_chars =  8 * 1024
+
+    # 10 Mbit of data
+    # num_chars = 10 * 128 * 1024 
+
+    gen_str = ''.join(random.choice(string.ascii_letters) for i in range(num_chars))
+
+    result = benchmark(run_echo_client, gen_str.encode())
+
+    ret, text, expr_fail = logs.check_log_match_sequence(
+        f_out,
+        ["connection closed by server"],
+        timeout)
+
+    if not ret:
+        pytest.fail("Missing: %s" % (expr_fail))
 
 # -------------------------------------------------------------------------------
 def run_echo_client(blob):
@@ -166,11 +195,16 @@ def run_echo_client(blob):
         # Send data
         print('sending blob of ' + str(len(blob)) + ' bytes', file=sys.stderr)
         test_time_base = time.time()
-        sock.sendall(blob)
+
+        # Start a thread to send all the data
+        sendThread = threading.Thread(target=sock.sendall, args=(blob,))
+        sendThread.start()
 
         # Look for the response
         while len(received_blob) < len(blob):
-            received_blob += sock.recv(1)
+            # Try to read the whole frame
+            received_blob += sock.recv(1600)
+            # print('Received len is ' + str(len(received_blob)) + ' waiting for ' + str(len(blob)))
 
             if (len(received_blob) == 1):
                 time_leapsed_ms = (time.time() - test_time_base) * 1000
@@ -184,6 +218,7 @@ def run_echo_client(blob):
     finally:
         print('closing socket', file=sys.stderr)
         sock.close()
+        sendThread.join()
         if not received_blob == blob:
             pytest.fail("Blobs mismatch")
 
