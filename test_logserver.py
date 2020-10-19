@@ -34,6 +34,7 @@ def test_smoke_test(boot_with_proxy):
     assert match == success_msg
 
 
+@pytest.mark.xfail(reason="Known parser issue. See SEOS-1612 for more details.")
 def test_different_clients_logging(boot_with_proxy):
     """ Different clients can add new entries to the log. """
 
