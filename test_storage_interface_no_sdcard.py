@@ -14,7 +14,7 @@ testers = [
 White list of platforms supported by the given tester. If the tester is not in
 this list, then it supports all platforms.
 """
-test_white_list = {'tester_sdhc': ['imx6'] }
+test_white_list = {'tester_sdhc': ['sabre', 'sabre-hw'] }
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module", params=testers)
