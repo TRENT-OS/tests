@@ -18,9 +18,15 @@ def test_TlsServer_connect_pos_0(boot_with_proxy, tls_server):
     Positive tests for TlsServer_connect(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 30, 'test_TlsServer_connect_pos')
+    parser.check_test(boot_with_proxy(TEST_NAME), 5, 'test_TlsServer_connect_pos')
 
-def test_TlsServer_discconnect_pos_0(boot_with_proxy, tls_server):
+def test_TlsServer_do_tls_0(boot_with_proxy, tls_server):
+    """
+    Perform a full run of the TLS protocol, handshake, write, read.
+    """
+    parser.check_test(boot_with_proxy(TEST_NAME), 30, 'test_TlsServer_do_tls')
+
+def test_TlsServer_disconnect_pos_0(boot_with_proxy, tls_server):
     """
     Positive tests for TlsServer_disconnect(), covering the valid ways of using this
     function.
