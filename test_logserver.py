@@ -67,12 +67,48 @@ def test_logging_to_file(boot_with_proxy):
     log_file01_content = re.split(log_targets_marker, text)[1]
     assert re.search(LogClients.LVL_FATAL.value, log_file01_content)
 
+@pytest.mark.parametrize(
+    "client_lvl, expected_entries_count",
+[
+    # No filters
+    pytest.param(LogClients.FILTER_NULL.value, 13),
 
-def test_logging_client_filter_null(boot_with_proxy):
-    """ Logging with filter set to null on the client side.
+    # Filter on the Server side
+    pytest.param(LogClients.LVL_ASSERT.value,        5),
+    pytest.param(LogClients.LVL_FATAL.value,         6),
+    pytest.param(LogClients.LVL_ERROR.value,         7),
+    pytest.param(LogClients.LVL_WARNING.value,       8),
+    pytest.param(LogClients.LVL_INFO.value,          9),
+    pytest.param(LogClients.LVL_DEBUG.value,        10),
+    pytest.param(LogClients.LVL_TRACE.value,        11),
+    pytest.param(LogClients.LVL_CUSTOM.value,       12),
+    pytest.param(LogClients.LVL_MAX.value,          13),
 
-    In this case LVL_DEBUG has been chosen as the one that has a NULL filter on
-    its side but any of the LVL_* clients could be chosen.
+    # Filter on the Client side
+    pytest.param(LogClients.CL_FILTER_ASSERT.value,  5),
+    pytest.param(LogClients.CL_FILTER_FATAL.value,   6),
+    pytest.param(LogClients.CL_FILTER_ERROR.value,   7),
+    pytest.param(LogClients.CL_FILTER_WARNIN.value,  8),
+    pytest.param(LogClients.CL_FILTER_INFO.value,    9),
+    pytest.param(LogClients.CL_FILTER_DEBUG.value,  10),
+    pytest.param(LogClients.CL_FILTER_TRACE.value,  11),
+    pytest.param(LogClients.CL_FILTER_CUSTOM.value, 12),
+
+    # Those entries present by exploiting the log API and calling log
+    # function with the level Debug_LOG_LEVEL_NONE (i.e. calling
+    # Debug_LOG(Debug_LOG_LEVEL_NONE, "NONE", ...)).
+    pytest.param(LogClients.LVL_NONE.value,          1),
+    pytest.param(LogClients.CL_FILTER_NONE.value,    1),
+])
+def test_logging_clients(
+    boot_with_proxy,
+    client_lvl,
+    expected_entries_count):
+
+    """ Logging with filter set to the `client_lvl`
+
+    The client is expected to issue `expected_entries_count` to the given
+    `log_target`
 
     """
 
@@ -86,352 +122,7 @@ def test_logging_client_filter_null(boot_with_proxy):
 
     assert match
 
-    verifyLogLevels(LogClients.LVL_DEBUG.value, text, 10)
-
-
-def test_logging_server_and_client_filter_null(boot_with_proxy):
-    """ Logging with filter disabled. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    logs_from_file02_begin = log_file_02_begin_marker
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(logs_from_file02_begin),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.FILTER_NULL.value, text, 13)
-
-
-def test_logging_filter_none(boot_with_proxy):
-    """ Logging with filtering of level level NONE (all types of messages).
-
-        It is expected in this case that there will be only one entry from the
-        client LVL_NONE.
-
-        This one entry is present by exploiting the log API and calling log
-        function with the level Debug_LOG_LEVEL_NONE (i.e. calling
-        Debug_LOG(Debug_LOG_LEVEL_NONE, "NONE", ...)).
-
-        """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.LVL_NONE.value, text, 1)
-
-
-def test_logging_filter_level_assert(boot_with_proxy):
-    """ Logging with filtering of level ASSERT. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.LVL_ASSERT.value, text, 5)
-
-
-def test_logging_filter_level_fatal(boot_with_proxy):
-    """ Logging with filtering of level FATAL.
-
-    Please note that LVL_FATAL is expected to log both to consol and file.
-    """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.LVL_FATAL.value, text,
-                    6, LogTargets.CONSOLE_AND_FILE_1)
-
-def test_logging_filter_level_error(boot_with_proxy):
-    """ Logging with filtering of level ERROR. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(end_of_demo_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(
-        LogClients.LVL_ERROR.value,
-        text,
-        7,
-        LogTargets.CONSOLE_ONLY)
-
-
-def test_logging_filter_level_warning(boot_with_proxy):
-    """ Logging with filtering of level WARNING. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.LVL_WARNING.value, text, 8)
-
-
-def test_logging_filter_level_info(boot_with_proxy):
-    """ Logging with filtering of level INFO. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.LVL_INFO.value, text, 9)
-
-
-def test_logging_filter_level_debug(boot_with_proxy):
-    """ Logging with filtering of level DEBUG. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.LVL_DEBUG.value, text, 10)
-
-
-def test_logging_filter_level_trace(boot_with_proxy):
-    """ Logging with filtering of level TRACE. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.LVL_TRACE.value, text, 11)
-
-
-def test_logging_filter_level_custom(boot_with_proxy):
-    """ Logging with filtering of level CUSTOM. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.LVL_CUSTOM.value, text, 12)
-
-def test_logging_filter_level_max(boot_with_proxy):
-    """ Logging with filtering of level MAX. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.LVL_MAX.value, text, 13)
-
-def test_filter_on_client_side_none(boot_with_proxy):
-    """ Logging with client's filtering of level level NONE (all types of
-        messages).
-
-        It is expected in this case that there will be only one entry from the
-        client CL_FILTER_NONE both on the console and in the log file.
-
-        This one entry is present by exploiting the log API and calling log
-        function with the level Debug_LOG_LEVEL_NONE (i.e. calling
-        Debug_LOG(Debug_LOG_LEVEL_NONE, "NONE", ...)).
-
-        """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.CL_FILTER_NONE.value, text, 1)
-
-
-def test_filter_on_client_side_level_assert(boot_with_proxy):
-    """ Logging with client's filtering of level ASSERT. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.CL_FILTER_ASSERT.value, text, 5)
-
-
-def test_filter_on_client_side_level_fatal(boot_with_proxy):
-    """ Logging with client's filtering of level FATAL. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.CL_FILTER_FATAL.value, text, 6)
-
-
-def test_filter_on_client_side_level_error(boot_with_proxy):
-    """ Logging with client's filtering of level ERROR. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(end_of_demo_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.CL_FILTER_ERROR.value, text, 7)
-
-
-def test_filter_on_client_side_level_warning(boot_with_proxy):
-    """ Logging with client's filtering of level WARNING. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.CL_FILTER_WARNIN.value, text, 8)
-
-
-def test_filter_on_client_side_level_info(boot_with_proxy):
-    """ Logging with client's filtering of level INFO. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.CL_FILTER_INFO.value, text, 9)
-
-
-def test_filter_on_client_side_level_debug(boot_with_proxy):
-    """ Logging with client's filtering of level DEBUG. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.CL_FILTER_DEBUG.value, text, 10)
-
-
-def test_filter_on_client_side_level_trace(boot_with_proxy):
-    """ Logging with client's filtering of level TRACE. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.CL_FILTER_TRACE.value, text, 11)
-
-
-def test_filter_on_client_side_level_custom(boot_with_proxy):
-    """ Logging with client's filtering of level CUSTOM. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(log_file_02_begin_marker),
-        timeout)
-
-    assert match
-
-    verifyLogLevels(LogClients.CL_FILTER_CUSTOM.value, text, 12)
+    verifyLogLevels(client_lvl, text, expected_entries_count)
 
 
 def test_log_empty_entry(boot_with_proxy):
