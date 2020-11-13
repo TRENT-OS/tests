@@ -34,54 +34,6 @@ def test_smoke_test(boot_with_proxy):
     assert match == success_msg
 
 
-@pytest.mark.xfail(reason="Known parser issue. See SEOS-1612 for more details.")
-def test_different_clients_logging(boot_with_proxy):
-    """ Different clients can add new entries to the log. """
-
-    test_run = boot_with_proxy(log_server_demo_name)
-    f_out = test_run[1]
-
-    success_msg = LogClients.LVL_NONE.value \
-                + LogMessagesPatterns.NONE_LVL_MSG.value
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(success_msg),
-        timeout)
-
-    assert match
-
-    success_msg = LogClients.LVL_ASSERT.value \
-                + LogMessagesPatterns.ASSERT_LVL_MSG.value
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(success_msg),
-        timeout)
-
-    assert match
-
-    success_msg = LogClients.LVL_FATAL.value \
-                + LogMessagesPatterns.FATAL_LVL_MSG.value
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(success_msg),
-        timeout)
-
-    assert match
-
-    success_msg = LogClients.LVL_ERROR.value \
-                + LogMessagesPatterns.ERROR_LVL_MSG.value
-
-    (text, match) = logs.get_match_in_line(
-        f_out,
-        re.compile(success_msg),
-        timeout)
-
-    assert match
-
-
 def test_logging_to_console(boot_with_proxy):
     """ Logs are printed on the console (stdout). """
 
