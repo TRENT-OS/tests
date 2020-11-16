@@ -14,9 +14,6 @@ def test_config_backend_init_ok(boot_with_proxy):
     """
 
     test_run = boot_with_proxy(None)
-    # otherwise it makes no sense to run the test
-    assert(os.path.isfile("nvm_06"))
-
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
