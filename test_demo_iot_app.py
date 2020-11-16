@@ -3,8 +3,6 @@ import pytest
 
 import logs # logs module from the common directory in TA
 
-test_system = "demo_iot_app"
-
 # Timeouts of the tests are set based on CI profiling.
 
 #-------------------------------------------------------------------------------
@@ -15,11 +13,10 @@ def test_config_backend_init_ok(boot_with_proxy):
     Config Server component.
     """
 
-    # Assert that a provisioned image was placed in the test workspace,
+    test_run = boot_with_proxy(None)
     # otherwise it makes no sense to run the test
     assert(os.path.isfile("nvm_06"))
 
-    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -38,7 +35,7 @@ def test_server_connect_ok(boot_with_proxy, mosquitto_broker):
     Test that the TCP connection with the configured server is successfully established.
     """
 
-    test_run = boot_with_proxy(test_system)
+    test_run = boot_with_proxy(None)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -58,7 +55,7 @@ def test_tls_handshake_ok(boot_with_proxy, mosquitto_broker):
     Test that the TLS Handshake is successfully completed.
     """
 
-    test_run = boot_with_proxy(test_system)
+    test_run = boot_with_proxy(None)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -77,7 +74,7 @@ def test_mqtt_connect_ok(boot_with_proxy, mosquitto_broker):
     Test that the MQTT connect step is successfully acknowledged by the broker.
     """
 
-    test_run = boot_with_proxy(test_system)
+    test_run = boot_with_proxy(None)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
@@ -96,7 +93,7 @@ def test_mqtt_publish_ok(boot_with_proxy, mosquitto_broker):
     Test that the MQTT message is successfully published to the broker.
     """
 
-    test_run = boot_with_proxy(test_system)
+    test_run = boot_with_proxy(None)
     f_out = test_run[1]
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
