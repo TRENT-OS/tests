@@ -60,13 +60,6 @@ def test_OS_CryptoAgreement_free_neg_0(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_free_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
 
-def test_OS_CryptoAgreement_agree_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoAgreement_agree(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_agree_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
-
 def test_OS_CryptoAgreement_do_DH_0(boot):
     """
     Compute shared key for randomly generated public/private keys with DH.
@@ -143,34 +136,6 @@ def test_OS_CryptoCipher_finalize_neg_0(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_finalize_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
 
-def test_OS_CryptoCipher_init_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoCipher_init(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_init_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
-
-def test_OS_CryptoCipher_start_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoCipher_start(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_start_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
-
-def test_OS_CryptoCipher_process_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoCipher_process(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_process_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
-
-def test_OS_CryptoCipher_finalize_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoCipher_finalize(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_finalize_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
-
 def test_OS_CryptoCipher_do_AES_ECB_enc_0(boot):
     """
     Encrypt a set of plaintext vectors with AES-ECB.
@@ -234,6 +199,13 @@ def test_OS_CryptoCipher_do_AES_GCM_rnd_0(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_GCM_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
 
+def test_OS_CryptoCipher_process_buffer_0(boot):
+    """
+    Test that input/output buffers of OS_CryptoCipher_process() can overlap and that
+    the length of the input is checked against the size of the internal buffer.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_process_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
+
 def test_OS_CryptoDigest_init_pos_0(boot):
     """
     Positive tests for OS_CryptoDigest_init(), covering the valid ways of using this
@@ -290,20 +262,6 @@ def test_OS_CryptoDigest_finalize_neg_0(boot):
     crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_finalize_neg', 'mode=%i' % OS_Crypto_MODE_LIBRARY)
-
-def test_OS_CryptoDigest_process_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoDigest_process(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_process_buffer', 'mode=%i' % OS_Crypto_MODE_LIBRARY)
-
-def test_OS_CryptoDigest_finalize_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoDigest_finalize(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_finalize_buffer', 'mode=%i' % OS_Crypto_MODE_LIBRARY)
 
 def test_OS_CryptoDigest_do_SHA256_0(boot):
     """
@@ -429,20 +387,6 @@ def test_OS_CryptoKey_free_neg_0(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_free_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
 
-def test_OS_CryptoKey_getParams_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoKey_getParams(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getParams_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
-
-def test_OS_CryptoKey_loadParams_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoKey_loadParams(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_loadParams_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
-
 def test_OS_CryptoMac_init_pos_0(boot):
     """
     Positive tests for OS_CryptoMac_init(), covering the valid ways of using this
@@ -485,20 +429,6 @@ def test_OS_CryptoMac_finalize_neg_0(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
 
-def test_OS_CryptoMac_process_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoMac_process(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
-
-def test_OS_CryptoMac_finalize_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoMac_finalize(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
-
 def test_OS_CryptoMac_do_HMAC_MD5_0(boot):
     """
     Compute MAC on testvectors with HMAC-MD5.
@@ -538,20 +468,6 @@ def test_OS_CryptoRng_reSeed_neg_0(boot):
     this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_reSeed_neg', 'mode=%i' % OS_Crypto_MODE_LIBRARY)
-
-def test_OS_CryptoRng_reSeed_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoRng_reSeed(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_reSeed_buffer', 'mode=%i' % OS_Crypto_MODE_LIBRARY)
-
-def test_OS_CryptoRng_getBytes_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoRng_getBytes(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_getBytes_buffer', 'mode=%i' % OS_Crypto_MODE_LIBRARY)
 
 def test_OS_CryptoSignature_init_pos_0(boot):
     """
@@ -596,20 +512,6 @@ def test_OS_CryptoSignature_verify_neg_0(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_verify_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
 
-def test_OS_CryptoSignature_sign_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoSignature_sign(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_sign_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
-
-def test_OS_CryptoSignature_verify_buffer_0(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoSignature_verify(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_verify_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
-
 def test_OS_CryptoSignature_do_RSA_PKCS1_V15_sign_0(boot):
     """
     Sign some testvectors with RSA PCKS#1 V1.5.
@@ -641,6 +543,13 @@ def test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd_0(boot):
     Repeat for a few iterations (~10).
     """
     parser.check_test(boot(TEST_NAME), 30, 'test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
+
+def test_OS_CryptoSignature_sign_buffer_0(boot):
+    """
+    Test that input/output buffers of OS_CryptoSignature_sign() can overlap and that
+    the length of the input is checked against the size of the internal buffer.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_sign_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
 
 def test_OS_CryptoAgreement_init_pos_1(boot):
     """
@@ -678,13 +587,6 @@ def test_OS_CryptoAgreement_free_neg_1(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_free_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
-def test_OS_CryptoAgreement_agree_buffer_1(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoAgreement_agree(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_agree_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
-
 def test_OS_CryptoAgreement_do_DH_1(boot):
     """
     Compute shared key for randomly generated public/private keys with DH.
@@ -710,6 +612,13 @@ def test_OS_CryptoAgreement_do_ECDH_rnd_1(boot):
     pair with the ECDH algorithm. Check that the results match. Iterate for a few times (~5).
     """
     parser.check_test(boot(TEST_NAME), 60, 'test_OS_CryptoAgreement_do_ECDH_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+
+def test_OS_CryptoAgreement_agree_dataport_0(boot):
+    """
+    Test that lengths of input/output buffers of OS_CryptoAgreement_agree() are
+    checked against the size of the dataport used for RPC communication.
+    """
+    parser.check_test(boot(TEST_NAME), 3, 'test_OS_CryptoAgreement_agree_dataport', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoCipher_init_pos_1(boot):
     """
@@ -760,34 +669,6 @@ def test_OS_CryptoCipher_finalize_neg_1(boot):
     crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_finalize_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
-
-def test_OS_CryptoCipher_init_buffer_1(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoCipher_init(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_init_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
-
-def test_OS_CryptoCipher_start_buffer_1(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoCipher_start(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_start_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
-
-def test_OS_CryptoCipher_process_buffer_1(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoCipher_process(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_process_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
-
-def test_OS_CryptoCipher_finalize_buffer_1(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoCipher_finalize(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_finalize_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoCipher_do_AES_ECB_enc_1(boot):
     """
@@ -852,6 +733,34 @@ def test_OS_CryptoCipher_do_AES_GCM_rnd_1(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_GCM_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
+def test_OS_CryptoCipher_init_dataport_0(boot):
+    """
+    Test that lengths of input/output buffers of OS_CryptoCipher_init() are checked
+    against the size of the dataport used for RPC communication.
+    """
+    parser.check_test(boot(TEST_NAME), 3, 'test_OS_CryptoCipher_init_dataport', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+
+def test_OS_CryptoCipher_start_dataport_0(boot):
+    """
+    Test that lengths of input/output buffers of OS_CryptoCipher_start() are checked
+    against the size of the dataport used for RPC communication.
+    """
+    parser.check_test(boot(TEST_NAME), 3, 'test_OS_CryptoCipher_start_dataport', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+
+def test_OS_CryptoCipher_process_dataport_0(boot):
+    """
+    Test that lengths of input/output buffers of OS_CryptoCipher_process() are
+    checked against the size of the dataport used for RPC communication.
+    """
+    parser.check_test(boot(TEST_NAME), 3, 'test_OS_CryptoCipher_process_dataport', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+
+def test_OS_CryptoCipher_finalize_dataport_0(boot):
+    """
+    Test that lengths of input/output buffers of OS_CryptoCipher_finalize() are
+    checked against the size of the dataport used for RPC communication.
+    """
+    parser.check_test(boot(TEST_NAME), 3, 'test_OS_CryptoCipher_finalize_dataport', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+
 def test_OS_CryptoDigest_init_pos_1(boot):
     """
     Positive tests for OS_CryptoDigest_init(), covering the valid ways of using this
@@ -909,20 +818,6 @@ def test_OS_CryptoDigest_finalize_neg_1(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_finalize_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
-def test_OS_CryptoDigest_process_buffer_1(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoDigest_process(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_process_buffer', 'mode=%i' % OS_Crypto_MODE_CLIENT)
-
-def test_OS_CryptoDigest_finalize_buffer_1(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoDigest_finalize(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_finalize_buffer', 'mode=%i' % OS_Crypto_MODE_CLIENT)
-
 def test_OS_CryptoDigest_do_SHA256_1(boot):
     """
     Hash some testvectors with SHA256.
@@ -934,6 +829,20 @@ def test_OS_CryptoDigest_do_MD5_1(boot):
     Hash some testvectors with MD5.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_do_MD5', 'mode=%i' % OS_Crypto_MODE_CLIENT)
+
+def test_OS_CryptoDigest_process_dataport_0(boot):
+    """
+    Test that lengths of input/output buffers of OS_CryptoDigest_process() are
+    checked against the size of the dataport used for RPC communication.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_process_dataport', 'mode=%i' % OS_Crypto_MODE_CLIENT)
+
+def test_OS_CryptoDigest_finalize_dataport_0(boot):
+    """
+    Test that lengths of input/output buffers of OS_CryptoDigest_finalize() are
+    checked against the size of the dataport used for RPC communication.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_finalize_dataport', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_import_pos_1(boot):
     """
@@ -1047,19 +956,19 @@ def test_OS_CryptoKey_free_neg_1(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_free_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
-def test_OS_CryptoKey_getParams_buffer_1(boot):
+def test_OS_CryptoKey_getParams_dataport_0(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoKey_getParams(), behave the same
-    regardless of the mode the API is in.
+    Test that lengths of input/output buffers of OS_CryptoKey_getParams() are
+    checked against the size of the dataport used for RPC communication.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getParams_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getParams_dataport', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
-def test_OS_CryptoKey_loadParams_buffer_1(boot):
+def test_OS_CryptoKey_loadParams_dataport_0(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoKey_loadParams(), behave the same
-    regardless of the mode the API is in.
+    Test that lengths of input/output buffers of OS_CryptoKey_loadParams() are
+    checked against the size of the dataport used for RPC communication.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_loadParams_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_loadParams_dataport', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoMac_init_pos_1(boot):
     """
@@ -1103,20 +1012,6 @@ def test_OS_CryptoMac_finalize_neg_1(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
-def test_OS_CryptoMac_process_buffer_1(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoMac_process(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
-
-def test_OS_CryptoMac_finalize_buffer_1(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoMac_finalize(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
-
 def test_OS_CryptoMac_do_HMAC_MD5_1(boot):
     """
     Compute MAC on testvectors with HMAC-MD5.
@@ -1128,6 +1023,20 @@ def test_OS_CryptoMac_do_HMAC_SHA256_1(boot):
     Compute MAC on testvectors with HMAC-SHA256.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_do_HMAC_SHA256', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+
+def test_OS_CryptoMac_process_dataport_0(boot):
+    """
+    Test that lengths of input/output buffers of OS_CryptoMac_process() are checked
+    against the size of the dataport used for RPC communication.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_dataport', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+
+def test_OS_CryptoMac_finalize_dataport_0(boot):
+    """
+    Test that lengths of input/output buffers of OS_CryptoMac_finalize() are checked
+    against the size of the dataport used for RPC communication.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_dataport', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoRng_getBytes_pos_1(boot):
     """
@@ -1157,19 +1066,19 @@ def test_OS_CryptoRng_reSeed_neg_1(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_reSeed_neg', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
-def test_OS_CryptoRng_reSeed_buffer_1(boot):
+def test_OS_CryptoRng_reSeed_dataport_0(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoRng_reSeed(), behave the same
-    regardless of the mode the API is in.
+    Test that lengths of input/output buffers of OS_CryptoRng_reSeed() are checked
+    against the size of the dataport used for RPC communication.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_reSeed_buffer', 'mode=%i' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_reSeed_dataport', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
-def test_OS_CryptoRng_getBytes_buffer_1(boot):
+def test_OS_CryptoRng_getBytes_dataport_0(boot):
     """
-    Test that buffers/buffer sizes for OS_CryptoRng_getBytes(), behave the same
-    regardless of the mode the API is in.
+    Test that lengths of input/output buffers of OS_CryptoRng_getBytes() are checked
+    against the size of the dataport used for RPC communication.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_getBytes_buffer', 'mode=%i' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_getBytes_dataport', 'mode=%i' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoSignature_init_pos_1(boot):
     """
@@ -1214,20 +1123,6 @@ def test_OS_CryptoSignature_verify_neg_1(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_verify_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
-def test_OS_CryptoSignature_sign_buffer_1(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoSignature_sign(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_sign_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
-
-def test_OS_CryptoSignature_verify_buffer_1(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoSignature_verify(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_verify_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
-
 def test_OS_CryptoSignature_do_RSA_PKCS1_V15_sign_1(boot):
     """
     Sign some testvectors with RSA PCKS#1 V1.5.
@@ -1259,6 +1154,20 @@ def test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd_1(boot):
     Repeat for a few iterations (~10).
     """
     parser.check_test(boot(TEST_NAME), 30, 'test_OS_CryptoSignature_do_RSA_PKCS1_V21_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+
+def test_OS_CryptoSignature_sign_dataport_0(boot):
+    """
+    Test that lengths of input/output buffers of OS_CryptoSignature_sign() are
+    checked against the size of the dataport used for RPC communication.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_sign_dataport', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+
+def test_OS_CryptoSignature_verify_dataport_0(boot):
+    """
+    Test that lengths of input/output buffers of OS_CryptoSignature_verify() are
+    checked against the size of the dataport used for RPC communication.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_verify_dataport', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoAgreement_init_pos_2(boot):
     """
@@ -1295,13 +1204,6 @@ def test_OS_CryptoAgreement_free_neg_2(boot):
     this function thus verifying that it returns error codes instead of crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_free_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
-
-def test_OS_CryptoAgreement_agree_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoAgreement_agree(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_agree_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
 
 def test_OS_CryptoAgreement_do_DH_2(boot):
     """
@@ -1411,34 +1313,6 @@ def test_OS_CryptoCipher_finalize_neg_2(boot):
     crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_finalize_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
-
-def test_OS_CryptoCipher_init_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoCipher_init(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_init_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
-
-def test_OS_CryptoCipher_start_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoCipher_start(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_start_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
-
-def test_OS_CryptoCipher_process_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoCipher_process(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_process_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
-
-def test_OS_CryptoCipher_finalize_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoCipher_finalize(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_finalize_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
 
 def test_OS_CryptoCipher_do_AES_ECB_enc_2(boot):
     """
@@ -1617,20 +1491,6 @@ def test_OS_CryptoDigest_finalize_neg_2(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_finalize_neg', 'mode=%i' % OS_Crypto_MODE_KEY_SWITCH)
 
-def test_OS_CryptoDigest_process_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoDigest_process(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_process_buffer', 'mode=%i' % OS_Crypto_MODE_KEY_SWITCH)
-
-def test_OS_CryptoDigest_finalize_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoDigest_finalize(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoDigest_finalize_buffer', 'mode=%i' % OS_Crypto_MODE_KEY_SWITCH)
-
 def test_OS_CryptoDigest_do_SHA256_2(boot):
     """
     Hash some testvectors with SHA256.
@@ -1755,20 +1615,6 @@ def test_OS_CryptoKey_free_neg_2(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_free_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
 
-def test_OS_CryptoKey_getParams_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoKey_getParams(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getParams_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
-
-def test_OS_CryptoKey_loadParams_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoKey_loadParams(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_loadParams_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
-
 def test_OS_CryptoKey_import_pos_3(boot):
     """
     Positive tests for OS_CryptoKey_import(), covering the valid ways of using this
@@ -1846,20 +1692,6 @@ def test_OS_CryptoMac_finalize_neg_2(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
 
-def test_OS_CryptoMac_process_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoMac_process(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_process_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
-
-def test_OS_CryptoMac_finalize_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoMac_finalize(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoMac_finalize_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
-
 def test_OS_CryptoMac_do_HMAC_MD5_2(boot):
     """
     Compute MAC on testvectors with HMAC-MD5.
@@ -1912,20 +1744,6 @@ def test_OS_CryptoRng_reSeed_neg_2(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_reSeed_neg', 'mode=%i' % OS_Crypto_MODE_KEY_SWITCH)
 
-def test_OS_CryptoRng_reSeed_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoRng_reSeed(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_reSeed_buffer', 'mode=%i' % OS_Crypto_MODE_KEY_SWITCH)
-
-def test_OS_CryptoRng_getBytes_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoRng_getBytes(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoRng_getBytes_buffer', 'mode=%i' % OS_Crypto_MODE_KEY_SWITCH)
-
 def test_OS_CryptoSignature_init_pos_2(boot):
     """
     Positive tests for OS_CryptoSignature_init(), covering the valid ways of using
@@ -1968,20 +1786,6 @@ def test_OS_CryptoSignature_verify_neg_2(boot):
     crashing.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_verify_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
-
-def test_OS_CryptoSignature_sign_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoSignature_sign(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_sign_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
-
-def test_OS_CryptoSignature_verify_buffer_2(boot):
-    """
-    Test that buffers/buffer sizes for OS_CryptoSignature_verify(), behave the same
-    regardless of the mode the API is in.
-    """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoSignature_verify_buffer', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
 
 def test_OS_CryptoSignature_do_RSA_PKCS1_V15_sign_2(boot):
     """
