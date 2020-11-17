@@ -2,6 +2,7 @@ import pytest
 
 import sys
 
+import test_parser as parser
 from tests import run_test_log_match_set
 
 test_system = "test_chanmux"
@@ -12,15 +13,7 @@ def test_chanmux_return_codes(boot_with_proxy):
     """This test will check the correctness of return values in case of bad
     parameters."""
 
-    test_chanmux_return_codes_lst = [
-        "ChanMuxTest_testReturnCodes: SUCCESS (tester 1)",
-        "ChanMuxTest_testReturnCodes: SUCCESS (tester 2)"
-    ]
-
-    run_test_log_match_set(boot_with_proxy,
-                           test_system,
-                           test_chanmux_return_codes_lst,
-                           timeout)
+    parser.check_test(boot_with_proxy(test_system), timeout, 'ChanMuxTest_testReturnCodes')
 
 #-------------------------------------------------------------------------------
 def test_chanmux_overflow(boot_with_proxy):
@@ -37,15 +30,7 @@ def test_chanmux_overflow(boot_with_proxy):
         After that the ChanMux gets probed to check whether the overflow
         condition happened as expected."""
 
-    test_chanmux_overflow_lst = [
-        "ChanMuxTest_testOverflow: SUCCESS (tester 1)",
-        "ChanMuxTest_testOverflow: SUCCESS (tester 2)"
-    ]
-
-    run_test_log_match_set(boot_with_proxy,
-                           test_system,
-                           test_chanmux_overflow_lst,
-                           timeout)
+    parser.check_test(boot_with_proxy(test_system), timeout, 'ChanMuxTest_testOverflow')
 
 #-------------------------------------------------------------------------------
 def test_chanmux_max_size(boot_with_proxy):
@@ -65,15 +50,7 @@ def test_chanmux_max_size(boot_with_proxy):
         the +1 case the last byte results to be truncated and not received from
         the othe side"""
 
-    test_chanmux_max_size_lst = [
-        "ChanMuxTest_testMaxSize: SUCCESS (tester 1)",
-        "ChanMuxTest_testMaxSize: SUCCESS (tester 2)",
-    ]
-
-    run_test_log_match_set(boot_with_proxy,
-                           test_system,
-                           test_chanmux_max_size_lst,
-                           timeout)
+    parser.check_test(boot_with_proxy(test_system), timeout, 'ChanMuxTest_testMaxSize')
 
 #-------------------------------------------------------------------------------
 def test_chanmux_fullduplex(boot_with_proxy):
