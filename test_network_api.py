@@ -51,6 +51,97 @@ def test_network_basic(boot_with_proxy):
             pytest.fail("Failed we got a reply for a ping we didn't send.")
 
 
+#-------------------------------------------------------------------------------
+def test_tcp_options_poison(boot_with_proxy):
+
+    """Sends a malformed packet with tcp options as "0xFF 0x00 0x00 0x00". Some
+    TCP/IP implementation may loop infinitely in the attempt of parsing such a
+    sequence. The test sends the poisoned packet to the server listening on
+    port 5555 in a loop. If no answer occurs then the server TCP stack is to be
+    considered affected by the issue described."""
+
+    timeout = 10
+    sport = random.randint(1025, 65535)
+    dport = 5555
+    target_ip = ETH_2_ADDR
+    ip_frame = IP(dst = target_ip)
+
+    def ack_and_fin(sack):
+        ack = sr1(ip_frame/\
+                    TCP(dport = dport,\
+                        sport = sport,\
+                        flags = "A",\
+                        seq=sack.ack,\
+                        ack=sack.seq + 1),\
+                    timeout=10)
+        fack = sr1(ip_frame/\
+                    TCP(dport = dport,\
+                        sport = sport,\
+                        flags = "FA",\
+                        seq=sack.ack,\
+                        ack=sack.seq + 1),\
+                    timeout=10)
+        lack = sr1(ip_frame/\
+                    TCP(dport = dport,\
+                        sport = sport,\
+                        flags = "A",\
+                        seq=fack.ack,\
+                        ack=fack.seq + 1),\
+                    timeout=10)
+
+    def is_server_up(timeout):
+        from time import time
+
+        time_expired = time() + timeout
+        while True:
+            sack = sr1(ip_frame/\
+                        TCP(dport = dport, sport = sport, flags = "S"),\
+                        timeout=10)
+            if sack is not None:
+                ack_and_fin(sack)
+                return True
+            if time() > time_expired:
+                return False
+
+    print('Check if server is up (before poisoning)...')
+    if is_server_up(timeout):
+        print ("Server is up.")
+    else:
+        pytest.fail("Timeout while checking if server is up")
+
+    print('Poisoning...')
+    # OK, server is up, now poison it
+    poison_pkt = TCP(dport   = dport,\
+                     sport   = sport,\
+                     options = [(255, b'')],\
+                     flags   = "S")
+
+    poison_pkt_raw = bytearray(raw(poison_pkt))
+
+    poison_pkt = ip_frame/TCP(poison_pkt_raw)
+    # compute the TCP checksum
+    checksum = in4_chksum(socket.IPPROTO_TCP, poison_pkt[IP], poison_pkt_raw)
+    # poison the packet and adjust the checksum to still be valid
+    checksum = checksum + poison_pkt_raw[-3]
+    poison_pkt_raw[-3] = 0
+    poison_pkt_raw[-8] = checksum // 256
+    poison_pkt_raw[-7] = checksum % 256
+
+    poison_pkt = ip_frame/TCP(poison_pkt_raw)
+
+    sack = sr1(poison_pkt, timeout=10)
+    if sack is None:
+        print("No answer received right after poisoning, this could be OK, maybe it just dropped the malformed packet")
+    else:
+        # server reacted fine to poison
+        ack_and_fin(sack)
+
+    print('Check if server is up (after poisoning)...')# this time should be not if poisoned
+    if is_server_up(timeout):
+        print ("Server is up.")
+    else:
+        pytest.fail("Timeout while checking if server is up")
+
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Not implemented yet")
@@ -149,7 +240,7 @@ def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
     num_chars =  8 * 1024
 
     # 10 Mbit of data
-    # num_chars = 10 * 128 * 1024 
+    # num_chars = 10 * 128 * 1024
 
     gen_str = ''.join(random.choice(string.ascii_letters) for i in range(num_chars))
 
