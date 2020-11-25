@@ -15,6 +15,8 @@ import threading
 
 import sys
 
+server_dos_tests = ['test_tcp_options_poison']
+
 # This python file is imported by pydoc which sometimes throws an error about a
 # missing IPv6 default route (if the machine building the documentation doesn't
 # have it set). To remove this warning we disable IPv6 support in scapy, since
@@ -52,6 +54,7 @@ def test_network_basic(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
+@pytest.mark.dependency()
 def test_tcp_options_poison(boot_with_proxy):
 
     """Sends a malformed packet with tcp options as "0xFF 0x00 0x00 0x00". Some
@@ -254,7 +257,8 @@ def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
     if not ret:
         pytest.fail("Missing: %s" % (expr_fail))
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+@pytest.mark.dependency(depends=server_dos_tests)
 def run_echo_client(blob):
 
     print("Running tap app to connect to Server")
@@ -321,6 +325,7 @@ def run_echo_client(blob):
 
 #-------------------------------------------------------------------------------
 #@pytest.mark.skip(reason="Fails due to test enviroment sending RST")
+@pytest.mark.dependency(depends=server_dos_tests)
 def test_network_tcp_connection_establishment(boot_with_proxy):
     """
     Test the SYN/ACK-SYN/ACK sequence with various sequence numbers, delays and
@@ -355,6 +360,7 @@ ACK = 0x10
 URG = 0x20
 ECE = 0x40
 CWR = 0x80
+@pytest.mark.dependency(depends=server_dos_tests)
 def test_network_tcp_connection_closure(boot_with_proxy):
     """
     Test the FIN sequence with various sequence numbers, delays and lost
@@ -385,6 +391,7 @@ def test_network_tcp_connection_closure(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Fails due to picotcp not sending RST")
+@pytest.mark.dependency(depends=server_dos_tests)
 def test_network_tcp_connection_reset(boot_with_proxy):
     """
     Test the RST sequence with various sequence numbers, delays and lost
@@ -451,6 +458,7 @@ def test_network_tcp_out_of_band_signaling(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Fails due to test enviroment sending RST")
+@pytest.mark.dependency(depends=server_dos_tests)
 def test_network_tcp_out_of_order_receive(boot_with_proxy):
     """
     Test receiving TCP packets out of order with various sequence numbers,
@@ -481,6 +489,7 @@ def test_network_tcp_out_of_order_receive(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Fails due to payload mismatch")
+@pytest.mark.dependency(depends=server_dos_tests)
 def test_network_tcp_data_send(boot_with_proxy):
     """
     Test sending data in TCP pakets with various sequence numbers, delays and
@@ -562,6 +571,7 @@ def test_network_arp_reply_client(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
+@pytest.mark.dependency(depends=server_dos_tests)
 def test_network_arp_reply_server(boot_with_proxy):
     """Test if the server implementation component replies to arp request.
         Success: We get a valid arp reply
@@ -674,6 +684,7 @@ def test_network_ping_reply_client(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
+@pytest.mark.dependency(depends=server_dos_tests)
 def test_network_ping_reply_server(boot_with_proxy):
     """
     Test if the server implementation component replies to ping.
