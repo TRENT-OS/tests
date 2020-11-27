@@ -1,6 +1,11 @@
 from scapy.all import *
 
 def ack_and_fin(sack, tcp_template=None):
+
+    """Given a SYNACK packet received from a prio SYN sent it does follow up
+        with an ACK and close the connection with FIN. Return true if every
+        packet receive an answer"""
+
     ack         = None
     fack        = None
     lack        = None
@@ -40,10 +45,15 @@ def ack_and_fin(sack, tcp_template=None):
 
     return True
 
-def is_server_up(addr, sport, dport, timeout):
+def is_server_up(addr, sport, dport, timeout_sec):
+
+    """Checks whether the server at addr:dport is up or not until either the
+        server responds or the timeout expires. Returns True if the server
+        answered in time."""
+
     from time import time
 
-    time_expired = time() + timeout
+    time_expired = time() + timeout_sec
     while True:
         sack = sr1(IP(dst = addr)/\
                     TCP(dport = dport,\
