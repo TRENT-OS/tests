@@ -21,23 +21,22 @@ def ack_and_fin(sack, tcp_template=None):
     tcp_layer.ack   = sack.seq + 1
 
     ack = sr1(IP(dst = sack[IP].src)/tcp_layer, timeout=10)
-    if ack is not None:
-        tcp_layer.flags = "FA"
-
-        fack = sr1(IP(dst = sack[IP].src)/tcp_layer, timeout=10)
-    else:
+    if ack is None:
         print('no ack received')
         return False
 
-    if fack is not None:
-        tcp_layer.flags     = "A"
-        tcp_layer.seq       = fack.ack
-        tcp_layer.ack       = fack.seq + 1
+    tcp_layer.flags = "FA"
 
-        lack = sr1(IP(dst = sack[IP].src)/tcp_layer, timeout=10)
-    else:
+    fack = sr1(IP(dst = sack[IP].src)/tcp_layer, timeout=10)
+    if fack is None:
         print('no fack received')
         return False
+
+    tcp_layer.flags     = "A"
+    tcp_layer.seq       = fack.ack
+    tcp_layer.ack       = fack.seq + 1
+
+    lack = sr1(IP(dst = sack[IP].src)/tcp_layer, timeout=10)
 
     return True
 
