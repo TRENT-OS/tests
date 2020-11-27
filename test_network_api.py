@@ -17,7 +17,7 @@ import sys
 
 from test_network_api_functions import *
 
-server_dos_tests = ['test_tcp_options_poison']
+server_dos_tests = ['test_tcp_options_poison', 'test_tcp_header_length_poison']
 
 # This python file is imported by pydoc which sometimes throws an error about a
 # missing IPv6 default route (if the machine building the documentation doesn't
@@ -105,6 +105,46 @@ def test_tcp_options_poison(boot_with_proxy):
     #else: server reacted fine to poison
 
     print('Check if server is up (after poisoning)...')# this time should be not if poisoned
+    if is_server_up(target_ip, sport, dport, timeout):
+        print ("Server is up.")
+    else:
+        pytest.fail("Timeout while checking if server is up")
+
+
+#-------------------------------------------------------------------------------
+@pytest.mark.dependency()
+def test_tcp_header_length_poison(boot_with_proxy):
+
+    """Sends a malformed packet with TCP header length as "0xF" (first nibble
+    only is to be considered TCP header length). Some TCP/IP implementation may
+    result in crashing. The test sends the poisoned packet to the server
+    listening on port 5555 in a loop. If no answer occurs then the server TCP
+    stack is to be considered affected by the issue described."""
+
+    timeout = 10
+    sport = random.randint(1025, 65535)
+    dport = 5555
+    target_ip = ETH_2_ADDR
+    ip_frame = IP(dst = target_ip)
+
+    print('Check if server is up (before poisoning)...')
+    if is_server_up(target_ip, sport, dport, timeout):
+        print ("Server is up.")
+    else:
+        pytest.fail("Timeout while checking if server is up")
+
+    print('Poisoning...')
+
+    tcp_template = TCP(dport = dport,\
+                        sport = sport,\
+                        dataofs = 0xf,\
+                        flags = "S")
+    sack = sr1(ip_frame/tcp_template, timeout=10)
+
+    if not ack_and_fin(sack, tcp_template):
+        print("ack_and_fin() with poisoned packets failed")
+
+    print('Check if server is up (after poisoning)...')
     if is_server_up(target_ip, sport, dport, timeout):
         print ("Server is up.")
     else:
