@@ -15,6 +15,8 @@ import threading
 
 import sys
 
+from test_network_api_functions import *
+
 server_dos_tests = ['test_tcp_options_poison']
 
 # This python file is imported by pydoc which sometimes throws an error about a
@@ -69,46 +71,9 @@ def test_tcp_options_poison(boot_with_proxy):
     target_ip = ETH_2_ADDR
     ip_frame = IP(dst = target_ip)
 
-    def ack_and_fin(sack):
-        ack = sr1(ip_frame/\
-                    TCP(dport = dport,\
-                        sport = sport,\
-                        flags = "A",\
-                        seq=sack.ack,\
-                        ack=sack.seq + 1),\
-                    timeout=10)
-        fack = sr1(ip_frame/\
-                    TCP(dport = dport,\
-                        sport = sport,\
-                        flags = "FA",\
-                        seq=sack.ack,\
-                        ack=sack.seq + 1),\
-                    timeout=10)
-        lack = sr1(ip_frame/\
-                    TCP(dport = dport,\
-                        sport = sport,\
-                        flags = "A",\
-                        seq=fack.ack,\
-                        ack=fack.seq + 1),\
-                    timeout=10)
-
-    def is_server_up(timeout):
-        from time import time
-
-        time_expired = time() + timeout
-        while True:
-            sack = sr1(ip_frame/\
-                        TCP(dport = dport, sport = sport, flags = "S"),\
-                        timeout=10)
-            if sack is not None:
-                ack_and_fin(sack)
-                return True
-            if time() > time_expired:
-                return False
-
     print('Check if server is up (before poisoning)...')
-    if is_server_up(timeout):
-        print ("Server is up.")
+    if is_server_up(target_ip, sport, dport, timeout):
+        print("Server is up.")
     else:
         pytest.fail("Timeout while checking if server is up")
 
@@ -140,7 +105,7 @@ def test_tcp_options_poison(boot_with_proxy):
         ack_and_fin(sack)
 
     print('Check if server is up (after poisoning)...')# this time should be not if poisoned
-    if is_server_up(timeout):
+    if is_server_up(target_ip, sport, dport, timeout):
         print ("Server is up.")
     else:
         pytest.fail("Timeout while checking if server is up")
