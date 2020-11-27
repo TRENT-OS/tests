@@ -16,6 +16,7 @@ import threading
 import sys
 
 from test_network_api_functions import *
+from board_automation.tools import Timeout_Checker
 
 server_dos_tests = ['test_tcp_options_poison', 'test_tcp_header_length_poison']
 
@@ -65,14 +66,19 @@ def test_tcp_options_poison(boot_with_proxy):
     port 5555 in a loop. If no answer occurs then the server TCP stack is to be
     considered affected by the issue described."""
 
-    timeout = 10
+    responsiveness_timeout = 10
+    timeout_checker = Timeout_Checker(timeout)
     sport = random.randint(1025, 65535)
     dport = 5555
     target_ip = ETH_2_ADDR
     ip_frame = IP(dst = target_ip)
 
     print('Check if server is up (before poisoning)...')
-    if is_server_up(target_ip, sport, dport, timeout):
+    if is_server_up(target_ip,\
+                    sport,\
+                    dport,\
+                    responsiveness_timeout,
+                    timeout_checker.get_remaining()):
         print("Server is up.")
     else:
         pytest.fail("Timeout while checking if server is up")
@@ -97,15 +103,19 @@ def test_tcp_options_poison(boot_with_proxy):
 
     poison_pkt = ip_frame/TCP(poison_pkt_raw)
 
-    sack = sr1(poison_pkt, timeout=10)
+    sack = sr1(poison_pkt, timeout = responsiveness_timeout)
     if sack is None:
         print("No answer received right after poisoning, this could be OK, maybe it just dropped the malformed packet")
-    elif not ack_and_fin(sack):
+    elif not ack_and_fin(sack, responsiveness_timeout):
         print("ack_and_fin() with poisoned packets failed")
     #else: server reacted fine to poison
 
     print('Check if server is up (after poisoning)...')# this time should be not if poisoned
-    if is_server_up(target_ip, sport, dport, timeout):
+    if is_server_up(target_ip,\
+                    sport,\
+                    dport,\
+                    responsiveness_timeout,\
+                    timeout_checker.get_remaining()):
         print ("Server is up.")
     else:
         pytest.fail("Timeout while checking if server is up")
@@ -121,14 +131,19 @@ def test_tcp_header_length_poison(boot_with_proxy):
     listening on port 5555 in a loop. If no answer occurs then the server TCP
     stack is to be considered affected by the issue described."""
 
-    timeout = 10
+    responsiveness_timeout = 10
+    timeout_checker = Timeout_Checker(timeout)
     sport = random.randint(1025, 65535)
     dport = 5555
     target_ip = ETH_2_ADDR
     ip_frame = IP(dst = target_ip)
 
     print('Check if server is up (before poisoning)...')
-    if is_server_up(target_ip, sport, dport, timeout):
+    if is_server_up(target_ip,\
+                    sport,\
+                    dport,\
+                    responsiveness_timeout,\
+                    timeout_checker.get_remaining()):
         print ("Server is up.")
     else:
         pytest.fail("Timeout while checking if server is up")
@@ -139,13 +154,17 @@ def test_tcp_header_length_poison(boot_with_proxy):
                         sport = sport,\
                         dataofs = 0xf,\
                         flags = "S")
-    sack = sr1(ip_frame/tcp_template, timeout=10)
+    sack = sr1(ip_frame/tcp_template, timeout = responsiveness_timeout)
 
-    if not ack_and_fin(sack, tcp_template):
+    if not ack_and_fin(sack, responsiveness_timeout, tcp_template):
         print("ack_and_fin() with poisoned packets failed")
 
     print('Check if server is up (after poisoning)...')
-    if is_server_up(target_ip, sport, dport, timeout):
+    if is_server_up(target_ip,\
+                    sport,\
+                    dport,\
+                    responsiveness_timeout,\
+                    timeout_checker.get_remaining()):
         print ("Server is up.")
     else:
         pytest.fail("Timeout while checking if server is up")
