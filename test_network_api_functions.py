@@ -10,6 +10,7 @@ def ack_and_fin(sack, responsiveness_timeout_sec, tcp_template=None):
     ack         = None
     fack        = None
     lack        = None
+    retval      = True
 
     timeout_checker = Timeout_Checker(responsiveness_timeout_sec)
 
@@ -32,7 +33,7 @@ def ack_and_fin(sack, responsiveness_timeout_sec, tcp_template=None):
                     timeout = timeout_checker.get_remaining())
     if ack is None:
         print('no ack received')
-        return False
+        retval = False
 
     tcp_layer.flags = "FA"
 
@@ -49,7 +50,7 @@ def ack_and_fin(sack, responsiveness_timeout_sec, tcp_template=None):
     lack = sr1(IP(dst = sack[IP].src)/tcp_layer,\
                     timeout = timeout_checker.get_remaining())
 
-    return True
+    return retval
 
 def is_server_up(addr, sport, dport, responsiveness_timeout_sec, timeout_sec):
 
