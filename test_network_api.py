@@ -100,9 +100,9 @@ def test_tcp_options_poison(boot_with_proxy):
     sack = sr1(poison_pkt, timeout=10)
     if sack is None:
         print("No answer received right after poisoning, this could be OK, maybe it just dropped the malformed packet")
-    else:
-        # server reacted fine to poison
-        ack_and_fin(sack)
+    elif not ack_and_fin(sack):
+        print("ack_and_fin() with poisoned packets failed")
+    #else: server reacted fine to poison
 
     print('Check if server is up (after poisoning)...')# this time should be not if poisoned
     if is_server_up(target_ip, sport, dport, timeout):

@@ -1,33 +1,45 @@
 from scapy.all import *
 
-def ack_and_fin(sack):
-    ack     = None
-    fack    = None
-    lack    = None
+def ack_and_fin(sack, tcp_template=None):
+    ack         = None
+    fack        = None
+    lack        = None
 
-    ack = sr1(IP(dst = sack[IP].src)/\
-                TCP(dport = sack.sport,\
-                    sport = sack.dport,\
-                    flags = "A",\
-                    seq=sack.ack,\
-                    ack=sack.seq + 1),\
-                timeout=10)
+    if sack is None:
+        print('cannot perform ack_and_fin() without sack')
+        return False
+
+    if tcp_template is None:
+        tcp_layer = TCP()
+    else:
+        tcp_layer = tcp_template
+
+    tcp_layer.dport = sack.sport
+    tcp_layer.sport = sack.dport
+    tcp_layer.flags = "A"
+    tcp_layer.seq   = sack.ack
+    tcp_layer.ack   = sack.seq + 1
+
+    ack = sr1(IP(dst = sack[IP].src)/tcp_layer, timeout=10)
     if ack is not None:
-        fack = sr1(IP(dst = sack[IP].src)/\
-                    TCP(dport = sack.sport,\
-                        sport = sack.dport,\
-                        flags = "FA",\
-                        seq=sack.ack,\
-                        ack=sack.seq + 1),\
-                    timeout=10)
+        tcp_layer.flags = "FA"
+
+        fack = sr1(IP(dst = sack[IP].src)/tcp_layer, timeout=10)
+    else:
+        print('no ack received')
+        return False
+
     if fack is not None:
-        lack = sr1(IP(dst = sack[IP].src)/\
-                    TCP(dport = sack.sport,\
-                        sport = sack.dport,\
-                        flags = "A",\
-                        seq=fack.ack,\
-                        ack=fack.seq + 1),\
-                    timeout=10)
+        tcp_layer.flags     = "A"
+        tcp_layer.seq       = fack.ack
+        tcp_layer.ack       = fack.seq + 1
+
+        lack = sr1(IP(dst = sack[IP].src)/tcp_layer, timeout=10)
+    else:
+        print('no fack received')
+        return False
+
+    return True
 
 def is_server_up(addr, sport, dport, timeout):
     from time import time
