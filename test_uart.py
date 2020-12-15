@@ -45,6 +45,7 @@ def test_uart(boot):
     (ret, idx) = test_runner.system_log_match_sequence(
         [
             'UART tester loop running',
+            'initialize UART ok',
         ],
         5)
 
