@@ -83,8 +83,7 @@ def test_timestamp_rcv(boot_with_proxy,startDaemon):
     """
     tests.run_test_log_match_sequence(
         boot_with_proxy,test_system,
-        ['!!! test_requestTimestampFile_pos: OK',
-         '!!! test_readTimestampFile_pos: OK'],
+        ['!!! test_requestTimestampFile_pos: OK'],
         TEST_TIMEOUT)
 
 
@@ -95,8 +94,7 @@ def test_snapshot_rcv(boot_with_proxy):
     """
     tests.run_test_log_match_sequence(
         boot_with_proxy,test_system,
-        ['!!! test_requestSnapshotFile_pos: OK',
-         '!!! test_readSnapshotFile_pos: OK'],
+        ['!!! test_requestSnapshotFile_pos: OK'],
         TEST_TIMEOUT)
 
 
@@ -107,8 +105,7 @@ def test_target_rcv(boot_with_proxy):
     """
     tests.run_test_log_match_sequence(
         boot_with_proxy,test_system,
-        ['!!! test_requestTargetFile_pos: OK',
-         '!!! test_readTargetFile_pos: OK'],
+        ['!!! test_requestTargetFile_pos: OK'],
         TEST_TIMEOUT)
 
 
@@ -119,8 +116,7 @@ def test_root_rcv(boot_with_proxy):
     """
     tests.run_test_log_match_sequence(
         boot_with_proxy,test_system,
-        ['!!! test_requestRootFile_pos: OK',
-         '!!! test_readRootFile_pos'],
+        ['!!! test_requestRootFile_pos: OK'],
         TEST_TIMEOUT)
 
 def test_non_existing_file(boot_with_proxy):
@@ -129,9 +125,52 @@ def test_non_existing_file(boot_with_proxy):
     """
     tests.run_test_log_match_sequence(
         boot_with_proxy,test_system,
-        ['!!! test_requestNonExistingFile_neg: OK',
-         '!!! test_readNonExistingFile_neg: OK'],
+        ['!!! test_requestNonExistingFile_neg: OK'],
         TEST_TIMEOUT)
+
+def test_timestamp_read(boot_with_proxy):
+    """
+    Reads timestamp.bin file from the FAT filesystem created in RamDisk
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,
+                                      test_system,
+                                      ['!!! test_readTimestampFile_pos: OK'],
+                                      TEST_TIMEOUT)
+
+def test_snapshot_read(boot_with_proxy):
+    """
+    Reads snapshot.bin file from the FAT filesystem created in RamDisk
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,
+                                      test_system,
+                                      ['!!! test_readSnapshotFile_pos: OK'],
+                                      TEST_TIMEOUT)
+
+def test_target_read(boot_with_proxy):
+    """
+    Reads target.bin file from the FAT filesystem created in RamDisk
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,
+                                      test_system,
+                                      ['!!! test_readTargetFile_pos: OK'],
+                                      TEST_TIMEOUT)
+
+def test_root_read(boot_with_proxy):
+    """
+    Reads root.bin file from the FAT filesystem created in RamDisk
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,
+                                      test_system,
+                                      ['!!! test_readRootFile_pos: OK'],
+                                      TEST_TIMEOUT)
+
+def test_non_existing_file_read(boot_with_proxy):
+    """
+    Reads a non existing file from the FAT filesystem created in RamDisk
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                     ['!!! test_readNonExistingFile_neg: OK'],
+                                     TEST_TIMEOUT)
 
 def test_complete(boot_with_proxy):
     """
