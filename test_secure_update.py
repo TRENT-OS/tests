@@ -26,7 +26,7 @@ def get_requested_filepath(path):
     foldername = pathlib.PurePath(__file__)
 
     # PurePath(path).name is used as path is of the format
-    # "/<requested_file>.json"
+    # "/<requested_file>.bin"
     filename = pathlib.PurePath(
                     foldername.parent,
                     (pathlib.Path(__file__)).stem,
@@ -38,17 +38,17 @@ def get_requested_filepath(path):
 class HandlerClass(BaseHTTPRequestHandler):
     def _set_response(self):
         self.send_response(200)
-        self.send_header('Content-type', 'text/json')
+        self.send_header('Content-type', 'bin')
         self.end_headers()
 
     def do_GET(self):
         self._set_response()
         self.wfile.write(
-            "GET1 request for {}".format(self.path).encode('utf-8'))
+            "GET1 request for {}-".format(self.path).encode('utf-8'))
 
         try:
-            file = open(get_requested_filepath(self.path),'r')
-            self.wfile.write(file.read().encode('utf-8'))
+            file = open(get_requested_filepath(self.path),'rb')
+            self.wfile.write(file.read())
         except:
             self.wfile.write('File missing :'.encode('utf-8'))
             self.wfile.write(self.path.encode('utf-8'))
@@ -79,7 +79,7 @@ def startDaemon(request):
 
 def test_timestamp_rcv(boot_with_proxy,startDaemon):
     """
-    Checks reception of timestamp.json file from the server.
+    Checks reception of timestamp file from the server.
     """
     tests.run_test_log_match_sequence(
         boot_with_proxy,test_system,
@@ -91,7 +91,7 @@ def test_timestamp_rcv(boot_with_proxy,startDaemon):
 
 def test_snapshot_rcv(boot_with_proxy):
     """
-    Checks reception of snapshot.json file from the server.
+    Checks reception of snapshot file from the server.
     """
     tests.run_test_log_match_sequence(
         boot_with_proxy,test_system,
@@ -103,7 +103,7 @@ def test_snapshot_rcv(boot_with_proxy):
 
 def test_target_rcv(boot_with_proxy):
     """
-    Checks reception of target.json file from the server.
+    Checks reception of target file from the server.
     """
     tests.run_test_log_match_sequence(
         boot_with_proxy,test_system,
@@ -115,7 +115,7 @@ def test_target_rcv(boot_with_proxy):
 
 def test_root_rcv(boot_with_proxy):
     """
-    Checks reception of root.json file from the server.
+    Checks reception of root file from the server.
     """
     tests.run_test_log_match_sequence(
         boot_with_proxy,test_system,
