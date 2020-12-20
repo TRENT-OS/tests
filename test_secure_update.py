@@ -172,6 +172,102 @@ def test_non_existing_file_read(boot_with_proxy):
                                      ['!!! test_readNonExistingFile_neg: OK'],
                                      TEST_TIMEOUT)
 
+def test_timestamp_decode(boot_with_proxy):
+    """
+    Decodes timestamp.bin file from the FAT filesystem created in RamDisk
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_decodeTimestampFile_pos: OK'],
+                                      TEST_TIMEOUT)
+
+def test_snapshot_decode(boot_with_proxy):
+    """
+    Decodes snapshot.bin file from the FAT filesystem created in RamDisk
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_decodeSnapshotFile_pos: OK'],
+                                      TEST_TIMEOUT)
+
+def test_target_decode(boot_with_proxy):
+    """
+    Decodes target.bin file from the FAT filesystem created in RamDisk
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_decodeTargetFile_pos: OK'],
+                                      TEST_TIMEOUT)
+
+def test_root_decode(boot_with_proxy):
+    """
+    Decodes root.bin file from the FAT filesystem created in RamDisk
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_decodeRootFile_pos: OK'],
+                                      TEST_TIMEOUT)
+
+def test_timestamp_partialFileDecode(boot_with_proxy):
+    """
+    Test to decode partial/incomplete timestamp.bin file
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_decodePartialTimestampFile_neg: OK'],
+                                      TEST_TIMEOUT)
+
+def test_snapshot_partialFileDecode(boot_with_proxy):
+    """
+    Test to decode partial/incomplete snapshot.bin file
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_decodePartialSnapshotFile_neg: OK'],
+                                      TEST_TIMEOUT)
+
+def test_target_partialFileDecode(boot_with_proxy):
+    """
+    Test to decode partial/incomplete target.bin file
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_decodePartialTargetFile_neg: OK'],
+                                      TEST_TIMEOUT)
+
+def test_root_partialFileDecode(boot_with_proxy):
+    """
+    Test to decode partial/incomplete root.bin file
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_decodePartialRootFile_neg: OK'],
+                                      TEST_TIMEOUT)
+
+def test_timestamp_invalidContentDecode(boot_with_proxy):
+    """
+    Test to decode invalid timestamp content
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_decodeInvalidTimestampContent_neg: OK'],
+                                      TEST_TIMEOUT)
+
+def test_snapshot_invalidContentDecode(boot_with_proxy):
+    """
+    Test to decode invalid snapshot content
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_decodeInvalidSnapshotContent_neg: OK'],
+                                      TEST_TIMEOUT)
+
+def test_target_invalidContentDecode(boot_with_proxy):
+    """
+    Test to decode invalid target content
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_decodeInvalidTargetContent_neg: OK'],
+                                      TEST_TIMEOUT)
+
+def test_root_invalidContentDecode(boot_with_proxy):
+    """
+    Test to decode invalid root content
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_decodeInvalidRootContent_neg: OK'],
+                                      TEST_TIMEOUT)
+
 def test_complete(boot_with_proxy):
     """
     Checking if all tests has been completed and that there was no
