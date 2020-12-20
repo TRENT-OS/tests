@@ -268,6 +268,46 @@ def test_root_invalidContentDecode(boot_with_proxy):
                                       ['!!! test_decodeInvalidRootContent_neg: OK'],
                                       TEST_TIMEOUT)
 
+def test_timestamp_signatureVerification(boot_with_proxy):
+    """
+    Test to verify timestamp signature
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_timestampSignature_pos: OK'],
+                                      TEST_TIMEOUT)
+
+def test_snapshot_signatureVerification(boot_with_proxy):
+    """
+    Test to verify snapsot signature
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_snapshotSignature_pos: OK'],
+                                      TEST_TIMEOUT)
+
+def test_targets_signatureVerification(boot_with_proxy):
+    """
+    Test to verify targets signature
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_targetsSignature_pos: OK'],
+                                      TEST_TIMEOUT)
+
+def test_root_signatureVerification(boot_with_proxy):
+    """
+    Test to verify root signature
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_rootSignature_pos: OK'],
+                                      TEST_TIMEOUT)
+
+def test_timestamp_signatureVerificationFail(boot_with_proxy):
+    """
+    Test to verify root signature
+    """
+    tests.run_test_log_match_sequence(boot_with_proxy,test_system,
+                                      ['!!! test_timestampSignature_neg: OK'],
+                                      TEST_TIMEOUT)
+
 def test_complete(boot_with_proxy):
     """
     Checking if all tests has been completed and that there was no
