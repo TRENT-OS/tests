@@ -18,6 +18,8 @@ import sys
 from test_network_api_functions import *
 from board_automation.tools import Timeout_Checker
 
+import test_parser as parser
+
 server_dos_tests = ['test_tcp_options_poison', 'test_tcp_header_length_poison']
 
 # This python file is imported by pydoc which sometimes throws an error about a
@@ -193,6 +195,7 @@ def test_network_api_client(boot_with_proxy):
     test_run = boot_with_proxy(test_system)
 
     f_out = test_run[1]
+    parser.fail_on_assert(f_out)
 
     src = pathlib.Path(__file__).parent.absolute().joinpath('test_network_api/')
 
@@ -203,17 +206,9 @@ def test_network_api_client(boot_with_proxy):
 
     shutil.copytree(src, dest)
 
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
+    (ret, text, expr_fail) = logs.check_log_match_set(
         f_out,
-        ["No free sockets available 16"],
-        timeout)
-
-    if not ret:
-        pytest.fail("Missing: %s" % (expr_fail))
-
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
-        f_out,
-        ["TCP client test successful"],
+        ["No free sockets available 16", "!!! test_tcp_client: OK"],
         timeout)
 
     if not ret:
@@ -236,6 +231,7 @@ def test_network_api_echo_server(boot_with_proxy, n):
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+    parser.fail_on_assert(f_out)
 
     src = pathlib.Path(__file__).parent.absolute().joinpath(
             'test_network_api/dante.txt')
@@ -262,6 +258,7 @@ def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+    parser.fail_on_assert(f_out)
 
     # 64 Kbit of data
     num_chars =  8 * 1024
@@ -358,6 +355,8 @@ def test_network_tcp_connection_establishment(boot_with_proxy):
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+    parser.fail_on_assert(f_out)
+
     for i in range(10):
         source_port = random.randint(1025, 65536)
         s = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port, flags='S')
@@ -393,6 +392,8 @@ def test_network_tcp_connection_closure(boot_with_proxy):
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+    parser.fail_on_assert(f_out)
+
     for i in range(1):
         source_port = random.randint(1025, 65536)
         s = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port, flags='S')
@@ -424,6 +425,8 @@ def test_network_tcp_connection_reset(boot_with_proxy):
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+    parser.fail_on_assert(f_out)
+
     for i in range(1):
         source_port = random.randint(1025, 65536)
         s = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port, flags='S')
@@ -451,6 +454,8 @@ def test_network_tcp_connection_invalid(boot_with_proxy):
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+    parser.fail_on_assert(f_out)
+
     for i in range(10):
         source_port = random.randint(10256, 65536)
         r = IP(dst=ETH_2_ADDR)/TCP(dport=source_port,
@@ -491,6 +496,8 @@ def test_network_tcp_out_of_order_receive(boot_with_proxy):
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+    parser.fail_on_assert(f_out)
+
     for i in range(1):
         source_port = random.randint(1025, 65536)
         s = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port, flags='S')
@@ -522,6 +529,7 @@ def test_network_tcp_data_send(boot_with_proxy):
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+    parser.fail_on_assert(f_out)
 
     for i in range(5):
         source_port = random.randint(1025, 65536)
@@ -572,9 +580,12 @@ def test_network_arp_request(boot_with_proxy):
     """
 
     test_run = boot_with_proxy(test_system)
+    f_out = test_run[1]
+    parser.fail_on_assert(f_out)
+
     filter = "arp and src host "+ETH_1_ADDR+" and dst host "+NET_GATEWAY
     p = sniff(iface='br0', filter=filter, timeout=60)
-    f_out = test_run[1]
+
     if len(p) == 0:
         pytest.fail("Timeout waiting for arp request")
     p.show()
@@ -589,6 +600,8 @@ def test_network_arp_reply_client(boot_with_proxy):
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+    parser.fail_on_assert(f_out)
+
     ans, uns = arping(ETH_1_ADDR)
     if len(uns) != 0:
         pytest.fail("Timeout waiting for arp reply")
@@ -604,6 +617,8 @@ def test_network_arp_reply_server(boot_with_proxy):
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+    parser.fail_on_assert(f_out)
+
     ans, uns = arping(ETH_2_ADDR)
     if len(uns) != 0:
         pytest.fail("Timeout waiting for arp reply")
@@ -626,6 +641,8 @@ def test_network_udp_recvfrom(boot_with_proxy):
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+    parser.fail_on_assert(f_out)
+
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
         ["UDP Receive test"],
@@ -653,6 +670,8 @@ def test_network_udp_sendto(boot_with_proxy):
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+    parser.fail_on_assert(f_out)
+
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
         ["UDP Send test"],
@@ -679,6 +698,8 @@ def test_network_ping_request(boot_with_proxy):
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+    parser.fail_on_assert(f_out)
+
     filter = "icmp and src host "+ETH_1_ADDR+" and dst host "+CFG_TEST_HTTP_SERVER
     p = sniff(iface='br0', filter=filter, timeout=30)
     if len(p) == 0:
@@ -696,6 +717,7 @@ def test_network_ping_reply_client(boot_with_proxy):
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+    parser.fail_on_assert(f_out)
 
     lost = 0
     for i in range(5):
@@ -718,6 +740,7 @@ def test_network_ping_reply_server(boot_with_proxy):
 
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
+    parser.fail_on_assert(f_out)
 
     lost = 0
     for i in range(5):
@@ -741,17 +764,9 @@ def test_network_dataport_size_check_client(boot_with_proxy):
     Failure: Timeout
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
-        f_out,
-        ["Client dataport test successful"],
-        timeout)
-
-    if not ret:
-        pytest.fail("Missing: %s" % (expr_fail))
-
+    parser.check_test(boot_with_proxy(test_system),\
+                      timeout,\
+                      'test_dataport_size_check_client_functions')
 
 #-------------------------------------------------------------------------------
 def test_network_dataport_size_check_lib(boot_with_proxy):
@@ -761,13 +776,7 @@ def test_network_dataport_size_check_lib(boot_with_proxy):
     Success: We get test successful message in the log.
     Failure: Timeout
     """
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
 
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
-        f_out,
-        ["Lib dataport test successful"],
-        timeout)
-
-    if not ret:
-        pytest.fail("Missing: %s" % (expr_fail))
+    parser.check_test(boot_with_proxy(test_system),\
+                      timeout,\
+                      'test_dataport_size_check_client_functions')
