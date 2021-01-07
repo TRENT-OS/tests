@@ -7,6 +7,8 @@ import os
 import re
 import time
 
+import test_parser as parser
+
 test_system = "test_proxy_nvm"
 timeout = 300
 
@@ -25,22 +27,11 @@ def test_proxy_nvm_storage_start_address(boot_with_proxy):
         - 128 KB for 2nd NVM channel
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-
-    expected_output_array = [
-        #every test case output needs to happen twice (for both channels)
-        "!!! TEST STORAGE START ADDRESS => SUCCESS !!!",
-        "!!! TEST STORAGE START ADDRESS => SUCCESS !!!"
-    ]
-
-    for success_msg in expected_output_array:
-        (text, match) = logs.get_match_in_line(
-                                f_out,
-                                re.compile(success_msg),
-                                timeout)
-
-        assert match == success_msg
+    parser.check_test(boot_with_proxy(test_system),\
+                        timeout,\
+                        'testStorageStartAddr',\
+                        single_thread = False,\
+                        occurrences = 2)
 
 def test_proxy_nvm_storage_mid_address(boot_with_proxy):
     """This test will check writing and reading in the middle of the storage.
@@ -57,22 +48,11 @@ def test_proxy_nvm_storage_mid_address(boot_with_proxy):
         - 128 KB for 2nd NVM channel
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-
-    expected_output_array = [
-        #every test case output needs to happen twice (for both channels)
-        "!!! TEST STORAGE MID ADDRESS => SUCCESS !!!",
-        "!!! TEST STORAGE MID ADDRESS => SUCCESS !!!"
-    ]
-
-    for success_msg in expected_output_array:
-        (text, match) = logs.get_match_in_line(
-                                f_out,
-                                re.compile(success_msg),
-                                timeout)
-
-        assert match == success_msg
+    parser.check_test(boot_with_proxy(test_system),\
+                        timeout,\
+                        'testStorageMidAddr',\
+                        single_thread = False,\
+                        occurrences = 2)
 
 def test_proxy_nvm_storage_end_address(boot_with_proxy):
     """This test will check writing and reading at the end of the storage.
@@ -89,22 +69,11 @@ def test_proxy_nvm_storage_end_address(boot_with_proxy):
         - 128 KB for 2nd NVM channel
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-
-    expected_output_array = [
-        #every test case output needs to happen twice (for both channels)
-        "!!! TEST STORAGE END ADDRESS => SUCCESS !!!",
-        "!!! TEST STORAGE END ADDRESS => SUCCESS !!!"
-    ]
-
-    for success_msg in expected_output_array:
-        (text, match) = logs.get_match_in_line(
-                                f_out,
-                                re.compile(success_msg),
-                                timeout)
-
-        assert match == success_msg
+    parser.check_test(boot_with_proxy(test_system),\
+                        timeout,\
+                        'testStorageEndAddr',\
+                        single_thread = False,\
+                        occurrences = 2)
 
 def test_proxy_nvm_storage_overflow(boot_with_proxy):
     """This test will check that writing outside of the bounds (when starting
@@ -122,22 +91,11 @@ def test_proxy_nvm_storage_overflow(boot_with_proxy):
         - 128 KB for 2nd NVM channel
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-
-    expected_output_array = [
-        #every test case output needs to happen twice (for both channels)
-        "!!! TEST STORAGE OVERFLOW => SUCCESS !!!",
-        "!!! TEST STORAGE OVERFLOW => SUCCESS !!!"
-    ]
-
-    for success_msg in expected_output_array:
-        (text, match) = logs.get_match_in_line(
-                                f_out,
-                                re.compile(success_msg),
-                                timeout)
-
-        assert match == success_msg
+    parser.check_test(boot_with_proxy(test_system),\
+                        timeout,\
+                        'testStorageOverflow',\
+                        single_thread = False,\
+                        occurrences = 2)
 
 def test_proxy_nvm_storage_underflow(boot_with_proxy):
     """This test will check that writing outside of the bounds (when starting
@@ -155,22 +113,11 @@ def test_proxy_nvm_storage_underflow(boot_with_proxy):
         - 128 KB for 2nd NVM channel
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-
-    expected_output_array = [
-        #every test case output needs to happen twice (for both channels)
-        "!!! TEST STORAGE UNDERFLOW => SUCCESS !!!",
-        "!!! TEST STORAGE UNDERFLOW => SUCCESS !!!"
-    ]
-
-    for success_msg in expected_output_array:
-        (text, match) = logs.get_match_in_line(
-                                f_out,
-                                re.compile(success_msg),
-                                timeout)
-
-        assert match == success_msg
+    parser.check_test(boot_with_proxy(test_system),\
+                        timeout,\
+                        'testStorageUnderflow',\
+                        single_thread = False,\
+                        occurrences = 2)
 
 def test_proxy_nvm_far_out_of_bounds_address(boot_with_proxy):
     """This test will check that writing outside of the bounds (invalid start
@@ -188,19 +135,8 @@ def test_proxy_nvm_far_out_of_bounds_address(boot_with_proxy):
         - 128 KB for 2nd NVM channel
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-
-    expected_output_array = [
-        #every test case output needs to happen twice (for both channels)
-        "!!! TEST STORAGE FAR OUT OF BOUNDS ADDRESS => SUCCESS !!!",
-        "!!! TEST STORAGE FAR OUT OF BOUNDS ADDRESS => SUCCESS !!!"
-    ]
-
-    for success_msg in expected_output_array:
-        (text, match) = logs.get_match_in_line(
-                                f_out,
-                                re.compile(success_msg),
-                                timeout)
-
-        assert match == success_msg
+    parser.check_test(boot_with_proxy(test_system),\
+                        timeout,\
+                        'testStorageFarOutOfBoundAddr',\
+                        single_thread = False,\
+                        occurrences = 2)
