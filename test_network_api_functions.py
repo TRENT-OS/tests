@@ -63,8 +63,6 @@ def is_server_up(addr, sport, dport, responsiveness_timeout_sec, timeout_sec):
         should be every time a connection attempt is made.
         Returns True if the server answered in time."""
 
-    from time import time
-
     timeout_checker = Timeout_Checker(timeout_sec)
 
     while not timeout_checker.has_expired():
