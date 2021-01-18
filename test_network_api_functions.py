@@ -1,6 +1,7 @@
 from scapy.all import *
 from board_automation.tools import Timeout_Checker
 
+#-------------------------------------------------------------------------------
 def ack_and_fin(sack, responsiveness_timeout_sec, tcp_template=None):
 
     """Given a SYNACK packet received from a prio SYN sent it does follow up
@@ -52,6 +53,8 @@ def ack_and_fin(sack, responsiveness_timeout_sec, tcp_template=None):
 
     return retval
 
+
+#-------------------------------------------------------------------------------
 def is_server_up(addr, sport, dport, responsiveness_timeout_sec, timeout_sec):
 
     """Checks whether the server at addr:dport is up or not until either the
