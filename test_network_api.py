@@ -83,9 +83,9 @@ def test_tcp_options_poison(boot_with_proxy):
     ip_frame = IP(dst = target_ip)
 
     print('Check if server is up (before poisoning)...')
-    if is_server_up(target_ip,\
-                    sport,\
-                    dport,\
+    if is_server_up(target_ip,
+                    sport,
+                    dport,
                     responsiveness_timeout,
                     timeout_checker.get_remaining()):
         print("Server is up.")
@@ -94,9 +94,9 @@ def test_tcp_options_poison(boot_with_proxy):
 
     print('Poisoning...')
     # OK, server is up, now poison it
-    poison_pkt = TCP(dport   = dport,\
-                     sport   = sport,\
-                     options = [(255, b'')],\
+    poison_pkt = TCP(dport   = dport,
+                     sport   = sport,
+                     options = [(255, b'')],
                      flags   = "S")
 
     poison_pkt_raw = bytearray(raw(poison_pkt))
@@ -121,10 +121,10 @@ def test_tcp_options_poison(boot_with_proxy):
 
     # if poisoning is possible the server will no longer respond now
     print('Check if server is up (after poisoning)...')
-    if is_server_up(target_ip,\
-                    sport,\
-                    dport,\
-                    responsiveness_timeout,\
+    if is_server_up(target_ip,
+                    sport,
+                    dport,
+                    responsiveness_timeout,
                     timeout_checker.get_remaining()):
         print ("Server is up.")
     else:
@@ -152,10 +152,10 @@ def test_tcp_header_length_poison(boot_with_proxy):
     ip_frame = IP(dst = target_ip)
 
     print('Check if server is up (before poisoning)...')
-    if is_server_up(target_ip,\
-                    sport,\
-                    dport,\
-                    responsiveness_timeout,\
+    if is_server_up(target_ip,
+                    sport,
+                    dport,
+                    responsiveness_timeout,
                     timeout_checker.get_remaining()):
         print ("Server is up.")
     else:
@@ -163,9 +163,9 @@ def test_tcp_header_length_poison(boot_with_proxy):
 
     print('Poisoning...')
 
-    tcp_template = TCP(dport = dport,\
-                        sport = sport,\
-                        dataofs = 0xf,\
+    tcp_template = TCP(dport = dport,
+                        sport = sport,
+                        dataofs = 0xf,
                         flags = "S")
     sack = sr1(ip_frame/tcp_template, timeout = responsiveness_timeout)
 
@@ -174,10 +174,10 @@ def test_tcp_header_length_poison(boot_with_proxy):
 
     # if poisoning is possible the server will no longer respond now
     print('Check if server is up (after poisoning)...')
-    if is_server_up(target_ip,\
-                    sport,\
-                    dport,\
-                    responsiveness_timeout,\
+    if is_server_up(target_ip,
+                    sport,
+                    dport,
+                    responsiveness_timeout,
                     timeout_checker.get_remaining()):
         print ("Server is up.")
     else:
