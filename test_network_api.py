@@ -25,6 +25,7 @@ from scapy.all import *
 # we don't use it at this time.
 from scapy.config import conf
 conf.ipv6_enabled = False
+conf.verb = 0  # don't print anything from scapy
 
 
 #-------------------------------------------------------------------------------
