@@ -3,7 +3,7 @@ from board_automation.tools import Timeout_Checker
 
 #-------------------------------------------------------------------------------
 # timeout can be an integer or a Timeout_Checker object
-def ack_and_fin(sack, responsiveness_timeout_sec, tcp_template=None):
+def ack_and_fin(sack, timeout_sec, tcp_template=None):
 
     """
     Given a SYNACK packet was received from a previous SYN sent, this function
@@ -11,53 +11,39 @@ def ack_and_fin(sack, responsiveness_timeout_sec, tcp_template=None):
     packet receive the expected answer.
     """
 
-    ack         = None
-    fack        = None
-    lack        = None
-    retval      = True
-
-    timeout_checker = Timeout_Checker(responsiveness_timeout_sec)
-
     if sack is None:
         print('cannot perform ack_and_fin() without sack')
         return False
 
-    if tcp_template is None:
-        tcp_layer = TCP()
-    else:
-        tcp_layer = tcp_template
+    timeout = Timeout_Checker(timeout_sec)
 
+    tcp_layer = TCP() if tcp_template is None else tcp_template
     tcp_layer.dport = sack.sport
     tcp_layer.sport = sack.dport
     tcp_layer.flags = "A"
     tcp_layer.seq   = sack.ack
     tcp_layer.ack   = sack.seq + 1
 
-    ack = sr1(
-            IP(dst = sack[IP].src)/tcp_layer,
-            timeout = timeout_checker.get_remaining())
-    if ack is None:
-        print('no ack received')
-        retval = False
+    # send the ACK for the SYNACK
+    scapy.sendrecv.send(IP(dst = sack[IP].src)/tcp_layer)
 
+    # send the FIN and wait for FINACK
     tcp_layer.flags = "FA"
-
-    fack = sr1(
+    fack = scapy.sendrecv.sr1(
             IP(dst = sack[IP].src)/tcp_layer,
-            timeout = timeout_checker.get_remaining())
+            timeout = timeout.get_remaining())
     if fack is None:
-        print('no fack received')
+        print('no FINACK received')
         return False
 
-    tcp_layer.flags     = "A"
-    tcp_layer.seq       = fack.ack
-    tcp_layer.ack       = fack.seq + 1
+    tcp_layer.flags = "A"
+    tcp_layer.seq   = fack.ack
+    tcp_layer.ack   = fack.seq + 1
 
-    lack = sr1(
-            IP(dst = sack[IP].src)/tcp_layer,
-            timeout = timeout_checker.get_remaining())
+    # send the last ACK
+    scapy.sendrecv.send(IP(dst = sack[IP].src)/tcp_layer)
 
-    return retval
+    return True
 
 
 #-------------------------------------------------------------------------------
@@ -72,15 +58,26 @@ def is_server_up(addr, sport, dport, responsiveness_timeout_sec, timeout_sec):
     """
 
     # timeout_sec can be an integer or a Timeout_Checker object
-    timeout_checker = Timeout_Checker(timeout_sec)
+    timeout = Timeout_Checker(timeout_sec)
 
-    while not timeout_checker.has_expired():
-        sack = sr1(
+    def get_max_remaining_time():
+        return min(timeout.get_remaining(), responsiveness_timeout_sec)
+
+    while not timeout.has_expired():
+
+        sack = scapy.sendrecv.sr1(
                 IP(dst = addr)/\
                 TCP(dport = dport, sport = sport, flags = "S"),
-                timeout = responsiveness_timeout_sec)
-        if sack is not None:
-            ack_and_fin(sack, responsiveness_timeout_sec)
-            return True
+                timeout = get_max_remaining_time())
 
+        if sack is None:
+            print('ERROR: connection failed, retrying')
+            continue
+
+        # we got a SYNACK. Close the connection, but ignore the result
+        if not ack_and_fin(sack, get_max_remaining_time()):
+            print('ERROR: ack_and_fin() failed')
+        return True
+
+    print('ERROR: could not connect to server')
     return False

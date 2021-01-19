@@ -114,7 +114,7 @@ def test_tcp_options_poison(boot_with_proxy):
 
     sack = sr1(poison_pkt, timeout = responsiveness_timeout)
     if sack is None:
-        print("No answer received right after poisoning, this could be OK, maybe it just dropped the malformed packet")
+        print("No answer, maybe server dropped poisoned packet")
     elif not ack_and_fin(sack, responsiveness_timeout):
         print("ack_and_fin() with poisoned packets failed")
     #else: server reacted fine to poison
@@ -168,8 +168,9 @@ def test_tcp_header_length_poison(boot_with_proxy):
                         dataofs = 0xf,
                         flags = "S")
     sack = sr1(ip_frame/tcp_template, timeout = responsiveness_timeout)
-
-    if not ack_and_fin(sack, responsiveness_timeout, tcp_template):
+    if sack is None:
+        print("No answer, maybe server dropped poisoned packet")
+    elif not ack_and_fin(sack, responsiveness_timeout, tcp_template):
         print("ack_and_fin() with poisoned packets failed")
 
     # if poisoning is possible the server will no longer respond now
