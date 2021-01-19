@@ -1,27 +1,24 @@
-from scapy.all import *
-import socket
+import sys
+import threading
 import time
-import re
+import random
+import pathlib
 import os
-import logs # logs module from the common directory in TA
-import pytest
+import shutil
+import string
+import re
+import socket
 import http.server
 import socketserver
-import shutil
-import pathlib
-import random
-import string
-import threading
 
-import sys
+import pytest
 
+import logs # logs module from the common directory in TA
+import test_parser as parser
 from test_network_api_functions import *
 from board_automation.tools import Timeout_Checker
 
-import test_parser as parser
-
-server_dos_tests = ['test_tcp_options_poison', 'test_tcp_header_length_poison']
-
+from scapy.all import *
 # This python file is imported by pydoc which sometimes throws an error about a
 # missing IPv6 default route (if the machine building the documentation doesn't
 # have it set). To remove this warning we disable IPv6 support in scapy, since
@@ -30,6 +27,7 @@ from scapy.config import conf
 conf.ipv6_enabled = False
 
 
+#-------------------------------------------------------------------------------
 # configure in which interface to send out the packets.
 conf.iface = "br0"
 test_system = "test_network_api"
@@ -44,6 +42,10 @@ ETH_1_ADDR = "10.0.0.10"
 CFG_TEST_HTTP_SERVER = "192.168.82.12"
 # Server
 ETH_2_ADDR = "10.0.0.11"
+
+
+#-------------------------------------------------------------------------------
+server_dos_tests = ['test_tcp_options_poison', 'test_tcp_header_length_poison']
 
 
 #-------------------------------------------------------------------------------
