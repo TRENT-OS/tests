@@ -82,18 +82,16 @@ def test_tcp_options_poison(boot_with_proxy):
     target_ip = ETH_2_ADDR
     ip_frame = IP(dst = target_ip)
 
+    def check_server_up():
+        return is_server_up(target_ip, sport, dport,
+                            responsiveness_timeout, timeout_checker)
+
     print('Check if server is up (before poisoning)...')
-    if is_server_up(target_ip,
-                    sport,
-                    dport,
-                    responsiveness_timeout,
-                    timeout_checker.get_remaining()):
-        print("Server is up.")
-    else:
+    if not check_server_up():
         pytest.fail("Timeout while checking if server is up")
 
-    print('Poisoning...')
-    # OK, server is up, now poison it
+    # server is up, now poison it
+    print('Server is up, try poisoning...')
     poison_pkt = TCP(dport   = dport,
                      sport   = sport,
                      options = [(255, b'')],
@@ -121,13 +119,7 @@ def test_tcp_options_poison(boot_with_proxy):
 
     # if poisoning is possible the server will no longer respond now
     print('Check if server is up (after poisoning)...')
-    if is_server_up(target_ip,
-                    sport,
-                    dport,
-                    responsiveness_timeout,
-                    timeout_checker.get_remaining()):
-        print ("Server is up.")
-    else:
+    if not check_server_up():
         pytest.fail("Timeout while checking if server is up")
 
 
@@ -151,18 +143,16 @@ def test_tcp_header_length_poison(boot_with_proxy):
     target_ip = ETH_2_ADDR
     ip_frame = IP(dst = target_ip)
 
+    def check_server_up():
+        return is_server_up(target_ip, sport, dport,
+                            responsiveness_timeout, timeout_checker)
+
     print('Check if server is up (before poisoning)...')
-    if is_server_up(target_ip,
-                    sport,
-                    dport,
-                    responsiveness_timeout,
-                    timeout_checker.get_remaining()):
-        print ("Server is up.")
-    else:
+    if not check_server_up():
         pytest.fail("Timeout while checking if server is up")
 
-    print('Poisoning...')
-
+    # server is up, now poison it
+    print('Server is up, try poisoning...')
     tcp_template = TCP(dport = dport,
                         sport = sport,
                         dataofs = 0xf,
@@ -175,13 +165,7 @@ def test_tcp_header_length_poison(boot_with_proxy):
 
     # if poisoning is possible the server will no longer respond now
     print('Check if server is up (after poisoning)...')
-    if is_server_up(target_ip,
-                    sport,
-                    dport,
-                    responsiveness_timeout,
-                    timeout_checker.get_remaining()):
-        print ("Server is up.")
-    else:
+    if not check_server_up():
         pytest.fail("Timeout while checking if server is up")
 
 
