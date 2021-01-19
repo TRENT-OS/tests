@@ -64,11 +64,16 @@ def test_network_basic(boot_with_proxy):
 @pytest.mark.dependency()
 def test_tcp_options_poison(boot_with_proxy):
 
-    """Sends a malformed packet with tcp options as "0xFF 0x00 0x00 0x00". Some
-    TCP/IP implementation may loop infinitely in the attempt of parsing such a
-    sequence. The test sends the poisoned packet to the server listening on
-    port 5555 in a loop. If no answer occurs then the server TCP stack is to be
-    considered affected by the issue described."""
+    """
+    Test for CVE-2020-24337, send a malformed packet with TCP options set to
+    "0xFF 0x00 0x00 0x00". Some TCP/IP implementation can't process this and
+    may crash loop infinitely trying to parse it. The test requires a server
+    listening on port 5555. If no answer occurs the server's TCP stack should
+    be considered affected by the issue.
+    The PicoTCP version used in TRENTOS will ignore the broken TCP options in
+    the malformed SYN packet used in this test and respond with a SYNACK, so
+    the connection can be opened.
+    """
 
     responsiveness_timeout = 10
     timeout_checker = Timeout_Checker(timeout)
@@ -114,7 +119,8 @@ def test_tcp_options_poison(boot_with_proxy):
         print("ack_and_fin() with poisoned packets failed")
     #else: server reacted fine to poison
 
-    print('Check if server is up (after poisoning)...')# this time should be not if poisoned
+    # if poisoning is possible the server will no longer respond now
+    print('Check if server is up (after poisoning)...')
     if is_server_up(target_ip,\
                     sport,\
                     dport,\
@@ -129,11 +135,14 @@ def test_tcp_options_poison(boot_with_proxy):
 @pytest.mark.dependency()
 def test_tcp_header_length_poison(boot_with_proxy):
 
-    """Sends a malformed packet with TCP header length as "0xF" (first nibble
-    only is to be considered TCP header length). Some TCP/IP implementation may
-    result in crashing. The test sends the poisoned packet to the server
-    listening on port 5555 in a loop. If no answer occurs then the server TCP
-    stack is to be considered affected by the issue described."""
+    """
+    Test for CVE-2020-24341, send a malformed packet with the invalid TCP header
+    length "0xF". Some TCP/IP implementation may crash then. The test requires a
+    server listening on port 5555. If no answer occurs the server's TCP stack is
+    considered affected by the issue.
+    The PicoTCP version used in TRENTOS will drop the malformed SYN from this
+    test and thus opening a connection will result in a timeout.
+    """
 
     responsiveness_timeout = 10
     timeout_checker = Timeout_Checker(timeout)
@@ -163,6 +172,7 @@ def test_tcp_header_length_poison(boot_with_proxy):
     if not ack_and_fin(sack, responsiveness_timeout, tcp_template):
         print("ack_and_fin() with poisoned packets failed")
 
+    # if poisoning is possible the server will no longer respond now
     print('Check if server is up (after poisoning)...')
     if is_server_up(target_ip,\
                     sport,\

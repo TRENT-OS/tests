@@ -2,11 +2,14 @@ from scapy.all import *
 from board_automation.tools import Timeout_Checker
 
 #-------------------------------------------------------------------------------
+# timeout can be an integer or a Timeout_Checker object
 def ack_and_fin(sack, responsiveness_timeout_sec, tcp_template=None):
 
-    """Given a SYNACK packet received from a prio SYN sent it does follow up
-        with an ACK and close the connection with FIN. Return true if every
-        packet receive an answer"""
+    """
+    Given a SYNACK packet was received from a previous SYN sent, this function
+    will send an ACK and close the connection with FIN. Returns true if every
+    packet receive the expected answer.
+    """
 
     ack         = None
     fack        = None
@@ -55,14 +58,17 @@ def ack_and_fin(sack, responsiveness_timeout_sec, tcp_template=None):
 
 
 #-------------------------------------------------------------------------------
+# timeout can be an integer or a Timeout_Checker object
 def is_server_up(addr, sport, dport, responsiveness_timeout_sec, timeout_sec):
 
-    """Checks whether the server at addr:dport is up or not until either the
-        server responds or the timeout expires. Function polls the server trying
-        to establish a connection. The responsiveness timeout indicated how much
-        should be every time a connection attempt is made.
-        Returns True if the server answered in time."""
+    """
+    Checks whether the server at addr:dport is up. A TCP connection is opened,
+    with a timeout. If the connection fail this is repeated over and over again
+    until the overall time has expired.
 
+    """
+
+    # timeout_sec can be an integer or a Timeout_Checker object
     timeout_checker = Timeout_Checker(timeout_sec)
 
     while not timeout_checker.has_expired():
