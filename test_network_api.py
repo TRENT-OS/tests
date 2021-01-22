@@ -236,7 +236,7 @@ def test_network_api_echo_server(boot_with_proxy, n):
         # read n bytes from the file
         blob = data_file.read(n)
 
-    run_echo_client(blob)
+    run_echo_client(ETH_2_ADDR, 5555, blob, timeout)
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
@@ -245,6 +245,7 @@ def test_network_api_echo_server(boot_with_proxy, n):
 
     if not ret:
         pytest.fail("Missing: %s" % (expr_fail))
+
 
 #-------------------------------------------------------------------------------
 def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
@@ -256,15 +257,13 @@ def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
-    # 64 Kbit of data
-    num_chars =  8 * 1024
+    def do_run_echo_client():
+        num_chars =  8 * 1024 # 64 Kbit of data
+        # num_chars = 10 * 128 * 1024 # 10 Mbit of data
+        gen_str = ''.join(random.choice(string.ascii_letters) for i in range(num_chars))
+        run_echo_client(ETH_2_ADDR, 5555, gen_str.encode(), timeout)
 
-    # 10 Mbit of data
-    # num_chars = 10 * 128 * 1024
-
-    gen_str = ''.join(random.choice(string.ascii_letters) for i in range(num_chars))
-
-    result = benchmark(run_echo_client, gen_str.encode())
+    result = benchmark(do_run_echo_client)
 
     ret, text, expr_fail = logs.check_log_match_sequence(
         f_out,
@@ -273,67 +272,6 @@ def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
 
     if not ret:
         pytest.fail("Missing: %s" % (expr_fail))
-
-# ------------------------------------------------------------------------------
-@pytest.mark.dependency(depends=server_dos_tests)
-def run_echo_client(blob):
-
-    print("Running tap app to connect to Server")
-
-    server_address = (ETH_2_ADDR, 5555)
-    received_blob = b""
-
-    # Create a TCP/IP socket
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    if (sock is None):
-        pytest.skip("could not get a socket")
-
-    sock.settimeout(timeout)
-
-    for attempt in range(3):
-        print('Trying to connect to Server, attempt # ' + str(attempt) + '...')
-
-        try:
-            # Connect the socket to the port where the server is listening
-            print('connecting to %s port %s' % server_address, file=sys.stderr)
-            sock.connect(server_address)
-        except:
-            print('connection failed, retrying in 2 secs')
-            time.sleep(2)
-            continue
-        break
-
-    try:
-        # Send data
-        print('sending blob of ' + str(len(blob)) + ' bytes', file=sys.stderr)
-        test_time_base = time.time()
-
-        # Start a thread to send all the data
-        sendThread = threading.Thread(target=sock.sendall, args=(blob,))
-        sendThread.start()
-
-        # Look for the response
-        while len(received_blob) < len(blob):
-            # Try to read the whole frame
-            received_blob += sock.recv(1600)
-            # print('Received len is ' + str(len(received_blob)) + ' waiting for ' + str(len(blob)))
-
-            if (len(received_blob) == 1):
-                time_leapsed_ms = (time.time() - test_time_base) * 1000
-                print('first byte received in ' + str(time_leapsed_ms) +
-                      ' ms, troughtput (partial) is ' + str((len(blob) + 1) / time_leapsed_ms) + ' kB/s')
-
-        time_leapsed_ms = (time.time() - test_time_base) * 1000
-        print('echo completed in ' + str(time_leapsed_ms) +
-              ' ms, troughtput (full echo) is ' + str((len(blob) * 2) / time_leapsed_ms) + ' kB/s')
-
-    finally:
-        print('closing socket', file=sys.stderr)
-        sock.close()
-        sendThread.join()
-        if not received_blob == blob:
-            pytest.fail("Blobs mismatch")
-
 
 
 #-------------------------------------------------------------------------------
