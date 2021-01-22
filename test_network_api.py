@@ -7,6 +7,7 @@ import os
 import shutil
 import string
 import re
+import struct
 import socket
 import http.server
 import socketserver
@@ -81,10 +82,12 @@ def test_tcp_options_poison(boot_with_proxy):
     def get_resp_timeout():
         return timeout_checker.sub_timeout(10).get_remaining()
 
-    sport = random.randint(1025, 65535)
-    dport = 5555
+    test_run = boot_with_proxy(test_system)
+    f_out = test_run[1]
+    parser.fail_on_assert(f_out)
+
     target_ip = ETH_2_ADDR
-    ip_frame = IP(dst = target_ip)
+    dport = 5555
 
     def check_server_up(info_str):
         print('Check if server {}:{} is up ({})...'.format(
@@ -100,30 +103,58 @@ def test_tcp_options_poison(boot_with_proxy):
 
     # server is up, now poison it
     print('Server is up, try poisoning...')
-    poison_pkt = TCP(dport   = dport,
-                     sport   = sport,
-                     options = [(255, b'')],
-                     flags   = "S")
 
-    poison_pkt_raw = bytearray(raw(poison_pkt))
+    # RFC793 defines for the TCP option field, that there are two kinds of
+    # options. Singe-byte options and options with one byte type, one byte
+    # length and the length-2 data bytes. The option type defines if there is
+    # data or not. Option type 0 ('EOL') is a single-byte option that indicates
+    # the end of the option list. Option type 1 ('NOP') is also single-byte an
+    # is a dummy that does nothing. The whole options field is padded with zeros
+    # to a multiple of 4 bytes. A list of all defined options can be found at
+    # https://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml and
+    # the definition is, that all option types besides 0 and 1 must have a
+    # length field.
+    # For this test we first create a TCP payload with an the (undefined) option
+    # 0xff without any data, which results in the raw data 0xff 0x02. Scapy will
+    # automatically appends an option 'EOL' there which is "0x00" as raw data.
+    # Since the option field starts at offset 20 in the TCP data and its length
+    # is padded with zeros to a multiple of 4, the resulting option field will
+    # be "0xff 0x02 0x00 0x00".
+    tcp_template = TCP(
+                    dport   = dport,
+                    sport   = random.randint(1025, 65535),
+                    options = [(0xff, b'')], # option 0xff with no data
+                    flags   = "S")
 
-    poison_pkt = ip_frame/TCP(poison_pkt_raw)
-    # compute the TCP checksum
-    checksum = in4_chksum(socket.IPPROTO_TCP, poison_pkt[IP], poison_pkt_raw)
-    # poison the packet and adjust the checksum to still be valid
-    checksum = checksum + poison_pkt_raw[-3]
-    poison_pkt_raw[-3] = 0
-    poison_pkt_raw[-8] = checksum // 256
-    poison_pkt_raw[-7] = checksum % 256
+    # get the raw template, ie no checksum are calculated yet
+    raw_tcp_template = bytearray(raw(tcp_template))
 
-    poison_pkt = ip_frame/TCP(poison_pkt_raw)
+    # change option field from "0xff 0x02 0x00 0x00" to "0xff 0x00 0x00 0x00"
+    if (0x02 != raw_tcp_template[-3]):
+        pytest.fail('TCP template option 0xFF length is not 0x02')
 
-    sack = sr1(poison_pkt, timeout = get_resp_timeout())
+    raw_tcp_template[-3] = 0
+
+    # set TCP header checksum (at offset 16, big endian)
+    if (0 != struct.unpack_from('>H', raw_tcp_template, 16)[0]):
+        pytest.fail('TCP template checksum is not 0')
+
+    ip_frame = IP(dst = target_ip)
+    tcp_checksum = in4_chksum(
+                        socket.IPPROTO_TCP,
+                        ip_frame,
+                        raw_tcp_template)
+    struct.pack_into('>H', raw_tcp_template, 16, tcp_checksum)
+    # print(raw_tcp_template.hex(' '))
+
+    # send the malformed IP packet
+    sack = sr1(
+            ip_frame/TCP(raw_tcp_template),
+            timeout = get_resp_timeout())
     if sack is None:
         print("No answer, maybe server dropped poisoned packet")
-    elif not ack_and_fin(sack, get_resp_timeout()):
-        print("ack_and_fin() with poisoned packets failed")
-    #else: server reacted fine to poison
+    elif not ack_and_fin(sack, get_resp_timeout(), tcp_template):
+        print("ack_and_fin() after ACK for poisoned SYN failed")
 
     # if poisoning is possible the server will no longer respond now
     check_server_up('after poisoning')
