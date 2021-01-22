@@ -146,11 +146,12 @@ def test_tcp_header_length_poison(boot_with_proxy):
     def get_resp_timeout():
         return timeout_checker.sub_timeout(10).get_remaining()
 
+    test_run = boot_with_proxy(test_system)
+    f_out = test_run[1]
+    parser.fail_on_assert(f_out)
 
-    sport = random.randint(1025, 65535)
-    dport = 5555
     target_ip = ETH_2_ADDR
-    ip_frame = IP(dst = target_ip)
+    dport = 5555
 
     def check_server_up(info_str):
         print('Check if server {}:{} is up ({})...'.format(
@@ -166,15 +167,18 @@ def test_tcp_header_length_poison(boot_with_proxy):
 
     # server is up, now poison it
     print('Server is up, try poisoning...')
+    # create a TCP SYN packet with invalid data offset 0xf
     tcp_template = TCP(dport = dport,
-                        sport = sport,
+                        sport = random.randint(1025, 65535),
                         dataofs = 0xf,
                         flags = "S")
-    sack = sr1(ip_frame/tcp_template, timeout = get_resp_timeout())
+    sack = sr1(
+            IP(dst = target_ip)/tcp_template,
+            timeout = get_resp_timeout())
     if sack is None:
         print("No answer, maybe server dropped poisoned packet")
     elif not ack_and_fin(sack, get_resp_timeout(), tcp_template):
-        print("ack_and_fin() with poisoned packets failed")
+        print("ack_and_fin() after ACK for poisoned SYN failed")
 
     # if poisoning is possible the server will no longer respond now
     check_server_up('after poisoning')
