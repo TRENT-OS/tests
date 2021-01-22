@@ -76,20 +76,27 @@ def test_tcp_options_poison(boot_with_proxy):
     the connection can be opened.
     """
 
-    responsiveness_timeout = 10
     timeout_checker = Timeout_Checker(timeout)
+
+    def get_resp_timeout():
+        return timeout_checker.sub_timeout(10).get_remaining()
+
     sport = random.randint(1025, 65535)
     dport = 5555
     target_ip = ETH_2_ADDR
     ip_frame = IP(dst = target_ip)
 
-    def check_server_up():
-        return is_server_up(target_ip, sport, dport,
-                            responsiveness_timeout, timeout_checker)
+    def check_server_up(info_str):
+        print('Check if server {}:{} is up ({})...'.format(
+                target_ip, dport, info_str))
+        if not is_server_up(target_ip, dport, get_resp_timeout()):
+            pytest.fail('server {}:{} seems down ({})'.format(
+                            target_ip, dport, info_str))
 
-    print('Check if server is up (before poisoning)...')
-    if not check_server_up():
-        pytest.fail("Timeout while checking if server is up")
+
+    print('') # add line break after pytest info
+
+    check_server_up('before poisoning')
 
     # server is up, now poison it
     print('Server is up, try poisoning...')
@@ -111,17 +118,15 @@ def test_tcp_options_poison(boot_with_proxy):
 
     poison_pkt = ip_frame/TCP(poison_pkt_raw)
 
-    sack = sr1(poison_pkt, timeout = responsiveness_timeout)
+    sack = sr1(poison_pkt, timeout = get_resp_timeout())
     if sack is None:
         print("No answer, maybe server dropped poisoned packet")
-    elif not ack_and_fin(sack, responsiveness_timeout):
+    elif not ack_and_fin(sack, get_resp_timeout()):
         print("ack_and_fin() with poisoned packets failed")
     #else: server reacted fine to poison
 
     # if poisoning is possible the server will no longer respond now
-    print('Check if server is up (after poisoning)...')
-    if not check_server_up():
-        pytest.fail("Timeout while checking if server is up")
+    check_server_up('after poisoning')
 
 
 #-------------------------------------------------------------------------------
@@ -136,20 +141,28 @@ def test_tcp_header_length_poison(boot_with_proxy):
     test and thus opening a connection will result in a timeout.
     """
 
-    responsiveness_timeout = 10
     timeout_checker = Timeout_Checker(timeout)
+
+    def get_resp_timeout():
+        return timeout_checker.sub_timeout(10).get_remaining()
+
+
     sport = random.randint(1025, 65535)
     dport = 5555
     target_ip = ETH_2_ADDR
     ip_frame = IP(dst = target_ip)
 
-    def check_server_up():
-        return is_server_up(target_ip, sport, dport,
-                            responsiveness_timeout, timeout_checker)
+    def check_server_up(info_str):
+        print('Check if server {}:{} is up ({})...'.format(
+                target_ip, dport, info_str))
+        if not is_server_up(target_ip, dport, get_resp_timeout()):
+            pytest.fail('server {}:{} seems down ({})'.format(
+                            target_ip, dport, info_str))
 
-    print('Check if server is up (before poisoning)...')
-    if not check_server_up():
-        pytest.fail("Timeout while checking if server is up")
+
+    print('') # add line break after pytest info
+
+    check_server_up('before poisoning')
 
     # server is up, now poison it
     print('Server is up, try poisoning...')
@@ -157,16 +170,14 @@ def test_tcp_header_length_poison(boot_with_proxy):
                         sport = sport,
                         dataofs = 0xf,
                         flags = "S")
-    sack = sr1(ip_frame/tcp_template, timeout = responsiveness_timeout)
+    sack = sr1(ip_frame/tcp_template, timeout = get_resp_timeout())
     if sack is None:
         print("No answer, maybe server dropped poisoned packet")
-    elif not ack_and_fin(sack, responsiveness_timeout, tcp_template):
+    elif not ack_and_fin(sack, get_resp_timeout(), tcp_template):
         print("ack_and_fin() with poisoned packets failed")
 
     # if poisoning is possible the server will no longer respond now
-    print('Check if server is up (after poisoning)...')
-    if not check_server_up():
-        pytest.fail("Timeout while checking if server is up")
+    check_server_up('after poisoning')
 
 
 #-------------------------------------------------------------------------------

@@ -129,39 +129,70 @@ def do_network_ping(target_ip, cnt=1, timeout_sec=None):
 
 #-------------------------------------------------------------------------------
 # timeout can be an integer or a Timeout_Checker object
-def is_server_up(addr, sport, dport, responsiveness_timeout_sec, timeout_sec):
+def is_server_up(target_ip, port, timeout_sec):
 
     """
-    Checks whether the server at addr:dport is up. A TCP connection is opened,
-    with a timeout. If the connection fail this is repeated over and over again
+    Checks whether the server is up and a TCP connection can be opened on the
+    given port. If the connection fails this is repeated over and over again
     until the overall time has expired.
 
     """
 
-    # timeout_sec can be an integer or a Timeout_Checker object
     timeout = Timeout_Checker(timeout_sec)
 
-    def get_max_remaining_time():
-        return min(timeout.get_remaining(), responsiveness_timeout_sec)
+    # try to ping the remote server
+    icmp_id = random.randrange(0x10000)
+    seq = 0
+    while True:
 
-    while not timeout.has_expired():
+        if timeout.has_expired():
+            print('ERROR: giving up reaching {} via ping'.format(target_ip))
+            return False
 
-        sack = scapy.sendrecv.sr1(
-                IP(dst = addr)/\
-                TCP(dport = dport, sport = sport, flags = "S"),
-                timeout = get_max_remaining_time())
+        # ping must answer within 30 secs
+        if do_single_network_ping(
+                    target_ip,
+                    id = icmp_id,
+                    seq = seq,
+                    timeout_sec = timeout.sub_timeout(30).get_remaining()):
+            # ping worked
+            break;
 
-        if sack is None:
-            print('ERROR: connection failed, retrying')
-            continue
+        print('ERROR: could not ping {}'.format(target_ip))
+        seq += 1
+        # continue loop and try another ping
 
-        # we got a SYNACK. Close the connection, but ignore the result
-        if not ack_and_fin(sack, get_max_remaining_time()):
-            print('ERROR: ack_and_fin() failed')
-        return True
 
-    print('ERROR: could not connect to server')
-    return False
+    # try to open a TCP connection
+    while True:
+
+        if timeout.has_expired():
+            print('ERROR: giving reaching {}:{} via TCP'.format(
+                    target_ip, port))
+            return False
+
+        # open a connection, automatically close it when this block if left
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            if (sock is None):
+                print('ERROR: could not create socket')
+                # we consider this a fatal error and don't retry
+                return False
+
+            # TCP connection must be set up within 30 secs
+            sock.settimeout( timeout.sub_timeout(30).get_remaining() )
+            try:
+                sock.connect( (target_ip, port) )
+
+            except Exception as e:
+                print('ERROR: could not connect to {}:{}'.format(
+                        target_ip, port))
+                return False
+
+            # TCP connection worked
+            break;
+
+    # server seems up and running
+    return True
 
 
 #-------------------------------------------------------------------------------
