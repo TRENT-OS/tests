@@ -67,7 +67,7 @@ def test_tcp_options_poison(boot_with_proxy):
     """
     Test for CVE-2020-24337, send a malformed packet with TCP options set to
     "0xFF 0x00 0x00 0x00". Some TCP/IP implementation can't process this and
-    may crash loop infinitely trying to parse it. The test requires a server
+    may crash or loop infinitely trying to parse it. The test requires a server
     listening on port 5555. If no answer occurs the server's TCP stack should
     be considered affected by the issue.
     The PicoTCP version used in TRENTOS will ignore the broken TCP options in
@@ -219,10 +219,9 @@ def test_network_api_client(boot_with_proxy):
 # increase this sizes and fix the issues in a second moment.
 lst = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]
 @pytest.mark.parametrize('n', lst)
-# @pytest.mark.skip(reason="Takes too long")
 def test_network_api_echo_server(boot_with_proxy, n):
     """
-    Test TCP/IP stack with a server that echoes the data sent to him in blocks.
+    Test TCP/IP stack with a server that echoes the data sent to it in blocks.
     The test is repeated using blocks of different sizes.
     """
 
