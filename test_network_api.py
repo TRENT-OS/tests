@@ -454,7 +454,7 @@ def test_network_tcp_connection_invalid(boot_with_proxy):
     parser.fail_on_assert(f_out)
 
     for i in range(10):
-        source_port = random.randint(10256, 65536)
+        source_port = random.randint(1025, 65536)
         r = IP(dst=ETH_2_ADDR)/TCP(dport=source_port,
                                    sport=source_port, seq=0, ack=0, flags='S')
         p = sr1(r, timeout=30)
