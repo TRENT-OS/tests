@@ -401,7 +401,12 @@ def test_network_tcp_connection_reset(boot_with_proxy):
 #-------------------------------------------------------------------------------
 def test_network_tcp_connection_invalid(boot_with_proxy):
     """
-    Test connecting to a port nobody is listening on.
+    Test connecting to a port nobody is listening on. RFC792 says a host MAY
+    send a destination unreachable message. RFC1122 says a host SHOULD generate
+    a destination unreachable messages with code 2 (Protocol Unreachable), when
+    the designated transport protocol is not supported or 3 (Port Unreachable),
+    when the designated transport protocol (e.g., UDP) is unable to demultiplex
+    the datagram but has no protocol mechanism to inform the sender.
     """
 
     test_run = boot_with_proxy(test_system)
@@ -414,9 +419,18 @@ def test_network_tcp_connection_invalid(boot_with_proxy):
                                    sport=source_port, seq=0, ack=0, flags='S')
         p = sr1(r, timeout=30)
         if p is None:
-            pytest.fail("No reply")
-        if not (p.haslayer(ICMP) and p.payload.type == 3):
-            pytest.fail("Received wrong message. Expected Port unreachable")
+            # actually, this in not a failure, because the host is not required
+            # to send anything, it just "may" (RFC792) or "should" (RFC1122).
+            pytest.fail("timeout waiting for ICMP message PORT_UNREACHABLE")
+
+        if not p.haslayer(ICMP):
+            pytest.fail("expected ICMP message PORT_UNREACHABLE, got something else")
+
+        ICMP_PORT_UNREACHABLE = 3
+        if (ICMP_PORT_UNREACHABLE != p.payload.type):
+            pytest.fail(
+                "expected ICMP message with PORT_UNREACHABLE ({}), got {}".format(
+                    ICMP_PORT_UNREACHABLE, p.payload.type) )
 
 
 #-------------------------------------------------------------------------------
