@@ -236,7 +236,15 @@ def test_network_api_echo_server(boot_with_proxy, n):
         # read n bytes from the file
         blob = data_file.read(n)
 
-    run_echo_client(ETH_2_ADDR, 5555, blob, timeout)
+    target_ip = ETH_2_ADDR
+    target_port = 5555
+
+    try:
+        run_echo_client(target_ip, target_port, blob, timeout)
+    except Exception as e:
+        pytest.fail(
+            'run_echo_client for {}:{} failed with exception {}'.format(
+                target_ip, target_port, e))
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
@@ -257,13 +265,21 @@ def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
+    target_ip = ETH_2_ADDR
+    target_port = 5555
+
     def do_run_echo_client():
         num_chars =  8 * 1024 # 64 Kbit of data
         # num_chars = 10 * 128 * 1024 # 10 Mbit of data
         gen_str = ''.join(random.choice(string.ascii_letters) for i in range(num_chars))
-        run_echo_client(ETH_2_ADDR, 5555, gen_str.encode(), timeout)
+        try:
+            run_echo_client(target_ip, target_port, gen_str.encode(), timeout)
+        except Exception as e:
+            pytest.fail(
+                'run_echo_client for {}:{} failed with exception {}'.format(
+                    target_ip, target_port, e))
 
-    result = benchmark(do_run_echo_client)
+    benchmark(do_run_echo_client)
 
     ret, text, expr_fail = logs.check_log_match_sequence(
         f_out,
