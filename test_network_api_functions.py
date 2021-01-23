@@ -50,6 +50,84 @@ def ack_and_fin(sack, timeout_sec, tcp_template=None):
 
 
 #-------------------------------------------------------------------------------
+# timeout_sec can be an integer or a Timeout_Checker object.
+# ICMP Echo packet uses the 32 bit header data filed for a 16 bit ID and
+# 16 bis sequence number field.
+def do_single_network_ping(target_ip, timeout_sec=None, id=None, seq=None):
+
+    timeout = Timeout_Checker(timeout_sec)
+
+    # ping is an ICMP echo packet
+    ping_pkt = scapy.layers.inet.IP(dst = target_ip)/\
+               scapy.layers.inet.ICMP(
+                    type = 8, # ICMP ECHO
+                    code = 0,
+                    id = 0 if id is None else id,
+                    seq = 0 if seq is None else seq)
+
+    #print('ping {} (id={:#04x}, seq={})'.format(
+    #        target_ip, ping_pkt[ICMP].id, ping_pkt[ICMP].seq))
+
+    resp = scapy.sendrecv.sr1(
+            ping_pkt,
+            timeout = None if timeout.is_infinite() \
+                      else timeout.get_remaining())
+
+    if resp is None:
+        print('ERROR: ping to {} timeout'.format(target_ip))
+        return False
+
+    # this should never happen, because scapy gives us the proper response
+    if not (resp.haslayer(ICMP)):
+        print('ERROR: ping to {} returned no ICMP packet'.format(target_ip))
+        return False
+
+    if (resp[ICMP].id != ping_pkt[ICMP].id):
+        print('ERROR: ping to {} response ID mismatch, got {}, expected {}'.format(
+                    target_ip, resp[ICMP].id, ping_pkt[ICMP].id) )
+        return False
+
+    if (resp[ICMP].seq != ping_pkt[ICMP].seq):
+        print('ERROR: ping to {} response SEQ mismatch, got {}, expected {}'.format(
+                    target_ip, resp[ICMP].seq, ping_pkt[ICMP].seq) )
+        return False
+
+    # ping was successful
+    return True
+
+
+#-------------------------------------------------------------------------------
+# timeout_sec can be an integer or a Timeout_Checker object
+# ping_timeout_sec is an integer
+def do_network_ping(target_ip, cnt=1, timeout_sec=None):
+
+    timeout = Timeout_Checker(timeout_sec)
+
+    # pick a random number for the 16 bit ID field.
+    icmp_id = random.randrange(0x10000)
+
+    for i in range(cnt):
+
+        if timeout.has_expired():
+            print('ERROR: timeout reached after {}/{} pings', i, cnt)
+            return False
+
+        # take all the remaining time for the next ping, currently there is no
+        # need to support a timeout for each ping.
+        if not do_single_network_ping(
+                    target_ip,
+                    id = icmp_id,
+                    seq = i,
+                    timeout_sec = None if timeout.is_infinite() \
+                                  else timeout.get_remaining()):
+            print('ERROR: ping {}/{} to {} failed', i+1, cnt, target_ip)
+            return False
+
+    # all pings were successful
+    return True
+
+
+#-------------------------------------------------------------------------------
 # timeout can be an integer or a Timeout_Checker object
 def is_server_up(addr, sport, dport, responsiveness_timeout_sec, timeout_sec):
 

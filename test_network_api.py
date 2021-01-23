@@ -663,14 +663,11 @@ def test_network_ping_reply_client(boot_with_proxy):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
-    lost = 0
-    for i in range(5):
-        randNum = random.randint(0, 255)
-        ans = sr1(IP(dst=ETH_1_ADDR)/ICMP(id=randNum), timeout=5)
-        if ans == None:
-            pytest.fail("Timeout waiting for ping reply")
-        if not ans.payload.id == randNum:
-            pytest.fail("Failed. We got a reply for a ping we didn't send.")
+    target_ip = ETH_1_ADDR
+
+    # must do 5 successful pings in 15 seconds
+    if not do_network_ping(target_ip, cnt=5, timeout_sec=15):
+        pytest.fail('could not ping {}'.format(target_ip))
 
 
 #-------------------------------------------------------------------------------
@@ -685,14 +682,11 @@ def test_network_ping_reply_server(boot_with_proxy):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
-    lost = 0
-    for i in range(5):
-        randNum = random.randint(0, 255)
-        ans = sr1(IP(dst=ETH_2_ADDR)/ICMP(id=randNum), timeout=5)
-        if ans == None:
-            pytest.fail("Timeout waiting for ping reply")
-        if not ans.payload.id == randNum:
-            pytest.fail("Failed. We got a reply for a ping we didn't send.")
+    target_ip = ETH_2_ADDR
+
+    # must do 5 successful pings in 15 seconds
+    if not do_network_ping(target_ip, cnt=5, timeout_sec=15):
+        pytest.fail('could not ping {}'.format(target_ip))
 
 
 #-------------------------------------------------------------------------------
