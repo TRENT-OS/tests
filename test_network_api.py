@@ -43,10 +43,11 @@ CFG_TEST_HTTP_SERVER = "192.168.82.12"
 # Server
 ETH_2_ADDR = "10.0.0.11"
 
-
-#-------------------------------------------------------------------------------
-server_dos_tests = ['test_tcp_options_poison', 'test_tcp_header_length_poison']
-
+# ToDo: could make some tests depend on DoS test results
+# server_dos_tests = [
+#     'test_tcp_options_poison',
+#     'test_tcp_header_length_poison'
+# ]
 
 #-------------------------------------------------------------------------------
 def test_network_basic(boot_with_proxy):
@@ -61,7 +62,6 @@ def test_network_basic(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
-@pytest.mark.dependency()
 def test_tcp_options_poison(boot_with_proxy):
 
     """
@@ -124,7 +124,6 @@ def test_tcp_options_poison(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
-@pytest.mark.dependency()
 def test_tcp_header_length_poison(boot_with_proxy):
 
     """
@@ -342,7 +341,6 @@ def run_echo_client(blob):
 
 #-------------------------------------------------------------------------------
 #@pytest.mark.skip(reason="Fails due to test enviroment sending RST")
-@pytest.mark.dependency(depends=server_dos_tests)
 def test_network_tcp_connection_establishment(boot_with_proxy):
     """
     Test the SYN/ACK-SYN/ACK sequence with various sequence numbers, delays and
@@ -379,7 +377,6 @@ ACK = 0x10
 URG = 0x20
 ECE = 0x40
 CWR = 0x80
-@pytest.mark.dependency(depends=server_dos_tests)
 def test_network_tcp_connection_closure(boot_with_proxy):
     """
     Test the FIN sequence with various sequence numbers, delays and lost
@@ -412,7 +409,6 @@ def test_network_tcp_connection_closure(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Fails due to picotcp not sending RST")
-@pytest.mark.dependency(depends=server_dos_tests)
 def test_network_tcp_connection_reset(boot_with_proxy):
     """
     Test the RST sequence with various sequence numbers, delays and lost
@@ -483,7 +479,6 @@ def test_network_tcp_out_of_band_signaling(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Fails due to test enviroment sending RST")
-@pytest.mark.dependency(depends=server_dos_tests)
 def test_network_tcp_out_of_order_receive(boot_with_proxy):
     """
     Test receiving TCP packets out of order with various sequence numbers,
@@ -516,7 +511,6 @@ def test_network_tcp_out_of_order_receive(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Fails due to payload mismatch")
-@pytest.mark.dependency(depends=server_dos_tests)
 def test_network_tcp_data_send(boot_with_proxy):
     """
     Test sending data in TCP pakets with various sequence numbers, delays and
@@ -604,7 +598,6 @@ def test_network_arp_reply_client(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
-@pytest.mark.dependency(depends=server_dos_tests)
 def test_network_arp_reply_server(boot_with_proxy):
     """Test if the server implementation component replies to arp request.
         Success: We get a valid arp reply
@@ -726,7 +719,6 @@ def test_network_ping_reply_client(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
-@pytest.mark.dependency(depends=server_dos_tests)
 def test_network_ping_reply_server(boot_with_proxy):
     """
     Test if the server implementation component replies to ping.
