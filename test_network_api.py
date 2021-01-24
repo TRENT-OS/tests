@@ -760,9 +760,10 @@ def test_network_dataport_size_check_client(boot_with_proxy):
     Failure: Timeout
     """
 
-    parser.check_test(boot_with_proxy(test_system),\
-                      timeout,\
-                      'test_dataport_size_check_client_functions')
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_dataport_size_check_client_functions')
 
 #-------------------------------------------------------------------------------
 def test_network_dataport_size_check_lib(boot_with_proxy):
@@ -773,6 +774,7 @@ def test_network_dataport_size_check_lib(boot_with_proxy):
     Failure: Timeout
     """
 
-    parser.check_test(boot_with_proxy(test_system),\
-                      timeout,\
-                      'test_dataport_size_check_client_functions')
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_dataport_size_check_client_functions')
