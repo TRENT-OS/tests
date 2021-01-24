@@ -391,11 +391,10 @@ def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-#@pytest.mark.skip(reason="Fails due to test enviroment sending RST")
-def test_network_tcp_connection_establishment(boot_with_proxy):
+def test_network_tcp_connection_established(boot_with_proxy):
     """
-    Test the SYN/ACK-SYN/ACK sequence with various sequence numbers, delays and
-    lost packets.
+    Test the TCP connection establishing and closing with various sequence
+    numbers, delays and lost packets.
     """
 
     test_run = boot_with_proxy(test_system)
@@ -403,63 +402,110 @@ def test_network_tcp_connection_establishment(boot_with_proxy):
     parser.fail_on_assert(f_out)
 
     target_ip = server_ip
+    dport = 5555
+
+    ip_frame = scapy.layers.inet.IP(dst = target_ip)
+    used_ports = [] # keep track of the source ports we have used so far
 
     for i in range(10):
-        source_port = random.randint(1025, 65536)
-        s = IP(dst=target_ip)/TCP(dport=5555, sport=source_port, flags='S')
-        sa = sr1(s, timeout=2)
+        # pick a fresh new random port. Note that choosing random ports here is
+        # safe as long as we are the only one using the host network stack
+        while True:
+            sport = random.randint(1025, 65536)
+            if not sport in used_ports:
+                used_ports.append(sport)
+                break
 
-        if sa is None:
-            pytest.fail("Didn't receive SYN/ACK")
+        def create_tcp_packet(seq=None, ack=None, flags=None):
+            tcp_payload = scapy.layers.inet.TCP(
+                            dport = dport,
+                            sport = sport)
 
-        a = IP(dst=target_ip)/TCP(dport=5555, sport=source_port,
-                                   seq=s.seq+1, ack=sa.seq+1, flags='A')
-        send(a)
-        if not (sa.ack == s.ack + 1):
-            pytest.fail("ACK mismatch")
-        if not (a.ack == sa.seq+1):
-            pytest.fail("ACK mismatch")
+            if seq is not None:
+                tcp_payload.seq = seq
 
+            if ack is not None:
+                # field is ignored if A flag is not set
+                tcp_payload.ack = ack
 
-#-------------------------------------------------------------------------------
-FIN = 0x01
-SYN = 0x02
-RST = 0x04
-PSH = 0x08
-ACK = 0x10
-URG = 0x20
-ECE = 0x40
-CWR = 0x80
-def test_network_tcp_connection_closure(boot_with_proxy):
-    """
-    Test the FIN sequence with various sequence numbers, delays and lost
-    packets.
-    """
+            if flags is not None:
+                tcp_payload.flags = flags
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-    parser.fail_on_assert(f_out)
+            packet = ip_frame/tcp_payload
+            #packet.show2()
+            return packet
 
-    target_ip = server_ip
+        print('connection {} with sport={}...'.format(i+1, sport))
 
-    for i in range(1):
-        source_port = random.randint(1025, 65536)
-        s = IP(dst=target_ip)/TCP(dport=5555, sport=source_port, flags='S')
-        sa = sr1(s, timeout=5)
+        # prepare SYN
+        #print('SYN ...')
+        syn = create_tcp_packet(flags = 'S')
 
-        if sa is None:
-            pytest.fail("Didn't receive SYN/ACK")
+        syn_resp = scapy.sendrecv.sr1(syn, timeout = 5)
+        if syn_resp is None:
+            pytest.fail("connection {} timeout for SYN-ACK".format(i+1))
 
-        a = IP(dst=target_ip)/TCP(dport=5555, sport=source_port,
-                                   seq=s.seq+1, ack=sa.seq+1, flags='A')
-        send(a)
-        r = IP(dst=target_ip)/TCP(dport=5555, sport=source_port,
-                                   seq=a.seq, ack=sa.seq+1, flags='F')
-        p = sr1(r, timeout=5)
-        if p is None:
-            pytest.fail("Didn't receive FIN ack")
-        if not (p.haslayer(TCP) and ((p['TCP'].flags & FIN) or (p['TCP'].flags & ACK))):
-            pytest.fail("Didn't receive FIN")
+        #syn_resp.show()
+
+        if not (syn_resp.haslayer(TCP)):
+            pytest.fail("connection {} response for SYN is no TCP packet".format(i+1))
+
+        tcp_flags = syn_resp[TCP].flags
+        if not (tcp_flags.S and tcp_flags.A):
+            pytest.fail("connection {} response for SYN is no SYN-ACK, flags \
+                            are {}".format(i+1, tcp_flags))
+
+        ack_seq_exp = syn[TCP].seq + 1
+        ack_seq = syn_resp[TCP].ack
+        if (ack_seq_exp != ack_seq):
+            pytest.fail("connection {} SYN-ACK ack-seq mismatch, expected {}, got {}".format(i+1,
+                            ack_seq_exp, ack_seq))
+
+        # prepare SYN-ACK-ACK
+        #print('SYN-ACK-ACK')
+        syn_ack_ack = create_tcp_packet(
+                        seq = syn[TCP].seq + 1,
+                        ack = syn_resp[TCP].seq + 1,
+                        flags = 'A')
+
+        scapy.sendrecv.send(syn_ack_ack)
+
+        # prepare FIN, note that we could merge this with the SYN-ACK-ACK, but
+        # for this test we keep it explicitly separate
+        # Sending the ACK above doesn't increment the sequence number (RFC 793)
+        # so we send the FIN now without adding one to the previously used
+        # sequence number.
+
+        #print('FIN')
+        fin = create_tcp_packet(
+                seq = syn_ack_ack[TCP].seq,
+                ack = syn_ack_ack[TCP].ack + 1,
+                flags = 'F')
+        fin_resp = scapy.sendrecv.sr1(fin, timeout = 5)
+        if fin_resp is None:
+            pytest.fail("connection {} timeout for FIN-ACK".format(i+1))
+
+        #fin_resp.show()
+
+        if not (fin_resp.haslayer(TCP)):
+            pytest.fail("connection {} FIN response is no TCP packet".format(i+1))
+
+        resp_tcp_seq_exp = syn_resp[TCP].seq + 1
+        resp_tcp_seq = fin_resp[TCP].seq
+        if (resp_tcp_seq_exp != resp_tcp_seq):
+            pytest.fail("connection {} FIN response seq mismatch, expected {},\
+                            got {}".format(i+1, resp_tcp_seq_exp, resp_tcp_seq))
+
+        tcp_flags = fin_resp[TCP].flags # may have RST set besides ACK
+        if not (tcp_flags.A):
+            pytest.fail("connection {} FIN response is no ACK, flags are {}".format(i+1,
+                            tcp_flags))
+
+        ack_seq_exp = fin[TCP].seq + 1
+        ack_seq = fin_resp[TCP].ack
+        if (ack_seq_exp != ack_seq):
+            pytest.fail("connection {} FIN-ACK ack-seq mismatch, expected {}, \
+                            got {}".format(i+1, ack_seq_exp, ack_seq))
 
 
 #-------------------------------------------------------------------------------
