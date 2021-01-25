@@ -77,32 +77,12 @@ def test_tcp_options_poison(boot_with_proxy):
     the connection can be opened.
     """
 
-    timeout_checker = Timeout_Checker(timeout)
-
-    def get_resp_timeout():
-        return timeout_checker.sub_timeout(10).get_remaining()
-
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
     target_ip = ETH_2_ADDR
     dport = 5555
-
-    def check_server_up(info_str):
-        print('Check if server {}:{} is up ({})...'.format(
-                target_ip, dport, info_str))
-        if not is_server_up(target_ip, dport, get_resp_timeout()):
-            pytest.fail('server {}:{} seems down ({})'.format(
-                            target_ip, dport, info_str))
-
-
-    print('') # add line break after pytest info
-
-    check_server_up('before poisoning')
-
-    # server is up, now poison it
-    print('Server is up, try poisoning...')
 
     # RFC793 defines for the TCP option field, that there are two kinds of
     # options. Singe-byte options and options with one byte type, one byte
@@ -120,9 +100,10 @@ def test_tcp_options_poison(boot_with_proxy):
     # Since the option field starts at offset 20 in the TCP data and its length
     # is padded with zeros to a multiple of 4, the resulting option field will
     # be "0xff 0x02 0x00 0x00".
-    tcp_template = TCP(
+    tcp_template = scapy.layers.inet.TCP(
                     dport   = dport,
                     sport   = random.randint(1025, 65535),
+                    seq     = 0,
                     options = [(0xff, b'')], # option 0xff with no data
                     flags   = "S")
 
@@ -139,25 +120,21 @@ def test_tcp_options_poison(boot_with_proxy):
     if (0 != struct.unpack_from('>H', raw_tcp_template, 16)[0]):
         pytest.fail('TCP template checksum is not 0')
 
-    ip_frame = IP(dst = target_ip)
     tcp_checksum = in4_chksum(
                         socket.IPPROTO_TCP,
-                        ip_frame,
+                        IP(dst = target_ip),
                         raw_tcp_template)
     struct.pack_into('>H', raw_tcp_template, 16, tcp_checksum)
     # print(raw_tcp_template.hex(' '))
 
-    # send the malformed IP packet
-    sack = sr1(
-            ip_frame/TCP(raw_tcp_template),
-            timeout = get_resp_timeout())
-    if sack is None:
-        print("No answer, maybe server dropped poisoned packet")
-    elif not ack_and_fin(sack, get_resp_timeout(), tcp_template):
-        print("ack_and_fin() after ACK for poisoned SYN failed")
-
-    # if poisoning is possible the server will no longer respond now
-    check_server_up('after poisoning')
+    # try setting up a connection with the malformed TCP payload
+    if not do_tcp_poisoned_syn(
+                target_ip,
+                dport,
+                TCP(raw_tcp_template),
+                Timeout_Checker(30)):
+        pytest.fail('poisoning test failed for server {}:{}'.format(
+                            target_ip, dport))
 
 
 #-------------------------------------------------------------------------------
@@ -172,11 +149,6 @@ def test_tcp_header_length_poison(boot_with_proxy):
     test and thus opening a connection will result in a timeout.
     """
 
-    timeout_checker = Timeout_Checker(timeout)
-
-    def get_resp_timeout():
-        return timeout_checker.sub_timeout(10).get_remaining()
-
     test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
@@ -184,35 +156,22 @@ def test_tcp_header_length_poison(boot_with_proxy):
     target_ip = ETH_2_ADDR
     dport = 5555
 
-    def check_server_up(info_str):
-        print('Check if server {}:{} is up ({})...'.format(
-                target_ip, dport, info_str))
-        if not is_server_up(target_ip, dport, get_resp_timeout()):
-            pytest.fail('server {}:{} seems down ({})'.format(
-                            target_ip, dport, info_str))
-
-
-    print('') # add line break after pytest info
-
-    check_server_up('before poisoning')
-
-    # server is up, now poison it
-    print('Server is up, try poisoning...')
     # create a TCP SYN packet with invalid data offset 0xf
-    tcp_template = TCP(dport = dport,
-                        sport = random.randint(1025, 65535),
-                        dataofs = 0xf,
-                        flags = "S")
-    sack = sr1(
-            IP(dst = target_ip)/tcp_template,
-            timeout = get_resp_timeout())
-    if sack is None:
-        print("No answer, maybe server dropped poisoned packet")
-    elif not ack_and_fin(sack, get_resp_timeout(), tcp_template):
-        print("ack_and_fin() after ACK for poisoned SYN failed")
+    tcp_template = scapy.layers.inet.TCP(
+                    dport   = dport,
+                    sport   = random.randint(1025, 65535),
+                    seq     = 0,
+                    dataofs = 0xf,
+                    flags   = "S")
 
-    # if poisoning is possible the server will no longer respond now
-    check_server_up('after poisoning')
+    # try setting up a connection with the malformed TCP payload
+    if not do_tcp_poisoned_syn(
+                target_ip,
+                dport,
+                tcp_template,
+                Timeout_Checker(30)):
+        pytest.fail('poisoning test failed for server {}:{}'.format(
+                            target_ip, dport))
 
 
 #-------------------------------------------------------------------------------

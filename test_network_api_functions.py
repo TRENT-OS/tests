@@ -4,50 +4,6 @@ from scapy.all import *
 import board_automation.tools
 from board_automation.tools import Timeout_Checker
 
-#-------------------------------------------------------------------------------
-# timeout can be an integer or a Timeout_Checker object
-def ack_and_fin(sack, timeout_sec, tcp_template=None):
-
-    """
-    Given a SYNACK packet was received from a previous SYN sent, this function
-    will send an ACK and close the connection with FIN. Returns true if every
-    packet receive the expected answer.
-    """
-
-    if sack is None:
-        print('cannot perform ack_and_fin() without sack')
-        return False
-
-    timeout = Timeout_Checker(timeout_sec)
-
-    tcp_layer = TCP() if tcp_template is None else tcp_template
-    tcp_layer.dport = sack.sport
-    tcp_layer.sport = sack.dport
-    tcp_layer.flags = "A"
-    tcp_layer.seq   = sack.ack
-    tcp_layer.ack   = sack.seq + 1
-
-    # send the ACK for the SYNACK
-    scapy.sendrecv.send(IP(dst = sack[IP].src)/tcp_layer)
-
-    # send the FIN and wait for FINACK
-    tcp_layer.flags = "FA"
-    fack = scapy.sendrecv.sr1(
-            IP(dst = sack[IP].src)/tcp_layer,
-            timeout = timeout.get_remaining())
-    if fack is None:
-        print('no FINACK received')
-        return False
-
-    tcp_layer.flags = "A"
-    tcp_layer.seq   = fack.ack
-    tcp_layer.ack   = fack.seq + 1
-
-    # send the last ACK
-    scapy.sendrecv.send(IP(dst = sack[IP].src)/tcp_layer)
-
-    return True
-
 
 #-------------------------------------------------------------------------------
 # timeout_sec can be an integer or a Timeout_Checker object.
@@ -192,6 +148,85 @@ def is_server_up(target_ip, port, timeout_sec):
             break;
 
     # server seems up and running
+    return True
+
+
+#-------------------------------------------------------------------------------
+def do_tcp_poisoned_syn(target_ip, port, syn_payload, timeout_sec):
+
+    timeout = Timeout_Checker(timeout_sec)
+
+    if not is_server_up(target_ip, port, timeout.sub_timeout(30)):
+        print('server {}:{} seems down (before poisoning)'.format(
+                        target_ip, port))
+        return False
+
+    # server is up, now poison it
+    print('Server {}:{} is up, try poisoning...'.format(target_ip, port))
+
+    ip_frame = scapy.layers.inet.IP(dst = target_ip)
+    tcp_layer = syn_payload
+
+    syn_resp = scapy.sendrecv.sr1(
+                    ip_frame/tcp_layer,
+                    timeout = timeout.sub_timeout(20).get_remaining())
+    if syn_resp is None:
+        print('No answer, maybe server dropped poisoned packet')
+        # if poisoning was successful, the server will no longer respond now
+    else:
+        tcp_flags = syn_resp[TCP].flags
+        print('server responded to poisoned SYN with <{}>'.format(tcp_flags))
+
+        if not (tcp_flags.A):
+            print('SYN response: no ACK flag set')
+
+        else:
+            # merge SYN-ACK-ACK and FIN into one packet
+            del tcp_layer.chksum
+            tcp_layer.seq   += 1
+            tcp_layer.ack   = syn_resp.seq + 1
+            tcp_layer.flags = "FA"
+
+            print('send SYN-ACK-ACK + FIN')
+            fin_resp = scapy.sendrecv.sr1(
+                            ip_frame/tcp_layer,
+                            timeout = timeout.sub_timeout(20).get_remaining())
+            if fin_resp is None:
+                print('no FIN-ACK received')
+            else:
+
+                tcp_flags = fin_resp[TCP].flags # may have RST set besides ACK
+                print('resp flags: {}'.format(tcp_flags))
+
+                if not (tcp_flags.A): print('FIN response: no ACK flag set')
+
+                if not (tcp_flags.F):
+                    print('FIN response: no FIN flag set')
+                else:
+                    # send the last ACK
+                    del tcp_layer.chksum
+                    tcp_layer.seq   += 1
+                    tcp_layer.ack   = fin_resp.seq + 1
+                    tcp_layer.flags = "A"
+
+                    print('send FIN-ACK')
+                    scapy.sendrecv.send(ip_frame/tcp_layer)
+
+        # if we arrive here the server accepted the poisoned handshake, so it
+        # should be able to accept a normal TCP connection
+
+    # if we arrive here, there was either no response after sending the poisoned
+    # packet of the handshake when well and we have closed the connection.
+    print('Check if server survived the poisoning')
+    # ToDo; we should not just check if we can establish a connection, but also
+    #       pipe some data though the echo server to check things are really
+    #       well.
+    if not is_server_up(target_ip, port, timeout.sub_timeout(30)):
+        print('server {}:{} seems down (before poisoning)'.format(
+                        target_ip, port))
+        return False
+
+    # seems the poisoned packet did not make server unresponsive
     return True
 
 
