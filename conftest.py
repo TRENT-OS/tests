@@ -71,7 +71,7 @@ def start_or_attach_to_test_runner(request, use_proxy = False):
         # case. The "system" parameter that the test passes in the call is
         # no longer used, since the system image is passed as parameter
         # when the whole test framework is started.
-        yield (lambda system: (
+        yield (lambda system = None: (
                             test_runner,
                             test_runner.get_system_log() # kept for legacy compatibility
                         ) )
