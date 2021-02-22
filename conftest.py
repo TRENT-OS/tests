@@ -37,7 +37,10 @@ def get_log_dir(request):
 # once when the iterator is created. Then this "yields" the handle tuple for
 # each iteration. When the iterator is destroyed, the code after the yield runs
 # to clean things up.
-def start_or_attach_to_test_runner(request, use_proxy = False):
+def start_or_attach_to_test_runner(
+    request,
+    use_proxy = False,
+    is_native_system = False):
 
     # setup phase
     print("")
@@ -65,7 +68,7 @@ def start_or_attach_to_test_runner(request, use_proxy = False):
 
         test_runner.start()
 
-        test_runner.check_start_success()
+        test_runner.check_start_success(is_native_system)
 
         # pytest will receive the tupel from this "callback" for each test
         # case. The "system" parameter that the test passes in the call is
@@ -168,14 +171,22 @@ def boot(request):
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot_with_proxy(request):
-    yield from start_or_attach_to_test_runner(request, True)
+    yield from start_or_attach_to_test_runner(request, use_proxy = True)
 
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot_with_proxy_no_sdcard(request):
     request.config.option.sd_card = 0
-    yield from start_or_attach_to_test_runner(request, True)
+    yield from start_or_attach_to_test_runner(request, use_proxy = True)
+
+#-------------------------------------------------------------------------------
+@pytest.fixture(scope="module")
+def boot_sel4_native(request):
+    yield from start_or_attach_to_test_runner(
+                request,
+                use_proxy = False,
+                is_native_system = True )
 
 
 #-------------------------------------------------------------------------------
