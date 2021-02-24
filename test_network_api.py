@@ -51,6 +51,42 @@ ETH_2_ADDR = "10.0.0.11"
 #     'test_tcp_header_length_poison'
 # ]
 
+
+#-------------------------------------------------------------------------------
+# --- API Tests ---
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+def test_network_dataport_size_check_client(boot_with_proxy):
+    """
+    Test if the client network stack API handles invalid buffer sizes correctly.
+    Success: We get test successful message in the log.
+    Failure: Timeout
+    """
+
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_dataport_size_check_client_functions')
+
+#-------------------------------------------------------------------------------
+def test_network_dataport_size_check_lib(boot_with_proxy):
+    """
+    Test if the library network stack API handles invalid buffer sizes
+    correctly.
+    Success: We get test successful message in the log.
+    Failure: Timeout
+    """
+
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_dataport_size_check_client_functions')
+
+#-------------------------------------------------------------------------------
+# --- BlackBox Tests ---
+#-------------------------------------------------------------------------------
+
 #-------------------------------------------------------------------------------
 def test_network_basic(boot_with_proxy):
     """Check to see if scapy is running correctly """
@@ -706,35 +742,3 @@ def test_network_ping_reply_server(boot_with_proxy):
     # must do 5 successful pings in 15 seconds
     if not do_network_ping(target_ip, cnt=5, timeout_sec=15):
         pytest.fail('could not ping {}'.format(target_ip))
-
-
-#-------------------------------------------------------------------------------
-# --- API Tests ---
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-def test_network_dataport_size_check_client(boot_with_proxy):
-    """
-    Test if the client network stack API handles invalid buffer sizes correctly.
-    Success: We get test successful message in the log.
-    Failure: Timeout
-    """
-
-    parser.check_test(
-        boot_with_proxy(test_system),
-        timeout,
-        'test_dataport_size_check_client_functions')
-
-#-------------------------------------------------------------------------------
-def test_network_dataport_size_check_lib(boot_with_proxy):
-    """
-    Test if the library network stack API handles invalid buffer sizes
-    correctly.
-    Success: We get test successful message in the log.
-    Failure: Timeout
-    """
-
-    parser.check_test(
-        boot_with_proxy(test_system),
-        timeout,
-        'test_dataport_size_check_client_functions')
