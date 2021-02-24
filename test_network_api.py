@@ -84,6 +84,34 @@ def test_network_dataport_size_check_lib(boot_with_proxy):
         'test_dataport_size_check_client_functions')
 
 #-------------------------------------------------------------------------------
+def test_socket_create_neg(boot_with_proxy):
+    """
+    Test if the library network stack API create() function behave as expected
+    in negative cases.
+    Success: We get test successful message in the log.
+    Failure: asserts in the log
+    """
+
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_socket_create_neg')
+
+#-------------------------------------------------------------------------------
+def test_socket_create_pos(boot_with_proxy):
+    """
+    Test if the library network stack API create() function behave as expected
+    in positive cases.
+    Success: We get test successful message in the log.
+    Failure: asserts in the log
+    """
+
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_socket_create_pos')
+
+#-------------------------------------------------------------------------------
 # --- BlackBox Tests ---
 #-------------------------------------------------------------------------------
 
