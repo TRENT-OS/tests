@@ -541,10 +541,16 @@ def test_network_tcp_out_of_order_receive(boot_with_proxy):
         r = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port,
                                    seq=a.seq, ack=0, flags='')/"TTTTTTTT"
         p = sr1(r, timeout=2)
+        if p is None:
+            pytest.fail(
+                'Timeout waiting for reply to first segment for packet {}'.format(i))
 
         r1 = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port,
                                     seq=p.ack, ack=p.seq+len(p), flags='')/"XXXXXXXX"
         p1 = sr1(r1, timeout=2)
+        if p1 is None:
+            pytest.fail(
+                'Timeout waiting for reply to second segment for packet {}'.format(i))
 
 
 #-------------------------------------------------------------------------------
@@ -563,6 +569,9 @@ def test_network_tcp_data_send(boot_with_proxy):
         source_port = random.randint(1025, 65536)
         s = IP(dst=ETH_2_ADDR)/TCP(dport=5555)/Raw(RandString(size=1))
         r = sr1(s, timeout=2)
+        if r is None:
+            pytest.fail('Timeout waiting for reply to packet {}'.format(i))
+
         if not s.payload == r.payload:
              pytest.fail("Payload mismatch")
 
