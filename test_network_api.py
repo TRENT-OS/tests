@@ -325,15 +325,15 @@ def test_network_api_echo_server(boot_with_proxy, n):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
+    target_ip = server_ip
+    target_port = 5555
+
     src = pathlib.Path(__file__).parent.absolute().joinpath(
         'test_network_api/dante.txt')
 
     with open(src, 'rb') as data_file:
         # read n bytes from the file
         blob = data_file.read(n)
-
-    target_ip = server_ip
-    target_port = 5555
 
     try:
         run_echo_client(target_ip, target_port, blob, timeout)
@@ -402,15 +402,17 @@ def test_network_tcp_connection_establishment(boot_with_proxy):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
+    target_ip = server_ip
+
     for i in range(10):
         source_port = random.randint(1025, 65536)
-        s = IP(dst=server_ip)/TCP(dport=5555, sport=source_port, flags='S')
+        s = IP(dst=target_ip)/TCP(dport=5555, sport=source_port, flags='S')
         sa = sr1(s, timeout=2)
 
         if sa is None:
             pytest.fail("Didn't receive SYN/ACK")
 
-        a = IP(dst=server_ip)/TCP(dport=5555, sport=source_port,
+        a = IP(dst=target_ip)/TCP(dport=5555, sport=source_port,
                                    seq=s.seq+1, ack=sa.seq+1, flags='A')
         send(a)
         if not (sa.ack == s.ack + 1):
@@ -438,18 +440,20 @@ def test_network_tcp_connection_closure(boot_with_proxy):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
+    target_ip = server_ip
+
     for i in range(1):
         source_port = random.randint(1025, 65536)
-        s = IP(dst=server_ip)/TCP(dport=5555, sport=source_port, flags='S')
+        s = IP(dst=target_ip)/TCP(dport=5555, sport=source_port, flags='S')
         sa = sr1(s, timeout=5)
 
         if sa is None:
             pytest.fail("Didn't receive SYN/ACK")
 
-        a = IP(dst=server_ip)/TCP(dport=5555, sport=source_port,
+        a = IP(dst=target_ip)/TCP(dport=5555, sport=source_port,
                                    seq=s.seq+1, ack=sa.seq+1, flags='A')
         send(a)
-        r = IP(dst=server_ip)/TCP(dport=5555, sport=source_port,
+        r = IP(dst=target_ip)/TCP(dport=5555, sport=source_port,
                                    seq=a.seq, ack=sa.seq+1, flags='F')
         p = sr1(r, timeout=5)
         if p is None:
@@ -470,19 +474,21 @@ def test_network_tcp_connection_reset(boot_with_proxy):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
+    target_ip = server_ip
+
     for i in range(1):
         source_port = random.randint(1025, 65536)
-        s = IP(dst=server_ip)/TCP(dport=5555, sport=source_port, flags='S')
+        s = IP(dst=target_ip)/TCP(dport=5555, sport=source_port, flags='S')
         sa = sr1(s, timeout=5)
 
         if sa is None:
             pytest.fail("Didn't receive SYN/ACK")
 
-        a = IP(dst=server_ip)/TCP(dport=5555, sport=source_port,
+        a = IP(dst=target_ip)/TCP(dport=5555, sport=source_port,
                                    seq=s.seq+1, ack=sa.seq+1, flags='A')
         send(a)
-        #r = IP(dst=server_ip)/TCP(dport=5555,sport=source_port,seq=a.seq,ack=sa.seq+1,flags='RA')
-        r = IP(dst=server_ip)/TCP(dport=5555, sport=source_port,
+        #r = IP(dst=target_ip)/TCP(dport=5555,sport=source_port,seq=a.seq,ack=sa.seq+1,flags='RA')
+        r = IP(dst=target_ip)/TCP(dport=5555, sport=source_port,
                                    seq=a.seq, ack=sa.seq+1, flags='R')
         p = sr1(r, timeout=30)
         if p is None:
@@ -504,9 +510,11 @@ def test_network_tcp_connection_invalid(boot_with_proxy):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
+    target_ip = server_ip
+
     for i in range(10):
         source_port = random.randint(1025, 65536)
-        r = IP(dst=server_ip)/TCP(dport=source_port,
+        r = IP(dst=target_ip)/TCP(dport=source_port,
                                    sport=source_port, seq=0, ack=0, flags='S')
         p = sr1(r, timeout=30)
         if p is None:
@@ -554,6 +562,8 @@ def test_network_tcp_out_of_order_receive(boot_with_proxy):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
+    target_ip = server_ip
+
     for i in range(1):
         source_port = random.randint(1025, 65536)
         s = IP(dst=ETH_2_ADDR)/TCP(dport=5555, sport=source_port, flags='S')
@@ -562,17 +572,17 @@ def test_network_tcp_out_of_order_receive(boot_with_proxy):
         if sa is None:
             pytest.fail("Didn't receive SYN/ACK")
 
-        a = IP(dst=server_ip)/TCP(dport=5555, sport=source_port,
+        a = IP(dst=target_ip)/TCP(dport=5555, sport=source_port,
                                    seq=s.seq+1, ack=sa.seq+1, flags='A')
         send(a)
-        r = IP(dst=server_ip)/TCP(dport=5555, sport=source_port,
+        r = IP(dst=target_ip)/TCP(dport=5555, sport=source_port,
                                    seq=a.seq, ack=0, flags='')/"TTTTTTTT"
         p = sr1(r, timeout=2)
         if p is None:
             pytest.fail(
                 'Timeout waiting for reply to first segment for packet {}'.format(i))
 
-        r1 = IP(dst=server_ip)/TCP(dport=5555, sport=source_port,
+        r1 = IP(dst=target_ip)/TCP(dport=5555, sport=source_port,
                                     seq=p.ack, ack=p.seq+len(p), flags='')/"XXXXXXXX"
         p1 = sr1(r1, timeout=2)
         if p1 is None:
@@ -592,9 +602,11 @@ def test_network_tcp_data_send(boot_with_proxy):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
+    target_ip = server_ip
+
     for i in range(5):
         source_port = random.randint(1025, 65536)
-        s = IP(dst=server_ip)/TCP(dport=5555)/Raw(RandString(size=1))
+        s = IP(dst=target_ip)/TCP(dport=5555)/Raw(RandString(size=1))
         r = sr1(s, timeout=2)
         if r is None:
             pytest.fail('Timeout waiting for reply to packet {}'.format(i))
@@ -647,7 +659,9 @@ def test_network_arp_request(boot_with_proxy):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
-    filter = "arp and src host "+client_ip+" and dst host "+NET_GATEWAY
+    target_ip = client_ip
+
+    filter = "arp and src host "+target_ip+" and dst host "+NET_GATEWAY
     p = sniff(iface='br0', filter=filter, timeout=60)
 
     if len(p) == 0:
@@ -666,7 +680,9 @@ def test_network_arp_reply_client(boot_with_proxy):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
-    ans, uns = arping(client_ip)
+    target_ip = client_ip
+
+    ans, uns = arping(target_ip)
     if len(uns) != 0:
         pytest.fail("Timeout waiting for arp reply")
 
@@ -682,7 +698,9 @@ def test_network_arp_reply_server(boot_with_proxy):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
-    ans, uns = arping(server_ip)
+    target_ip = server_ip
+
+    ans, uns = arping(target_ip)
     if len(uns) != 0:
         pytest.fail("Timeout waiting for arp reply")
 
@@ -707,11 +725,13 @@ def test_network_udp_recvfrom(boot_with_proxy):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
+    target_ip = client_ip
+
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
         ["UDP Receive test"],
         timeout)
-    r = IP(dst=client_ip)/UDP(dport=8888,sport=9999)/Raw(load="UDP recvfrom OK\0")
+    r = IP(dst=target_ip)/UDP(dport=8888,sport=9999)/Raw(load="UDP recvfrom OK\0")
     send(r, iface = "br0")
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
@@ -737,11 +757,13 @@ def test_network_udp_sendto(boot_with_proxy):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
+    target_ip = client_ip
+
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
         ["UDP Send test"],
         timeout)
-    r = IP(dst=client_ip)/UDP(dport=8888,sport=9999)/Raw(load="UDP sendto OK\0")
+    r = IP(dst=target_ip)/UDP(dport=8888,sport=9999)/Raw(load="UDP sendto OK\0")
     p = sr1(r, timeout=35, iface = "br0")
     if p is None:
         pytest.fail("Didn't receive UDP reply")
@@ -765,7 +787,9 @@ def test_network_ping_request(boot_with_proxy):
     f_out = test_run[1]
     parser.fail_on_assert(f_out)
 
-    filter = "icmp and src host "+client_ip+" and dst host "+CFG_TEST_HTTP_SERVER
+    target_ip = client_ip
+
+    filter = "icmp and src host "+target_ip+" and dst host "+CFG_TEST_HTTP_SERVER
     p = sniff(iface='br0', filter=filter, timeout=30)
     if len(p) == 0:
         pytest.fail("Timeout waiting for ping request")
