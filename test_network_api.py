@@ -573,7 +573,7 @@ def test_network_tcp_data_send(boot_with_proxy):
             pytest.fail('Timeout waiting for reply to packet {}'.format(i))
 
         if not s.payload == r.payload:
-             pytest.fail("Payload mismatch")
+            pytest.fail("Payload mismatch")
 
 
 #-------------------------------------------------------------------------------
