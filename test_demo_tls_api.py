@@ -21,7 +21,7 @@ def test_demo_tls_api(boot_with_proxy):
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         f_out,
         # ["Demo completed successfully"],
-        ["PICO_SOCK_EV_ERR, pico_err = 111 (ECONNREFUSED)"],
+        ["PICO_SOCK_EV_ERR, OS error = -1303 (OS_ERROR_NETWORK_CONN_REFUSED)"],
         90)
 
     if not ret:
