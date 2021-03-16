@@ -15,7 +15,10 @@ def test_run_native_sel4test(boot_sel4_native):
         # the sel4test application starts
         ( [ 'seL4 Test' ], 1),
         # and it will start running tests
-        ( [ 'Starting test suite sel4test' ], 2),
+        # the delay is relatively high (increased from to 2 to 15 seconds) due
+        # to a slower boot process on the zynqmp, and can be potentially
+        # reverted if the said boot process improves
+        ( [ 'Starting test suite sel4test' ], 15),
         # first test case
         ( [ 'Starting test 1: SYSCALL0000' ], 2),
         # and eventually, all test have passed
