@@ -46,6 +46,7 @@ def start_or_attach_to_test_runner(
     print("")
 
     log_dir = get_log_dir(request)
+    resource_dir = request.config.option.resource_dir
     platform = request.config.option.target
     system_image = request.config.option.system_image
     proxy_config = request.config.option.proxy if use_proxy else None
@@ -59,6 +60,7 @@ def start_or_attach_to_test_runner(
     try:
         test_runner = board_automation.system_selector.get_test_runner(
                         log_dir,
+                        resource_dir,
                         platform,
                         system_image,
                         proxy_config,
@@ -233,6 +235,10 @@ def pytest_addoption(parser):
     parser.addoption(
         "--log_dir",
         help="folder where to put the logs")
+
+    parser.addoption(
+        "--resource_dir",
+        help="folder where the platform resources are located")
 
     parser.addoption(
         "--print_logs",
