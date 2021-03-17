@@ -264,6 +264,11 @@ def test_client_logging_to_different_backends(boot_with_proxy):
             LogClients.LVL_FATAL.value + LogMessagesPatterns.NONE_LVL_MSG.value,
             text)))
 
+@pytest.mark.skip(reason=
+    """
+    Skipped due to fault handler's output not being forward to the log server
+    what causes the outputs to overlap. See SEOS-2667 for more details.
+    """)
 def test_client_sending_ill_formatted_string(boot_with_proxy):
     """ This is a regression test related to SEOS-985
 
