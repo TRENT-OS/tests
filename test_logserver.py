@@ -147,7 +147,7 @@ def test_log_entry_page_size(boot_with_proxy):
 
     (text, match) = logs.get_match_in_line(
         f_out,
-        re.compile(LogMessagesPatterns.LOREM_IPSUM.value),
+        re.compile(LogMessagesPatterns.MAX_ENTRY.value),
         timeout)
 
     assert match
