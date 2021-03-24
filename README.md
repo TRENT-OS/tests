@@ -1,19 +1,21 @@
-# seos\_tests test automation scripts
+# seos_tests test automation scripts
 
-Pytest Test Automation scripts for the seos\_tests project
+Test Automation scripts for the seos_tests project.
 
-## Getting Started
+## Cppcheck
 
-The usage of python virtual environments is suggest to avoid collision when installing the requirements
+The usage of the cppcheck/check_static_analyzer.sh script is described within the script.
+
+## Pytest
+
+The usage of python virtual environments is suggested to avoid collisions when installing the requirements.
 
 * pip install -r requirements.txt
-* pytest -v -s --workspace\_path="absolute\_path\_to\_seos\_tests" --proxy\_path="absolute\_path\_to\_seos\_proxy\_app"
+* pytest -v -s --workspace_path="absolute_path_to_seos_tests" --proxy_path="absolute_path_to_proxy_app"
 
-The seos\_proxy\_app is the proxy application that communicates (via qemu UART) with the SeOS test applications provided by seos\_tests. The proxy application runs on Linux and provide facilities to SeOS (e.g.: internetworking)
+The proxy_app is the proxy application that communicates (via QEMU UART) with the test applications provided by seos_tests. The proxy application runs on Linux and certain provides facilities (e.g.: inter-networking).
 
 ### Dependencies
 
 * python
 * see requirements.txt
-
-
