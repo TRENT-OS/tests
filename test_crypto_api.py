@@ -604,7 +604,7 @@ def test_OS_CryptoAgreement_do_DH_rnd_1(boot):
     Generate two random keypairs and and perform key agreements for each private/public
     pair with the DH algorithm. Check that the results match. Iterate for a few times (~5).
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoAgreement_do_DH_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 3, 'test_OS_CryptoAgreement_do_DH_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoAgreement_do_ECDH_rnd_1(boot):
     """
@@ -912,7 +912,7 @@ def test_OS_CryptoKey_getParams_neg_1(boot):
     Negative tests for OS_CryptoKey_getParams(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_getParams_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+    parser.check_test(boot(TEST_NAME), 3, 'test_OS_CryptoKey_getParams_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoKey_loadParams_pos_1(boot):
     """
@@ -1627,7 +1627,7 @@ def test_OS_CryptoKey_generate_pos_3(boot):
     Positive tests for OS_CryptoKey_generate(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_generate_pos', 'mode=%i,keepLocal=0' % OS_Crypto_MODE_KEY_SWITCH)
+    parser.check_test(boot(TEST_NAME), 3, 'test_OS_CryptoKey_generate_pos', 'mode=%i,keepLocal=0' % OS_Crypto_MODE_KEY_SWITCH)
 
 def test_OS_CryptoKey_makePublic_pos_3(boot):
     """
@@ -1823,7 +1823,7 @@ def test_OS_CryptoSignature_do_RSA_PKCS1_V15_sign_3(boot):
     """
     Sign some testvectors with RSA PCKS#1 V1.5.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_OS_CryptoSignature_do_RSA_PKCS1_V15_sign', 'mode=%i,keepLocal=0' % OS_Crypto_MODE_KEY_SWITCH)
+    parser.check_test(boot(TEST_NAME), 3, 'test_OS_CryptoSignature_do_RSA_PKCS1_V15_sign', 'mode=%i,keepLocal=0' % OS_Crypto_MODE_KEY_SWITCH)
 
 def test_OS_CryptoSignature_do_RSA_PKCS1_V15_verify_3(boot):
     """
