@@ -53,6 +53,7 @@ SDK_PATH="$(realpath ${ARGUMENT2})"
 cppcheck --project=${COMPILE_CMD_FILE} \
     --inline-suppr \
     --output-file=${OUT_FILE} \
+    -i${SDK_PATH}/components/NIC_RPi/3rdParty \
     -i${SDK_PATH}/libs/3rdParty \
     -i${SDK_PATH}/libs/os_filesystem/3rdParty \
     -i${SDK_PATH}/libs/os_network_stack/3rdParty \
