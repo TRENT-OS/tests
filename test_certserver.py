@@ -53,9 +53,9 @@ def test_CertServer_verifyChain_neg(boot):
     Negative tests for CertServer_verifyChain(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing.
     """
-    parser.check_test(boot(None), 3, 'test_CertServer_verifyChain_neg', 'cid=102')
-    parser.check_test(boot(None), 3, 'test_CertServer_verifyChain_neg', 'cid=101')
-    parser.check_test(boot(None), 3, 'test_CertServer_verifyChain_neg', 'cid=103')
+    parser.check_test(boot(None), 5, 'test_CertServer_verifyChain_neg', 'cid=102')
+    parser.check_test(boot(None), 5, 'test_CertServer_verifyChain_neg', 'cid=101')
+    parser.check_test(boot(None), 5, 'test_CertServer_verifyChain_neg', 'cid=103')
 
 def test_CertServer_freeChain_pos(boot):
     """
