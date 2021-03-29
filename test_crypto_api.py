@@ -160,6 +160,18 @@ def test_OS_CryptoCipher_do_AES_CBC_dec_0(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CBC_dec', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
 
+def test_OS_CryptoCipher_do_AES_CTR_enc_0(boot):
+    """
+    Encrypt a set of plaintext vectors with AES-CTR.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CTR_enc', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
+
+def test_OS_CryptoCipher_do_AES_CTR_dec_0(boot):
+    """
+    Decrypt a set of ciphertext vectors with AES-CTR.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CTR_dec', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
+
 def test_OS_CryptoCipher_do_AES_GCM_enc_0(boot):
     """
     Encrypt a set of plaintext vectors with AES-GCM.
@@ -191,6 +203,13 @@ def test_OS_CryptoCipher_do_AES_CBC_rnd_0(boot):
     Check that inputs and outputs match. Repeat for a few (~1000) iterations.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CBC_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
+
+def test_OS_CryptoCipher_do_AES_CTR_rnd_0(boot):
+    """
+    Generate random keys and inputs for AES-CTR, encrypt and then decrypt again.
+    Check that inputs and outputs match. Repeat for a few (~1000) iterations.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CTR_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
 
 def test_OS_CryptoCipher_do_AES_GCM_rnd_0(boot):
     """
@@ -694,6 +713,18 @@ def test_OS_CryptoCipher_do_AES_CBC_dec_1(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CBC_dec', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
+def test_OS_CryptoCipher_do_AES_CTR_enc_1(boot):
+    """
+    Encrypt a set of plaintext vectors with AES-CTR.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CTR_enc', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+
+def test_OS_CryptoCipher_do_AES_CTR_dec_1(boot):
+    """
+    Decrypt a set of ciphertext vectors with AES-CTR.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CTR_dec', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+
 def test_OS_CryptoCipher_do_AES_GCM_enc_1(boot):
     """
     Encrypt a set of plaintext vectors with AES-GCM.
@@ -725,6 +756,13 @@ def test_OS_CryptoCipher_do_AES_CBC_rnd_1(boot):
     Check that inputs and outputs match. Repeat for a few (~1000) iterations.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CBC_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
+
+def test_OS_CryptoCipher_do_AES_CTR_rnd_1(boot):
+    """
+    Generate random keys and inputs for AES-CTR, encrypt and then decrypt again.
+    Check that inputs and outputs match. Repeat for a few (~1000) iterations.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CTR_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_CLIENT)
 
 def test_OS_CryptoCipher_do_AES_GCM_rnd_1(boot):
     """
@@ -1338,6 +1376,18 @@ def test_OS_CryptoCipher_do_AES_CBC_dec_2(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CBC_dec', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
 
+def test_OS_CryptoCipher_do_AES_CTR_enc_2(boot):
+    """
+    Encrypt a set of plaintext vectors with AES-CTR.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CTR_enc', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
+
+def test_OS_CryptoCipher_do_AES_CTR_dec_2(boot):
+    """
+    Decrypt a set of ciphertext vectors with AES-CTR.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CTR_dec', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
+
 def test_OS_CryptoCipher_do_AES_GCM_enc_2(boot):
     """
     Encrypt a set of plaintext vectors with AES-GCM.
@@ -1370,6 +1420,13 @@ def test_OS_CryptoCipher_do_AES_CBC_rnd_2(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CBC_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
 
+def test_OS_CryptoCipher_do_AES_CTR_rnd_2(boot):
+    """
+    Generate random keys and inputs for AES-CTR, encrypt and then decrypt again.
+    Check that inputs and outputs match. Repeat for a few (~1000) iterations.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CTR_rnd', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_KEY_SWITCH)
+
 def test_OS_CryptoCipher_do_AES_GCM_rnd_2(boot):
     """
     Generate random keys and inputs for AES-GCM, encrypt and then decrypt again.
@@ -1401,6 +1458,18 @@ def test_OS_CryptoCipher_do_AES_CBC_dec_3(boot):
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CBC_dec', 'mode=%i,keepLocal=0' % OS_Crypto_MODE_KEY_SWITCH)
 
+def test_OS_CryptoCipher_do_AES_CTR_enc_3(boot):
+    """
+    Encrypt a set of plaintext vectors with AES-CTR.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CTR_enc', 'mode=%i,keepLocal=0' % OS_Crypto_MODE_KEY_SWITCH)
+
+def test_OS_CryptoCipher_do_AES_CTR_dec_3(boot):
+    """
+    Decrypt a set of ciphertext vectors with AES-CTR.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CTR_dec', 'mode=%i,keepLocal=0' % OS_Crypto_MODE_KEY_SWITCH)
+
 def test_OS_CryptoCipher_do_AES_GCM_enc_3(boot):
     """
     Encrypt a set of plaintext vectors with AES-GCM.
@@ -1426,6 +1495,13 @@ def test_OS_CryptoCipher_do_AES_CBC_rnd_3(boot):
     Check that inputs and outputs match. Repeat for a few (~1000) iterations.
     """
     parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CBC_rnd', 'mode=%i,keepLocal=0' % OS_Crypto_MODE_KEY_SWITCH)
+
+def test_OS_CryptoCipher_do_AES_CTR_rnd_3(boot):
+    """
+    Generate random keys and inputs for AES-CTR, encrypt and then decrypt again.
+    Check that inputs and outputs match. Repeat for a few (~1000) iterations.
+    """
+    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoCipher_do_AES_CTR_rnd', 'mode=%i,keepLocal=0' % OS_Crypto_MODE_KEY_SWITCH)
 
 def test_OS_CryptoCipher_do_AES_GCM_rnd_3(boot):
     """
