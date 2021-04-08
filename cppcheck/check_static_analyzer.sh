@@ -80,11 +80,6 @@ echo "-"
 #-------------------------------------------------------------------------------
 EXCLUDE_PATTERNS=(
     \#error
-    # Filter out false positives due to the fact that limits.h sometimes does
-    # define standard constants (like CHAR_BIT) on the base of internal (to gcc)
-    # ones. Not having those ones cppcheck takes them as 0 and this leads to
-    # issues.
-    components/SysLogger/client/include/SysLogger.h:36]:\ \(error\)\ failed\ to\ evaluate\ \#elif\ condition\,\ division\/modulo\ by\ zero
 )
 
 grep -v ${EXCLUDE_PATTERNS[@]/#/-e} ${OUT_FILE} > ${OUT_FILE_FILTERED} || true
