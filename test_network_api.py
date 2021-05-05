@@ -45,6 +45,8 @@ NET_GATEWAY = "10.0.0.1"
 try:
     uart_connected = bool(distutils.util.strtobool(config['platform']['uart_connected']))
 
+    test_configuration = config['platform']['test_configuration']
+
     timeout = int(config['platform']['timeout'])
 
     client_ip = config['network']['client_ip']
@@ -62,6 +64,22 @@ except:
 # rely on parsing the output to succeed are skipped.
 uart_nc = not uart_connected
 
+# Flags used to decide if a given test will run on the current test system
+tcp_client_single_socket_n = not ((test_configuration == "default")
+    or  (test_configuration == "tcp_client_single_socket"))
+
+tcp_server_n = not ((test_configuration == "default")
+    or  (test_configuration == "tcp_server"))
+
+udp_server_n = not ((test_configuration == "default")
+    or  (test_configuration == "udp_server"))
+
+tcp_client_multiple_socket_n = not ((test_configuration == "default")
+    or  (test_configuration == "tcp_client_multiple_sockets"))
+
+tcp_client_multiple_clients_n = not ((test_configuration == "default")
+    or  (test_configuration == "tcp_client_multiple_clients"))
+
 # ToDo: could make some tests depend on DoS test results
 # server_dos_tests = [
 #     'test_tcp_options_poison',
@@ -75,6 +93,8 @@ uart_nc = not uart_connected
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
 def test_network_dataport_size_check_client(boot_with_proxy):
     """
     Test if the client network stack API handles invalid buffer sizes correctly.
@@ -89,6 +109,8 @@ def test_network_dataport_size_check_client(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
 def test_network_dataport_size_check_lib(boot_with_proxy):
     """
     Test if the library network stack API handles invalid buffer sizes
@@ -104,6 +126,8 @@ def test_network_dataport_size_check_lib(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
 def test_socket_create_neg(boot_with_proxy):
     """
     Test if the library network stack API create() function behave as expected
@@ -119,6 +143,8 @@ def test_socket_create_neg(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
 def test_socket_create_pos(boot_with_proxy):
     """
     Test if the library network stack API create() function behave as expected
@@ -152,6 +178,8 @@ def test_network_basic(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
+@pytest.mark.skipif(tcp_server_n,
+    reason="Test not running on given test system")
 def test_tcp_options_poison(boot_with_proxy):
 
     """
@@ -226,6 +254,8 @@ def test_tcp_options_poison(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
+@pytest.mark.skipif(tcp_server_n,
+    reason="Test not running on given test system")
 def test_tcp_header_length_poison(boot_with_proxy):
 
     """
@@ -264,18 +294,25 @@ def test_tcp_header_length_poison(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Not implemented yet")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
 def test_network_picotcp_unit_tests(boot_with_proxy):
     """Execute all picotcp unit tests"""
 
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Not implemented yet")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
 def test_network_picotcp_smoke_tests(boot_with_proxy):
     """Execute all picotcp smoke tests"""
 
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(tcp_client_single_socket_n and tcp_client_multiple_socket_n
+    and tcp_client_multiple_clients_n,
+    reason="Test not running on given test system")
 def test_network_api_client(boot_with_proxy):
     """
     Test multisocket implementation. Two applications sharing a network stack
@@ -299,7 +336,7 @@ def test_network_api_client(boot_with_proxy):
 
     (ret, text, expr_fail) = logs.check_log_match_set(
         f_out,
-        ["No free sockets available 16", "!!! test_tcp_client: OK"],
+        ["!!! test_tcp_client: OK"],
         timeout)
 
     if not ret:
@@ -314,6 +351,8 @@ def test_network_api_client(boot_with_proxy):
 lst = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]
 
 @pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(tcp_server_n,
+    reason="Test not running on given test system")
 @pytest.mark.parametrize('n', lst)
 def test_network_api_echo_server(boot_with_proxy, n):
     """
@@ -352,6 +391,8 @@ def test_network_api_echo_server(boot_with_proxy, n):
 
 
 #-------------------------------------------------------------------------------
+@pytest.mark.skipif(tcp_server_n,
+    reason="Test not running on given test system")
 def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
     """
     Measure the send and receive speed of the echo server.
@@ -391,6 +432,8 @@ def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
+@pytest.mark.skipif(tcp_server_n,
+    reason="Test not running on given test system")
 def test_network_tcp_connection_established(boot_with_proxy):
     """
     Test the TCP connection establishing and closing with various sequence
@@ -510,6 +553,8 @@ def test_network_tcp_connection_established(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Fails due to picotcp not sending RST")
+@pytest.mark.skipif(tcp_server_n,
+    reason="Test not running on given test system")
 def test_network_tcp_connection_reset(boot_with_proxy):
     """
     Test the RST sequence with various sequence numbers, delays and lost
@@ -542,6 +587,7 @@ def test_network_tcp_connection_reset(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
+@pytest.mark.skipif(tcp_server_n, reason="Test not running on given test system")
 def test_network_tcp_connection_invalid(boot_with_proxy):
     """
     Test connecting to a port nobody is listening on. RFC792 says a host MAY
@@ -598,6 +644,8 @@ def test_network_tcp_out_of_band_signaling(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Fails due to test enviroment sending RST")
+@pytest.mark.skipif(tcp_server_n,
+    reason="Test not running on given test system")
 def test_network_tcp_out_of_order_receive(boot_with_proxy):
     """
     Test receiving TCP packets out of order with various sequence numbers,
@@ -716,6 +764,8 @@ def test_network_arp_request(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
 def test_network_arp_reply_client(boot_with_proxy):
     """Test if the client implementation component replies to arp request.
         Success: We get a valid arp reply
@@ -734,6 +784,8 @@ def test_network_arp_reply_client(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
+@pytest.mark.skipif(tcp_server_n,
+    reason="Test not running on given test system")
 def test_network_arp_reply_server(boot_with_proxy):
     """Test if the server implementation component replies to arp request.
         Success: We get a valid arp reply
@@ -757,6 +809,8 @@ def test_network_arp_reply_server(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(udp_server_n,
+    reason="Test not running on given test system")
 def test_network_udp_recvfrom(boot_with_proxy):
     """
     Sends an UDP packet to the system, testing the recvfrom() call. It waits
@@ -789,6 +843,8 @@ def test_network_udp_recvfrom(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(udp_server_n,
+    reason="Test not running on given test system")
 def test_network_udp_sendto(boot_with_proxy):
     """
     Test and UDP packet to the system, testing recvfrom() and sendto() calls.
@@ -824,6 +880,8 @@ def test_network_udp_sendto(boot_with_proxy):
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skip(reason="Not implemented in TRENTOS")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
 def test_network_ping_request(boot_with_proxy):
     """
     Test pinging a known host.
@@ -843,6 +901,8 @@ def test_network_ping_request(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
 def test_network_ping_reply_client(boot_with_proxy):
     """
     Test if the client implementation component replies to ping.
@@ -862,6 +922,8 @@ def test_network_ping_reply_client(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
+@pytest.mark.skipif(tcp_server_n,
+    reason="Test not running on given test system")
 def test_network_ping_reply_server(boot_with_proxy):
     """
     Test if the server implementation component replies to ping.
