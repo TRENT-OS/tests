@@ -19,7 +19,7 @@ timeout = 180
 #-------------------------------------------------------------------------------
 def test_key_store_unit_tests(boot_with_proxy):
     """
-    Run unit tests (import, read, delete) with KeySrore (using FAT file system)
+    Run unit tests (import, read, delete) with KeyStore (using FAT file system)
     Scenario 1: local keystore
     """
 
