@@ -76,10 +76,16 @@ echo "-"
 #-------------------------------------------------------------------------------
 # Filter cppcheck output to ignore false-positive problems:
 # - "#error" appears for preprocessor errors that are created due to a missing
-#   configuration of libraries that are not used by the system.
+#   configuration of libraries that are not used by the system. A variable
+#   amount of space characters can appear between # and error.
+# - "^" appears on its own line, being used to indicate where a particular 
+#   error happened in the code. When filtering an error we also need to filter
+#   this additional line. To simplify the filtering logic we filter every
+#   occurrence of this character.
 #-------------------------------------------------------------------------------
 EXCLUDE_PATTERNS=(
-    \#error
+    \# *error
+    \^
 )
 
 grep -v ${EXCLUDE_PATTERNS[@]/#/-e} ${OUT_FILE} > ${OUT_FILE_FILTERED} || true
