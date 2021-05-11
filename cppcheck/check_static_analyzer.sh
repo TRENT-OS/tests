@@ -60,6 +60,7 @@ CPPCHECK_PARAMS=(
     -i${SDK_PATH}/libs/os_filesystem/3rdParty
     -i${SDK_PATH}/libs/os_network_stack/3rdParty
     -i${SDK_PATH}/sdk-sel4-camkes
+    -ibuild*/os_system
 )
 
 cppcheck ${CPPCHECK_PARAMS[@]}
