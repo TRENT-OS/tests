@@ -21,7 +21,7 @@ def test_smoke_test(boot_with_proxy):
     Something is logged, system does not crash.
     """
 
-    test_run = boot_with_proxy(log_server_demo_name)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     success_msg = LogClients.LOG_SERVER.value
@@ -37,7 +37,7 @@ def test_smoke_test(boot_with_proxy):
 def test_logging_to_console(boot_with_proxy):
     """ Logs are printed on the console (stdout). """
 
-    test_run = boot_with_proxy(log_server_demo_name)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     success_msg = LogClients.LVL_WARNING.value \
@@ -54,7 +54,7 @@ def test_logging_to_console(boot_with_proxy):
 def test_logging_to_file(boot_with_proxy):
     """ Logs are printed to the file. """
 
-    test_run = boot_with_proxy(log_server_demo_name)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     (text, match) = logs.get_match_in_line(
@@ -112,7 +112,7 @@ def test_logging_clients(
 
     """
 
-    test_run = boot_with_proxy(log_server_demo_name)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     (text, match) = logs.get_match_in_line(
@@ -128,7 +128,7 @@ def test_logging_clients(
 def test_log_empty_entry(boot_with_proxy):
     """ Logging empty entry. """
 
-    test_run = boot_with_proxy(log_server_demo_name)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     (text, match) = logs.get_match_in_line(
@@ -139,10 +139,10 @@ def test_log_empty_entry(boot_with_proxy):
     assert match
 
 
-def test_log_entry_page_size(boot_with_proxy):
-    """ Logging very large entry. """
+def test_log_max_entry_length(boot_with_proxy):
+    """ Logging an entry with the maximum allowed message length. """
 
-    test_run = boot_with_proxy(log_server_demo_name)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     (text, match) = logs.get_match_in_line(
@@ -174,7 +174,7 @@ def test_get_sender_id(boot_with_proxy):
     even if client has no name assigned.
     """
 
-    test_run = boot_with_proxy(log_server_demo_name)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     (text, match) = logs.get_match_in_line(
@@ -193,7 +193,7 @@ def test_logging_via_printf(boot_with_proxy):
     The client APP_FS uses printf(...) instead of the logging functions.
     """
 
-    test_run = boot_with_proxy(log_server_demo_name)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     (text, match) = logs.get_match_in_line(
@@ -209,7 +209,7 @@ def test_logging_via_printf(boot_with_proxy):
 def test_logger_logging(boot_with_proxy):
     """ Logs from the logger itself. """
 
-    test_run = boot_with_proxy(log_server_demo_name)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     (text, match) = logs.get_match_in_line(
@@ -225,7 +225,7 @@ def test_logger_logging(boot_with_proxy):
 def test_log_format(boot_with_proxy):
     """ Custom log format used. """
 
-    test_run = boot_with_proxy(log_server_demo_name)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     expected_pattern = LogClients.LOG_SERVER.value \
@@ -243,7 +243,7 @@ def test_log_format(boot_with_proxy):
 def test_different_backends(boot_with_proxy):
     """ Logs are pushed to different logging backends. """
 
-    test_run = boot_with_proxy(log_server_demo_name)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     (text, match) = logs.get_match_in_line(
@@ -264,7 +264,7 @@ def test_client_logging_to_different_backends(boot_with_proxy):
     One client can log to different backends at the same time.
     """
 
-    test_run = boot_with_proxy(log_server_demo_name)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     (text, match) = logs.get_match_in_line(
@@ -293,7 +293,7 @@ def test_client_sending_ill_formatted_string(boot_with_proxy):
     This test reproduces above case.
     """
 
-    test_run = boot_with_proxy(log_server_demo_name)
+    test_run = boot_with_proxy(test_system)
     f_out = test_run[1]
 
     expected_error = "FAULT HANDLER: data fault from sendsIllFormattedString" \

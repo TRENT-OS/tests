@@ -3,11 +3,11 @@ from enum import Enum
 timeout     = 90
 empty_entry = 1
 
-log_server_demo_name     = "test_logserver"
+test_system = "test_logserver"
 
 log_file_01_begin_marker = "log file 01 content:"
 log_file_02_begin_marker = "log file 02 content:"
-end_of_demo_marker       = "demo finished successfully"
+end_of_demo_marker       = "test finished successfully"
 log_targets_marker       = "content:"
 
 class LogClients(Enum):
@@ -42,7 +42,7 @@ class LogClients(Enum):
 class LogMessagesPatterns(Enum):
     NONE_LVL_MSG  = r".*Debug_LOG_NONE\n"
 
-    EMPTY_MSG     = r".*:\s\n"
+    EMPTY_MSG = r".*:\s\n"
     MAX_ENTRY     = r".*.*HHH\n"
     TOO_LARGE_ENTRY = r".*LLLEND\n"
     FORMAT_STRING = r".*%d %u %o %x %X %f %F %e %E %g %G %a %A %c %s %p %n %%\n"
