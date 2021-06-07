@@ -43,7 +43,7 @@ class LogMessagesPatterns(Enum):
     NONE_LVL_MSG  = r".*Debug_LOG_NONE\n"
 
     EMPTY_MSG = r".*:\s\n"
-    MAX_ENTRY     = r".*.*HHH\n"
+    MAX_ENTRY = r".*HHH\n"
     TOO_LARGE_ENTRY = r".*LLLEND\n"
     FORMAT_STRING = r".*%d %u %o %x %X %f %F %e %E %g %G %a %A %c %s %p %n %%\n"
 
