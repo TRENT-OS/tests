@@ -71,28 +71,28 @@ def test_logging_to_file(boot_with_proxy):
     "client_lvl, expected_entries_count",
 [
     # No filters
-    pytest.param(LogClients.FILTER_NULL.value, 13),
+    pytest.param(LogClients.FILTER_NULL.value, 14),
 
     # Filter on the Server side
-    pytest.param(LogClients.LVL_ASSERT.value,        5),
-    pytest.param(LogClients.LVL_FATAL.value,         6),
-    pytest.param(LogClients.LVL_ERROR.value,         7),
-    pytest.param(LogClients.LVL_WARNING.value,       8),
-    pytest.param(LogClients.LVL_INFO.value,          9),
-    pytest.param(LogClients.LVL_DEBUG.value,        10),
-    pytest.param(LogClients.LVL_TRACE.value,        11),
-    pytest.param(LogClients.LVL_CUSTOM.value,       12),
-    pytest.param(LogClients.LVL_MAX.value,          13),
+    pytest.param(LogClients.LVL_ASSERT.value,        6),
+    pytest.param(LogClients.LVL_FATAL.value,         7),
+    pytest.param(LogClients.LVL_ERROR.value,         8),
+    pytest.param(LogClients.LVL_WARNING.value,       9),
+    pytest.param(LogClients.LVL_INFO.value,         10),
+    pytest.param(LogClients.LVL_DEBUG.value,        11),
+    pytest.param(LogClients.LVL_TRACE.value,        12),
+    pytest.param(LogClients.LVL_CUSTOM.value,       13),
+    pytest.param(LogClients.LVL_MAX.value,          14),
 
     # Filter on the Client side
-    pytest.param(LogClients.CL_FILTER_ASSERT.value,  5),
-    pytest.param(LogClients.CL_FILTER_FATAL.value,   6),
-    pytest.param(LogClients.CL_FILTER_ERROR.value,   7),
-    pytest.param(LogClients.CL_FILTER_WARNIN.value,  8),
-    pytest.param(LogClients.CL_FILTER_INFO.value,    9),
-    pytest.param(LogClients.CL_FILTER_DEBUG.value,  10),
-    pytest.param(LogClients.CL_FILTER_TRACE.value,  11),
-    pytest.param(LogClients.CL_FILTER_CUSTOM.value, 12),
+    pytest.param(LogClients.CL_FILTER_ASSERT.value,  6),
+    pytest.param(LogClients.CL_FILTER_FATAL.value,   7),
+    pytest.param(LogClients.CL_FILTER_ERROR.value,   8),
+    pytest.param(LogClients.CL_FILTER_WARNIN.value,  9),
+    pytest.param(LogClients.CL_FILTER_INFO.value,   10),
+    pytest.param(LogClients.CL_FILTER_DEBUG.value,  11),
+    pytest.param(LogClients.CL_FILTER_TRACE.value,  12),
+    pytest.param(LogClients.CL_FILTER_CUSTOM.value, 13),
 
     # Those entries present by exploiting the log API and calling log
     # function with the level Debug_LOG_LEVEL_NONE (i.e. calling
@@ -148,6 +148,20 @@ def test_log_entry_page_size(boot_with_proxy):
     (text, match) = logs.get_match_in_line(
         f_out,
         re.compile(LogMessagesPatterns.MAX_ENTRY.value),
+        timeout)
+
+    assert match
+
+
+def test_log_too_large_entry_length(boot_with_proxy):
+    """ Logging an entry that exceeds the allowed message length. """
+
+    test_run = boot_with_proxy(test_system)
+    f_out = test_run[1]
+
+    (text, match) = logs.get_match_in_line(
+        f_out,
+        re.compile(LogMessagesPatterns.TOO_LARGE_ENTRY.value),
         timeout)
 
     assert match
