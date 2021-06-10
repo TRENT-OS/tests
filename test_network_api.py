@@ -130,8 +130,8 @@ def test_network_dataport_size_check_lib(boot_with_proxy):
     reason="Test not running on given test system")
 def test_socket_create_neg(boot_with_proxy):
     """
-    Test if the library network stack API create() function behave as expected
-    in negative cases.
+    Test if the library network stack API socket create() function behaves as
+    expected in negative cases.
     Success: We get test successful message in the log.
     Failure: asserts in the log
     """
@@ -147,8 +147,8 @@ def test_socket_create_neg(boot_with_proxy):
     reason="Test not running on given test system")
 def test_socket_create_pos(boot_with_proxy):
     """
-    Test if the library network stack API create() function behave as expected
-    in positive cases.
+    Test if the library network stack API socket create() function behaves as
+    expected in positive cases.
     Success: We get test successful message in the log.
     Failure: asserts in the log
     """
