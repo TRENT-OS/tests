@@ -311,3 +311,32 @@ def run_echo_client(server_ip, server_port, blob, timeout):
 
     if not received_blob == blob:
         raise Exception("received data does not match sent data")
+
+#-------------------------------------------------------------------------------
+def run_echo_client_udp(server_ip, server_port, blob, timeout):
+
+    print('Starting echo client, connect to {}:{} and send {} bytes'.format(
+            server_ip, server_port, len(blob)))
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+    def echo_client_thread(thread):
+        time.sleep(1)
+        s.sendto(blob,(server_ip, server_port))
+
+
+    s.bind(("0.0.0.0", server_port))
+
+    s.settimeout(timeout)
+
+    t = board_automation.tools.run_in_thread(echo_client_thread)
+
+    try:
+        received_blob, addr = s.recvfrom(len(blob)) # buffer size is 1024 bytes
+    except socket.timeout:
+        raise Exception("Socket timeout")
+
+    t.join()
+
+    if not received_blob == blob:
+        raise Exception("Received data does not match sent data")

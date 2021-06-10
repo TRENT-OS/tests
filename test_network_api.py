@@ -159,6 +159,176 @@ def test_socket_create_pos(boot_with_proxy):
         'test_socket_create_pos')
 
 #-------------------------------------------------------------------------------
+@pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
+def test_server_socket_create_pos(boot_with_proxy):
+    """
+    Test if the library network stack API server socket create() function behaves
+    as expected in positive cases.
+    Success: We get test successful message in the log.
+    Failure: asserts in the log
+    """
+
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_server_socket_create_pos')
+
+#-------------------------------------------------------------------------------
+@pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
+def test_server_socket_create_neg(boot_with_proxy):
+    """
+    Test if the library network stack API server socket create() function behaves
+    as expected in negative cases.
+    Success: We get test successful message in the log.
+    Failure: asserts in the log
+    """
+
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_server_socket_create_neg')
+
+#-------------------------------------------------------------------------------
+@pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
+def test_server_socket_close_pos(boot_with_proxy):
+    """
+    Test if the library network stack API server socket close() function behaves
+    as expected in positive cases.
+    Success: We get test successful message in the log.
+    Failure: asserts in the log
+    """
+
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_server_socket_close_pos')
+
+#-------------------------------------------------------------------------------
+@pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
+def test_server_socket_close_neg(boot_with_proxy):
+    """
+    Test if the library network stack API server socket close() function behaves
+    as expected in negative cases.
+    Success: We get test successful message in the log.
+    Failure: asserts in the log
+    """
+
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_server_socket_close_neg')
+
+#-------------------------------------------------------------------------------
+@pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
+def test_socket_close_pos(boot_with_proxy):
+    """
+    Test if the library network stack API socket close() function behaves
+    as expected in positive cases.
+    Success: We get test successful message in the log.
+    Failure: asserts in the log
+    """
+
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_socket_close_pos')
+
+#-------------------------------------------------------------------------------
+@pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
+def test_socket_close_neg(boot_with_proxy):
+    """
+    Test if the library network stack API socket close() function behaves
+    as expected in negative cases.
+    Success: We get test successful message in the log.
+    Failure: asserts in the log
+    """
+
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_socket_close_neg')
+
+#-------------------------------------------------------------------------------
+@pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
+def test_tcp_read_pos(boot_with_proxy):
+    """
+    Test if the library network stack API socket read() function behaves
+    as expected in positive cases.
+    Success: We get test successful message in the log.
+    Failure: asserts in the log
+    """
+
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_tcp_read_pos')
+
+#-------------------------------------------------------------------------------
+@pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
+def test_tcp_read_neg(boot_with_proxy):
+    """
+    Test if the library network stack API socket read() function behaves
+    as expected in negative cases.
+    Success: We get test successful message in the log.
+    Failure: asserts in the log
+    """
+
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_tcp_read_neg')
+
+#-------------------------------------------------------------------------------
+@pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
+def test_tcp_write_pos(boot_with_proxy):
+    """
+    Test if the library network stack API socket write() function behaves
+    as expected in positive cases.
+    Success: We get test successful message in the log.
+    Failure: asserts in the log
+    """
+
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_tcp_write_pos')
+
+#-------------------------------------------------------------------------------
+@pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(tcp_client_single_socket_n,
+    reason="Test not running on given test system")
+def test_tcp_write_neg(boot_with_proxy):
+    """
+    Test if the library network stack API socket write() function behaves
+    in negative cases.
+    Success: We get test successful message in the log.
+    Failure: asserts in the log
+    """
+
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_tcp_write_neg')
+
+#-------------------------------------------------------------------------------
 # --- BlackBox Tests ---
 #-------------------------------------------------------------------------------
 
@@ -872,6 +1042,97 @@ def test_network_udp_sendto_pos(boot_with_proxy):
 
     if not ret:
         pytest.fail("Missing: %s" % (expr_fail))
+
+#-------------------------------------------------------------------------------
+@pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(udp_server_n,
+    reason="Test not running on given test system")
+def test_network_udp_recvfrom_neg(boot_with_proxy):
+    """
+    Test if the library network stack API UDP recvfrom() function
+    behaves as expected in negative cases.
+    Success: We get test successful message in the log.
+    Failure: asserts in the log
+    """
+
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_udp_recvfrom_neg')
+
+#-------------------------------------------------------------------------------
+@pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(udp_server_n,
+    reason="Test not running on given test system")
+def test_network_udp_sendto_neg(boot_with_proxy):
+    """
+    Test if the library network stack API UDP sendto() function
+    behaves as expected in negative cases.
+    Success: We get test successful message in the log.
+    Failure: asserts in the log
+    """
+
+    parser.check_test(
+        boot_with_proxy(test_system),
+        timeout,
+        'test_udp_sendto_neg')
+
+#-------------------------------------------------------------------------------
+@pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(udp_server_n,
+    reason="Test not running on given test system")
+def test_network_udp_echo(boot_with_proxy):
+    """
+    Test if the UDP echo server works as expected.
+    Success: We get back the message we sent.
+    Failure: asserts in the log
+    """
+
+    host = client_ip
+    port = 8888
+    data_to_read = 1024
+    timeout = 3
+
+    src = pathlib.Path(__file__).parent.absolute().joinpath(
+        'test_network_api/dante.txt')
+
+    with open(src, 'rb') as data_file:
+        blob = data_file.read(data_to_read)
+    try:
+        run_echo_client_udp(host, port, blob, timeout)
+    except Exception as e:
+        pytest.fail(
+            'run_echo_client for {}:{} failed with exception {}'.format(
+                host, port, e))
+
+
+
+
+#-------------------------------------------------------------------------------
+@pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
+@pytest.mark.skipif(udp_server_n,
+    reason="Test not running on given test system")
+def test_network_udp_bandwidth(boot_with_proxy, benchmark):
+    """
+    Benchmarking function for UDP server.
+    """
+
+    host = client_ip
+    port = 8888
+    timeout = 5
+
+    def do_run_echo_client():
+        num_chars = 1024 # 8 Kbit of data
+        # num_chars = 10 * 128 * 1024 # 10 Mbit of data
+        gen_str = ''.join(random.choice(string.ascii_letters) for i in range(num_chars))
+        try:
+            run_echo_client_udp(host, port, gen_str.encode(), timeout)
+        except Exception as e:
+            pytest.fail(
+                'run_echo_client for {}:{} failed with exception {}'.format(
+                    host, port, e))
+
+    benchmark(do_run_echo_client)
 
 
 #-------------------------------------------------------------------------------
