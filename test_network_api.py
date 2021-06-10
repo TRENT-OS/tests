@@ -811,7 +811,7 @@ def test_network_arp_reply_server(boot_with_proxy):
 @pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
 @pytest.mark.skipif(udp_server_n,
     reason="Test not running on given test system")
-def test_network_udp_recvfrom(boot_with_proxy):
+def test_network_udp_recvfrom_pos(boot_with_proxy):
     """
     Sends an UDP packet to the system, testing the recvfrom() call. It waits
     for the test system to reach the point where it waits for the test packet
@@ -845,7 +845,7 @@ def test_network_udp_recvfrom(boot_with_proxy):
 @pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
 @pytest.mark.skipif(udp_server_n,
     reason="Test not running on given test system")
-def test_network_udp_sendto(boot_with_proxy):
+def test_network_udp_sendto_pos(boot_with_proxy):
     """
     Test and UDP packet to the system, testing recvfrom() and sendto() calls.
     It waits for the test system to reach the point where it waits for the test
