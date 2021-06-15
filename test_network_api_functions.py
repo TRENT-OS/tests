@@ -231,7 +231,7 @@ def do_tcp_poisoned_syn(target_ip, port, syn_payload, timeout_sec):
 
 
 #-------------------------------------------------------------------------------
-def run_echo_client(server_ip, server_port, blob, timeout):
+def run_echo_client_tcp(server_ip, server_port, blob, timeout):
 
     print('starting echo client, connect to {}:{} and send {} bytes'.format(
             server_ip, server_port, len(blob)))

@@ -545,7 +545,7 @@ def test_network_api_echo_server(boot_with_proxy, n):
         blob = data_file.read(n)
 
     try:
-        run_echo_client(target_ip, target_port, blob, timeout)
+        run_echo_client_tcp(target_ip, target_port, blob, timeout)
     except Exception as e:
         pytest.fail(
             'run_echo_client for {}:{} failed with exception {}'.format(
@@ -580,7 +580,7 @@ def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
         # num_chars = 10 * 128 * 1024 # 10 Mbit of data
         gen_str = ''.join(random.choice(string.ascii_letters) for i in range(num_chars))
         try:
-            run_echo_client(target_ip, target_port, gen_str.encode(), timeout)
+            run_echo_client_tcp(target_ip, target_port, gen_str.encode(), timeout)
         except Exception as e:
             pytest.fail(
                 'run_echo_client for {}:{} failed with exception {}'.format(
