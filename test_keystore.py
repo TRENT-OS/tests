@@ -23,9 +23,10 @@ def test_key_store_unit_tests(boot_with_proxy):
     Scenario 1: local keystore
     """
 
-    parser.check_test(boot_with_proxy(test_system),\
-                        timeout,\
-                        'keyStoreUnitTests')
+    parser.check_test(boot_with_proxy(test_system),
+                        timeout,
+                        'keyStoreUnitTests',
+                         occurrences=2)
 
 
 #-------------------------------------------------------------------------------
@@ -37,7 +38,8 @@ def test_key_store_integration_tests_AES(boot_with_proxy):
 
     parser.check_test(boot_with_proxy(test_system),
                         timeout,
-                        'testKeyStoreAES')
+                        'testKeyStoreAES',
+                        occurrences=2)
 
 
 #-------------------------------------------------------------------------------
@@ -61,7 +63,8 @@ def test_key_store_multi_instance_tests_copy(boot_with_proxy):
 
     parser.check_test(boot_with_proxy(test_system),
                         timeout,
-                        'keyStoreCopyKeyTest')
+                        'keyStoreCopyKeyTest',
+                        occurrences=2)
 
 
 #-------------------------------------------------------------------------------
@@ -73,4 +76,5 @@ def test_key_store_multi_instance_tests_move(boot_with_proxy):
 
     parser.check_test(boot_with_proxy(test_system),
                         timeout,
-                        'keyStoreMoveKeyTest')
+                        'keyStoreMoveKeyTest',
+                        occurrences=2)
