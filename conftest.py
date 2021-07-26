@@ -17,6 +17,7 @@ import pytest
 import logs # logs module from the common directory in TA
 
 import board_automation.system_selector
+import board_automation.board_automation as ba
 
 #-------------------------------------------------------------------------------
 def get_log_dir(request):
@@ -40,7 +41,7 @@ def get_log_dir(request):
 def start_or_attach_to_test_runner(
     request,
     use_proxy = False,
-    is_native_system = False):
+    boot_mode = ba.BootMode.BARE_METAL):
 
     # setup phase
     print("")
@@ -70,7 +71,7 @@ def start_or_attach_to_test_runner(
 
         test_runner.start()
 
-        test_runner.check_start_success(is_native_system)
+        test_runner.check_start_success(boot_mode)
 
         # pytest will receive the tupel from this "callback" for each test
         # case. The "system" parameter that the test passes in the call is
@@ -167,20 +168,28 @@ def start_or_attach_to_mosquitto(request):
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot(request):
-    yield from start_or_attach_to_test_runner(request)
+    yield from start_or_attach_to_test_runner(
+                request,
+                boot_mode = ba.BootMode.SEL4_CAMKES )
 
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot_with_proxy(request):
-    yield from start_or_attach_to_test_runner(request, use_proxy = True)
+    yield from start_or_attach_to_test_runner(
+                request,
+                use_proxy = True,
+                boot_mode = ba.BootMode.SEL4_CAMKES )
 
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot_with_proxy_no_sdcard(request):
     request.config.option.sd_card = 0
-    yield from start_or_attach_to_test_runner(request, use_proxy = True)
+    yield from start_or_attach_to_test_runner(
+                request,
+                use_proxy = True,
+                boot_mode = ba.BootMode.SEL4_CAMKES )
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
@@ -188,7 +197,15 @@ def boot_sel4_native(request):
     yield from start_or_attach_to_test_runner(
                 request,
                 use_proxy = False,
-                is_native_system = True )
+                boot_mode = ba.BootMode.SEL4_NATIVE )
+
+#-------------------------------------------------------------------------------
+@pytest.fixture(scope="module")
+def boot_bare_metal(request):
+    yield from start_or_attach_to_test_runner(
+                request,
+                use_proxy = False,
+                boot_mode = ba.BootMode.BARE_METAL )
 
 
 #-------------------------------------------------------------------------------
