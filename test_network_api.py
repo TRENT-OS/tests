@@ -527,6 +527,16 @@ def test_network_api_echo_server(boot_with_proxy, n):
 
 
 #-------------------------------------------------------------------------------
+def do_run_echo_client(num_chars, target_ip, target_port):
+    gen_str = ''.join(random.choice(string.ascii_letters) for i in range(num_chars))
+    try:
+        run_echo_client_tcp(target_ip, target_port, gen_str.encode(), timeout)
+    except Exception as e:
+        pytest.fail(
+            'run_echo_client for {}:{} failed with exception {}'.format(
+                target_ip, target_port, e))
+
+#-------------------------------------------------------------------------------
 @pytest.mark.skipif(tcp_server_n,
     reason="Test not running on given test system")
 def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
@@ -541,18 +551,9 @@ def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
     target_ip = server_ip
     target_port = 5555
 
-    def do_run_echo_client():
-        num_chars =  8 * 1024 # 64 Kbit of data
-        # num_chars = 10 * 128 * 1024 # 10 Mbit of data
-        gen_str = ''.join(random.choice(string.ascii_letters) for i in range(num_chars))
-        try:
-            run_echo_client_tcp(target_ip, target_port, gen_str.encode(), timeout)
-        except Exception as e:
-            pytest.fail(
-                'run_echo_client for {}:{} failed with exception {}'.format(
-                    target_ip, target_port, e))
+    num_chars =  8 * 1024 # 64 Kbit of data
 
-    benchmark(do_run_echo_client)
+    benchmark(do_run_echo_client, num_chars, target_ip, target_port)
 
     ret, text, expr_fail = logs.check_log_match_sequence(
         f_out,
@@ -562,6 +563,32 @@ def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
     if not ret:
         pytest.fail("Missing: %s" % (expr_fail))
 
+#-------------------------------------------------------------------------------
+@pytest.mark.skipif(tcp_server_n,
+    reason="Test not running on given test system")
+def test_network_api_bandwidth_10_Mbit(boot_with_proxy, benchmark):
+    """
+    Measure the send and receive speed of the echo server.
+    """
+
+    test_run = boot_with_proxy(test_system)
+    f_out = test_run[1]
+    parser.fail_on_assert(f_out)
+
+    target_ip = server_ip
+    target_port = 5555
+
+    num_chars =  10 * 128 * 1024 # 10 Mbit of data
+
+    benchmark(do_run_echo_client, num_chars, target_ip, target_port)
+
+    ret, text, expr_fail = logs.check_log_match_sequence(
+        f_out,
+        ["connection closed by server"],
+        timeout)
+
+    if not ret:
+        pytest.fail("Missing: %s" % (expr_fail))
 
 #-------------------------------------------------------------------------------
 # --- TCP TESTS ---
