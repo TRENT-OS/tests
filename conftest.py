@@ -41,6 +41,7 @@ def get_log_dir(request):
 def start_or_attach_to_test_runner(
     request,
     use_proxy = False,
+    additional_qemu_params = None,
     boot_mode = ba.BootMode.BARE_METAL):
 
     # setup phase
@@ -66,6 +67,7 @@ def start_or_attach_to_test_runner(
                         system_image,
                         proxy_config,
                         sd_card_size,
+                        additional_qemu_params,
                         print_logs
                     )
 
@@ -166,6 +168,16 @@ def start_or_attach_to_mosquitto(request):
 
 
 #-------------------------------------------------------------------------------
+def qemu_param_initialized_memory_blob(address, filename):
+    return ['-device', 'loader,addr={},file={},'.format(address, filename)]
+
+
+#-------------------------------------------------------------------------------
+def qemu_param_initialized_memory_u32(address, value):
+    return ['-device', 'loader,addr={},data={},data-len=4'.format(address, value)]
+
+
+#-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot(request):
     yield from start_or_attach_to_test_runner(
@@ -191,6 +203,7 @@ def boot_with_proxy_no_sdcard(request):
                 use_proxy = True,
                 boot_mode = ba.BootMode.SEL4_CAMKES )
 
+
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot_sel4_native(request):
@@ -199,12 +212,51 @@ def boot_sel4_native(request):
                 use_proxy = False,
                 boot_mode = ba.BootMode.SEL4_NATIVE )
 
+
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot_bare_metal(request):
     yield from start_or_attach_to_test_runner(
                 request,
                 use_proxy = False,
+                boot_mode = ba.BootMode.BARE_METAL )
+
+
+#-------------------------------------------------------------------------------
+@pytest.fixture(scope="function")
+def boot_bootloader(request, mem_provisioning_ctx):
+    qemu_param_list = []
+
+    if mem_provisioning_ctx.kernel_bin:
+        qemu_param_list += qemu_param_initialized_memory_blob(
+                                mem_provisioning_ctx.kernel_addr,
+                                mem_provisioning_ctx.kernel_bin)
+
+    if mem_provisioning_ctx.root_task_bin:
+        qemu_param_list += qemu_param_initialized_memory_blob(
+                                mem_provisioning_ctx.root_task_addr,
+                                mem_provisioning_ctx.root_task_bin)
+
+    if mem_provisioning_ctx.info_block_bin:
+        qemu_param_list += qemu_param_initialized_memory_blob(
+                                mem_provisioning_ctx.info_block_addr,
+                                mem_provisioning_ctx.info_block_bin)
+
+    if mem_provisioning_ctx.otp_reg_value_low:
+        qemu_param_list += qemu_param_initialized_memory_u32(
+                                mem_provisioning_ctx.otp_reg_addr_low,
+                                mem_provisioning_ctx.otp_reg_value_low)
+
+    if mem_provisioning_ctx.otp_reg_value_high:
+        qemu_param_list += qemu_param_initialized_memory_u32(
+                                mem_provisioning_ctx.otp_reg_addr_high,
+                                mem_provisioning_ctx.otp_reg_value_high)
+
+
+    yield from start_or_attach_to_test_runner(
+                request,
+                use_proxy = False,
+                additional_qemu_params = qemu_param_list,
                 boot_mode = ba.BootMode.BARE_METAL )
 
 
