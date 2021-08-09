@@ -136,7 +136,7 @@ def test_simple_boot(boot_bootloader):
 
         ( [ 'HENSOLDT Cyber GmbH' ], 5 ),
         ( [ "ERROR: can't boot from Flash configuration" ], 5 ),
-        ( [ 'boot options:' ], 5 ),
+        ( [ 'Boot options:' ], 5 ),
         ( [ 'Choose mode:' ], 5 )
     ])
 
@@ -264,7 +264,7 @@ def test_bmrbl_info_block_no_kernel(boot_bootloader):
         ( [ 'checking integrity of Flash info block' ], 5 ),
         ( [ 'Trying to boot an image from flash...' ], 5 ),
         ( [ "ERROR: can't boot from Flash configuration" ], 5 ),
-        ( [ 'boot options:' ], 5 ),
+        ( [ 'Boot options:' ], 5 ),
         ( [ 'Choose mode:' ], 5 )
 
     ])
@@ -335,7 +335,7 @@ def test_bmrbl_info_block_and_kernel_only_sel4_allowed(boot_bootloader):
         ( [ '0x4853414c462d4249' ], 5 ),
         ( [ 'checking integrity of Flash info block' ], 5 ),
         ( [ 'ERROR: invalid boot mode 1, only seL4 system boot allowed' ], 5 ),
-        ( [ 'boot options:' ], 5 ),
+        ( [ 'Boot options:' ], 5 ),
         ( [ 'Choose mode:' ], 5 )
 
     ])
@@ -411,7 +411,7 @@ def test_bmrbl_info_block_and_kernel_m_mode_disabled(boot_bootloader):
         ( [ 'checking integrity of Flash info block' ], 5 ),
         ( [ 'ERROR: invalid boot mode 2, only S-Mode allowed' ], 5 ),
         ( [ "ERROR: can't boot from Flash configuration" ], 5 ),
-        ( [ 'boot options:' ], 5 )
+        ( [ 'Boot options:' ], 5 )
 
     ])
 
