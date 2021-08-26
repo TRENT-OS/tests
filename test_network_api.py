@@ -527,14 +527,14 @@ def test_network_api_echo_server(boot_with_proxy, n):
 
 
 #-------------------------------------------------------------------------------
-def do_run_echo_client(num_chars, target_ip, target_port):
+def do_run_echo_client(num_chars, target_ip, target_port, function_to_call):
     gen_str = ''.join(random.choice(string.ascii_letters) for i in range(num_chars))
     try:
-        run_echo_client_tcp(target_ip, target_port, gen_str.encode(), timeout)
+        eval(function_to_call)(target_ip, target_port, gen_str.encode(), timeout)
     except Exception as e:
         pytest.fail(
-            'run_echo_client for {}:{} failed with exception {}'.format(
-                target_ip, target_port, e))
+            '{} for {}:{} failed with exception {}'.format(
+                function_to_call, target_ip, target_port, e))
 
 #-------------------------------------------------------------------------------
 @pytest.mark.skipif(tcp_server_n,
@@ -553,7 +553,7 @@ def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
 
     num_chars =  8 * 1024 # 64 Kbit of data
 
-    benchmark(do_run_echo_client, num_chars, target_ip, target_port)
+    benchmark(do_run_echo_client, num_chars, target_ip, target_port, "run_echo_client_tcp")
 
     ret, text, expr_fail = logs.check_log_match_sequence(
         f_out,
@@ -580,7 +580,7 @@ def test_network_api_bandwidth_10_Mbit(boot_with_proxy, benchmark):
 
     num_chars =  10 * 128 * 1024 # 10 Mbit of data
 
-    benchmark(do_run_echo_client, num_chars, target_ip, target_port)
+    benchmark(do_run_echo_client, num_chars, target_ip, target_port, "run_echo_client_tcp")
 
     ret, text, expr_fail = logs.check_log_match_sequence(
         f_out,
@@ -1158,22 +1158,14 @@ def test_network_udp_bandwidth(boot_with_proxy, benchmark):
     Benchmarking function for UDP server.
     """
 
-    host = client_ip
-    port = 8888
+    target_ip = client_ip
+    target_port = 8888
     timeout = 5
 
-    def do_run_echo_client():
-        num_chars = 1024 # 8 Kbit of data
-        # num_chars = 10 * 128 * 1024 # 10 Mbit of data
-        gen_str = ''.join(random.choice(string.ascii_letters) for i in range(num_chars))
-        try:
-            run_echo_client_udp(host, port, gen_str.encode(), timeout)
-        except Exception as e:
-            pytest.fail(
-                'run_echo_client for {}:{} failed with exception {}'.format(
-                    host, port, e))
+    num_chars = 1024
 
-    benchmark(do_run_echo_client)
+    benchmark(do_run_echo_client, num_chars, target_ip, target_port, "run_echo_client_udp")
+
 
 
 #-------------------------------------------------------------------------------
