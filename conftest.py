@@ -41,7 +41,7 @@ def get_log_dir(request):
 def start_or_attach_to_test_runner(
     request,
     use_proxy = False,
-    additional_qemu_params = None,
+    additional_params = None,
     boot_mode = ba.BootMode.BARE_METAL):
 
     # setup phase
@@ -67,7 +67,7 @@ def start_or_attach_to_test_runner(
                         system_image,
                         proxy_config,
                         sd_card_size,
-                        additional_qemu_params,
+                        additional_params,
                         print_logs
                     )
 
