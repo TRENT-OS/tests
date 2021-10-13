@@ -56,9 +56,9 @@ CPPCHECK_PARAMS=(
     --output-file=${OUT_FILE}
 
     -i${SDK_PATH}/components/NIC_RPi/3rdParty
+    -i${SDK_PATH}/components/NetworkStack_PicoTcp/3rdParty
     -i${SDK_PATH}/libs/3rdParty
     -i${SDK_PATH}/libs/os_filesystem/3rdParty
-    -i${SDK_PATH}/libs/os_network_stack/3rdParty
     -i${SDK_PATH}/sdk-sel4-camkes
     -ibuild*/os_system
 )
