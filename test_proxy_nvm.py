@@ -15,9 +15,9 @@ timeout = 300
 def test_proxy_nvm_storage_start_address(boot_with_proxy):
     """This test will check writing and reading at the beginning of the storage.
 
-    Underlying TRENTOS-M Test System behavior:
+    Underlying TRENTOS Test System behavior:
 
-        Two TRENTOS-M Tester components will (in parallel) write a data via the
+        Two TRENTOS Tester components will (in parallel) write a data via the
         NVM abstraction exposed by the Proxy app with a known pattern and then
         read it and verify it.
 
@@ -36,9 +36,9 @@ def test_proxy_nvm_storage_start_address(boot_with_proxy):
 def test_proxy_nvm_storage_mid_address(boot_with_proxy):
     """This test will check writing and reading in the middle of the storage.
 
-    Underlying TRENTOS-M Test System behavior:
+    Underlying TRENTOS Test System behavior:
 
-        Two TRENTOS-M Tester components will (in parallel) write a data via the
+        Two TRENTOS Tester components will (in parallel) write a data via the
         NVM abstraction exposed by the Proxy app with a known pattern and then
         read it and verify it.
 
@@ -57,9 +57,9 @@ def test_proxy_nvm_storage_mid_address(boot_with_proxy):
 def test_proxy_nvm_storage_end_address(boot_with_proxy):
     """This test will check writing and reading at the end of the storage.
 
-    Underlying TRENTOS-M Test System behavior:
+    Underlying TRENTOS Test System behavior:
 
-        Two TRENTOS-M Tester components will (in parallel) write a data via the
+        Two TRENTOS Tester components will (in parallel) write a data via the
         NVM abstraction exposed by the Proxy app with a known pattern and then
         read it and verify it.
 
@@ -79,9 +79,9 @@ def test_proxy_nvm_storage_overflow(boot_with_proxy):
     """This test will check that writing outside of the bounds (when starting
     from the valid address) results in an error condition.
 
-    Underlying TRENTOS-M Test System behavior:
+    Underlying TRENTOS Test System behavior:
 
-        Two TRENTOS-M Tester components will (in parallel) write a data via the
+        Two TRENTOS Tester components will (in parallel) write a data via the
         NVM abstraction exposed by the Proxy app with a known pattern and then
         read it and verify it.
 
@@ -101,9 +101,9 @@ def test_proxy_nvm_storage_underflow(boot_with_proxy):
     """This test will check that writing outside of the bounds (when starting
     underflowed address) results in an error condition.
 
-    Underlying TRENTOS-M Test System behavior:
+    Underlying TRENTOS Test System behavior:
 
-        Two TRENTOS-M Tester components will (in parallel) write a data via the
+        Two TRENTOS Tester components will (in parallel) write a data via the
         NVM abstraction exposed by the Proxy app with a known pattern and then
         read it and verify it.
 
@@ -123,9 +123,9 @@ def test_proxy_nvm_far_out_of_bounds_address(boot_with_proxy):
     """This test will check that writing outside of the bounds (invalid start
     addresses) results in an error condition.
 
-    Underlying TRENTOS-M Test System behavior:
+    Underlying TRENTOS Test System behavior:
 
-        Two TRENTOS-M Tester components will (in parallel) write a data via the
+        Two TRENTOS Tester components will (in parallel) write a data via the
         NVM abstraction exposed by the Proxy app with a known pattern and then
         read it and verify it.
 

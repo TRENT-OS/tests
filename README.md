@@ -10,7 +10,7 @@ the script.
 ## Pytest
 
 Each of the scripts in this repository is designed to parse the output of the
-test systems for different TRENTOS-M components or libraries and determine the
+test systems for different TRENTOS components or libraries and determine the
 result (success/failure). The scripts are to be used within the seos\_tests
 project and run with the `test.sh` script as follows:
 

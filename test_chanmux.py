@@ -20,9 +20,9 @@ def test_chanmux_overflow(boot_with_proxy):
     """This test will check the correct trigger of the overflow condition of
     ChanMux.
 
-    Underlying TRENTOS-M Test System behavior:
+    Underlying TRENTOS Test System behavior:
 
-        two TRENTOS-M Tester components will (in parallel) send a command to the
+        two TRENTOS Tester components will (in parallel) send a command to the
         Proxy App (via ChanMux) in order to request a shot of an amount of data
         that will result in an overflow.
         After that the ChanMux gets probed to check whether the overflow
@@ -35,9 +35,9 @@ def test_chanmux_max_size(boot_with_proxy):
     """This test will check the correct operation of ChanMux when streaming an
     amount of data which is the MTU of ChanMux.
 
-    Underlying TRENTOS-M Test System behavior:
+    Underlying TRENTOS Test System behavior:
 
-        two TRENTOS-M Tester components will (in parallel) send 3  commands to
+        two TRENTOS Tester components will (in parallel) send 3  commands to
         the Proxy App (via ChanMux) with a certain payload (with a give pattern),
         respectively with length ChanMux MTU - 1 , ChanMux MTU and
         ChanMux MTU + 1.
@@ -55,12 +55,12 @@ def test_chanmux_fullduplex(boot_with_proxy):
     """This test will check the correct operation of ChanMux when streaming in
     full duplex mode.
 
-    Underlying TRENTOS-M Test System behavior:
+    Underlying TRENTOS Test System behavior:
 
-        two TRENTOS-M Tester components will (in parallel) send a command to the
+        two TRENTOS Tester components will (in parallel) send a command to the
         Proxy App (via ChanMux) with a certain payload (with a give pattern) in
         order to receive it back as in a echo server. While the client
-        (TRENTOS-M) is streaming its data in a loop the server (Proxy) will echo
+        (TRENTOS) is streaming its data in a loop the server (Proxy) will echo
         and another thread of the client will receive the payload back and check
         the pattern of the data."""
 
