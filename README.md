@@ -16,11 +16,11 @@ project and run with the `test.sh` script as follows:
 
 ```bash
 cd seos_tests
- 
+
 # Prepare the test tools, it's a lightweight SDK build. Needs to be done only
 # once.
 src/seos_sandbox/scripts/open_trentos_build_env.sh src/test.sh prepare
- 
+
 # Run the test in QEMU.
 src/seos_sandbox/scripts/open_trentos_test_env.sh \
 src/test.sh run test_demo_hello_world.py
