@@ -73,7 +73,21 @@ def start_or_attach_to_test_runner(
 
         test_runner.start()
 
-        test_runner.check_start_success(boot_mode)
+        retries = 4
+
+        sleep_time = 1
+
+        for x in range(1, retries + 1):
+            try:
+                test_runner.check_start_success(boot_mode)
+            except Exception as e:
+                if (x >= retries):
+                    raise e
+                print('Start not detected. Retrying after {} seconds'.format(sleep_time))
+                time.sleep(sleep_time)
+                sleep_time *= 2
+                continue
+            break
 
         # pytest will receive the tupel from this "callback" for each test
         # case. The "system" parameter that the test passes in the call is
