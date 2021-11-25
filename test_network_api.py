@@ -95,39 +95,6 @@ tcp_client_multiple_clients_n = not ((test_configuration == "default")
 @pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
 @pytest.mark.skipif(tcp_client_single_socket_n,
     reason="Test not running on given test system")
-def test_network_dataport_size_check_client(boot_with_proxy):
-    """
-    Test if the client network stack API handles invalid buffer sizes correctly.
-    Success: We get test successful message in the log.
-    Failure: Timeout
-    """
-
-    parser.check_test(
-        boot_with_proxy(test_system),
-        timeout,
-        'test_dataport_size_check_client_functions')
-
-#-------------------------------------------------------------------------------
-@pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
-@pytest.mark.skipif(tcp_client_single_socket_n,
-    reason="Test not running on given test system")
-def test_network_dataport_size_check_lib(boot_with_proxy):
-    """
-    Test if the library network stack API handles invalid buffer sizes
-    correctly.
-    Success: We get test successful message in the log.
-    Failure: Timeout
-    """
-
-    parser.check_test(
-        boot_with_proxy(test_system),
-        timeout,
-        'test_dataport_size_check_client_functions')
-
-#-------------------------------------------------------------------------------
-@pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
-@pytest.mark.skipif(tcp_client_single_socket_n,
-    reason="Test not running on given test system")
 def test_socket_create_neg(boot_with_proxy):
     """
     Test if the library network stack API socket create() function behaves as
