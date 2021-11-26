@@ -50,6 +50,16 @@ def test_OS_FileSystem_mount(boot):
     parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
     parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
 
+def test_OS_FileSystem_maxHandles(boot):
+    """
+    For all available FS libs, verify that the maximum number of file handles
+    can be used at a time and check that a subsequent attempt to open a file
+    results in an out-of-bounds error. Close all opened file handles afterwards.
+    """
+    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_maxHandles', 'type=%i' % OS_FileSystem_Type_LITTLEFS, True, 2)
+    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_maxHandles', 'type=%i' % OS_FileSystem_Type_SPIFFS, True, 2)
+    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_maxHandles', 'type=%i' % OS_FileSystem_Type_FATFS, True, 2)
+
 def test_OS_FileSystemFile_open(boot):
     """
     For each successful format and mount with one of the existing FS libs, open
