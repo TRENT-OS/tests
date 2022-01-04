@@ -59,51 +59,47 @@ def start_or_attach_to_test_runner(
     is_error = False
     test_runner = None
 
-    try:
-        test_runner = board_automation.system_selector.get_test_runner(
-                        log_dir,
-                        resource_dir,
-                        platform,
-                        system_image,
-                        proxy_config,
-                        sd_card_size,
-                        additional_params,
-                        print_logs
-                    )
+    retries = 4
+    sleep_time = 1
 
-        test_runner.start()
+    for x in range(1, retries + 1):
+        try:
+            test_runner = board_automation.system_selector.get_test_runner(
+                            log_dir,
+                            resource_dir,
+                            platform,
+                            system_image,
+                            proxy_config,
+                            sd_card_size,
+                            additional_params,
+                            print_logs
+                        )
 
-        retries = 4
+            test_runner.start()
+            test_runner.check_start_success(boot_mode)
 
-        sleep_time = 1
-
-        for x in range(1, retries + 1):
-            try:
-                test_runner.check_start_success(boot_mode)
-            except Exception as e:
-                if (x >= retries):
-                    raise e
-                print('Start not detected. Retrying after {} seconds'.format(sleep_time))
+            # pytest will receive the tupel from this "callback" for each test
+            # case. The "system" parameter that the test passes in the call is
+            # no longer used, since the system image is passed as parameter
+            # when the whole test framework is started.
+            yield (lambda system = None: (
+                                test_runner,
+                                test_runner.get_system_log() # kept for legacy compatibility
+                            ) )
+        except:
+            if (x >= retries):
+                # catch really *all* exceptions
+                exc_info = sys.exc_info()
+                msg = exc_info[1]
+                print('Test_runner exception: {}'.format(msg))
+                traceback.print_exception(*exc_info)
+                is_error = True
+            else:
+                print('Succesful start not detected. Retrying after {} seconds'.format(sleep_time))
                 time.sleep(sleep_time)
                 sleep_time *= 2
                 continue
-            break
-
-        # pytest will receive the tupel from this "callback" for each test
-        # case. The "system" parameter that the test passes in the call is
-        # no longer used, since the system image is passed as parameter
-        # when the whole test framework is started.
-        yield (lambda system = None: (
-                            test_runner,
-                            test_runner.get_system_log() # kept for legacy compatibility
-                        ) )
-
-    except: # catch really *all* exceptions
-        exc_info = sys.exc_info()
-        msg = exc_info[1]
-        print('test_runner exception: {}'.format(msg))
-        traceback.print_exception(*exc_info)
-        is_error = True
+        break
 
     if test_runner:
         try:
