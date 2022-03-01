@@ -106,6 +106,7 @@ def test_socket_create_neg(boot_with_proxy):
 @pytest.mark.skipif(uart_nc, reason="Target UART not connected to test env")
 @pytest.mark.skipif(tcp_client_single_socket_n,
     reason="Test not running on given test system")
+@pytest.mark.skip(reason="requires build with log level DEBUG")
 def test_socket_create_pos(boot_with_proxy):
     """
     Test if the library network stack API socket create() function behaves as
@@ -440,6 +441,7 @@ def test_network_picotcp_smoke_tests(boot_with_proxy):
 @pytest.mark.skipif(tcp_client_single_socket_n and tcp_client_multiple_socket_n
     and tcp_client_multiple_clients_n,
     reason="Test not running on given test system")
+@pytest.mark.skip(reason="temporary disabled")
 def test_network_api_client(boot_with_proxy):
     """
     Test multisocket implementation. Two applications sharing a network stack
