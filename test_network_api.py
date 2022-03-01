@@ -284,18 +284,32 @@ def test_dummy_wait_system_up(boot_with_proxy):
 
 
 #-------------------------------------------------------------------------------
-def test_network_basic(boot_with_proxy):
+@pytest.mark.parametrize(
+    "target_ip, name",
+    [
+        (container_gateway_ip, 'container gateway'),
+        # ToDo: for some reason this fails: ('10.0.0.1', 'br0 gateway'),
+        # ToDo: Can't put (ETH_1_ADDR, 'nic1') here, because some boards only
+        #       have one NIC. Find a way to enable this conditionally.
+        #('10.0.0.10', 'ip1'),
+        #('10.0.0.11', 'ip2'),
+    ],
+    #ids = lambda p : 'foo={}'.format(p)
+)
+def test_network_basic(boot_with_proxy, target_ip, name):
     """Check to see if scapy is running correctly """
-
-    target_ip = container_gateway_ip
-
-    for i in range(5):
-        randNum = random.randint(0, 255)
-        ans = sr1(IP(dst=target_ip)/ICMP(id=randNum), timeout=1)
+    ip_frame = IP(dst=target_ip)
+    cnt = 5
+    for i in range(cnt):
+        icmp_id = random.randrange(256) # id is 0-255
+        # print('ping test {}/{} with ICMP ID {}'.format(i, cnt, icmp_id))
+        ans = sr1(ip_frame/ICMP(id=icmp_id), timeout = 1)
         if ans is None:
-            pytest.fail("Timeout waiting for ping reply")
-        if not ans.payload.id == randNum:
-            pytest.fail("Failed we got a reply for a ping we didn't send.")
+            pytest.fail('ping {}/{} timeout waiting for reply from {}'.format(
+                            i+1, cnt, target_ip))
+        if not ans.payload.id == icmp_id:
+            pytest.fail('ping {}/{} ICMP ID mismatch, got {}, expected {}'.format(
+                            i+1, cnt, ans.payload.id, icmp_id))
 
 
 #-------------------------------------------------------------------------------
