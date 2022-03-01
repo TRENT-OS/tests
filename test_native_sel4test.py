@@ -13,16 +13,15 @@ def test_run_native_sel4test(boot_sel4_native):
         # the sel4test system prints the untypeds when it starts
         ( [ 'List of untypeds' ], 1 ),
         # the sel4test application starts
-        ( [ 'seL4 Test' ], 1),
-        # and it will start running tests
-        # the delay is relatively high (increased from to 2 to 15 seconds) due
-        # to a slower boot process on the zynqmp, and can be potentially
-        # reverted if the said boot process improves
+        ( [ 'seL4 Test' ], 15),
+        # and it will start running tests. The delay is relatively high
+        # (increased from to 2 to 15 seconds) due to a slower boot
+        # process on the zynqmp and spike when debug is enabled
         ( [ 'Starting test suite sel4test' ], 15),
         # first test case
         ( [ 'Starting test 1: SYSCALL0000' ], 2),
         # and eventually, all test have passed
-        ( ["All is well in the universe"], 180)
+        ( ["All is well in the universe"], 480)
 
     ])
 
