@@ -361,6 +361,15 @@ def test_tcp_options_poison(boot_with_proxy):
                         raw_tcp_template)
     struct.pack_into('>H', raw_tcp_template, 16, tcp_checksum)
     # print(raw_tcp_template.hex(' '))
+    # it looks like
+    #   Ethernet:   <MAC dst> <MAC src> 08 00
+    #   IP Header:  45 00 00 2C  00 01 00 00
+    #               40 06 <checksum> <IP src> <ip dst>
+    #   TCP header: <port src> <port dst> <seq=0> <ack=0>
+    #               60 02 (data_offs = 6, SYN)
+    #               <window = 20 00> <checksum> <urg=0>
+    #               <options = FF 00 00 00>
+    #   Ethernet    <FCS>
 
     # try setting up a connection with the malformed TCP payload
     if not do_tcp_poisoned_syn(
