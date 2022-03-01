@@ -277,6 +277,12 @@ def test_tcp_read_neg(boot_with_proxy):
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
+def test_dummy_wait_system_up(boot_with_proxy):
+    """Dummy test case to wait until the system is running """
+    time.sleep(1)
+
+
+#-------------------------------------------------------------------------------
 def test_network_basic(boot_with_proxy):
     """Check to see if scapy is running correctly """
 
