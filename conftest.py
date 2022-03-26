@@ -56,13 +56,16 @@ def start_or_attach_to_test_runner(
                         if request.config.option.sd_card else 0
     print_logs = request.config.option.print_logs
 
-    is_error = False
-    test_runner = None
+    for retries in range(4):
 
-    retries = 4
-    sleep_time = 1
+        if (retries > 0):
+            sleep_time = 2**retries
+            print('Succesful start not detected. Retrying after {} seconds'.format(sleep_time))
+            time.sleep(sleep_time)
 
-    for x in range(1, retries + 1):
+        do_retry = True
+        is_error = False
+
         try:
             test_runner = board_automation.system_selector.get_test_runner(
                             log_dir,
@@ -76,7 +79,11 @@ def start_or_attach_to_test_runner(
                         )
 
             test_runner.start()
+            # Check if starting worked, if not then we keep retrying and this
+            # can happen sometimes. Actually, it's a bit annoying that this
+            # check throws an exception instead of just returning an error.
             test_runner.check_start_success(boot_mode)
+            do_retry = False
 
             # pytest will receive the tupel from this "callback" for each test
             # case. The "system" parameter that the test passes in the call is
@@ -86,33 +93,39 @@ def start_or_attach_to_test_runner(
                                 test_runner,
                                 test_runner.get_system_log() # kept for legacy compatibility
                             ) )
-        except:
-            if (x >= retries):
-                # catch really *all* exceptions
-                exc_info = sys.exc_info()
-                msg = exc_info[1]
-                print('Test_runner exception: {}'.format(msg))
-                traceback.print_exception(*exc_info)
-                is_error = True
-            else:
-                print('Succesful start not detected. Retrying after {} seconds'.format(sleep_time))
-                time.sleep(sleep_time)
-                sleep_time *= 2
-                continue
-        break
-
-    if test_runner:
-        try:
-            test_runner.stop()
         except: # catch really *all* exceptions
+            is_error = True
             exc_info = sys.exc_info()
             msg = exc_info[1]
-            print('test_runner.stop() exception: {}'.format(msg))
+            print('Test_runner exception: {}'.format(msg))
             traceback.print_exception(*exc_info)
-            pytest.exit('test_runner.stop() failed')
 
-    if is_error:
-        pytest.exit('test_runner failed')
+        # We have to stop the test runner in any case.
+        if test_runner is not None:
+            try:
+                test_runner.stop()
+            except: # catch really *all* exceptions
+                # failing to stop the test runner is really fatal, there is no
+                # point in retrying then.
+                is_error = True
+                do_retry = False
+                exc_info = sys.exc_info()
+                msg = exc_info[1]
+                print('Test_runner stop exception: {}'.format(msg))
+                traceback.print_exception(*exc_info)
+
+        if not is_error:
+            success_str = 'test_runner successful'
+            if (retries > 0):
+                success_str += ' (after {} retries)'.format(retries)
+            print('test_runner successful')
+            return
+
+        if not do_retry:
+            break
+
+    # if we arrive here the test run failed
+    pytest.exit('test_runner failed')
 
 
 #-------------------------------------------------------------------------------
