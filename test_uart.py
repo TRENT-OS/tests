@@ -32,7 +32,7 @@ def test_uart(boot):
     Test UART data stream handling and throughput
     """
 
-    test_runner = boot()[0]
+    test_runner = boot()
 
     # synchronize with test application, timeout is 10 secs based on empirical
     # evidence. System load can likely impact this timing.

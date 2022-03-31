@@ -10,7 +10,7 @@ def test_demo_tls_api(boot_with_proxy):
     thus we consider both a success and a connection failure as acceptable.
     """
 
-    test_runner = boot_with_proxy()[0]
+    test_runner = boot_with_proxy()
 
     (ret, idx) = test_runner.system_log_match_sequence(
                     ["Demo completed successfully"],

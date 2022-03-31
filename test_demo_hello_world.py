@@ -9,11 +9,10 @@ def test_hello_world(boot):
     world
     """
 
-    test_run = boot("demo_hello_world")
-    f_out = test_run[1]
+    test_runner = boot("demo_hello_world")
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
-        f_out,
+        test_runner.get_system_log(),
         ["hello world!"],
         15)
 

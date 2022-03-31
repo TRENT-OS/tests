@@ -21,11 +21,10 @@ def test_key_store_provisioning(boot_with_proxy):
         os.remove(proxy_memory_file)
     os.rename(pre_provisioned_keystore_image, proxy_memory_file)
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
-        f_out,
+        test_runner.get_system_log(),
         [
             "Preprovisioning keystore demo succeeded"
         ],

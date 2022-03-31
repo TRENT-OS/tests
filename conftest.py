@@ -85,14 +85,12 @@ def start_or_attach_to_test_runner(
             test_runner.check_start_success(boot_mode)
             do_retry = False
 
-            # pytest will receive the tupel from this "callback" for each test
-            # case. The "system" parameter that the test passes in the call is
-            # no longer used, since the system image is passed as parameter
-            # when the whole test framework is started.
-            yield (lambda system = None: (
-                                test_runner,
-                                test_runner.get_system_log() # kept for legacy compatibility
-                            ) )
+            # pytest will receive the test runner from this "callback" for each
+            # test case. The "system" parameter that the test can pass in the
+            # call is no longer used, since the system image is passed as
+            # parameter when the whole test framework is started.
+            yield (lambda system = None: test_runner )
+
         except: # catch really *all* exceptions
             is_error = True
             exc_info = sys.exc_info()

@@ -17,13 +17,12 @@ def test_smoke_test(boot_with_proxy):
     Something is logged, system does not crash.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
 
     success_msg = LogClients.LOG_SERVER.value
 
     (text, match) = logs.get_match_in_line(
-        f_out,
+        test_runner.get_system_log(),
         re.compile(success_msg),
         timeout)
 
@@ -33,14 +32,13 @@ def test_smoke_test(boot_with_proxy):
 def test_logging_to_console(boot_with_proxy):
     """ Logs are printed on the console (stdout). """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
 
     success_msg = LogClients.LVL_WARNING.value \
                 + LogMessagesPatterns.WARNING_LVL_MSG.value
 
     (text, match) = logs.get_match_in_line(
-        f_out,
+        test_runner.get_system_log(),
         re.compile(success_msg),
         timeout)
 
@@ -50,11 +48,10 @@ def test_logging_to_console(boot_with_proxy):
 def test_logging_to_file(boot_with_proxy):
     """ Logs are printed to the file. """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
 
     (text, match) = logs.get_match_in_line(
-        f_out,
+        test_runner.get_system_log(),
         re.compile(log_file_02_begin_marker),
         timeout)
 
@@ -108,11 +105,10 @@ def test_logging_clients(
 
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
 
     (text, match) = logs.get_match_in_line(
-        f_out,
+        test_runner.get_system_log(),
         re.compile(log_file_02_begin_marker),
         timeout)
 
@@ -124,11 +120,10 @@ def test_logging_clients(
 def test_log_empty_entry(boot_with_proxy):
     """ Logging empty entry. """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
 
     (text, match) = logs.get_match_in_line(
-        f_out,
+        test_runner.get_system_log(),
         re.compile(LogMessagesPatterns.EMPTY_MSG.value),
         timeout)
 
@@ -138,11 +133,10 @@ def test_log_empty_entry(boot_with_proxy):
 def test_log_max_entry_length(boot_with_proxy):
     """ Logging an entry with the maximum allowed message length. """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
 
     (text, match) = logs.get_match_in_line(
-        f_out,
+        test_runner.get_system_log(),
         re.compile(LogMessagesPatterns.MAX_ENTRY.value),
         timeout)
 
@@ -152,11 +146,10 @@ def test_log_max_entry_length(boot_with_proxy):
 def test_log_too_large_entry_length(boot_with_proxy):
     """ Logging an entry that exceeds the allowed message length. """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
 
     (text, match) = logs.get_match_in_line(
-        f_out,
+        test_runner.get_system_log(),
         re.compile(LogMessagesPatterns.TOO_LARGE_ENTRY.value),
         timeout)
 
@@ -170,11 +163,10 @@ def test_get_sender_id(boot_with_proxy):
     even if client has no name assigned.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
 
     (text, match) = logs.get_match_in_line(
-        f_out,
+        test_runner.get_system_log(),
         re.compile(
               LogClients.LVL_ASSERT.value
             + LogMessagesPatterns.ASSERT_LVL_MSG.value),
@@ -189,11 +181,10 @@ def test_logging_via_printf(boot_with_proxy):
     The client APP_FS uses printf(...) instead of the logging functions.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
 
     (text, match) = logs.get_match_in_line(
-        f_out,
+        test_runner.get_system_log(),
         re.compile(
               LogClients.APP_FS.value
             + LogMessagesPatterns.PARTITION_0_CREATED.value),
@@ -205,11 +196,10 @@ def test_logging_via_printf(boot_with_proxy):
 def test_logger_logging(boot_with_proxy):
     """ Logs from the logger itself. """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
 
     (text, match) = logs.get_match_in_line(
-        f_out,
+        test_runner.get_system_log(),
         re.compile(
               LogClients.LOG_SERVER.value
             + LogMessagesPatterns.LOG_SERVER_INIT_SUCCESS.value),
@@ -221,15 +211,14 @@ def test_logger_logging(boot_with_proxy):
 def test_log_format(boot_with_proxy):
     """ Custom log format used. """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
 
     expected_pattern = LogClients.LOG_SERVER.value \
                      + r".*CUSTOM_FORMAT" \
                      + LogMessagesPatterns.LOG_SERVER_INIT_SUCCESS.value
 
     (text, match) = logs.get_match_in_line(
-        f_out,
+        test_runner.get_system_log(),
         re.compile(expected_pattern),
         timeout)
 
@@ -239,11 +228,10 @@ def test_log_format(boot_with_proxy):
 def test_different_backends(boot_with_proxy):
     """ Logs are pushed to different logging backends. """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
 
     (text, match) = logs.get_match_in_line(
-        f_out,
+        test_runner.get_system_log(),
         re.compile(end_of_demo_marker),
         timeout)
 
@@ -260,11 +248,10 @@ def test_client_logging_to_different_backends(boot_with_proxy):
     One client can log to different backends at the same time.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
 
     (text, match) = logs.get_match_in_line(
-        f_out,
+        test_runner.get_system_log(),
         re.compile(log_file_02_begin_marker),
         timeout)
 
@@ -289,14 +276,13 @@ def test_client_sending_ill_formatted_string(boot_with_proxy):
     This test reproduces above case.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
 
     expected_error = "FAULT HANDLER: data fault from sendsIllFormattedString" \
                    + ".sendsIllFormattedString_ready_0000"
 
     (text, match) = logs.get_match_in_line(
-        f_out,
+        test_runner.get_system_log(),
         re.compile(expected_error),
         timeout)
 

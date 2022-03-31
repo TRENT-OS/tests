@@ -6,7 +6,7 @@ def test_run_native_sel4test(boot_sel4_native):
     run native sel4test
     """
 
-    test_runner = boot_sel4_native()[0]
+    test_runner = boot_sel4_native()
 
     (ret , idx, idx2) = test_runner.system_log_match_multiple_sequences([
 

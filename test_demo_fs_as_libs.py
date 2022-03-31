@@ -21,10 +21,12 @@ def test_run_demo(boot_with_proxy):
         f.seek( (36*1024*1024) -1 )
         f.write(b"\0")
 
-    test_run = boot_with_proxy("demo_fs_as_libs")
-    f_out = test_run[1]
+    test_runner = boot_with_proxy("demo_fs_as_libs")
 
     success_msg = "# end #"
     timeout = 30
-    (text, match) = logs.get_match_in_line(f_out, re.compile(success_msg), timeout)
+    (text, match) = logs.get_match_in_line(
+                        test_runner.get_system_log(),
+                        re.compile(success_msg),
+                        timeout)
     assert match == success_msg

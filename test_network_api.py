@@ -307,9 +307,8 @@ def test_tcp_options_poison(boot_with_proxy):
     the connection can be opened.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-    parser.fail_on_assert(f_out)
+    test_runner = boot_with_proxy(test_system)
+    parser.fail_on_assert(test_runner.get_system_log())
 
     target_ip = server_ip
     dport = 5555
@@ -381,9 +380,8 @@ def test_tcp_header_length_poison(boot_with_proxy):
     test and thus opening a connection will result in a timeout.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-    parser.fail_on_assert(f_out)
+    test_runner = boot_with_proxy(test_system)
+    parser.fail_on_assert(test_runner.get_system_log())
 
     target_ip = server_ip
     dport = 5555
@@ -434,9 +432,8 @@ def test_network_api_client(boot_with_proxy):
     the test container. The library signals when all sockets are in use.
     """
 
-    test_run = boot_with_proxy(test_system)
-
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
+    f_out = test_runner.get_system_log()
     parser.fail_on_assert(f_out)
 
     src = pathlib.Path(__file__).parent.absolute().joinpath('test_network_api/')
@@ -474,8 +471,8 @@ def test_network_api_echo_server(boot_with_proxy, n):
     The test is repeated using blocks of different sizes.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
+    f_out = test_runner.get_system_log()
     parser.fail_on_assert(f_out)
 
     target_ip = server_ip
@@ -522,8 +519,8 @@ def test_network_api_bandwidth_64_Kbit(boot_with_proxy, benchmark):
     Measure the send and receive speed of the echo server.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
+    f_out = test_runner.get_system_log()
     parser.fail_on_assert(f_out)
 
     target_ip = server_ip
@@ -549,8 +546,8 @@ def test_network_api_bandwidth_10_Mbit(boot_with_proxy, benchmark):
     Measure the send and receive speed of the echo server.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
+    f_out = test_runner.get_system_log()
     parser.fail_on_assert(f_out)
 
     target_ip = server_ip
@@ -583,9 +580,8 @@ def test_network_tcp_connection_established(boot_with_proxy):
     by the network stack.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-    parser.fail_on_assert(f_out)
+    test_runner = boot_with_proxy(test_system)
+    parser.fail_on_assert(test_runner.get_system_log())
 
     target_ip = server_ip
     dport = 5555
@@ -750,9 +746,8 @@ def test_network_tcp_connection_reset(boot_with_proxy):
     packets.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-    parser.fail_on_assert(f_out)
+    test_runner = boot_with_proxy(test_system)
+    parser.fail_on_assert(test_runner.get_system_log())
 
     target_ip = server_ip
 
@@ -787,9 +782,8 @@ def test_network_tcp_connection_invalid(boot_with_proxy):
     the datagram but has no protocol mechanism to inform the sender.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-    parser.fail_on_assert(f_out)
+    test_runner = boot_with_proxy(test_system)
+    parser.fail_on_assert(test_runner.get_system_log())
 
     target_ip = server_ip
 
@@ -841,9 +835,8 @@ def test_network_tcp_out_of_order_receive(boot_with_proxy):
     delays and lost packets.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-    parser.fail_on_assert(f_out)
+    test_runner = boot_with_proxy(test_system)
+    parser.fail_on_assert(test_runner.get_system_log())
 
     target_ip = server_ip
 
@@ -881,9 +874,8 @@ def test_network_tcp_data_send(boot_with_proxy):
     lost packets.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-    parser.fail_on_assert(f_out)
+    test_runner = boot_with_proxy(test_system)
+    parser.fail_on_assert(test_runner.get_system_log())
 
     target_ip = server_ip
 
@@ -938,9 +930,8 @@ def test_network_arp_request(boot_with_proxy):
     Test asking for the MAC address of a known host.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-    parser.fail_on_assert(f_out)
+    test_runner = boot_with_proxy(test_system)
+    parser.fail_on_assert(test_runner.get_system_log())
 
     target_ip = client_ip
 
@@ -961,9 +952,8 @@ def test_network_arp_reply_client(boot_with_proxy):
         Failure: Timeout
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-    parser.fail_on_assert(f_out)
+    test_runner = boot_with_proxy(test_system)
+    parser.fail_on_assert(test_runner.get_system_log())
 
     target_ip = client_ip
 
@@ -981,9 +971,8 @@ def test_network_arp_reply_server(boot_with_proxy):
         Failure: Timeout
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-    parser.fail_on_assert(f_out)
+    test_runner = boot_with_proxy(test_system)
+    parser.fail_on_assert(test_runner.get_system_log())
 
     target_ip = server_ip
 
@@ -1010,8 +999,8 @@ def test_network_udp_recvfrom_pos(boot_with_proxy):
     Failure: Timeout
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
+    f_out = test_runner.get_system_log()
     parser.fail_on_assert(f_out)
 
     target_ip = client_ip
@@ -1044,8 +1033,8 @@ def test_network_udp_sendto_pos(boot_with_proxy):
     Failure: Timeout
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy(test_system)
+    f_out = test_runner.get_system_log()
     parser.fail_on_assert(f_out)
 
     target_ip = client_ip
@@ -1159,9 +1148,8 @@ def test_network_ping_request(boot_with_proxy):
     Test pinging a known host.
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-    parser.fail_on_assert(f_out)
+    test_runner = boot_with_proxy(test_system)
+    parser.fail_on_assert(test_runner.get_system_log())
 
     target_ip = client_ip
 
@@ -1182,9 +1170,8 @@ def test_network_ping_reply_client(boot_with_proxy):
     Failure: Timeout
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-    parser.fail_on_assert(f_out)
+    test_runner = boot_with_proxy(test_system)
+    parser.fail_on_assert(test_runner.get_system_log())
 
     target_ip = client_ip
 
@@ -1203,9 +1190,8 @@ def test_network_ping_reply_server(boot_with_proxy):
     Failure: Timeout
     """
 
-    test_run = boot_with_proxy(test_system)
-    f_out = test_run[1]
-    parser.fail_on_assert(f_out)
+    test_runner = boot_with_proxy(test_system)
+    parser.fail_on_assert(test_runner.get_system_log())
 
     target_ip = server_ip
 
