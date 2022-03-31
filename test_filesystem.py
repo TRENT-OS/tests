@@ -21,18 +21,18 @@ def test_OS_FileSystem_format(boot):
     we have expectRemoval=0; if it is set to 1, we expect formatting to fail
     with a NOT_PRESENT error coming from the storage layer.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_format', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
 
 def test_OS_FileSystem_mount(boot):
     """
@@ -40,15 +40,15 @@ def test_OS_FileSystem_mount(boot):
     we have expectRemoval=0; if it is set to 1, we expect mounting to fail
     with a NOT_PRESENT error coming from the storage layer.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_mount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
 
 def test_OS_FileSystem_maxHandles(boot):
     """
@@ -56,9 +56,9 @@ def test_OS_FileSystem_maxHandles(boot):
     can be used at a time and check that a subsequent attempt to open a file
     results in an out-of-bounds error. Close all opened file handles afterwards.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_maxHandles', 'type=%i' % OS_FileSystem_Type_LITTLEFS, True, 2)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_maxHandles', 'type=%i' % OS_FileSystem_Type_SPIFFS, True, 2)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_maxHandles', 'type=%i' % OS_FileSystem_Type_FATFS, True, 2)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_maxHandles', 'type=%i' % OS_FileSystem_Type_LITTLEFS, True, 2)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_maxHandles', 'type=%i' % OS_FileSystem_Type_SPIFFS, True, 2)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_maxHandles', 'type=%i' % OS_FileSystem_Type_FATFS, True, 2)
 
 def test_OS_FileSystemFile_open(boot):
     """
@@ -66,18 +66,18 @@ def test_OS_FileSystemFile_open(boot):
     a file on the fs. This is expected to work when expectRemoval=0, and should
     fail with NOT_PRESENT error coming from the storage layer.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_open', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
 
 def test_OS_FileSystemFile_write(boot):
     """
@@ -85,15 +85,15 @@ def test_OS_FileSystemFile_write(boot):
     expected to work when expectRemoval=0, and should fail with NOT_PRESENT
     error coming from the storage layer.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_write', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
 
 def test_OS_FileSystemFile_read(boot):
     """
@@ -102,12 +102,12 @@ def test_OS_FileSystemFile_read(boot):
     expectRemoval=0, and should fail with NOT_PRESENT error coming from the
     storage layer.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_read', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_read', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_read', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_read', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_read', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_read', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_read', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_read', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_read', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_read', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_read', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_read', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
 
 def test_OS_FileSystemFile_close(boot):
     """
@@ -115,15 +115,15 @@ def test_OS_FileSystemFile_close(boot):
     it. This is expected to work when expectRemoval=0, and should fail with
     NOT_PRESENT error coming from the storage layer.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_close', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
 
 def test_OS_FileSystemFile_getSize(boot):
     """
@@ -131,12 +131,12 @@ def test_OS_FileSystemFile_getSize(boot):
     of bytes written. This is expected to work when expectRemoval=0, and should
     fail with NOT_PRESENT error coming from the storage layer.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_getSize', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_getSize', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_getSize', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_getSize', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_getSize', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_getSize', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_getSize', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_getSize', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_getSize', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_getSize', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_getSize', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_getSize', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
 
 def test_OS_FileSystemFile_delete(boot):
     """
@@ -144,12 +144,12 @@ def test_OS_FileSystemFile_delete(boot):
     when expectRemoval=0, and should fail with NOT_PRESENT error coming from the
     storage layer.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_delete', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_delete', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_delete', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_delete', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_delete', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystemFile_delete', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_delete', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_delete', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_delete', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_delete', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_delete', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystemFile_delete', 'expectRemoval=1,type=%i' % OS_FileSystem_Type_FATFS)
 
 def test_OS_FileSystem_unmount(boot):
     """
@@ -157,12 +157,12 @@ def test_OS_FileSystem_unmount(boot):
     This is always expected to work, as it should not touch the storage and thus
     won't learn that the medium was removed.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_unmount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_unmount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_unmount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_unmount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_unmount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_unmount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_unmount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_unmount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_unmount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_unmount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_unmount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_unmount', 'expectRemoval=0,type=%i' % OS_FileSystem_Type_FATFS)
 
 def test_OS_FileSystem_mount_fail(boot):
     """
@@ -170,4 +170,4 @@ def test_OS_FileSystem_mount_fail(boot):
     all FS types. Calculate SHA256 on storage to make sure failed mounts do not
     change disk contents.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_OS_FileSystem_mount_fail')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_mount_fail')

@@ -11,7 +11,7 @@ def test_DomainEnumerator_init_no_server_init_neg(boot):
     ways of using this function thus verifying that it returns error codes instead
     of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_DomainEnumerator_init_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_DomainEnumerator_init_no_server_init_neg')
 
 def test_DomainEnumerator_close_no_server_init_neg(boot):
     """
@@ -19,7 +19,7 @@ def test_DomainEnumerator_close_no_server_init_neg(boot):
     ways of using this function thus verifying that it returns error codes instead
     of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_DomainEnumerator_close_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_DomainEnumerator_close_no_server_init_neg')
 
 def test_DomainEnumerator_reset_no_server_init_neg(boot):
     """
@@ -27,7 +27,7 @@ def test_DomainEnumerator_reset_no_server_init_neg(boot):
     ways of using this function thus verifying that it returns error codes instead
     of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_DomainEnumerator_reset_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_DomainEnumerator_reset_no_server_init_neg')
 
 def test_DomainEnumerator_increment_no_server_init_neg(boot):
     """
@@ -35,7 +35,7 @@ def test_DomainEnumerator_increment_no_server_init_neg(boot):
     invalid ways of using this function thus verifying that it returns error codes
     instead of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_DomainEnumerator_increment_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_DomainEnumerator_increment_no_server_init_neg')
 
 def test_DomainEnumerator_getElement_no_server_init_neg(boot):
     """
@@ -43,7 +43,7 @@ def test_DomainEnumerator_getElement_no_server_init_neg(boot):
     invalid ways of using this function thus verifying that it returns error codes
     instead of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_DomainEnumerator_getElement_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_DomainEnumerator_getElement_no_server_init_neg')
 
 def test_ParameterEnumerator_init_no_server_init_neg(boot):
     """
@@ -51,7 +51,7 @@ def test_ParameterEnumerator_init_no_server_init_neg(boot):
     invalid ways of using this function thus verifying that it returns error codes
     instead of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterEnumerator_init_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterEnumerator_init_no_server_init_neg')
 
 def test_ParameterEnumerator_close_no_server_init_neg(boot):
     """
@@ -59,7 +59,7 @@ def test_ParameterEnumerator_close_no_server_init_neg(boot):
     invalid ways of using this function thus verifying that it returns error codes
     instead of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterEnumerator_close_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterEnumerator_close_no_server_init_neg')
 
 def test_ParameterEnumerator_reset_no_server_init_neg(boot):
     """
@@ -67,7 +67,7 @@ def test_ParameterEnumerator_reset_no_server_init_neg(boot):
     invalid ways of using this function thus verifying that it returns error codes
     instead of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterEnumerator_reset_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterEnumerator_reset_no_server_init_neg')
 
 def test_ParameterEnumerator_increment_no_server_init_neg(boot):
     """
@@ -75,7 +75,7 @@ def test_ParameterEnumerator_increment_no_server_init_neg(boot):
     invalid ways of using this function thus verifying that it returns error codes
     instead of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterEnumerator_increment_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterEnumerator_increment_no_server_init_neg')
 
 def test_ParameterEnumerator_getElement_no_server_init_neg(boot):
     """
@@ -83,7 +83,7 @@ def test_ParameterEnumerator_getElement_no_server_init_neg(boot):
     invalid ways of using this function thus verifying that it returns error codes
     instead of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterEnumerator_getElement_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterEnumerator_getElement_no_server_init_neg')
 
 def test_ParameterGetValue_no_server_init_neg(boot):
     """
@@ -91,7 +91,7 @@ def test_ParameterGetValue_no_server_init_neg(boot):
     of using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterGetValue_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterGetValue_no_server_init_neg')
 
 def test_ParameterGetValueAsU32_no_server_init_neg(boot):
     """
@@ -99,7 +99,7 @@ def test_ParameterGetValueAsU32_no_server_init_neg(boot):
     ways of using this function thus verifying that it returns error codes instead
     of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterGetValueAsU32_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterGetValueAsU32_no_server_init_neg')
 
 def test_ParameterGetValueAsU64_no_server_init_neg(boot):
     """
@@ -107,7 +107,7 @@ def test_ParameterGetValueAsU64_no_server_init_neg(boot):
     ways of using this function thus verifying that it returns error codes instead
     of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterGetValueAsU64_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterGetValueAsU64_no_server_init_neg')
 
 def test_ParameterGetValueAsString_no_server_init_neg(boot):
     """
@@ -115,7 +115,7 @@ def test_ParameterGetValueAsString_no_server_init_neg(boot):
     invalid ways of using this function thus verifying that it returns error codes
     instead of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterGetValueAsString_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterGetValueAsString_no_server_init_neg')
 
 def test_ParameterGetValueAsBlob_no_server_init_neg(boot):
     """
@@ -123,7 +123,7 @@ def test_ParameterGetValueAsBlob_no_server_init_neg(boot):
     invalid ways of using this function thus verifying that it returns error codes
     instead of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterGetValueAsBlob_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterGetValueAsBlob_no_server_init_neg')
 
 def test_ParameterGetValueFromDomainName_no_server_init_neg(boot):
     """
@@ -131,7 +131,7 @@ def test_ParameterGetValueFromDomainName_no_server_init_neg(boot):
     the invalid ways of using this function thus verifying that it returns error
     codes instead of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterGetValueFromDomainName_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterGetValueFromDomainName_no_server_init_neg')
 
 def test_ParameterSetValue_no_server_init_neg(boot):
     """
@@ -139,7 +139,7 @@ def test_ParameterSetValue_no_server_init_neg(boot):
     of using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValue_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValue_no_server_init_neg')
 
 def test_ParameterSetValueAsU32_no_server_init_neg(boot):
     """
@@ -147,7 +147,7 @@ def test_ParameterSetValueAsU32_no_server_init_neg(boot):
     ways of using this function thus verifying that it returns error codes instead
     of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_no_server_init_neg')
 
 def test_ParameterSetValueAsU64_no_server_init_neg(boot):
     """
@@ -155,7 +155,7 @@ def test_ParameterSetValueAsU64_no_server_init_neg(boot):
     ways of using this function thus verifying that it returns error codes instead
     of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_no_server_init_neg')
 
 def test_ParameterSetValueAsString_no_server_init_neg(boot):
     """
@@ -163,7 +163,7 @@ def test_ParameterSetValueAsString_no_server_init_neg(boot):
     invalid ways of using this function thus verifying that it returns error codes
     instead of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_no_server_init_neg')
 
 def test_ParameterSetValueAsBlob_no_server_init_neg(boot):
     """
@@ -171,267 +171,267 @@ def test_ParameterSetValueAsBlob_no_server_init_neg(boot):
     invalid ways of using this function thus verifying that it returns error codes
     instead of crashing
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_no_server_init_neg')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_no_server_init_neg')
 
 def test_CreateFSBackend_pos(boot):
     """
     Positive tests for CreateFSBackend(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_CreateFSBackend_pos')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_CreateFSBackend_pos')
 
 def test_CreateHandle_pos(boot):
     """
     Positive tests for CreateHandle(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_CreateHandle_pos', 'handleKind=1,componentName=TestApp1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_CreateHandle_pos', 'handleKind=0,componentName=TestApp1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_CreateHandle_pos', 'handleKind=0,componentName=TestApp1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_CreateHandle_pos', 'handleKind=1,componentName=TestApp1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_CreateHandle_pos', 'handleKind=0,componentName=TestApp1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_CreateHandle_pos', 'handleKind=0,componentName=TestApp1')
 
 def test_DomainEnumerator_increment_pos(boot):
     """
     Positive tests for DomainEnumerator_increment(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_DomainEnumerator_increment_pos', 'handleKind=1,componentName=TestApp1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_DomainEnumerator_increment_pos', 'handleKind=0,componentName=TestApp1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_DomainEnumerator_increment_pos', 'handleKind=1,componentName=TestApp1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_DomainEnumerator_increment_pos', 'handleKind=0,componentName=TestApp1')
 
 def test_DomainEnumerator_reset_pos(boot):
     """
     Positive tests for DomainEnumerator_reset(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_DomainEnumerator_reset_pos', 'handleKind=1,componentName=TestApp1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_DomainEnumerator_reset_pos', 'handleKind=0,componentName=TestApp1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_DomainEnumerator_reset_pos', 'handleKind=1,componentName=TestApp1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_DomainEnumerator_reset_pos', 'handleKind=0,componentName=TestApp1')
 
 def test_ParameterEnumerator_increment_pos(boot):
     """
     Positive tests for ParameterEnumerator_increment(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterEnumerator_increment_pos', 'handleKind=1,componentName=TestApp1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterEnumerator_increment_pos', 'handleKind=0,componentName=TestApp1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterEnumerator_increment_pos', 'handleKind=1,componentName=TestApp1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterEnumerator_increment_pos', 'handleKind=0,componentName=TestApp1')
 
 def test_ParameterEnumerator_reset_pos(boot):
     """
     Positive tests for ParameterEnumerator_reset(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterEnumerator_reset_pos', 'handleKind=1,componentName=TestApp1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterEnumerator_reset_pos', 'handleKind=0,componentName=TestApp1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterEnumerator_reset_pos', 'handleKind=1,componentName=TestApp1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterEnumerator_reset_pos', 'handleKind=0,componentName=TestApp1')
 
 def test_GetInteger32FromFsBackend_pos(boot):
     """
     Positive tests for GetInteger32FromFsBackend(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_32_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_32_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_32_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_32_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_32_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger32FromFsBackend_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_32_0')
 
 def test_GetInteger64FromFsBackend_pos(boot):
     """
     Positive tests for GetInteger64FromFsBackend(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_64_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_64_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_64_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_64_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_64_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetInteger64FromFsBackend_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_64_0')
 
 def test_GetStringsFromFsBackend_pos(boot):
     """
     Positive tests for GetStringsFromFsBackend(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_String_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_String_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_String_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_String_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_String_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetStringsFromFsBackend_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_String_0')
 
 def test_GetBlobsFromFsBackend_pos(boot):
     """
     Positive tests for GetBlobsFromFsBackend(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_Blob_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_Blob_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_Blob_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_Blob_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_Blob_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_Blob_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_Blob_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_Blob_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_Blob_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_Blob_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_Blob_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_GetBlobsFromFsBackend_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_Blob_3')
 
 def test_ParameterReadAccessRight_pos(boot):
     """
     Positive tests for ParameterReadAccessRight(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterReadAccessRight_pos', 'handleKind=1,componentName=TestApp1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterReadAccessRight_pos', 'handleKind=0,componentName=TestApp1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterReadAccessRight_pos', 'handleKind=1,componentName=TestApp1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterReadAccessRight_pos', 'handleKind=0,componentName=TestApp1')
 
 def test_ParameterSetValueAsU32_pos(boot):
     """
     Positive tests for ParameterSetValueAsU32(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_32_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_32_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_32_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_32_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_32_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU32_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_32_0')
 
 def test_ParameterSetValueAsU64_pos(boot):
     """
     Positive tests for ParameterSetValueAsU64(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_64_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_64_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_64_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_64_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_64_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsU64_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_64_0')
 
 def test_ParameterSetValueAsString_pos(boot):
     """
     Positive tests for ParameterSetValueAsString(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_String_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_String_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_String_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_String_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_String_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsString_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_String_0')
 
 def test_ParameterSetValueAsBlob_pos(boot):
     """
     Positive tests for ParameterSetValueAsBlob(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_2')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_Blob_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_Blob_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_Blob_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_Blob_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_Blob_3')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_Blob_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_2')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_Blob_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_Blob_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_Blob_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp2,parameterName=App2_Parameter_Blob_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp3,parameterName=App3_Parameter_Blob_3')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValueAsBlob_pos', 'handleKind=0,componentName=TestApp4,parameterName=App4_Parameter_Blob_3')
 
 def test_ParameterWriteAccessRight_pos(boot):
     """
     Positive tests for ParameterWriteAccessRight(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterWriteAccessRight_pos', 'handleKind=1,componentName=TestApp1')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterWriteAccessRight_pos', 'handleKind=0,componentName=TestApp1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterWriteAccessRight_pos', 'handleKind=1,componentName=TestApp1')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterWriteAccessRight_pos', 'handleKind=0,componentName=TestApp1')
 
 def test_ParameterSetValue_pos(boot):
     """
     Positive tests for ParameterSetValue(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValue_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValue_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValue_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValue_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValue_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValue_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValue_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_0')
-    parser.check_test(boot(None), TEST_TIMEOUT, 'test_ParameterSetValue_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValue_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_32_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValue_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_64_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValue_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_String_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValue_pos', 'handleKind=1,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValue_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_32_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValue_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_64_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValue_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_String_0')
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_ParameterSetValue_pos', 'handleKind=0,componentName=TestApp1,parameterName=App1_Parameter_Blob_0')
 

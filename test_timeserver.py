@@ -7,7 +7,7 @@ def test_timer(boot):
     Test timer
     """
 
-    test_runner = boot(None)[0]
+    test_runner = boot()[0]
 
     # synchronize with test application
     (ret, idx) = test_runner.system_log_match_sequence(
