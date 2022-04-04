@@ -1,11 +1,6 @@
-import pytest
-
-import sys
-
-import logs # logs module from the common directory in TA
 import os
-import re
-import time
+import pytest
+import logs # logs module from the common directory in TA
 
 test_system = "demo_preprovisioned_keystore"
 timeout = 200

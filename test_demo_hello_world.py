@@ -1,13 +1,7 @@
 # Copyright (C) 2019-2021, HENSOLDT Cyber GmbH
 
 import pytest
-
-import sys
-
 import logs # logs module from the common directory in TA
-import os
-import re
-import time
 
 def test_hello_world(boot):
     """

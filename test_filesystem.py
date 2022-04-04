@@ -1,4 +1,4 @@
-import pytest, sys
+import pytest
 import test_parser as parser
 
 """

@@ -1,11 +1,5 @@
 import pytest
-
-import sys
-
 import logs # logs module from the common directory in TA
-import os
-import re
-import time
 
 test_system = "demo_keystore"
 timeout = 100

@@ -1,12 +1,8 @@
 from test_logserver_data.common import *
 from enum import Enum
-import time
 import re
-import os
 import logs # logs module from the common directory in TA
 import pytest
-
-import sys
 
 
 class LogTargets(Enum):

@@ -1,6 +1,4 @@
 import pytest
-import sys
-import os
 import re
 
 import logs # logs module from the common directory in TA

@@ -1,4 +1,4 @@
-import pytest, sys
+import pytest
 import test_parser as parser
 
 TEST_TIMEOUT = 30 # based on profiling

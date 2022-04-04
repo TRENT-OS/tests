@@ -1,4 +1,3 @@
-import sys, os, re, time
 import pytest
 
 # Timeouts of the tests are set based on CI profiling.

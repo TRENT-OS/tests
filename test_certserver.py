@@ -1,5 +1,5 @@
 
-import pytest, sys
+import pytest
 import test_parser as parser
 
 def test_CertServer_initChain_pos(boot):

@@ -1,6 +1,4 @@
-import sys, os, re, time
 import pytest
-
 import logs # logs module from the common directory in TA
 
 # Timeouts of the tests are set based on CI profiling.

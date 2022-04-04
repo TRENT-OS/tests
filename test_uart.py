@@ -1,12 +1,5 @@
 import pytest
-
-import sys
-
-import os
-import re
 import time
-import threading
-import socket
 
 
 #-------------------------------------------------------------------------------
