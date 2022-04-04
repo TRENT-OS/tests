@@ -1,28 +1,27 @@
 import sys, os, re, time
 import pytest
 
-import logs # logs module from the common directory in TA
-
 # Timeouts of the tests are set based on CI profiling.
 
 #-------------------------------------------------------------------------------
 @pytest.mark.dependency()
 def test_demo_tls_api(boot_with_proxy):
     """
-    BE AWARE: At the moment we do not test it really because it is required some
-    infrastructure in CI which is not yet there (https server). Therefore we
-    have chosen to just check that the demo is running until a certain point
-    (the point in which the "connection refused" error rises).
+    The success of this demo depends on internet access from the CI network,
+    thus we consider both a success and a connection failure as acceptable.
     """
 
-    test_run = boot_with_proxy(None)
-    f_out = test_run[1]
+    test_runner = boot_with_proxy()[0]
 
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
-        f_out,
-        # ["Demo completed successfully"],
-        ["PICO_SOCK_EV_ERR, OS error = -1303 (OS_ERROR_NETWORK_CONN_REFUSED)"],
-        90)
+    (ret, idx) = test_runner.system_log_match_sequence(
+                    ["Demo completed successfully"],
+                    90)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail))
+        # accept a connection failure also, seems CI can't access the internet.
+        (ret, idx) = test_runner.system_log_match_sequence(
+                        ["PICO_SOCK_EV_ERR, OS error = -1303 (OS_ERROR_NETWORK_CONN_REFUSED)"],
+                        5)
+
+        if not ret:
+            pytest.fail("Expected demo success or connection error")
