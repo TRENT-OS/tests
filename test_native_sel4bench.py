@@ -1,7 +1,7 @@
 import pytest
 import logs # logs module from the common directory in TA
 
-def test_run_native_sel4test(boot_sel4_native):
+def test_run_native_sel4bench(boot_sel4_native):
     """
     run native sel4bench
     """
