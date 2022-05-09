@@ -20,11 +20,14 @@ import board_automation.system_selector
 import board_automation.board_automation as ba
 
 #-------------------------------------------------------------------------------
-def get_log_dir(request):
+def get_log_dir(request, retries=0):
     log_dir = pathlib.Path(request.node.name).stem
     log_dir_str = request.config.option.log_dir
     if (log_dir_str is not None):
         log_dir = os.path.join(log_dir_str, log_dir)
+
+    if (retries > 0):
+        log_dir += f'-retry-{retries}'
 
     # if the log dir does not exist yet, go ahead and create one
     if not os.path.isdir(log_dir):
@@ -47,7 +50,6 @@ def start_or_attach_to_test_runner(
     # setup phase
     print("")
 
-    log_dir = get_log_dir(request)
     resource_dir = request.config.option.resource_dir
     platform = request.config.option.target
     system_image = request.config.option.system_image
@@ -63,6 +65,7 @@ def start_or_attach_to_test_runner(
             print('Succesful start not detected. Retrying after {} seconds'.format(sleep_time))
             time.sleep(sleep_time)
 
+        log_dir = get_log_dir(request, retries)
         do_retry = True
         is_error = False
 
