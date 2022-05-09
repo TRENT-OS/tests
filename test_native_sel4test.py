@@ -8,7 +8,7 @@ def test_run_native_sel4test(boot_sel4_native):
 
     test_runner = boot_sel4_native()
 
-    (ret , idx, idx2) = test_runner.system_log_match_multiple_sequences([
+    (ret, idx, idx2) = test_runner.system_log_match_multiple_sequences([
 
         # the sel4test system prints the untypeds when it starts
         ( [ 'List of untypeds' ], 1 ),

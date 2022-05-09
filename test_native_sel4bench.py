@@ -8,7 +8,7 @@ def test_run_native_sel4bench(boot_sel4_native):
 
     test_runner = boot_sel4_native()
 
-    (ret , idx, idx2) = test_runner.system_log_match_multiple_sequences([
+    (ret, idx, idx2) = test_runner.system_log_match_multiple_sequences([
 
         ( [ 'Serserv Server: main: Bound to the serial driver.' ], 1 ),
         # ToDo: add strings here
