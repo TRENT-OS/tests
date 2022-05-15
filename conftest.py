@@ -81,39 +81,44 @@ def start_or_attach_to_test_runner(
                             print_logs
                         )
 
-            test_runner.start()
-            # Check if starting worked, if not then we keep retrying and this
-            # can happen sometimes. Actually, it's a bit annoying that this
-            # check throws an exception instead of just returning an error.
-            test_runner.check_start_success(boot_mode)
-            do_retry = False
-
-            # pytest will receive the test runner from this "callback" for each
-            # test case. The "system" parameter that the test can pass in the
-            # call is no longer used, since the system image is passed as
-            # parameter when the whole test framework is started.
-            yield (lambda system = None: test_runner )
-
-        except: # catch really *all* exceptions
-            is_error = True
-            exc_info = sys.exc_info()
-            msg = exc_info[1]
-            print('Test_runner exception: {}'.format(msg))
-            traceback.print_exception(*exc_info)
-
-        # We have to stop the test runner in any case.
-        if test_runner is not None:
             try:
-                test_runner.stop()
-            except: # catch really *all* exceptions
-                # failing to stop the test runner is really fatal, there is no
-                # point in retrying then.
-                is_error = True
+                test_runner.start()
+                # Check if starting worked. If not, then keep retrying, as this
+                # can happen sometimes, e.g. with QEMU where the system still
+                # has some resources locked. Actually, it's a bit annoying that
+                # this check throws an exception instead of just returning an
+                # error.
+                test_runner.check_start_success(boot_mode)
+                # We could start the test system, so there is no point in
+                # retrying if the test fails.
                 do_retry = False
-                exc_info = sys.exc_info()
-                msg = exc_info[1]
-                print('Test_runner stop exception: {}'.format(msg))
-                traceback.print_exception(*exc_info)
+                # PyTest will receive the test runner from this "callback" for
+                # each test case. The "system" parameter that the test can pass
+                # in the call is no longer used, since the system image is
+                # passed as parameter when the whole test framework is started.
+                yield (lambda system = None: test_runner )
+
+            finally:
+                try:
+                    test_runner.stop()
+                except Exception as e:
+                    # failing to stop the test runner is really fatal, there is
+                    # no point in retrying then.
+                    do_retry = False
+                    is_error = True
+                    print('Test_runner stop exception: {}'.format(e))
+                    print(''.join(traceback.format_exception(
+                        etype=type(e),
+                        value=e,
+                        tb=e.__traceback__)))
+
+        except Exception as e:
+            is_error = True
+            print('Test_runner exception: {}'.format(e))
+            print(''.join(traceback.format_exception(
+                etype=type(e),
+                value=e,
+                tb=e.__traceback__)))
 
         if not is_error:
             success_str = 'test_runner successful'
