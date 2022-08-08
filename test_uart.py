@@ -38,8 +38,8 @@ def test_uart(boot):
     # evidence. System load can likely impact this timing.
     (ret, idx) = test_runner.system_log_match_sequence(
         [
-            'UART tester loop running',
             'initialize UART ok',
+            'UART tester loop running',
         ],
         10)
 
