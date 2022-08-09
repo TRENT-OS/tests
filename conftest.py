@@ -124,7 +124,7 @@ def start_or_attach_to_test_runner(
             success_str = 'test_runner successful'
             if (retries > 0):
                 success_str += ' (after {} retries)'.format(retries)
-            print('test_runner successful')
+            print(success_str)
             return
 
         if not do_retry:
