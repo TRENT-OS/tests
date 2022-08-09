@@ -97,7 +97,9 @@ def start_or_attach_to_test_runner(
                 # in the call is no longer used, since the system image is
                 # passed as parameter when the whole test framework is started.
                 yield (lambda system = None: test_runner )
-
+                # If we arrive here, the test runner finished normally. This
+                # does no mean the test(s) passed successfully, it just means
+                # there was no fatal problem.
             finally:
                 try:
                     test_runner.stop()
@@ -121,10 +123,10 @@ def start_or_attach_to_test_runner(
                 tb=e.__traceback__)))
 
         if not is_error:
-            success_str = 'test_runner successful'
+            status_msg = 'test_runner finished'
             if (retries > 0):
-                success_str += ' (after {} retries)'.format(retries)
-            print(success_str)
+                status_msg += ' (after {} retries)'.format(retries)
+            print(status_msg)
             return
 
         if not do_retry:
