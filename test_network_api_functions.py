@@ -233,13 +233,6 @@ def do_tcp_poisoned_syn(target_ip, port, syn_payload, timeout_sec):
 #-------------------------------------------------------------------------------
 def run_echo_client_tcp(server_ip, server_port, blob, timeout):
 
-    print('starting echo client, connect to {}:{} and send {} bytes'.format(
-            server_ip, server_port, len(blob)))
-
-    server_address = (server_ip, server_port)
-
-    received_blob = b""
-
     def get_throughput_str(data_len, time_elapsed):
         scale_str = 'KMGTPEZY'
         unit = 'Byte'
@@ -253,6 +246,22 @@ def run_echo_client_tcp(server_ip, server_port, blob, timeout):
 
         return '{:.1f} {}/s'.format(thoughput, unit)
 
+    # send data in a thread, we check what is echoed back in parallel
+    def echo_client_thread(thread):
+        send_start = time.time()
+        sock.sendall(blob)
+        time_elapsed = time.time() - send_start
+        print('sending done, {:.0f} ms, throughput {}'.format(
+                time_elapsed * 1000,
+                get_throughput_str(len(blob), time_elapsed) ))
+
+    print('starting echo client, connect to {}:{} and send {} bytes'.format(
+            server_ip, server_port, len(blob)))
+
+    server_address = (server_ip, server_port)
+    received_blob = b""
+    time_elapsed = 0
+
     # Create a TCP/IP socket
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
 
@@ -262,32 +271,21 @@ def run_echo_client_tcp(server_ip, server_port, blob, timeout):
         sock.settimeout(timeout)
 
         cnt = 3
+        retry_timeout = 2
         for attempt in range(cnt):
             try:
                 sock.connect(server_address)
                 break
             except:
-                print('connection failed ({}/{}), retry in 2 seconds'.format(
-                        attempt+1, cnt))
-                time.sleep(2)
+                print('connection failed ({}/{}), retry in {} seconds'.format(
+                        attempt+1, cnt, retry_timeout))
+                time.sleep(retry_timeout)
         else:
             raise Exception('could not connect to server')
 
-        # send data in a thread, we check what is echoed back in parallel
-        def echo_client_thread(thread):
-            send_start = time.time()
-            sock.sendall(blob)
-            time_elapsed = time.time() - send_start
-            print('sending done, {:.0f} ms, throughput {}'.format(
-                    time_elapsed * 1000,
-                    get_throughput_str(len(blob), time_elapsed) ))
-
-
-        received_blob = b''
-        time_elapsed = 0
-        test_time_base = time.time()
         # start thread and keep receiving
         t = board_automation.tools.run_in_thread(echo_client_thread)
+        test_time_base = time.time()
         while (len(blob) > len(received_blob)):
             received_part = sock.recv(len(blob) - len(received_blob))
             time_elapsed = time.time() - test_time_base
