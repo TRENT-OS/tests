@@ -277,7 +277,7 @@ def run_echo_client_tcp(server_ip, server_port, blob, timeout):
         def echo_client_thread(thread):
             send_start = time.time()
             sock.sendall(blob)
-            time_elapsed = time.time() - test_time_base
+            time_elapsed = time.time() - send_start
             print('sending done, {:.0f} ms, throughput {}'.format(
                     time_elapsed * 1000,
                     get_throughput_str(len(blob), time_elapsed) ))
