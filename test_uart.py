@@ -115,7 +115,7 @@ def test_uart(boot):
         print('Throughput host send: ' +
               throughput_str(block_size * loops, t2 - t1) )
 
-    sender_thread = board_automation.tools.run_in_daemon_thread(send_data)
+    sender_thread = board_automation.tools.run_in_thread(send_data)
 
     # check if the test started. The 64 KiByte must go trough in a bit over
     # 5.5 secs, so giving 10 secs will allow some startup delays.
