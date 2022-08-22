@@ -275,3 +275,10 @@ def pytest_addoption(parser):
         action="store_true",
         help="print logs to console")
 
+    # Optional parameter in case multiple boards exist
+    parser.addoption(
+        "--instance",
+        type="int", default=1,
+        help="select instance in case multiple board are available."
+    )
+
