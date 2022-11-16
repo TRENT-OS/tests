@@ -26,7 +26,7 @@ def test_timer(boot):
 
     (ret, idx) = test_runner.system_log_match_sequence(
         [
-            '1 sec tick, delta',
+            '[ticker] 1 sec tick, jitter',
         ],
         100)
 
