@@ -32,7 +32,7 @@ def start_or_attach_to_test_runner(run_context):
 
     base_log_dir = run_context.log_dir
 
-    for retries in range(4):
+    for retries in range(1):
 
         if (retries > 0):
             sleep_time = 2**retries
