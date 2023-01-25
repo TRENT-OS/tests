@@ -19,8 +19,7 @@ def test_run_native_sel4test(boot_sel4_native):
         # to a slower boot process on the zynqmp, and can be potentially
         # reverted if the said boot process improves
         ( [ 'Starting test suite sel4test' ], 15),
-        # first test case
-        ( [ 'Starting test 1: SYSCALL0000' ], 2),
+        ( [ 'Starting test 0: Test that there are tests' ], 1),
         # and eventually, all test have passed
         ( ["All is well in the universe"], 180)
 
