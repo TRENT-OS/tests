@@ -62,7 +62,7 @@ def start_or_attach_to_test_runner(
 
         if (retries > 0):
             sleep_time = 2**retries
-            print('Succesful start not detected. Retrying after {} seconds'.format(sleep_time))
+            print(f'Succesful start not detected. Retrying after {sleep_time} seconds')
             time.sleep(sleep_time)
 
         log_dir = get_log_dir(request, retries)
@@ -108,7 +108,7 @@ def start_or_attach_to_test_runner(
                     # no point in retrying then.
                     do_retry = False
                     is_error = True
-                    print('Test_runner stop exception: {}'.format(e))
+                    print(f'Test_runner stop exception: {e}')
                     print(''.join(traceback.format_exception(
                         etype=type(e),
                         value=e,
@@ -116,7 +116,7 @@ def start_or_attach_to_test_runner(
 
         except Exception as e:
             is_error = True
-            print('Test_runner exception: {}'.format(e))
+            print(f'Test_runner exception: {e}')
             print(''.join(traceback.format_exception(
                 etype=type(e),
                 value=e,
@@ -125,7 +125,7 @@ def start_or_attach_to_test_runner(
         if not is_error:
             status_msg = 'test_runner finished'
             if (retries > 0):
-                status_msg += ' (after {} retries)'.format(retries)
+                status_msg += f' (after {retries} retries)'
             print(status_msg)
             return
 
@@ -156,11 +156,11 @@ def tls_server_proc(port = 8888, timeout = 180):
         # Expect one client
         sock.listen(1)
 
-        print("[TLS] Started TLS server on port %i" % port)
+        print(f'[TLS] Started TLS server on port {port}')
 
         while True:
             conn, addr = sock.accept()
-            print("[TLS] Client connected:", addr)
+            print(f'[TLS] Client connected: {addr}')
 
             stream = context.wrap_socket(conn, server_side=True)
             try:
