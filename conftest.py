@@ -50,13 +50,19 @@ def start_or_attach_to_test_runner(
     # setup phase
     print("")
 
-    resource_dir = request.config.option.resource_dir
-    platform = request.config.option.target
-    system_image = request.config.option.system_image
-    proxy_config = request.config.option.proxy if use_proxy else None
-    sd_card_size  = int(request.config.option.sd_card) \
-                        if request.config.option.sd_card else 0
-    print_logs = request.config.option.print_logs
+    run_context = ba.Run_Context(
+        log_dir           = None, # set for each retry
+        resource_dir      = request.config.option.resource_dir,
+        platform          = request.config.option.target,
+        system_image      = request.config.option.system_image,
+        sd_card_size      = int(request.config.option.sd_card) \
+                                if request.config.option.sd_card else 0,
+        printer           = board_automation.tools.PrintSerializer(),
+        print_log         = request.config.option.print_logs,
+        boot_mode         = boot_mode,
+        proxy_config      = request.config.option.proxy if use_proxy else None,
+        additional_params = additional_params
+    )
 
     for retries in range(4):
 
@@ -65,30 +71,18 @@ def start_or_attach_to_test_runner(
             print(f'Succesful start not detected. Retrying after {sleep_time} seconds')
             time.sleep(sleep_time)
 
-        log_dir = get_log_dir(request, retries)
+        run_context.log_dir = get_log_dir(request, retries)
         do_retry = True
         is_error = False
 
         try:
-            test_runner = board_automation.system_selector.get_test_runner(
-                            log_dir,
-                            resource_dir,
-                            platform,
-                            system_image,
-                            proxy_config,
-                            sd_card_size,
-                            additional_params,
-                            print_logs
-                        )
+            test_runner = board_automation.system_selector.get_test_runner(run_context)
 
             try:
-                test_runner.start()
-                # Check if starting worked. If not, then keep retrying, as this
+                # Start the board. If this fails, then keep retrying, as this
                 # can happen sometimes, e.g. with QEMU where the system still
-                # has some resources locked. Actually, it's a bit annoying that
-                # this check throws an exception instead of just returning an
-                # error.
-                test_runner.check_start_success(boot_mode)
+                # has some resources locked.
+                test_runner.start()
                 # We could start the test system, so there is no point in
                 # retrying if the test fails.
                 do_retry = False
