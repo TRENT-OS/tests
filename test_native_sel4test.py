@@ -20,10 +20,11 @@ def test_run_native_sel4test(boot_sel4_native):
         # the sel4test application starts
         ('seL4 Test', 1),
         # and it will start running tests
-        # the delay is relatively high (increased from to 2 to 15 seconds) due
-        # to a slower boot process on the zynqmp, and can be potentially
-        # reverted if the said boot process improves
-        ('Starting test suite sel4test', 15),
+        # Depending on the amount of memory, the vka_alloc initialization can
+        # take a long time on some platforms. It's just 3 seconds on QEMU for
+        # sable or zynq7000, but over 10 seconds in zynqmp and over 25 seconds
+        # on the nvidia-tx2-nx.
+        ('Starting test suite sel4test', 30),
         ('Starting test 0: Test that there are tests', 1),
     ])
     if not ret.ok:
