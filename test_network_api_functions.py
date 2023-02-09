@@ -65,7 +65,7 @@ def do_network_ping(target_ip, cnt=1, timeout_sec=None):
     for i in range(cnt):
 
         if timeout.has_expired():
-            print('ERROR: timeout reached after {}/{} pings', i, cnt)
+            print('ERROR: timeout reached after {}/{} pings'.format(i, cnt))
             return False
 
         # take all the remaining time for the next ping, currently there is no
@@ -76,7 +76,7 @@ def do_network_ping(target_ip, cnt=1, timeout_sec=None):
                     seq = i,
                     timeout_sec = None if timeout.is_infinite() \
                                   else timeout.get_remaining()):
-            print('ERROR: ping {}/{} to {} failed', i+1, cnt, target_ip)
+            print('ERROR: ping {}/{} to {} failed'.format(i+1, cnt, target_ip))
             return False
 
     # all pings were successful
