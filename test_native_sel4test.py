@@ -2,6 +2,7 @@
 # Copyright (C) 2021-2023, HENSOLDT Cyber GmbH
 #
 
+import re
 import pytest
 
 #-------------------------------------------------------------------------------
@@ -24,8 +25,27 @@ def test_run_native_sel4test(boot_sel4_native):
         # reverted if the said boot process improves
         ('Starting test suite sel4test', 15),
         ('Starting test 0: Test that there are tests', 1),
-        # and eventually, all test have passed
-        ('All is well in the universe', 180)
     ])
     if not ret.ok:
         raise Exception(f'sel4test failed, missing: {ret.get_missing()}')
+
+    # If we are here, the tests are running. Check for failure or passing,
+    STR_OK = 'All is well in the universe'
+    STR_FAIL = '*** FAILURES DETECTED ***'
+    REGEX_END = '|'.join( [ re.escape(s) for s in [STR_OK, STR_FAIL] ] )
+    ret = log.find_matches_in_lines( (re.compile(REGEX_END), 180) )
+    if not ret.ok:
+        raise Exception(f'sel4test did not finish properly: {ret.get_missing()}')
+
+    match_str = ret.match
+    if match_str == STR_OK:
+        return
+
+    if match_str != STR_FAIL:
+        pytest.fail(f'sel4test result unknown: {match_str}')
+
+    # ToDo: we should also capture all "Test xxx failed" from the lists and
+    #       print them, so it's easier to see what tests have failed.
+    #       REGEX_TEST_FAILED = 'Test\ .* \failed'
+
+    pytest.fail(f'sel4test did no pass completely')
