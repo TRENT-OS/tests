@@ -3,7 +3,7 @@
 #
 
 import pytest
-import logs # logs module from the common directory in TA
+
 
 #-------------------------------------------------------------------------------
 def test_hello_world(boot):
@@ -14,10 +14,6 @@ def test_hello_world(boot):
 
     test_runner = boot('demo_hello_world')
 
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
-        test_runner.get_system_log(),
-        ['hello world!'],
-        15)
-
-    if not ret:
-        pytest.fail(f'missing: {expr_fail}')
+    ret = test_runner.system_log_match( ('hello world!', 15) )
+    if not ret.ok:
+        pytest.fail(f'missing: {ret.get_missing()}')

@@ -3,9 +3,6 @@
 #
 
 import os
-import re
-import pytest
-import logs # logs module from the common directory in TA
 
 
 #-------------------------------------------------------------------------------
@@ -28,8 +25,6 @@ def test_run_demo(boot_with_proxy):
 
     test_runner = boot_with_proxy('demo_fs_as_components')
 
-    (text, match) = logs.get_match_in_line(
-                        test_runner.get_system_log(),
-                        re.compile('# end #'),
-                        30)
-    assert match == success_msg
+    ret = test_runner.system_log_match( ('# end #', 30) )
+    if not ret.ok:
+        pytest.fail(f'missing: {ret.get_missing()}')

@@ -39,18 +39,18 @@ def test_uart(boot):
     """
 
     test_runner = boot()
+    log = test_runner.get_system_log_line_reader()
 
     # synchronize with test application, timeout is 10 secs based on empirical
     # evidence. System load can likely impact this timing.
-    (ret, idx) = test_runner.system_log_match_sequence(
-        [
-            'initialize UART ok',
-            'UART tester loop running',
-        ],
-        10)
-
-    if not ret:
-        pytest.fail('could not detect test start')
+    ret = log.find_matches_in_lines(
+            ([
+                'initialize UART ok',
+                'UART tester loop running',
+             ], 10)
+          )
+    if not ret.ok:
+        pytest.fail(f'missing: {ret.get_missing()}')
 
     serial_socket = test_runner.get_serial_socket()
 
@@ -121,28 +121,22 @@ def test_uart(boot):
 
     sender_thread = board_automation.tools.run_in_thread(send_data)
 
-    # check if the test started. The 64 KiByte must go trough in a bit over
-    # 5.5 secs, so giving 10 secs will allow some startup delays.
-    (ret, idx) = test_runner.system_log_match_sequence(
-        [
-            'bytes processed: 0x10000', # 64 KiByte
-        ],
-        10)
-
+    # check if the test started. The first 64 KiByte must go trough in a bit
+    # over 5.5 secs, so giving 10 secs will allow some startup delays.
+    ret = log.find_matches_in_lines( ('bytes processed: 0x10000', 10) )
     if not ret:
-        pytest.fail('throughput start failed')
+        pytest.fail(f'throughput start failed, missing: {ret.get_missing()}')
 
     # If we are here, 64 KiB are already through. There are 1984 KiByte left,
     # which take a bit over 172 secs. Giving 200 secs secs will do well.
-    (ret, idx) = test_runner.system_log_match_sequence(
-        [
-            'bytes processed: 0x100000', # 1 MiByte
-            'bytes processed: 0x200000', # 2 MiByte
-        ],
-        200)
-
+    ret = log.find_matches_in_lines(
+            ([
+                'bytes processed: 0x100000', # 1 MiByte
+                'bytes processed: 0x200000', # 2 MiByte
+             ], 200)
+           )
     if not ret:
-        pytest.fail('throughput test failed')
+        pytest.fail(f'throughput test failed, missing: {ret.get_missing()}')
 
     t3 = time.time()
     delta = t3 - t1 # thread has updated t1

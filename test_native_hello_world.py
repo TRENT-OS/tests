@@ -3,7 +3,6 @@
 #
 
 import pytest
-import logs # logs module from the common directory in TA
 
 #-------------------------------------------------------------------------------
 def test_hello_world(boot_sel4_native):
@@ -14,10 +13,6 @@ def test_hello_world(boot_sel4_native):
 
     test_runner = boot_sel4_native()
 
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
-        test_runner.get_system_log(),
-        ['Hello, world!'],
-        15)
-
-    if not ret:
-        pytest.fail(f'missing: {expr_fail}')
+    ret = test_runner.system_log_match( ('Hello, world!', 15) )
+    if not ret.ok:
+        pytest.fail(f'missing: {ret.get_missing()}')

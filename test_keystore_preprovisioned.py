@@ -4,7 +4,6 @@
 
 import os
 import pytest
-import logs # logs module from the common directory in TA
 
 
 #-------------------------------------------------------------------------------
@@ -25,12 +24,8 @@ def test_key_store_provisioning(boot_with_proxy):
 
     test_runner = boot_with_proxy('demo_preprovisioned_keystore')
 
-    (ret, text, expr_fail) = logs.check_log_match_sequence(
-        test_runner.get_system_log(),
-        [
-            'Preprovisioning keystore demo succeeded'
-        ],
-        200)
-
-    if not ret:
-        pytest.fail(" missing: %s"%(expr_fail))
+    ret = test_runner.system_log_match(
+            ('Preprovisioning keystore demo succeeded', 30)
+          )
+    if not ret.ok:
+        pytest.fail(f'missing: {ret.get_missing()}')

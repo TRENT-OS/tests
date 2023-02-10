@@ -4,7 +4,6 @@
 
 import pytest
 import test_parser as parser
-import tests
 
 test_system = 'test_chanmux'
 timeout = 60
@@ -65,11 +64,13 @@ def test_chanmux_fullduplex(boot_with_proxy):
         and another thread of the client will receive the payload back and check
         the pattern of the data."""
 
-    tests.run_test_log_match_set(
-        boot_with_proxy,
-        test_system,
-        [
-            'ChanMuxTest_testFullDuplex: SUCCESS (tester 1)',
-            'ChanMuxTest_testFullDuplex: SUCCESS (tester 2)'
-        ],
-        timeout)
+    test_runner = boot_with_proxy(test_system)
+    ret = test_runner.system_log_match(
+            ( { # create a (unordered) set instead of a (ordered) list
+                'ChanMuxTest_testFullDuplex: SUCCESS (tester 1)',
+                'ChanMuxTest_testFullDuplex: SUCCESS (tester 2)'
+              }, timeout )
+          )
+
+    if not ret.ok:
+        pytest.fail(f'missing strings: {ret.get_missing()}')

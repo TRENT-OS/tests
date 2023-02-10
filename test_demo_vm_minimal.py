@@ -12,8 +12,6 @@ def test_demo_vm_minimal(boot):
     """
 
     test_runner = boot()
-    (ret, idx, idx2) = test_runner.system_log_match_multiple_sequences([
-        ( ['Welcome to Buildroot'], 60 )
-    ])
-    if not ret:
-        pytest.fail('string #{}.{} not found'.format(idx, idx2))
+    ret = test_runner.system_log_match( ( 'Welcome to Buildroot', 60 ) )
+    if not ret.ok:
+        pytest.fail(f'missing: {ret.get_missing()}')

@@ -3,7 +3,6 @@
 #
 
 import pytest
-import tests
 
 #-------------------------------------------------------------------------------
 # Tester and list of platforms supported by it. If the list is None,,then the
@@ -23,11 +22,11 @@ class StorageTestRunner():
 
     #---------------------------------------------------------------------------
     def run_test(self, string, timeout_sec = 10):
-        tests.run_test_log_match_set(
-            self.fixture,
-            None,
-            [ f'{self.tester} -> !!! {string}' ],
-            timeout_sec)
+        test_runner = self.fixture()
+        match_obj = (f'{self.tester} -> !!! {string}', timeout_sec)
+        ret = test_runner.system_log_match(match_obj)
+        if not ret.ok:
+            pytest.fail(f'missing: {ret.get_missing()}')
 
 
 #-------------------------------------------------------------------------------
