@@ -56,9 +56,9 @@ def test_OS_FileSystem_maxHandles(boot):
     can be used at a time and check that a subsequent attempt to open a file
     results in an out-of-bounds error. Close all opened file handles afterwards.
     """
-    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_maxHandles', 'type=%i' % OS_FileSystem_Type_LITTLEFS, True, 2)
-    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_maxHandles', 'type=%i' % OS_FileSystem_Type_SPIFFS, True, 2)
-    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_maxHandles', 'type=%i' % OS_FileSystem_Type_FATFS, True, 2)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_maxHandles', 'type=%i' % OS_FileSystem_Type_LITTLEFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_maxHandles', 'type=%i' % OS_FileSystem_Type_SPIFFS)
+    parser.check_test(boot(), TEST_TIMEOUT, 'test_OS_FileSystem_maxHandles', 'type=%i' % OS_FileSystem_Type_FATFS)
 
 def test_OS_FileSystemFile_open(boot):
     """
