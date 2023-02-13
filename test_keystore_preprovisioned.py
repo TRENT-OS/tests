@@ -1,9 +1,11 @@
+#
+# Copyright (C) 2019-2023, HENSOLDT Cyber GmbH
+#
+
 import os
 import pytest
 import logs # logs module from the common directory in TA
 
-test_system = "demo_preprovisioned_keystore"
-timeout = 200
 
 #-------------------------------------------------------------------------------
 def test_key_store_provisioning(boot_with_proxy):
@@ -21,14 +23,14 @@ def test_key_store_provisioning(boot_with_proxy):
         os.remove(proxy_memory_file)
     os.rename(pre_provisioned_keystore_image, proxy_memory_file)
 
-    test_runner = boot_with_proxy(test_system)
+    test_runner = boot_with_proxy('demo_preprovisioned_keystore')
 
     (ret, text, expr_fail) = logs.check_log_match_sequence(
         test_runner.get_system_log(),
         [
-            "Preprovisioning keystore demo succeeded"
+            'Preprovisioning keystore demo succeeded'
         ],
-        timeout)
+        200)
 
     if not ret:
         pytest.fail(" missing: %s"%(expr_fail))

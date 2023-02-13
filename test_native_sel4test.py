@@ -1,6 +1,10 @@
-import pytest
-import logs # logs module from the common directory in TA
+#
+# Copyright (C) 2021-2023, HENSOLDT Cyber GmbH
+#
 
+import pytest
+
+#-------------------------------------------------------------------------------
 def test_run_native_sel4test(boot_sel4_native):
     """
     run native sel4test
@@ -9,7 +13,6 @@ def test_run_native_sel4test(boot_sel4_native):
     test_runner = boot_sel4_native()
 
     (ret, idx, idx2) = test_runner.system_log_match_multiple_sequences([
-
         # the sel4test system prints the untypeds when it starts
         ( [ 'List of untypeds' ], 1 ),
         # the sel4test application starts
@@ -22,7 +25,6 @@ def test_run_native_sel4test(boot_sel4_native):
         ( [ 'Starting test 0: Test that there are tests' ], 1),
         # and eventually, all test have passed
         ( ["All is well in the universe"], 180)
-
     ])
 
     if not ret:

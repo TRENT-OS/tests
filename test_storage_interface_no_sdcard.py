@@ -1,44 +1,64 @@
-# Copyright (C) 2020, HENSOLDT Cyber GmbH
-import pytest, sys, tests
-from collections import namedtuple
+#
+# Copyright (C) 2020-2023, HENSOLDT Cyber GmbH
+#
 
-# we place here 10 sec and not less because at the moment (26/6/2020) we do
-# no have yet synchronization mechanism with the boot complete
-TEST_TIMEOUT = 10
-
-testers = [
-'tester_sdhc'
-]
-
-"""
-White list of platforms supported by the given tester. If the tester is not in
-this list, then it supports all platforms.
-"""
-test_white_list = {'tester_sdhc': ['sabre', 'sabre-hw'] }
+import pytest
+import tests
 
 #-------------------------------------------------------------------------------
-@pytest.fixture(scope="module", params=testers)
-def context_no_sdcard(boot_with_proxy_no_sdcard, request):
+# Tester and list of platforms supported by it. If the list is None,,then the
+# tester supports all platforms.
+TESTERS = {
+    'tester_sdhc': ['sabre', 'sabre-hw']
+}
+
+
+#-------------------------------------------------------------------------------
+class StorageTestRunner():
+
+    #---------------------------------------------------------------------------
+    def __init__(self, fixture, tester):
+        self.fixture = fixture
+        self.tester = tester
+
+    #---------------------------------------------------------------------------
+    def run_test(self, string, timeout_sec = 10):
+        tests.run_test_log_match_set(
+            self.fixture,
+            None,
+            [ f'{self.tester} -> !!! {string}' ],
+            timeout_sec)
+
+
+#-------------------------------------------------------------------------------
+@pytest.fixture(scope="module", params=list(TESTERS.keys()))
+def context(boot_with_proxy_no_sdcard, request):
     tester = request.param
     platform = request.config.option.target
 
-    if (tester in test_white_list and platform not in test_white_list[tester]):
-        pytest.skip(tester + " not supported on the platform " + platform)
+    if not tester in TESTERS:
+        pytest.fail(f'unknown tester: {tester}')
 
-    TestData = namedtuple('TestData', ['parent_fixture', 'tester'])
-    return TestData(boot_with_proxy_no_sdcard, tester)
+    plat_list = TESTERS.get(tester)
+    if (plat_list is not None) and (platform not in plat_list):
+        pytest.skip(f'{tester} not supported on the platform {platform}')
 
-def test_storage_noSDcardInserted_sdhc(context_no_sdcard):
+    return StorageTestRunner(boot_with_proxy_no_sdcard, tester)
+
+
+
+#-------------------------------------------------------------------------------
+def test_storage_noSDcardInserted(context):
     """
     Checking if the API is returning the correct error code
     (OS_ERROR_DEVICE_NOT_PRESENT) when media is not present
     """
-    result_list = [
-        context_no_sdcard.tester + " -> !!! test_storage_apiWithMediumNotPresent: OK",
-        context_no_sdcard.tester + " -> !!! All tests successfully completed.",
-    ]
-    tests.run_test_log_match_sequence(
-        context_no_sdcard.parent_fixture,
-        None,
-        result_list,
-        TEST_TIMEOUT)
+    context.run_test('test_storage_apiWithMediumNotPresent: OK')
+
+#-------------------------------------------------------------------------------
+def test_storage_complete(context):
+    """
+    Checking if all tests has been completed and that there was no
+    failure/exception during the tear down phase.
+    """
+    context.run_test('All tests successfully completed.')

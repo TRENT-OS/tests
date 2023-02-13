@@ -1,6 +1,10 @@
-import pytest
+#
+# Copyright (C) 2020-2023, HENSOLDT Cyber GmbH
+#
+
 import time
 import socket
+import pytest
 import board_automation.tools
 
 

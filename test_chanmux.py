@@ -1,13 +1,12 @@
-# Copyright (C) 2019-2021, HENSOLDT Cyber GmbH
+#
+# Copyright (C) 2019-2023, HENSOLDT Cyber GmbH
+#
 
 import pytest
-
-import sys
-
 import test_parser as parser
-from tests import run_test_log_match_set
+import tests
 
-test_system = "test_chanmux"
+test_system = 'test_chanmux'
 timeout = 60
 
 #-------------------------------------------------------------------------------
@@ -66,12 +65,11 @@ def test_chanmux_fullduplex(boot_with_proxy):
         and another thread of the client will receive the payload back and check
         the pattern of the data."""
 
-    test_chanmux_full_duplex_lst = [
-        "ChanMuxTest_testFullDuplex: SUCCESS (tester 1)",
-        "ChanMuxTest_testFullDuplex: SUCCESS (tester 2)"
-    ]
-
-    run_test_log_match_set(boot_with_proxy,
-                           test_system,
-                           test_chanmux_full_duplex_lst,
-                           timeout)
+    tests.run_test_log_match_set(
+        boot_with_proxy,
+        test_system,
+        [
+            'ChanMuxTest_testFullDuplex: SUCCESS (tester 1)',
+            'ChanMuxTest_testFullDuplex: SUCCESS (tester 2)'
+        ],
+        timeout)
