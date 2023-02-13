@@ -17,4 +17,4 @@ def test_hello_world(boot):
         15)
 
     if not ret:
-        pytest.fail(" missing: %s"%(expr_fail))
+        pytest.fail(f'missing: {expr_fail}')

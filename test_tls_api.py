@@ -40,53 +40,53 @@ def test_OS_Tls_handshake_pos_0(boot_with_proxy, tls_server):
     Positive tests for OS_Tls_handshake(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 30, 'test_OS_Tls_handshake_pos', 'mode=%i' % OS_Tls_MODE_LIBRARY)
+    parser.check_test(boot_with_proxy(TEST_NAME), 30, 'test_OS_Tls_handshake_pos', f'mode={OS_Tls_MODE_LIBRARY}')
 
 def test_OS_Tls_handshake_neg_0(boot_with_proxy, tls_server):
     """
     Negative tests for OS_Tls_handshake(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 5, 'test_OS_Tls_handshake_neg', 'mode=%i' % OS_Tls_MODE_LIBRARY)
+    parser.check_test(boot_with_proxy(TEST_NAME), 5, 'test_OS_Tls_handshake_neg', f'mode={OS_Tls_MODE_LIBRARY}')
 
 def test_OS_Tls_write_neg_0(boot_with_proxy, tls_server):
     """
     Negative tests for OS_Tls_write(), covering the invalid ways of using this
     function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 5, 'test_OS_Tls_write_neg', 'mode=%i' % OS_Tls_MODE_LIBRARY)
+    parser.check_test(boot_with_proxy(TEST_NAME), 5, 'test_OS_Tls_write_neg', f'mode={OS_Tls_MODE_LIBRARY}')
 
 def test_OS_Tls_write_pos_0(boot_with_proxy, tls_server):
     """
     Positive tests for OS_Tls_write(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 5, 'test_OS_Tls_write_pos', 'mode=%i' % OS_Tls_MODE_LIBRARY)
+    parser.check_test(boot_with_proxy(TEST_NAME), 5, 'test_OS_Tls_write_pos', f'mode={OS_Tls_MODE_LIBRARY}')
 
 def test_OS_Tls_read_neg_0(boot_with_proxy, tls_server):
     """
     Negative tests for OS_Tls_read(), covering the invalid ways of using this
     function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 5, 'test_OS_Tls_read_neg', 'mode=%i' % OS_Tls_MODE_LIBRARY)
+    parser.check_test(boot_with_proxy(TEST_NAME), 5, 'test_OS_Tls_read_neg', f'mode={OS_Tls_MODE_LIBRARY}')
 
 def test_OS_Tls_read_pos_0(boot_with_proxy, tls_server):
     """
     Positive tests for OS_Tls_read(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 5, 'test_OS_Tls_read_pos', 'mode=%i' % OS_Tls_MODE_LIBRARY)
+    parser.check_test(boot_with_proxy(TEST_NAME), 5, 'test_OS_Tls_read_pos', f'mode={OS_Tls_MODE_LIBRARY}')
 
 def test_OS_Tls_reset_neg_0(boot_with_proxy, tls_server):
     """
     Negative tests for OS_Tls_reset(), covering the invalid ways of using this
     function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 5, 'test_OS_Tls_reset_neg', 'mode=%i' % OS_Tls_MODE_LIBRARY)
+    parser.check_test(boot_with_proxy(TEST_NAME), 5, 'test_OS_Tls_reset_neg', f'mode={OS_Tls_MODE_LIBRARY}')
 
 def test_OS_Tls_reset_pos_0(boot_with_proxy, tls_server):
     """
     Positive tests for OS_Tls_reset(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot_with_proxy(TEST_NAME), 30, 'test_OS_Tls_reset_pos', 'mode=%i' % OS_Tls_MODE_LIBRARY)
+    parser.check_test(boot_with_proxy(TEST_NAME), 30, 'test_OS_Tls_reset_pos', f'mode={OS_Tls_MODE_LIBRARY}')

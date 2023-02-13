@@ -21,8 +21,7 @@ def do_single_network_ping(target_ip, timeout_sec=None, id=None, seq=None):
                     id = 0 if id is None else id,
                     seq = 0 if seq is None else seq)
 
-    #print('ping {} (id={:#04x}, seq={})'.format(
-    #        target_ip, ping_pkt[ICMP].id, ping_pkt[ICMP].seq))
+    #print(f'ping {target_ip} (id={ping_pkt[ICMP].id:#04x}, seq={ping_pkt[ICMP].seq})')
 
     resp = scapy.sendrecv.sr1(
             ping_pkt,
@@ -30,22 +29,20 @@ def do_single_network_ping(target_ip, timeout_sec=None, id=None, seq=None):
                       else timeout.get_remaining())
 
     if resp is None:
-        print('ERROR: ping to {} timeout'.format(target_ip))
+        print(f'ERROR: ping to {target_ip} timeout')
         return False
 
     # this should never happen, because scapy gives us the proper response
     if not (resp.haslayer(ICMP)):
-        print('ERROR: ping to {} returned no ICMP packet'.format(target_ip))
+        print(f'ERROR: ping to {target_ip} returned no ICMP packet')
         return False
 
     if (resp[ICMP].id != ping_pkt[ICMP].id):
-        print('ERROR: ping to {} response ID mismatch, got {}, expected {}'.format(
-                    target_ip, resp[ICMP].id, ping_pkt[ICMP].id) )
+        print(f'ERROR: ping to {target_ip} response ID mismatch, got {resp[ICMP].id}, expected {ping_pkt[ICMP].id}')
         return False
 
     if (resp[ICMP].seq != ping_pkt[ICMP].seq):
-        print('ERROR: ping to {} response SEQ mismatch, got {}, expected {}'.format(
-                    target_ip, resp[ICMP].seq, ping_pkt[ICMP].seq) )
+        print(f'ERROR: ping to {target_ip} response SEQ mismatch, got {resp[ICMP].seq}, expected {ping_pkt[ICMP].se}')
         return False
 
     # ping was successful
@@ -65,7 +62,7 @@ def do_network_ping(target_ip, cnt=1, timeout_sec=None):
     for i in range(cnt):
 
         if timeout.has_expired():
-            print('ERROR: timeout reached after {}/{} pings'.format(i, cnt))
+            print(f'ERROR: timeout reached after {i}/{cnt} pings')
             return False
 
         # take all the remaining time for the next ping, currently there is no
@@ -76,7 +73,7 @@ def do_network_ping(target_ip, cnt=1, timeout_sec=None):
                     seq = i,
                     timeout_sec = None if timeout.is_infinite() \
                                   else timeout.get_remaining()):
-            print('ERROR: ping {}/{} to {} failed'.format(i+1, cnt, target_ip))
+            print(f'ERROR: ping {i+1}/{cnt} to {target_ip} failed')
             return False
 
     # all pings were successful
@@ -102,7 +99,7 @@ def is_server_up(target_ip, port, timeout_sec):
     while True:
 
         if timeout.has_expired():
-            print('ERROR: giving up reaching {} via ping'.format(target_ip))
+            print(f'ERROR: giving up reaching {target_ip} via ping')
             return False
 
         # ping must answer within 30 secs
@@ -114,7 +111,7 @@ def is_server_up(target_ip, port, timeout_sec):
             # ping worked
             break;
 
-        print('ERROR: could not ping {}'.format(target_ip))
+        print(f'ERROR: could not ping {target_ip}')
         seq += 1
         # continue loop and try another ping
 
@@ -123,8 +120,7 @@ def is_server_up(target_ip, port, timeout_sec):
     while True:
 
         if timeout.has_expired():
-            print('ERROR: giving reaching {}:{} via TCP'.format(
-                    target_ip, port))
+            print(f'ERROR: giving reaching {target_ip}:{port} via TCP')
             return False
 
         # open a connection, automatically close it when this block if left
@@ -140,8 +136,7 @@ def is_server_up(target_ip, port, timeout_sec):
                 sock.connect( (target_ip, port) )
 
             except Exception as e:
-                print('ERROR: could not connect to {}:{}'.format(
-                        target_ip, port))
+                print(f'ERROR: could not connect to {target_ip}:{port}')
                 return False
 
             # TCP connection worked
@@ -157,12 +152,11 @@ def do_tcp_poisoned_syn(target_ip, port, syn_payload, timeout_sec):
     timeout = Timeout_Checker(timeout_sec)
 
     if not is_server_up(target_ip, port, timeout.sub_timeout(30)):
-        print('server {}:{} seems down (before poisoning)'.format(
-                        target_ip, port))
+        print(f'server {target_ip}:{port} seems down (before poisoning)')
         return False
 
     # server is up, now poison it
-    print('Server {}:{} is up, try poisoning...'.format(target_ip, port))
+    print(f'Server {target_ip}:{port} is up, try poisoning...')
 
     ip_frame = scapy.layers.inet.IP(dst = target_ip)
     tcp_layer = syn_payload
@@ -175,7 +169,7 @@ def do_tcp_poisoned_syn(target_ip, port, syn_payload, timeout_sec):
         # if poisoning was successful, the server will no longer respond now
     else:
         tcp_flags = syn_resp[TCP].flags
-        print('server responded to poisoned SYN with <{}>'.format(tcp_flags))
+        print(f'server responded to poisoned SYN with <{tcp_flags}>')
 
         if not (tcp_flags.A):
             print('SYN response: no ACK flag set')
@@ -196,7 +190,7 @@ def do_tcp_poisoned_syn(target_ip, port, syn_payload, timeout_sec):
             else:
 
                 tcp_flags = fin_resp[TCP].flags # may have RST set besides ACK
-                print('resp flags: {}'.format(tcp_flags))
+                print(f'resp flags: {tcp_flags}')
 
                 if not (tcp_flags.A): print('FIN response: no ACK flag set')
 
@@ -222,8 +216,7 @@ def do_tcp_poisoned_syn(target_ip, port, syn_payload, timeout_sec):
     #       pipe some data though the echo server to check things are really
     #       well.
     if not is_server_up(target_ip, port, timeout.sub_timeout(30)):
-        print('server {}:{} seems down (before poisoning)'.format(
-                        target_ip, port))
+        print(f'server {target_ip}:{port} seems down (before poisoning)')
         return False
 
     # seems the poisoned packet did not make server unresponsive
@@ -240,23 +233,21 @@ def run_echo_client_tcp(server_ip, server_port, blob, timeout):
         thoughput = (data_len) / time_elapsed
         while (thoughput >= 1024):
             thoughput /= 1024
-            unit = '{}iB'.format(scale_str[factor])
+            unit = f'{scale_str[factor]}iB'
             factor += 1
             if factor >= len(scale_str): break
 
-        return '{:.1f} {}/s'.format(thoughput, unit)
+        return f'{thoughput:.1f} {unit}/s'
 
     # send data in a thread, we check what is echoed back in parallel
     def echo_client_thread(thread):
         send_start = time.time()
         sock.sendall(blob)
         time_elapsed = time.time() - send_start
-        print('sending done, {:.0f} ms, throughput {}'.format(
-                time_elapsed * 1000,
-                get_throughput_str(len(blob), time_elapsed) ))
+        print(f'sending done, {(time_elapsed*1000):.0f} ms, throughput ' + \
+              get_throughput_str(len(blob), time_elapsed))
 
-    print('starting echo client, connect to {}:{} and send {} bytes'.format(
-            server_ip, server_port, len(blob)))
+    print(f'starting echo client, connect to {server_ip}:{server_port} and send {len(blob)} bytes')
 
     server_address = (server_ip, server_port)
     received_blob = b""
@@ -277,8 +268,7 @@ def run_echo_client_tcp(server_ip, server_port, blob, timeout):
                 sock.connect(server_address)
                 break
             except:
-                print('connection failed ({}/{}), retry in {} seconds'.format(
-                        attempt+1, cnt, retry_timeout))
+                print(f'connection failed ({attempt+1}/{cnt}), retry in {retry_timeout} seconds')
                 time.sleep(retry_timeout)
         else:
             raise Exception('could not connect to server')
@@ -292,20 +282,17 @@ def run_echo_client_tcp(server_ip, server_port, blob, timeout):
             if (0 == len(received_part)):
                 raise Exception('receive timeout')
             received_blob += received_part
-            # print('received {} new bytes, overall {}/{} byte(s), throughput {}'.format(
-            #         len(received_part),
-            #         len(received_blob),
-            #         len(blob),
-            #         get_throughput_str(len(blob), time_elapsed) ))
+            #throughput =
+            #print(f'received {len(received_part)} new bytes, overall ' + \
+            #      f'{len(received_blob)}/{len(blob),} byte(s), throughput ' + \
+            #      get_throughput_str(len(blob), time_elapsed))
 
         # wait for thread to finish
         #print('syncing with sender thread')
         t.join()
 
-    print('echo test for {} bytes took {:.0f} ms, throughput {}'.format(
-            len(blob),
-            time_elapsed * 1000,
-            get_throughput_str(len(blob), time_elapsed) ))
+    print(f'echo test for {len(blob)} bytes took {(time_elapsed*1000):.0f} ms, ' + \
+          'throughput ' + get_throughput_str(len(blob), time_elapsed))
 
     if not received_blob == blob:
         raise Exception("received data does not match sent data")
@@ -313,8 +300,7 @@ def run_echo_client_tcp(server_ip, server_port, blob, timeout):
 #-------------------------------------------------------------------------------
 def run_echo_client_udp(server_ip, server_port, blob, timeout):
 
-    print('Starting echo client, connect to {}:{} and send {} bytes'.format(
-            server_ip, server_port, len(blob)))
+    print(f'Starting echo client, connect to {server_ip}:{server_port} and send {len(blob)} bytes')
 
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
