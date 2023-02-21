@@ -126,7 +126,6 @@ def test_uart(boot):
         10)
 
     if not ret:
-        sender_thread
         pytest.fail('throughput start failed')
 
     # If we are here, 64 KiB are already through. There are 1984 KiByte left,
