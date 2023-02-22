@@ -72,42 +72,28 @@ def start_or_attach_to_test_runner(
             time.sleep(sleep_time)
 
         run_context.log_dir = get_log_dir(request, retries)
+
+        test_runner = None
         do_retry = True
         is_error = False
 
         try:
+            # Create the test runner and start the board. If this fails, then
+            # keep retrying, as this can happen sometimes, e.g. with QEMU where
+            # the system still has some resources locked.
             test_runner = board_automation.system_selector.get_test_runner(run_context)
-
-            try:
-                # Start the board. If this fails, then keep retrying, as this
-                # can happen sometimes, e.g. with QEMU where the system still
-                # has some resources locked.
-                test_runner.start()
-                # We could start the test system, so there is no point in
-                # retrying if the test fails.
-                do_retry = False
-                # PyTest will receive the test runner from this "callback" for
-                # each test case. The "system" parameter that the test can pass
-                # in the call is no longer used, since the system image is
-                # passed as parameter when the whole test framework is started.
-                yield (lambda system = None: test_runner )
-                # If we arrive here, the test runner finished normally. This
-                # does no mean the test(s) passed successfully, it just means
-                # there was no fatal problem.
-            finally:
-                try:
-                    test_runner.stop()
-                except Exception as e:
-                    # failing to stop the test runner is really fatal, there is
-                    # no point in retrying then.
-                    do_retry = False
-                    is_error = True
-                    print(f'Test_runner stop exception: {e}')
-                    print(''.join(traceback.format_exception(
-                        etype=type(e),
-                        value=e,
-                        tb=e.__traceback__)))
-
+            test_runner.start()
+            # We could start the test system, so there is no point in retrying
+            # if the test fails.
+            do_retry = False
+            # PyTest will receive the test runner from this "callback" for each
+            # test case. The "system" parameter that the test can pass in the
+            # call is no longer used, since the system image is passed as
+            # parameter when the whole test framework is started.
+            yield (lambda system = None: test_runner)
+            # If we arrive here, the test runner finished normally. This does
+            # not mean the test(s) passed successfully, it just means there was
+            # no fatal problem.
         except Exception as e:
             is_error = True
             print(f'Test_runner exception: {e}')
@@ -116,18 +102,31 @@ def start_or_attach_to_test_runner(
                 value=e,
                 tb=e.__traceback__)))
 
-        if not is_error:
-            status_msg = 'test_runner finished'
-            if (retries > 0):
-                status_msg += f' (after {retries} retries)'
-            print(status_msg)
-            return
+        if test_runner:
+            try:
+                test_runner.stop()
+            except Exception as e:
+                # failing to stop the test runner is really fatal, there is no
+                # point in retrying then.
+                do_retry = False
+                is_error = True
+                print(f'Test_runner stop exception: {e}')
+                print(''.join(traceback.format_exception(
+                    etype=type(e),
+                    value=e,
+                    tb=e.__traceback__)))
 
-        if not do_retry:
+        if not is_error:
             break
 
-    # if we arrive here the test run failed
-    pytest.exit('test_runner failed')
+        if not do_retry:
+            pytest.exit('test_runner failed')
+
+    # We arrive here after the loop, the test runner finished normally. This
+    # does not mean the test(s) passed successfully, it just means there was no
+    # fatal problem.
+    print('test_runner finished' + \
+          ('' if (0 == retries) else f' (after {retries} retries)') )
 
 
 #-------------------------------------------------------------------------------
