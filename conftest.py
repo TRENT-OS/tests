@@ -6,7 +6,7 @@
 #
 #-------------------------------------------------------------------------------
 
-import sys, os, pathlib, subprocess, multiprocessing
+import sys, os, subprocess, multiprocessing
 import traceback
 import time, datetime
 import socket, ssl
@@ -19,50 +19,18 @@ import logs # logs module from the common directory in TA
 import board_automation.system_selector
 import board_automation.board_automation as ba
 
-#-------------------------------------------------------------------------------
-def get_log_dir(request, retries=0):
-    log_dir = pathlib.Path(request.node.name).stem
-    log_dir_str = request.config.option.log_dir
-    if (log_dir_str is not None):
-        log_dir = os.path.join(log_dir_str, log_dir)
-
-    if (retries > 0):
-        log_dir += f'-retry-{retries}'
-
-    # if the log dir does not exist yet, go ahead and create one
-    if not os.path.isdir(log_dir):
-        os.makedirs(log_dir)
-
-    return log_dir
-
 
 #-------------------------------------------------------------------------------
 # pytest invokes this as iterator. Everything up to the yield is executed only
 # once when the iterator is created. Then this "yields" the handle tuple for
 # each iteration. When the iterator is destroyed, the code after the yield runs
 # to clean things up.
-def start_or_attach_to_test_runner(
-    request,
-    use_proxy = False,
-    additional_params = None,
-    boot_mode = ba.BootMode.BARE_METAL):
+def start_or_attach_to_test_runner(run_context):
 
     # setup phase
     print("")
 
-    run_context = ba.Run_Context(
-        log_dir           = None, # set for each retry
-        resource_dir      = request.config.option.resource_dir,
-        platform          = request.config.option.target,
-        system_image      = request.config.option.system_image,
-        sd_card_size      = int(request.config.option.sd_card) \
-                                if request.config.option.sd_card else 0,
-        printer           = board_automation.tools.PrintSerializer(),
-        print_log         = request.config.option.print_logs,
-        boot_mode         = boot_mode,
-        proxy_config      = request.config.option.proxy if use_proxy else None,
-        additional_params = additional_params
-    )
+    base_log_dir = run_context.log_dir
 
     for retries in range(4):
 
@@ -71,7 +39,14 @@ def start_or_attach_to_test_runner(
             print(f'Succesful start not detected. Retrying after {sleep_time} seconds')
             time.sleep(sleep_time)
 
-        run_context.log_dir = get_log_dir(request, retries)
+        log_dir = base_log_dir
+        if (retries > 0):
+            log_dir += f'-retry-{retries}'
+        # ensure the log dir exists
+        if not os.path.isdir(log_dir):
+            os.makedirs(log_dir)
+
+        run_context.log_dir = log_dir
 
         test_runner = None
         do_retry = True
@@ -175,11 +150,9 @@ def tls_server_proc(port = 8888, timeout = 180):
 
 
 #-------------------------------------------------------------------------------
-def start_or_attach_to_mosquitto(request):
-    log_dir = get_log_dir(request)
+def start_or_attach_to_mosquitto(run_context):
 
-    mosquitto_log_file = os.path.join(log_dir, "mosquitto_log.txt")
-
+    mosquitto_log_file = os.path.join(run_context.log_dir, "mosquitto_log.txt")
     with open(mosquitto_log_file, "w") as f:
         try:
             subprocess.Popen(
@@ -195,45 +168,57 @@ def start_or_attach_to_mosquitto(request):
 @pytest.fixture(scope="module")
 def boot(request):
     yield from start_or_attach_to_test_runner(
-                request,
-                boot_mode = ba.BootMode.SEL4_CAMKES )
+                    ba.Run_Context(
+                        request,
+                        boot_mode = ba.BootMode.SEL4_CAMKES,
+                    )
+               )
 
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot_with_proxy(request):
     yield from start_or_attach_to_test_runner(
-                request,
-                use_proxy = True,
-                boot_mode = ba.BootMode.SEL4_CAMKES )
-
+                    ba.Run_Context(
+                        request,
+                        boot_mode = ba.BootMode.SEL4_CAMKES,
+                        use_proxy = True,
+                    )
+               )
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot_with_proxy_no_sdcard(request):
-    request.config.option.sd_card = 0
     yield from start_or_attach_to_test_runner(
-                request,
-                use_proxy = True,
-                boot_mode = ba.BootMode.SEL4_CAMKES )
+                    ba.Run_Context(
+                        request,
+                        boot_mode = ba.BootMode.SEL4_CAMKES,
+                        use_proxy = True,
+                        sd_card_size = 0,
+                    )
+               )
 
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot_sel4_native(request):
     yield from start_or_attach_to_test_runner(
-                request,
-                use_proxy = False,
-                boot_mode = ba.BootMode.SEL4_NATIVE )
+                    ba.Run_Context(
+                        request,
+                        boot_mode = ba.BootMode.SEL4_NATIVE,
+                    )
+               )
 
 
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def boot_bare_metal(request):
     yield from start_or_attach_to_test_runner(
-                request,
-                use_proxy = False,
-                boot_mode = ba.BootMode.BARE_METAL )
+                    ba.Run_Context(
+                        request,
+                        boot_mode = ba.BootMode.BARE_METAL,
+                    )
+               )
 
 
 #-------------------------------------------------------------------------------
@@ -248,7 +233,7 @@ def tls_server():
 #-------------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def mosquitto_broker(request):
-    start_or_attach_to_mosquitto(request)
+    start_or_attach_to_mosquitto(ba.Run_Context(request))
 
 
 #-------------------------------------------------------------------------------
