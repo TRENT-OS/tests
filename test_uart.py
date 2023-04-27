@@ -36,14 +36,14 @@ def test_uart(boot):
 
     test_runner = boot()
 
-    # synchronize with test application, timeout is 10 secs based on empirical
+    # synchronize with test application, timeout is 30 secs based on empirical
     # evidence. System load can likely impact this timing.
     (ret, idx) = test_runner.system_log_match_sequence(
         [
             'UART tester loop running',
             'initialize UART ok',
         ],
-        10)
+        30)
 
     if not ret:
         pytest.fail('could not detect test start')
