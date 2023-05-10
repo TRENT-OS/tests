@@ -89,7 +89,7 @@ def test_uart(boot):
     t1 = None # set when sender thread starts
     t2 = None # set when sender thread ends
     t_throttle = 0.04 if isinstance(
-                            test_runner,
+                            test_runner.board_runner,
                             board_automation.automation_QEMU.QemuProxyRunner) \
                  else None
 
