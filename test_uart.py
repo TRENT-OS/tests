@@ -1,8 +1,15 @@
+#
+# Copyright (C) 2019-2024, HENSOLDT Cyber GmbH
+# 
+# SPDX-License-Identifier: GPL-2.0-or-later
+#
+# For commercial licensing, contact: info.cyber@hensoldt.net
+#
+
 import pytest
 import time
 import socket
 import board_automation.tools
-
 
 #-------------------------------------------------------------------------------
 def throughput_str(cnt, delta):
