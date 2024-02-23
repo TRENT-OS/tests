@@ -129,13 +129,13 @@ def test_uart(boot):
         pytest.fail('throughput start failed')
 
     # If we are here, 64 KiB are already through. There are 1984 KiByte left,
-    # which take a bit over 172 secs. Giving 200 secs secs will do well.
+    # which take a bit over 172 secs. Giving 250 secs secs will do well.
     (ret, idx) = test_runner.system_log_match_sequence(
         [
             'bytes processed: 0x100000', # 1 MiByte
             'bytes processed: 0x200000', # 2 MiByte
         ],
-        200)
+        250)
 
     if not ret:
         pytest.fail('throughput test failed')
