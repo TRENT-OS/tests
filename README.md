@@ -23,7 +23,7 @@ src/seos_sandbox/scripts/open_trentos_build_env.sh src/build.sh test-prepare
 
 # Run the test in QEMU.
 src/seos_sandbox/scripts/open_trentos_test_env.sh \
-src/build.sh test test_demo_hello_world.py
+src/build.sh test-run test_demo_hello_world.py
 ```
 
 ### Dependencies
