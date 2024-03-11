@@ -120,7 +120,7 @@ def is_server_up(target_ip, port, timeout_sec):
                     seq = seq,
                     timeout_sec = timeout.sub_timeout(30).get_remaining()):
             # ping worked
-            break;
+            break
 
         print('ERROR: could not ping {}'.format(target_ip))
         seq += 1

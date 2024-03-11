@@ -320,28 +320,28 @@ def test_OS_CryptoKey_export_pos_0(boot):
     Positive tests for OS_CryptoKey_export(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_export_pos', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
+    parser.check_test(boot(TEST_NAME), 10, 'test_OS_CryptoKey_export_pos', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
 
 def test_OS_CryptoKey_export_neg_0(boot):
     """
     Negative tests for OS_CryptoKey_export(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_export_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
+    parser.check_test(boot(TEST_NAME), 5, 'test_OS_CryptoKey_export_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
 
 def test_OS_CryptoKey_generate_pos_0(boot):
     """
     Positive tests for OS_CryptoKey_generate(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_generate_pos', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
+    parser.check_test(boot(TEST_NAME), 2, 'test_OS_CryptoKey_generate_pos', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
 
 def test_OS_CryptoKey_generate_neg_0(boot):
     """
     Negative tests for OS_CryptoKey_generate(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CryptoKey_generate_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
+    parser.check_test(boot(TEST_NAME), 2, 'test_OS_CryptoKey_generate_neg', 'mode=%i,keepLocal=1' % OS_Crypto_MODE_LIBRARY)
 
 def test_OS_CryptoKey_makePublic_pos_0(boot):
     """

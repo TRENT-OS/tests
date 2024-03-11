@@ -8,7 +8,7 @@
 
 from enum import Enum
 
-timeout     = 90
+timeout     = 30
 empty_entry = 1
 
 test_system = "test_logserver"

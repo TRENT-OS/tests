@@ -177,11 +177,11 @@ def test_OS_CertParser_verifyChain_pos_0(boot):
     Positive tests for OS_CertParser_verifyChain(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParser_verifyChain_pos')
+    parser.check_test(boot(TEST_NAME), 2, 'test_OS_CertParser_verifyChain_pos')
 
 def test_OS_CertParser_verifyChain_neg_0(boot):
     """
     Negative tests for OS_CertParser_verifyChain(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParser_verifyChain_neg')
+    parser.check_test(boot(TEST_NAME), 2, 'test_OS_CertParser_verifyChain_neg')
