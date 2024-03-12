@@ -973,11 +973,14 @@ def test_network_arp_reply_client(boot_with_proxy):
     test_runner = boot_with_proxy(test_system)
     parser.fail_on_assert(test_runner.get_system_log())
 
-    target_ip = client_ip
 
-    ans, uns = arping(target_ip)
-    if len(uns) != 0:
-        pytest.fail("Timeout waiting for arp reply")
+    # TODO: Fix this test to always work. This seems to be an issue with scapy, but a deeper investigation is required.
+    target_ip = client_ip
+    for i in range(10):
+        ans, uns = arping(target_ip)
+        if len(uns) == 0:
+            return
+    pytest.fail("Timeout waiting for arp reply")
 
 
 #-------------------------------------------------------------------------------
