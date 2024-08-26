@@ -49,6 +49,8 @@ try:
 
     test_configuration = config['platform']['test_configuration']
 
+    print(f"\nTEST_CONFIGURATION: {test_configuration}\n")
+
     timeout = int(config['platform']['timeout'])
 
     client_ip = config['network']['client_ip']

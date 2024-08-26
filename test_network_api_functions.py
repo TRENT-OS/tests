@@ -153,7 +153,7 @@ def is_server_up(target_ip, port, timeout_sec):
                 return False
 
             # TCP connection worked
-            break;
+            break
 
     # server seems up and running
     return True
