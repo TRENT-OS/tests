@@ -38,26 +38,33 @@ def test_uart_echo(boot):
 
     serial_socket = test_runner.get_serial_socket()
 
-    serial_socket.settimeout(2)
+    serial_socket.settimeout(30)
 
-    block_size = 512
+    block_size = 1024
     loops = 64
 
+    recv_data = ""
+    serial_socket.recv() #flush buffer
     for i in range(loops):
         data = rand_letters(block_size)
         t1 = time.time()
         serial_socket.sendall(data.encode("utf-8"))
 
-        recv_data = ""
         while len(recv_data) < block_size:
             try:
-                recv_data += serial_socket.recv(block_size).decode()
-            except:
+                recv_data += serial_socket.recv().decode()
+            except Exception as e:
+                print(f"Exception: {e}")
                 break
-
-        if data != recv_data:
+        
+        if data != recv_data[:block_size]:
             print(f"Data: {data}\nRata: {recv_data}")
             pytest.fail('Received data does not match with sent data')
 
         print(f"Sent and received Packet {i+1} of {loops}, Duration: {'%.2f' % ((time.time() - t1)*1000)}ms")
+
+        recv_data = recv_data[block_size:]
+        time.sleep(0.5)
+
+    serial_socket.close()
     print(f"Success: {block_size*loops} Bytes sent and received")
