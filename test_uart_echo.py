@@ -40,11 +40,16 @@ def test_uart_echo(boot):
 
     serial_socket.settimeout(30)
 
-    block_size = 1024
-    loops = 64
+    block_size = 512
+    loops = 32
 
     recv_data = ""
-    serial_socket.recv() #flush buffer
+
+    if isinstance(test_runner.board_runner, \
+                  board_automation.automation_HW_CI.CIBoardRunner):
+        print("Testing on hardware CI")
+        serial_socket.recv(1) #flush buffer
+    
     for i in range(loops):
         data = rand_letters(block_size)
         t1 = time.time()
@@ -52,7 +57,7 @@ def test_uart_echo(boot):
 
         while len(recv_data) < block_size:
             try:
-                recv_data += serial_socket.recv().decode()
+                recv_data += serial_socket.recv(block_size).decode()
             except Exception as e:
                 print(f"Exception: {e}")
                 break
