@@ -18,63 +18,63 @@ def test_OS_CertParser_init_pos_0(boot):
     Positive tests for OS_CertParser_init(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_OS_CertParser_init_pos')
+    parser.check_test_result(boot(TEST_NAME), 2, 'test_OS_CertParser_init_pos')
 
 def test_OS_CertParser_init_neg_0(boot):
     """
     Negative tests for OS_CertParser_init(), covering the invalid ways of using this
     function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParser_init_neg')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParser_init_neg')
 
 def test_OS_CertParser_free_pos_0(boot):
     """
     Positive tests for OS_CertParser_free(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParser_free_pos')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParser_free_pos')
 
 def test_OS_CertParser_free_neg_0(boot):
     """
     Negative tests for OS_CertParser_free(), covering the invalid ways of using this
     function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParser_free_neg')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParser_free_neg')
 
 def test_OS_CertParserCert_init_pos_0(boot):
     """
     Positive tests for OS_CertParserCert_init(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParserCert_init_pos')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParserCert_init_pos')
 
 def test_OS_CertParserCert_init_neg_0(boot):
     """
     Negative tests for OS_CertParserCert_init(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParserCert_init_neg')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParserCert_init_neg')
 
 def test_OS_CertParserCert_free_pos_0(boot):
     """
     Positive tests for OS_CertParserCert_free(), covering the valid ways of using this
     function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParserCert_free_pos')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParserCert_free_pos')
 
 def test_OS_CertParserCert_free_neg_0(boot):
     """
     Negative tests for OS_CertParserCert_free(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParserCert_free_neg')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParserCert_free_neg')
 
 def test_OS_CertParserCert_getAttrib_pos_0(boot):
     """
     Positive tests for OS_CertParserCert_getAttrib(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParserCert_getAttrib_pos')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParserCert_getAttrib_pos')
 
 def test_OS_CertParserCert_getAttrib_neg_0(boot):
     """
@@ -82,42 +82,42 @@ def test_OS_CertParserCert_getAttrib_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParserCert_getAttrib_neg')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParserCert_getAttrib_neg')
 
 def test_OS_CertParserChain_init_pos_0(boot):
     """
     Positive tests for OS_CertParserChain_init(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParserChain_init_pos')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParserChain_init_pos')
 
 def test_OS_CertParserChain_init_neg_0(boot):
     """
     Negative tests for OS_CertParserChain_init(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParserChain_init_neg')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParserChain_init_neg')
 
 def test_OS_CertParserChain_free_pos_0(boot):
     """
     Positive tests for OS_CertParserChain_free(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParserChain_free_pos')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParserChain_free_pos')
 
 def test_OS_CertParserChain_free_neg_0(boot):
     """
     Negative tests for OS_CertParserChain_free(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParserChain_free_neg')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParserChain_free_neg')
 
 def test_OS_CertParserChain_addCert_pos_0(boot):
     """
     Positive tests for OS_CertParserChain_addCert(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParserChain_addCert_pos')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParserChain_addCert_pos')
 
 def test_OS_CertParserChain_addCert_neg_0(boot):
     """
@@ -125,14 +125,14 @@ def test_OS_CertParserChain_addCert_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParserChain_addCert_neg')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParserChain_addCert_neg')
 
 def test_OS_CertParserChain_getCert_pos_0(boot):
     """
     Positive tests for OS_CertParserChain_getCert(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParserChain_getCert_pos')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParserChain_getCert_pos')
 
 def test_OS_CertParserChain_getCert_neg_0(boot):
     """
@@ -140,14 +140,14 @@ def test_OS_CertParserChain_getCert_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParserChain_getCert_neg')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParserChain_getCert_neg')
 
 def test_OS_CertParserChain_getLength_pos_0(boot):
     """
     Positive tests for OS_CertParserChain_getLength(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParserChain_getLength_pos')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParserChain_getLength_pos')
 
 def test_OS_CertParserChain_getLength_neg_0(boot):
     """
@@ -155,14 +155,14 @@ def test_OS_CertParserChain_getLength_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParserChain_getLength_neg')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParserChain_getLength_neg')
 
 def test_OS_CertParser_addTrustedChain_pos_0(boot):
     """
     Positive tests for OS_CertParser_addTrustedChain(), covering the valid ways of
     using this function.
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParser_addTrustedChain_pos')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParser_addTrustedChain_pos')
 
 def test_OS_CertParser_addTrustedChain_neg_0(boot):
     """
@@ -170,18 +170,18 @@ def test_OS_CertParser_addTrustedChain_neg_0(boot):
     using this function thus verifying that it returns error codes instead of
     crashing
     """
-    parser.check_test(boot(TEST_NAME), 1, 'test_OS_CertParser_addTrustedChain_neg')
+    parser.check_test_result(boot(TEST_NAME), 1, 'test_OS_CertParser_addTrustedChain_neg')
 
 def test_OS_CertParser_verifyChain_pos_0(boot):
     """
     Positive tests for OS_CertParser_verifyChain(), covering the valid ways of using
     this function.
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_OS_CertParser_verifyChain_pos')
+    parser.check_test_result(boot(TEST_NAME), 2, 'test_OS_CertParser_verifyChain_pos')
 
 def test_OS_CertParser_verifyChain_neg_0(boot):
     """
     Negative tests for OS_CertParser_verifyChain(), covering the invalid ways of using
     this function thus verifying that it returns error codes instead of crashing
     """
-    parser.check_test(boot(TEST_NAME), 2, 'test_OS_CertParser_verifyChain_neg')
+    parser.check_test_result(boot(TEST_NAME), 2, 'test_OS_CertParser_verifyChain_neg')
